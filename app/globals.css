@@ -1,26 +1,75 @@
 @import "tailwindcss";
 
+/* ── Design Tokens ─────────────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --cream:   #F9F7F2;
+  --charcoal:#1E1E1B;
+  --sage:    #8A9A6A;
+  --gold:    #B5975C;
+  --muted:   #7A7A72;
+  --border:  #DDD9CF;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-cream:   var(--cream);
+  --color-charcoal:var(--charcoal);
+  --color-sage:    var(--sage);
+  --color-gold:    var(--gold);
+  --color-muted:   var(--muted);
+  --color-border:  var(--border);
+  --font-serif:    var(--font-cormorant);
+  --font-sans:     var(--font-jost);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* ── Base ──────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--cream);
+  color: var(--charcoal);
+  font-family: var(--font-jost), 'Jost', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  /* subtle paper grain */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
 }
+
+/* ── Poem typography ───────────────────────────────────────── */
+.poem-body {
+  font-family: var(--font-cormorant), 'Cormorant Garamond', serif;
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
+  line-height: 1.9;
+  letter-spacing: 0.01em;
+}
+
+.poem-body p {
+  margin-bottom: 1.75rem;
+  white-space: pre-wrap;
+}
+
+/* ── Prose (articles) ──────────────────────────────────────── */
+.prose-body {
+  font-size: 1.05rem;
+  line-height: 1.85;
+  max-width: 65ch;
+}
+
+.prose-body h2 {
+  font-family: var(--font-cormorant), serif;
+  font-size: 1.6rem;
+  font-weight: 500;
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--charcoal);
+}
+
+.prose-body p { margin-bottom: 1.25rem; }
+
+/* ── Scrollbar ─────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+/* ── Selection ─────────────────────────────────────────────── */
+::selection { background: #d4e0c4; color: var(--charcoal); }
