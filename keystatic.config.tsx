@@ -1,9 +1,14 @@
 import { config, collection, fields } from "@keystatic/core";
 
+const isProd = process.env.NODE_ENV === "production";
+
 export default config({
-  storage: {
-    kind: "local",
-  },
+  storage: isProd
+    ? {
+        kind: "github",
+        repo: { owner: "clarence-eng", name: "clar-earth-blog" },
+      }
+    : { kind: "local" },
   collections: {
     posts: collection({
       label: "Posts",
