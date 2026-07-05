@@ -1,10 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 export default function FocusModeToggle() {
   const [focus, setFocus] = useState(false);
+
+  // Clean up focus-mode when navigating away
+  useEffect(() => () => { document.documentElement.classList.remove("focus-mode"); }, []);
 
   const toggle = () => {
     setFocus(f => {

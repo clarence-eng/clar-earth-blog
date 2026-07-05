@@ -6,7 +6,9 @@ interface PrintButtonProps {
 
 export default function PrintButton({ title }: PrintButtonProps) {
   const handlePrint = () => {
+    const prev = document.title;
     document.title = `${title} — clar.earth`;
+    window.onafterprint = () => { document.title = prev; window.onafterprint = null; };
     window.print();
   };
 

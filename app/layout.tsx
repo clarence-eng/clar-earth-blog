@@ -6,7 +6,7 @@ import Providers from "@/components/Providers";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
-  subsets: ["latin"],
+  subsets: ["latin", "latin-ext"],
   weight: ["300", "400", "500", "600"],
   style: ["normal", "italic"],
   display: "swap",
@@ -14,7 +14,7 @@ const cormorant = Cormorant_Garamond({
 
 const jost = Jost({
   variable: "--font-jost",
-  subsets: ["latin"],
+  subsets: ["latin", "latin-ext"],
   weight: ["300", "400", "500"],
   display: "swap",
 });

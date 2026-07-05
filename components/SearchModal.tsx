@@ -10,6 +10,12 @@ interface SearchModalProps {
   onClose: () => void;
 }
 
+const TYPE_LABELS: Record<string, string> = {
+  poem: "Poem",
+  article: "Article",
+  "photo-essay": "Essay",
+};
+
 export default function SearchModal({ posts, onClose }: SearchModalProps) {
   const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
@@ -79,7 +85,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
                 className="flex items-start gap-4 px-5 py-3.5 hover:bg-[var(--cream-dark)] transition-colors border-b border-[var(--border)] last:border-0 group"
               >
                 <span className="text-[8px] tracking-[0.25em] uppercase text-[var(--muted)] pt-1 w-12 flex-shrink-0" style={{ fontFamily: "var(--font-jost)" }}>
-                  {post.type}
+                  {TYPE_LABELS[post.type ?? "poem"] ?? post.type}
                 </span>
                 <div>
                   <p className="text-[var(--ink)] group-hover:text-[var(--forest)] transition-colors leading-snug" style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontSize: "1.1rem" }}>
@@ -98,7 +104,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
 
           {query.trim().length < 2 && (
             <p className="px-5 py-2.5 text-[9px] tracking-[0.2em] uppercase text-[var(--muted-light)]" style={{ fontFamily: "var(--font-jost)" }}>
-              All works — {posts.length} poems
+              All works — {posts.length} {posts.length === 1 ? "work" : "works"}
             </p>
           )}
         </motion.div>

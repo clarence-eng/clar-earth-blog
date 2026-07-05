@@ -5,6 +5,12 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import type { PostMeta } from "@/lib/posts";
 
+const TYPE_LABELS: Record<string, string> = {
+  poem: "Poem",
+  article: "Article",
+  "photo-essay": "Photo Essay",
+};
+
 export default function FeaturedPoem({ post }: { post: PostMeta }) {
   return (
     <section className="max-w-6xl mx-auto px-8 pt-12 pb-0">
@@ -48,7 +54,7 @@ export default function FeaturedPoem({ post }: { post: PostMeta }) {
                 className="inline-block text-[9px] tracking-[0.3em] uppercase px-2 py-0.5 rounded-full mb-4 bg-white/15 text-white/70"
                 style={{ fontFamily: "var(--font-jost)" }}
               >
-                Poem
+                {TYPE_LABELS[post.type ?? "poem"] ?? "Poem"}
               </span>
               <h2
                 className="text-white leading-[1.15] mb-3 group-hover:opacity-90 transition-opacity"

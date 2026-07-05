@@ -237,6 +237,29 @@ body {
 .dark .type-badge-article     { background: #2A2010; color: #C4A050; }
 .dark .type-badge-photo-essay { background: #1A2828; color: #6ABAAA; }
 
+/* ── Mood tag — light and dark mode ───────────────────────── */
+.mood-tag[data-mood="longing"]    { background: #EBF3F7; color: #3A6A7A; border: 1px solid #B0D0DC; }
+.mood-tag[data-mood="nature"]     { background: #EAF0E8; color: #3A6048; border: 1px solid #A8C8A0; }
+.mood-tag[data-mood="grief"]      { background: #F0EDF5; color: #5A4A6A; border: 1px solid #C0B0D0; }
+.mood-tag[data-mood="warmth"]     { background: #F7F0E4; color: #7A4A18; border: 1px solid #D8B880; }
+.mood-tag[data-mood="resilience"] { background: #F2EDE8; color: #5A3A28; border: 1px solid #C8A888; }
+.mood-tag[data-mood="defiance"]   { background: #F5ECEA; color: #6A2A2A; border: 1px solid #D0A8A0; }
+.mood-tag[data-mood="love"]       { background: #F7EEF0; color: #7A2A3A; border: 1px solid #D8A0B0; }
+.mood-tag[data-mood="longing"]    .mood-tag-dot { background: #7AAABB; }
+.mood-tag[data-mood="nature"]     .mood-tag-dot { background: #5A8A74; }
+.mood-tag[data-mood="grief"]      .mood-tag-dot { background: #7A6A8A; }
+.mood-tag[data-mood="warmth"]     .mood-tag-dot { background: #C4882A; }
+.mood-tag[data-mood="resilience"] .mood-tag-dot { background: #8A6A4A; }
+.mood-tag[data-mood="defiance"]   .mood-tag-dot { background: #8A4A4A; }
+.mood-tag[data-mood="love"]       .mood-tag-dot { background: #B05C6A; }
+.dark .mood-tag[data-mood="longing"]    { background: #1A2E36; color: #7AAABB; border-color: #2A4A5A; }
+.dark .mood-tag[data-mood="nature"]     { background: #1A2E20; color: #5A8A74; border-color: #2A4A30; }
+.dark .mood-tag[data-mood="grief"]      { background: #201A2E; color: #A899B8; border-color: #3A2A4A; }
+.dark .mood-tag[data-mood="warmth"]     { background: #2E1E08; color: #C4882A; border-color: #4A3010; }
+.dark .mood-tag[data-mood="resilience"] { background: #281808; color: #C4A888; border-color: #3A2A18; }
+.dark .mood-tag[data-mood="defiance"]   { background: #2A1010; color: #C48080; border-color: #4A1A1A; }
+.dark .mood-tag[data-mood="love"]       { background: #2A0E18; color: #D4899A; border-color: #4A1A28; }
+
 /* ── Reading focus mode ────────────────────────────────────── */
 .focus-mode nav,
 .focus-mode .reading-progress,
@@ -258,8 +281,8 @@ body {
 }
 
 /* ── Drop cap on first stanza — ::first-letter, no HTML changes ── */
-/* Exclude right-aligned and italic first stanzas in the selector itself to win specificity */
-.poem-content .poem-stanza:first-child:not([style*="text-align: right"]):not([style*="font-style: italic"])::first-letter {
+/* Exclude right-aligned, center-aligned, and italic first stanzas in the selector itself to win specificity */
+.poem-content .poem-stanza:first-child:not([style*="text-align: right"]):not([style*="text-align: center"]):not([style*="font-style: italic"])::first-letter {
   float: left;
   font-family: var(--font-cormorant), serif;
   font-size: 4.2em;

@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = getPost(slug);
   if (!post) return {};
 
-  const url = `https://clar-earth-blog.vercel.app/${slug}`;
+  const url = `https://clar.earth/${slug}`;
 
   return {
     title: `${post.title} — clar.earth`,
@@ -56,20 +56,20 @@ export default async function PostPage({ params }: Props) {
   // Schema.org CreativeWork / Poem structured data
   const schema = {
     "@context": "https://schema.org",
-    "@type": "Poem",
+    "@type": "CreativeWork",
     "name": post.title,
     "author": {
       "@type": "Person",
       "name": "Clare",
-      "url": "https://clar-earth-blog.vercel.app/about",
+      "url": "https://clar.earth/about",
     },
-    "url": `https://clar-earth-blog.vercel.app/${slug}`,
-    "description": post.excerpt,
+    "url": `https://clar.earth/${slug}`,
+    "description": post.excerpt ?? "",
     "inLanguage": post.lang === "中文" ? "zh" : "en",
     "publisher": {
       "@type": "Organization",
       "name": "clar.earth",
-      "url": "https://clar-earth-blog.vercel.app",
+      "url": "https://clar.earth",
     },
   };
 

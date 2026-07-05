@@ -46,14 +46,17 @@ export default function CustomCursor() {
   const [visible, setVisible] = useState(false);
   const [mood, setMood] = useState("default");
   const [dotColor, setDotColor] = useState(rgbToCss(hexToRgb(MOOD_COLORS.default.dot)));
-  const [ladybugColor, setLadybugColor] = useState(MOOD_COLORS.default.ladybug);
+  const [ladybugColor, setLadybugColor] = useState(rgbToCss(hexToRgb("#FFFFFF")));
   const animRef = useRef<number>(0);
 
   // Store current/target colours as RGB tuples so lerpRgb never receives an rgb() string
-  const targetDotRef = useRef<RGB>(hexToRgb(MOOD_COLORS.default.dot));
-  const targetLadybugRef = useRef<RGB>(hexToRgb(MOOD_COLORS.default.ladybug));
-  const curDotRef = useRef<RGB>(hexToRgb(MOOD_COLORS.default.dot));
-  const curLadybugRef = useRef<RGB>(hexToRgb(MOOD_COLORS.default.ladybug));
+  // ladybug "white" → #FFFFFF; always resolve to hex before calling hexToRgb
+  const defaultDotRgb = hexToRgb(MOOD_COLORS.default.dot);
+  const defaultLadybugRgb = hexToRgb("#FFFFFF");
+  const targetDotRef = useRef<RGB>(defaultDotRgb);
+  const targetLadybugRef = useRef<RGB>(defaultLadybugRgb);
+  const curDotRef = useRef<RGB>(defaultDotRgb);
+  const curLadybugRef = useRef<RGB>(defaultLadybugRgb);
 
   useEffect(() => {
     const move = (e: MouseEvent) => {

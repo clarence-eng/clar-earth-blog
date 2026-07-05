@@ -9,7 +9,7 @@ export type PostType = "poem" | "article" | "photo-essay";
 export interface PostMeta {
   slug: string;
   title: string;
-  date: string;
+  date?: string;
   type: PostType;
   excerpt: string;
   published: boolean;
