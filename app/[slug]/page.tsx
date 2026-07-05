@@ -32,8 +32,8 @@ export default async function PostPage({ params }: Props) {
 
   const allPosts = getAllPosts();
   const idx = allPosts.findIndex((p) => p.slug === slug);
-  const prev = allPosts[idx + 1] ?? null;
-  const next = allPosts[idx - 1] ?? null;
+  const prev = allPosts[idx - 1] ?? null;
+  const next = allPosts[idx + 1] ?? null;
   const readTime = readingTime(post.content).text;
 
   return (

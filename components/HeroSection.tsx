@@ -25,76 +25,28 @@ export default function HeroSection() {
         className="relative overflow-hidden min-h-[56vh] flex items-center"
         style={{ background: gradient }}
       >
-        {/* ── Typographic ornamental corners ───────────────────── */}
-        {/* These use Unicode/font characters — always crisp, never doodly */}
+        {/* ── 4 distinct floral ornaments ─────────────────────── */}
+        {/* Pulled diagonally inward toward the quote */}
 
-        {/* Top-left ornament */}
-        <div
-          className="absolute top-8 left-8 pointer-events-none select-none leading-none hidden sm:block"
-          style={{
-            fontFamily: "var(--font-cormorant)",
-            fontSize: "clamp(3rem, 8vw, 7rem)",
-            color: "white",
-            opacity: 0.13,
-            lineHeight: 1,
-            fontStyle: "italic",
-            fontWeight: 300,
-            letterSpacing: "-0.03em",
-          }}
-          aria-hidden="true"
-        >
-          ❧
-        </div>
+        {/* Top-left: filled florette ✿ */}
+        <div className="absolute pointer-events-none select-none leading-none"
+          style={{ top: "16%", left: "16%", fontSize: "clamp(2.8rem, 6.5vw, 6rem)", color: "white", opacity: 0.24, lineHeight: 1 }}
+          aria-hidden="true">&#10047;</div>
 
-        {/* Top-right ornament — mirrored */}
-        <div
-          className="absolute top-8 right-8 pointer-events-none select-none leading-none hidden sm:block"
-          style={{
-            fontFamily: "var(--font-cormorant)",
-            fontSize: "clamp(3rem, 8vw, 7rem)",
-            color: "white",
-            opacity: 0.13,
-            lineHeight: 1,
-            fontStyle: "italic",
-            fontWeight: 300,
-            transform: "scaleX(-1)",
-          }}
-          aria-hidden="true"
-        >
-          ❧
-        </div>
+        {/* Top-right: six-petal outlined flower ❀ */}
+        <div className="absolute pointer-events-none select-none leading-none"
+          style={{ top: "16%", right: "16%", fontSize: "clamp(2.8rem, 6.5vw, 6rem)", color: "white", opacity: 0.24, lineHeight: 1 }}
+          aria-hidden="true">&#10048;</div>
 
-        {/* Bottom-left — smaller */}
-        <div
-          className="absolute bottom-16 left-6 pointer-events-none select-none hidden md:block"
-          style={{
-            fontFamily: "var(--font-cormorant)",
-            fontSize: "clamp(1.5rem, 4vw, 3.5rem)",
-            color: "white",
-            opacity: 0.1,
-            lineHeight: 1,
-            transform: "rotate(20deg)",
-          }}
-          aria-hidden="true"
-        >
-          ✿
-        </div>
+        {/* Bottom-left: eight-petal florette ❁ */}
+        <div className="absolute pointer-events-none select-none leading-none"
+          style={{ bottom: "24%", left: "18%", fontSize: "clamp(2rem, 4.5vw, 4.2rem)", color: "white", opacity: 0.18, lineHeight: 1 }}
+          aria-hidden="true">&#10049;</div>
 
-        {/* Bottom-right — smaller */}
-        <div
-          className="absolute bottom-16 right-6 pointer-events-none select-none hidden md:block"
-          style={{
-            fontFamily: "var(--font-cormorant)",
-            fontSize: "clamp(1.5rem, 4vw, 3.5rem)",
-            color: "white",
-            opacity: 0.1,
-            lineHeight: 1,
-            transform: "rotate(-20deg)",
-          }}
-          aria-hidden="true"
-        >
-          ✿
-        </div>
+        {/* Bottom-right: outlined florette ✾ */}
+        <div className="absolute pointer-events-none select-none leading-none"
+          style={{ bottom: "24%", right: "18%", fontSize: "clamp(2rem, 4.5vw, 4.2rem)", color: "white", opacity: 0.18, lineHeight: 1 }}
+          aria-hidden="true">&#10046;</div>
 
         {/* Thin rule top and bottom inside section */}
         <div className="absolute top-0 left-0 right-0 h-px bg-white/10 pointer-events-none" />
