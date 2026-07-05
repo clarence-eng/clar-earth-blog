@@ -80,17 +80,23 @@ body {
 }
 
 /* ── Poem typography ───────────────────────────────────────── */
-.poem-body {
+.poem-content {
   font-family: var(--font-cormorant), serif;
-  font-size: clamp(1.15rem, 2.2vw, 1.35rem);
-  line-height: 2;
-  letter-spacing: 0.01em;
-  max-width: 62ch;
+  color: var(--ink);
 }
 
-.poem-body p {
-  margin-bottom: 2rem;
-  white-space: pre-line;
+/* Each stanza */
+.poem-stanza {
+  font-size: 1.125rem;   /* ~18px — matches WordPress body text size */
+  line-height: 1.7;      /* comfortable single-spaced verse */
+  white-space: pre-wrap; /* preserve every line break; wrap only at word boundaries */
+  overflow-wrap: break-word;
+  margin-bottom: 1.75rem;/* stanza gap */
+  letter-spacing: 0.005em;
+}
+
+.poem-stanza:last-child {
+  margin-bottom: 0;
 }
 
 /* ── Stanza fade-in ────────────────────────────────────────── */
