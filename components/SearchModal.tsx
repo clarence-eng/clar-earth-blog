@@ -36,8 +36,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.2 }}
-        className="fixed inset-0 z-[200] flex items-start justify-center pt-24 px-4"
-        style={{ background: "rgba(20,26,22,0.7)", backdropFilter: "blur(8px)" }}
+        className="fixed inset-0 z-[200] flex items-start justify-center pt-24 px-4 search-glass"
         onClick={onClose}
       >
         <motion.div

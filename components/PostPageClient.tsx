@@ -105,7 +105,7 @@ export default function PostPageClient({
         <div className="relative z-10 w-full max-w-3xl mx-auto px-8 flex flex-col justify-center"
           style={{ minHeight: "clamp(320px, 55vh, 480px)", paddingTop: "5.5rem", paddingBottom: "5rem" }}>
 
-          {/* Type badge + read time */}
+          {/* Type badge + nature reading time */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -119,8 +119,8 @@ export default function PostPageClient({
               {TYPE_LABELS[post.type ?? "poem"] ?? "Poem"}
             </span>
             <span
-              className="text-[9px] tracking-[0.2em] uppercase text-white/35"
-              style={{ fontFamily: "var(--font-jost)" }}
+              className="text-white/40 italic"
+              style={{ fontFamily: "var(--font-cormorant)", fontSize: "0.9rem" }}
             >
               {readTime}
             </span>
@@ -131,7 +131,7 @@ export default function PostPageClient({
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-balance text-white mb-3"
+            className="text-balance text-white mb-3 poem-page-title"
             style={{
               fontFamily: "var(--font-cormorant)",
               fontStyle: "italic",

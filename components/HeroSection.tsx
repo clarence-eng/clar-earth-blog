@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import AmbientParticles from "./AmbientParticles";
 
 function getSeasonalGradient() {
   const month = new Date().getMonth();
@@ -84,6 +85,12 @@ export default function HeroSection() {
             <circle key={i} cx={cx} cy={cy} r={r} fill="white" opacity={o}/>
           ))}
         </svg>
+
+        {/* Ambient floating particles — leaves + spores */}
+        <AmbientParticles />
+
+        {/* Organic noise overlay on the gradient — adds depth */}
+        <div className="absolute inset-0 hero-noise-overlay" aria-hidden="true" />
 
         {/* Bottom wave */}
         <div className="absolute bottom-0 left-0 right-0 pointer-events-none" style={{ height: 56 }}>

@@ -18,10 +18,22 @@ export interface PostMeta {
   coAuthor?: string;
   notes?: string;
   lang?: string;
+  tags?: string[];
 }
 
 export interface Post extends PostMeta {
   content: string;
+}
+
+// Nature-metaphor reading time
+export function natureReadingTime(wordCount: number): string {
+  const minutes = Math.ceil(wordCount / 200);
+  if (minutes <= 1) return "a breath";
+  if (minutes <= 2) return "a moment by the stream";
+  if (minutes <= 3) return "a walk through the garden";
+  if (minutes <= 5) return "a sit beneath the trees";
+  if (minutes <= 8) return "a wander through the forest";
+  return "a long walk at dusk";
 }
 
 export function getAllPosts(): PostMeta[] {
@@ -38,14 +50,11 @@ export function getAllPosts(): PostMeta[] {
     })
     .filter((p) => p.published !== false)
     .sort((a, b) => {
-      // Chinese/non-Latin titles go last
       const aLatin = /^[A-Za-z]/.test(a.title);
       const bLatin = /^[A-Za-z]/.test(b.title);
       if (aLatin && !bLatin) return -1;
       if (!aLatin && bLatin) return 1;
-      // Both Latin: alphabetical by title
       if (aLatin && bLatin) return a.title.localeCompare(b.title, "en");
-      // Both non-Latin: stable order
       return 0;
     });
 
