@@ -34,109 +34,54 @@ export default function HeroSection() {
           xmlns="http://www.w3.org/2000/svg"
           aria-hidden="true"
         >
-          {/* ── LEFT SIDE: concentric arcs + radiating lines (like a pressed bloom) ── */}
-          <g opacity="0.18" stroke="white" fill="none">
-            {/* Concentric partial circles — top-left corner bloom */}
-            <circle cx="80" cy="80" r="55" strokeWidth="0.6"/>
-            <circle cx="80" cy="80" r="90" strokeWidth="0.5"/>
-            <circle cx="80" cy="80" r="128" strokeWidth="0.4"/>
-            <circle cx="80" cy="80" r="168" strokeWidth="0.35"/>
-            {/* Radiating spokes from same centre */}
-            {[0,22,45,68,90,112,135,158,180,202,225,248,270,292,315,338].map((a, i) => {
+          {/* ── LEFT bloom — centred at 180,200 so it's fully visible ── */}
+          <g stroke="white" fill="none">
+            <circle cx="180" cy="200" r="60"  strokeWidth="0.9" opacity="0.22"/>
+            <circle cx="180" cy="200" r="100" strokeWidth="0.75" opacity="0.18"/>
+            <circle cx="180" cy="200" r="145" strokeWidth="0.6" opacity="0.14"/>
+            <circle cx="180" cy="200" r="195" strokeWidth="0.5" opacity="0.1"/>
+            {[0,20,40,60,80,100,120,140,160,180,200,220,240,260,280,300,320,340].map((a, i) => {
               const rad = (a * Math.PI) / 180;
-              return (
-                <line
-                  key={i}
-                  x1={80 + 40 * Math.cos(rad)}
-                  y1={80 + 40 * Math.sin(rad)}
-                  x2={80 + 180 * Math.cos(rad)}
-                  y2={80 + 180 * Math.sin(rad)}
-                  strokeWidth="0.4"
-                />
-              );
+              return <line key={i}
+                x1={180 + 44 * Math.cos(rad)} y1={200 + 44 * Math.sin(rad)}
+                x2={180 + 200 * Math.cos(rad)} y2={200 + 200 * Math.sin(rad)}
+                strokeWidth="0.6" opacity="0.18"/>
             })}
-            {/* Small centre dot cluster */}
-            <circle cx="80" cy="80" r="3" strokeWidth="0.8"/>
-            <circle cx="80" cy="80" r="8" strokeWidth="0.5"/>
+            <circle cx="180" cy="200" r="4"  strokeWidth="1.2" opacity="0.35"/>
+            <circle cx="180" cy="200" r="14" strokeWidth="0.8" opacity="0.28"/>
+            <circle cx="180" cy="200" r="28" strokeWidth="0.7" opacity="0.22"/>
           </g>
 
-          {/* ── RIGHT SIDE: matching concentric arcs — top-right ── */}
-          <g opacity="0.18" stroke="white" fill="none">
-            <circle cx="1360" cy="80" r="55" strokeWidth="0.6"/>
-            <circle cx="1360" cy="80" r="90" strokeWidth="0.5"/>
-            <circle cx="1360" cy="80" r="128" strokeWidth="0.4"/>
-            <circle cx="1360" cy="80" r="168" strokeWidth="0.35"/>
-            {[0,22,45,68,90,112,135,158,180,202,225,248,270,292,315,338].map((a, i) => {
+          {/* ── RIGHT bloom — centred at 1260,200 ── */}
+          <g stroke="white" fill="none">
+            <circle cx="1260" cy="200" r="60"  strokeWidth="0.9" opacity="0.22"/>
+            <circle cx="1260" cy="200" r="100" strokeWidth="0.75" opacity="0.18"/>
+            <circle cx="1260" cy="200" r="145" strokeWidth="0.6" opacity="0.14"/>
+            <circle cx="1260" cy="200" r="195" strokeWidth="0.5" opacity="0.1"/>
+            {[0,20,40,60,80,100,120,140,160,180,200,220,240,260,280,300,320,340].map((a, i) => {
               const rad = (a * Math.PI) / 180;
-              return (
-                <line
-                  key={i}
-                  x1={1360 + 40 * Math.cos(rad)}
-                  y1={80 + 40 * Math.sin(rad)}
-                  x2={1360 + 180 * Math.cos(rad)}
-                  y2={80 + 180 * Math.sin(rad)}
-                  strokeWidth="0.4"
-                />
-              );
+              return <line key={i}
+                x1={1260 + 44 * Math.cos(rad)} y1={200 + 44 * Math.sin(rad)}
+                x2={1260 + 200 * Math.cos(rad)} y2={200 + 200 * Math.sin(rad)}
+                strokeWidth="0.6" opacity="0.18"/>
             })}
-            <circle cx="1360" cy="80" r="3" strokeWidth="0.8"/>
-            <circle cx="1360" cy="80" r="8" strokeWidth="0.5"/>
+            <circle cx="1260" cy="200" r="4"  strokeWidth="1.2" opacity="0.35"/>
+            <circle cx="1260" cy="200" r="14" strokeWidth="0.8" opacity="0.28"/>
+            <circle cx="1260" cy="200" r="28" strokeWidth="0.7" opacity="0.22"/>
           </g>
 
-          {/* ── BOTTOM-LEFT: small secondary bloom ── */}
-          <g opacity="0.12" stroke="white" fill="none">
-            <circle cx="200" cy="370" r="40" strokeWidth="0.5"/>
-            <circle cx="200" cy="370" r="65" strokeWidth="0.4"/>
-            <circle cx="200" cy="370" r="92" strokeWidth="0.3"/>
-            {[0,30,60,90,120,150,180,210,240,270,300,330].map((a, i) => {
-              const rad = (a * Math.PI) / 180;
-              return (
-                <line
-                  key={i}
-                  x1={200 + 28 * Math.cos(rad)}
-                  y1={370 + 28 * Math.sin(rad)}
-                  x2={200 + 100 * Math.cos(rad)}
-                  y2={370 + 100 * Math.sin(rad)}
-                  strokeWidth="0.35"
-                />
-              );
-            })}
-          </g>
-
-          {/* ── BOTTOM-RIGHT: small secondary bloom ── */}
-          <g opacity="0.12" stroke="white" fill="none">
-            <circle cx="1240" cy="370" r="40" strokeWidth="0.5"/>
-            <circle cx="1240" cy="370" r="65" strokeWidth="0.4"/>
-            <circle cx="1240" cy="370" r="92" strokeWidth="0.3"/>
-            {[0,30,60,90,120,150,180,210,240,270,300,330].map((a, i) => {
-              const rad = (a * Math.PI) / 180;
-              return (
-                <line
-                  key={i}
-                  x1={1240 + 28 * Math.cos(rad)}
-                  y1={370 + 28 * Math.sin(rad)}
-                  x2={1240 + 100 * Math.cos(rad)}
-                  y2={370 + 100 * Math.sin(rad)}
-                  strokeWidth="0.35"
-                />
-              );
-            })}
-          </g>
-
-          {/* ── Scattered fine dots — depth and texture ── */}
-          {[
-            [320, 55, 1.2, 0.25], [420, 140, 0.8, 0.2], [150, 220, 1, 0.18],
-            [1120, 55, 1.2, 0.25], [1020, 140, 0.8, 0.2], [1290, 220, 1, 0.18],
-            [580, 320, 0.9, 0.15], [860, 320, 0.9, 0.15],
-            [720, 50, 1, 0.12], [680, 340, 0.7, 0.12],
-            [480, 240, 0.7, 0.13], [960, 240, 0.7, 0.13],
-          ].map(([cx, cy, r, o], i) => (
+          {/* ── Scattered dots ── */}
+          {([
+            [420, 70, 1.8, 0.32], [380, 170, 1.2, 0.24], [520, 290, 1.4, 0.22],
+            [1020, 70, 1.8, 0.32], [1060, 170, 1.2, 0.24], [920, 290, 1.4, 0.22],
+            [680, 40, 1.5, 0.2], [760, 360, 1.3, 0.18], [720, 200, 1, 0.12],
+          ] as [number,number,number,number][]).map(([cx, cy, r, o], i) => (
             <circle key={i} cx={cx} cy={cy} r={r} fill="white" opacity={o}/>
           ))}
 
-          {/* ── Very faint long horizontal lines — like ruled parchment ── */}
-          <line x1="0" y1="130" x2="1440" y2="130" stroke="white" strokeWidth="0.25" opacity="0.06"/>
-          <line x1="0" y1="260" x2="1440" y2="260" stroke="white" strokeWidth="0.2" opacity="0.05"/>
+          {/* ── Faint horizontal rules ── */}
+          <line x1="0" y1="133" x2="1440" y2="133" stroke="white" strokeWidth="0.4" opacity="0.08"/>
+          <line x1="0" y1="267" x2="1440" y2="267" stroke="white" strokeWidth="0.3" opacity="0.06"/>
         </svg>
 
         {/* Bottom wave */}
