@@ -9,7 +9,7 @@ export default function HomePage() {
 
   return (
     <>
-      <Nav />
+      <Nav posts={posts} />
       <HeroSection />
       <PostGrid posts={posts} />
       <SiteFooter />

@@ -8,11 +8,12 @@ import { useRouter } from "next/navigation";
 import type { Post, PostMeta } from "@/lib/posts";
 import AnimatedStanza from "./AnimatedStanza";
 import ReadingProgress from "./ReadingProgress";
+import RelatedPoems from "./RelatedPoems";
+import FocusModeToggle from "./FocusModeToggle";
+import PrintButton from "./PrintButton";
+import BackPill from "./BackPill";
 
 // Parse MDX content into stanzas with alignment/italic metadata
-// Supports:
-//   [right] marker at start of block = right-aligned stanza
-//   [italic] marker = italic stanza
 //   \t or em-spaces = preserved as-is (white-space: pre-wrap handles them)
 function parseStanzas(content: string): { text: string; align: "left" | "right" | "center"; italic: boolean }[] {
   return content.trim().split(/\n\n+/).map(block => {
@@ -25,7 +26,6 @@ function parseStanzas(content: string): { text: string; align: "left" | "right" 
     return { text, align, italic };
   });
 }
-import BackPill from "./BackPill";
 
 // Single consistent dark overlay colour for all poems — forest green.
 // The cover photo shows through via luminosity blend; no random per-poem colour.
@@ -42,11 +42,13 @@ export default function PostPageClient({
   prev,
   next,
   readTime,
+  allPosts = [],
 }: {
   post: Post;
   prev: PostMeta | null;
   next: PostMeta | null;
   readTime: string;
+  allPosts?: PostMeta[];
 }) {
   const router = useRouter();
 
@@ -186,13 +188,13 @@ export default function PostPageClient({
 
         {/* Keyboard hint — desktop only */}
         {(prev || next) && (
-          <p className="text-center text-[9px] tracking-[0.25em] uppercase text-[var(--muted-light)] mb-6 hidden md:block" style={{ fontFamily: "var(--font-jost)" }}>
+          <p className="text-center text-[9px] tracking-[0.25em] uppercase text-[var(--muted-light)] mb-6 hidden md:block keyboard-hint" style={{ fontFamily: "var(--font-jost)" }}>
             ← → keys to navigate
           </p>
         )}
 
         {/* Prev / Next */}
-        <nav className="grid grid-cols-2 gap-4" style={{ fontFamily: "var(--font-jost)" }}>
+        <nav className="grid grid-cols-2 gap-4 poem-prev-next" style={{ fontFamily: "var(--font-jost)" }}>
           {prev ? (
             <Link href={`/${prev.slug}`} className="group flex flex-col gap-1 p-4 border border-[var(--border)] rounded-sm hover:border-[var(--sage)] hover:bg-[var(--cream-dark)] transition-all">
               <span className="text-[9px] tracking-[0.25em] uppercase text-[var(--muted-light)]">← Previous</span>
@@ -207,11 +209,21 @@ export default function PostPageClient({
           ) : <div />}
         </nav>
 
-        <div className="mt-8 text-center">
+        {/* Focus mode + Print */}
+        <div className="mt-8 flex items-center justify-between">
           <Link href="/" className="text-[10px] tracking-[0.3em] uppercase text-[var(--muted)] hover:text-[var(--forest)] transition-colors" style={{ fontFamily: "var(--font-jost)" }}>
             ← All works
           </Link>
+          <div className="flex items-center gap-4">
+            <FocusModeToggle />
+            <PrintButton title={post.title} />
+          </div>
         </div>
+
+        {/* Related poems */}
+        {allPosts.length > 0 && (
+          <RelatedPoems posts={allPosts} currentSlug={post.slug} />
+        )}
       </main>
     </>
   );

@@ -19,9 +19,25 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = getPost(slug);
   if (!post) return {};
+
+  const url = `https://clar-earth-blog.vercel.app/${slug}`;
+
   return {
     title: `${post.title} — clar.earth`,
-    description: post.excerpt,
+    description: post.excerpt ?? "A poem by Clare.",
+    openGraph: {
+      title: post.title,
+      description: post.excerpt ?? "A poem by Clare.",
+      url,
+      siteName: "clar.earth",
+      type: "article",
+    },
+    twitter: {
+      card: "summary",
+      title: post.title,
+      description: post.excerpt ?? "A poem by Clare.",
+    },
+    alternates: { canonical: url },
   };
 }
 
@@ -36,10 +52,34 @@ export default async function PostPage({ params }: Props) {
   const next = allPosts[idx + 1] ?? null;
   const readTime = readingTime(post.content).text;
 
+  // Schema.org CreativeWork / Poem structured data
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Poem",
+    "name": post.title,
+    "author": {
+      "@type": "Person",
+      "name": "Clare",
+      "url": "https://clar-earth-blog.vercel.app/about",
+    },
+    "url": `https://clar-earth-blog.vercel.app/${slug}`,
+    "description": post.excerpt,
+    "inLanguage": post.lang === "中文" ? "zh" : "en",
+    "publisher": {
+      "@type": "Organization",
+      "name": "clar.earth",
+      "url": "https://clar-earth-blog.vercel.app",
+    },
+  };
+
   return (
     <>
-      <Nav />
-      <PostPageClient post={post} prev={prev} next={next} readTime={readTime} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
+      <Nav posts={allPosts} />
+      <PostPageClient post={post} prev={prev} next={next} readTime={readTime} allPosts={allPosts} />
     </>
   );
 }

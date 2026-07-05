@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-/* ── Design Tokens ─────────────────────────────────────────── */
+/* ── Light Mode Tokens ─────────────────────────────────────── */
 :root {
   --cream:       #F8F5EF;
   --cream-dark:  #EDE9E0;
@@ -20,6 +20,27 @@
   --border:      #DDD8CC;
   --border-dark: #C4BFB3;
   --ink:         #2C2C27;
+}
+
+/* ── Dark Mode Tokens — deep forest night ──────────────────── */
+.dark {
+  --cream:       #141A16;
+  --cream-dark:  #1C2820;
+  --charcoal:    #E8E4DC;
+  --forest:      #6AAB88;
+  --forest-mid:  #5A9A78;
+  --forest-light:#8AC4A4;
+  --sage:        #7A9A6A;
+  --sage-light:  #9AB87A;
+  --amber:       #C4A050;
+  --gold:        #C4A46A;
+  --gold-light:  #D4BC8C;
+  --terracotta:  #C47855;
+  --muted:       #7A8A7C;
+  --muted-light: #8A9A8C;
+  --border:      #2C3C30;
+  --border-dark: #3C4C40;
+  --ink:         #D8D4CC;
 }
 
 @theme inline {
@@ -170,7 +191,33 @@ body {
 }
 .prose-body p { margin-bottom: 1.25rem; }
 
-/* ── Type badge ────────────────────────────────────────────── */
+/* ── Type badge — adapts to dark mode ─────────────────────── */
 .type-badge-poem        { background: #EAF0E2; color: #4A6A38; }
 .type-badge-article     { background: #EDE8DC; color: #7A5A2A; }
 .type-badge-photo-essay { background: #E8ECEC; color: #3A5A5A; }
+.dark .type-badge-poem        { background: #1E3020; color: #8AC49A; }
+.dark .type-badge-article     { background: #2A2010; color: #C4A050; }
+.dark .type-badge-photo-essay { background: #1A2828; color: #6ABAAA; }
+
+/* ── Reading focus mode ────────────────────────────────────── */
+.focus-mode nav,
+.focus-mode .reading-progress,
+.focus-mode .back-pill { opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
+.focus-mode .poem-content { font-size: 1.22rem; line-height: 1.85; }
+.focus-mode .poem-stanza { letter-spacing: 0.01em; }
+
+/* ── Print ─────────────────────────────────────────────────── */
+@media print {
+  nav, .reading-progress, .back-pill, footer,
+  .marquee-track, [aria-label="Posts"], .filter-tabs-wrap,
+  .poem-prev-next, .keyboard-hint, button { display: none !important; }
+  body { background: white; color: black; font-size: 12pt; }
+  .poem-content { max-width: 100%; }
+  .poem-stanza { font-size: 11pt; line-height: 1.6; break-inside: avoid; }
+  h1 { font-size: 22pt; margin-bottom: 6pt; }
+  .poem-hero { min-height: 0 !important; padding: 20pt 0 10pt !important; }
+  .poem-hero img, .poem-hero-overlay { display: none !important; }
+}
+
+/* ── Search highlight ──────────────────────────────────────── */
+.search-highlight { background: rgba(138, 154, 106, 0.3); border-radius: 2px; }

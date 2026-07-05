@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Jost } from "next/font/google";
 import "./globals.css";
 import CustomCursor from "@/components/CustomCursor";
+import Providers from "@/components/Providers";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -32,10 +33,12 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${jost.variable}`}>
+    <html lang="en" className={`${cormorant.variable} ${jost.variable}`} suppressHydrationWarning>
       <body className="min-h-screen flex flex-col">
-        <CustomCursor />
-        {children}
+        <Providers>
+          <CustomCursor />
+          {children}
+        </Providers>
       </body>
     </html>
   );
