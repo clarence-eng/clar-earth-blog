@@ -8,6 +8,23 @@ import { useRouter } from "next/navigation";
 import type { Post, PostMeta } from "@/lib/posts";
 import AnimatedStanza from "./AnimatedStanza";
 import ReadingProgress from "./ReadingProgress";
+
+// Parse MDX content into stanzas with alignment/italic metadata
+// Supports:
+//   [right] marker at start of block = right-aligned stanza
+//   [italic] marker = italic stanza
+//   \t or em-spaces = preserved as-is (white-space: pre-wrap handles them)
+function parseStanzas(content: string): { text: string; align: "left" | "right" | "center"; italic: boolean }[] {
+  return content.trim().split(/\n\n+/).map(block => {
+    let text = block;
+    let align: "left" | "right" | "center" = "left";
+    let italic = false;
+    if (text.startsWith("[right]")) { align = "right"; text = text.slice(7).trimStart(); }
+    else if (text.startsWith("[center]")) { align = "center"; text = text.slice(8).trimStart(); }
+    if (text.startsWith("[italic]")) { italic = true; text = text.slice(8).trimStart(); }
+    return { text, align, italic };
+  });
+}
 import BackPill from "./BackPill";
 
 const NATURE_COLORS = [
@@ -43,7 +60,6 @@ export default function PostPageClient({
   readTime: string;
 }) {
   const { bg, accent } = hashColor(post.slug);
-  const stanzas = post.content.trim().split(/\n\n+/);
   const router = useRouter();
 
   // Keyboard navigation ← →
@@ -157,9 +173,9 @@ export default function PostPageClient({
 
         {/* Poem */}
         <div className="poem-content">
-          {stanzas.map((stanza, i) => (
-            <AnimatedStanza key={i} index={i} isFirst={i === 0}>
-              {stanza}
+          {parseStanzas(post.content).map((stanza, i) => (
+            <AnimatedStanza key={i} index={i} align={stanza.align} italic={stanza.italic}>
+              {stanza.text}
             </AnimatedStanza>
           ))}
         </div>
