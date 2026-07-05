@@ -13,6 +13,28 @@ function getSeasonalGradient() {
 
 const MARQUEE_TEXT = "A Promise to Protect What Cannot Speak  ·  Daughter of the Tides  ·  Embers  ·  Like Moth to Flame  ·  My Every Sense of You  ·  Nature's Choir  ·  Out of Time  ·  The Glass Between Us  ·  回声  ·  ";
 
+// Botanical sprig SVG — stem + 2 simple leaf strokes, renders crisply at small sizes
+function Sprig({ x, y, size, rotate, opacity }: { x: string; y: string; size: number; rotate: number; opacity: number }) {
+  return (
+    <div
+      className="absolute pointer-events-none select-none"
+      style={{ left: x, top: y, opacity, transform: `rotate(${rotate}deg)`, width: size, height: size * 1.4 }}
+      aria-hidden="true"
+    >
+      <svg viewBox="0 0 24 34" fill="none" stroke="white" strokeLinecap="round" xmlns="http://www.w3.org/2000/svg" width={size} height={size * 1.4}>
+        {/* Main stem */}
+        <path d="M12 32 C12 26 11 20 10 14 C9 8 10 4 12 2" strokeWidth="0.9"/>
+        {/* Left leaf */}
+        <path d="M11 18 C7 15 4 11 6 8 C8 5 12 8 11 13" strokeWidth="0.8"/>
+        {/* Right leaf */}
+        <path d="M11 12 C15 9 18 6 16 3 C14 1 10 4 11 9" strokeWidth="0.8"/>
+        {/* Tiny bud at tip */}
+        <circle cx="12" cy="2" r="1.2" fill="white" strokeWidth="0"/>
+      </svg>
+    </div>
+  );
+}
+
 export default function HeroSection() {
   const [gradient, setGradient] = useState(
     "linear-gradient(160deg, #2D4A3E 0%, #3D6154 40%, #4A7A5A 70%, #2A3D34 100%)"
@@ -25,38 +47,50 @@ export default function HeroSection() {
         className="relative overflow-hidden min-h-[56vh] flex items-center"
         style={{ background: gradient }}
       >
-        {/* ── 4 distinct floral ornaments ─────────────────────── */}
-        {/* Pulled diagonally inward toward the quote */}
-
-        {/* Top-left: filled florette ✿ */}
+        {/* ── 4 distinct Unicode floral ornaments ── */}
         <div className="absolute pointer-events-none select-none leading-none"
-          style={{ top: "16%", left: "16%", fontSize: "clamp(2.8rem, 6.5vw, 6rem)", color: "white", opacity: 0.24, lineHeight: 1 }}
+          style={{ top: "14%", left: "13%", fontSize: "clamp(2.6rem, 5.5vw, 5.2rem)", color: "white", opacity: 0.26, lineHeight: 1 }}
           aria-hidden="true">&#10047;</div>
 
-        {/* Top-right: six-petal outlined flower ❀ */}
         <div className="absolute pointer-events-none select-none leading-none"
-          style={{ top: "16%", right: "16%", fontSize: "clamp(2.8rem, 6.5vw, 6rem)", color: "white", opacity: 0.24, lineHeight: 1 }}
+          style={{ top: "14%", right: "13%", fontSize: "clamp(2.6rem, 5.5vw, 5.2rem)", color: "white", opacity: 0.26, lineHeight: 1 }}
           aria-hidden="true">&#10048;</div>
 
-        {/* Bottom-left: eight-petal florette ❁ */}
         <div className="absolute pointer-events-none select-none leading-none"
-          style={{ bottom: "24%", left: "18%", fontSize: "clamp(2rem, 4.5vw, 4.2rem)", color: "white", opacity: 0.18, lineHeight: 1 }}
+          style={{ bottom: "20%", left: "15%", fontSize: "clamp(1.8rem, 3.8vw, 3.6rem)", color: "white", opacity: 0.2, lineHeight: 1 }}
           aria-hidden="true">&#10049;</div>
 
-        {/* Bottom-right: outlined florette ✾ */}
         <div className="absolute pointer-events-none select-none leading-none"
-          style={{ bottom: "24%", right: "18%", fontSize: "clamp(2rem, 4.5vw, 4.2rem)", color: "white", opacity: 0.18, lineHeight: 1 }}
+          style={{ bottom: "20%", right: "15%", fontSize: "clamp(1.8rem, 3.8vw, 3.6rem)", color: "white", opacity: 0.2, lineHeight: 1 }}
           aria-hidden="true">&#10046;</div>
 
-        {/* Thin rule top and bottom inside section */}
-        <div className="absolute top-0 left-0 right-0 h-px bg-white/10 pointer-events-none" />
+        {/* ── Botanical sprigs — give the florettes stems & leaves ── */}
+        {/* Near each florette, a small sprig grounds them */}
+        <Sprig x="8.5%" y="28%" size={28} rotate={-12} opacity={0.22} />
+        <Sprig x="86%" y="28%" size={28} rotate={14} opacity={0.22} />
+        <Sprig x="9%" y="52%" size={22} rotate={15} opacity={0.15} />
+        <Sprig x="85.5%" y="52%" size={22} rotate={-18} opacity={0.15} />
+        {/* Extra small sprigs scattered */}
+        <Sprig x="18%" y="65%" size={18} rotate={25} opacity={0.12} />
+        <Sprig x="77%" y="65%" size={18} rotate={-22} opacity={0.12} />
 
-        {/* Subtle scattered dots */}
+        {/* ── Hairline rule framing the quote ── */}
+        <div
+          className="absolute pointer-events-none"
+          style={{
+            top: "10%", bottom: "12%",
+            left: "6%", right: "6%",
+            border: "1px solid rgba(255,255,255,0.06)",
+            borderRadius: "2px",
+          }}
+        />
+
+        {/* ── Scattered pollen dots ── */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none select-none" aria-hidden="true">
           {([
-            ["22%","18%",1.4,0.18],["30%","38%",1,0.12],["18%","62%",1.2,0.14],
-            ["78%","18%",1.4,0.18],["70%","38%",1,0.12],["82%","62%",1.2,0.14],
-            ["50%","9%",1.2,0.13],["42%","72%",0.9,0.1],["58%","72%",0.9,0.1],
+            ["27%","10%",1.3,0.18],["35%","32%",0.9,0.12],["20%","55%",1.1,0.14],
+            ["73%","10%",1.3,0.18],["65%","32%",0.9,0.12],["80%","55%",1.1,0.14],
+            ["50%","7%",1.1,0.13],["44%","78%",0.8,0.1],["56%","78%",0.8,0.1],
           ] as [string,string,number,number][]).map(([cx,cy,r,o],i) => (
             <circle key={i} cx={cx} cy={cy} r={r} fill="white" opacity={o}/>
           ))}
