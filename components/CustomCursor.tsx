@@ -12,7 +12,7 @@ const MOOD_COLORS: Record<string, { dot: string; ladybug: string }> = {
   resilience: { dot: "#8A6A4A", ladybug: "#C4A070" },
   defiance:   { dot: "#8A4A4A", ladybug: "#C48080" },
   love:       { dot: "#B05C6A", ladybug: "#D4899A" },
-  default:    { dot: "#2D4A3E", ladybug: "white" },
+  default:    { dot: "#2D4A3E", ladybug: "#FFFFFF" },
 };
 
 function lerp(a: number, b: number, t: number) { return a + (b - a) * t; }
@@ -38,48 +38,50 @@ function rgbToCss([r, g, b]: RGB): string {
   return `rgb(${r},${g},${b})`;
 }
 
+// Module-level constants — hexToRgb not called on every render
+const DEFAULT_DOT_RGB: RGB = hexToRgb(MOOD_COLORS.default.dot);
+const DEFAULT_LADYBUG_RGB: RGB = hexToRgb(MOOD_COLORS.default.ladybug);
+
 export default function CustomCursor() {
   const mouseRef = useRef({ x: -100, y: -100 });
   const posRef = useRef({ x: -100, y: -100 });
   const [pos, setPos] = useState({ x: -100, y: -100 });
   const [hovered, setHovered] = useState(false);
   const [visible, setVisible] = useState(false);
-  const [mood, setMood] = useState("default");
-  const [dotColor, setDotColor] = useState(rgbToCss(hexToRgb(MOOD_COLORS.default.dot)));
-  const [ladybugColor, setLadybugColor] = useState(rgbToCss(hexToRgb("#FFFFFF")));
-  const animRef = useRef<number>(0);
 
   // Store current/target colours as RGB tuples so lerpRgb never receives an rgb() string
-  // ladybug "white" → #FFFFFF; always resolve to hex before calling hexToRgb
-  const defaultDotRgb = hexToRgb(MOOD_COLORS.default.dot);
-  const defaultLadybugRgb = hexToRgb("#FFFFFF");
-  const targetDotRef = useRef<RGB>(defaultDotRgb);
-  const targetLadybugRef = useRef<RGB>(defaultLadybugRgb);
-  const curDotRef = useRef<RGB>(defaultDotRgb);
-  const curLadybugRef = useRef<RGB>(defaultLadybugRgb);
+  const targetDotRef = useRef<RGB>(DEFAULT_DOT_RGB);
+  const targetLadybugRef = useRef<RGB>(DEFAULT_LADYBUG_RGB);
+  const curDotRef = useRef<RGB>(DEFAULT_DOT_RGB);
+  const curLadybugRef = useRef<RGB>(DEFAULT_LADYBUG_RGB);
+  const [dotColor, setDotColor] = useState(rgbToCss(DEFAULT_DOT_RGB));
+  const [ladybugColor, setLadybugColor] = useState(rgbToCss(DEFAULT_LADYBUG_RGB));
+
+  // moodRef lets the mousemove handler read current mood without being a dep
+  const moodRef = useRef("default");
+  // visibleRef lets the mousemove handler read visible without being a dep
+  const visibleRef = useRef(false);
+  visibleRef.current = visible;
+  const animRef = useRef<number>(0);
 
   useEffect(() => {
     const move = (e: MouseEvent) => {
       mouseRef.current = { x: e.clientX, y: e.clientY };
-      if (!visible) setVisible(true);
+      if (!visibleRef.current) setVisible(true);
       const el = e.target as HTMLElement;
       setHovered(!!el.closest("a, button, [role=button], label"));
       const moodEl = el.closest("[data-mood]") as HTMLElement | null;
       const newMood = moodEl?.dataset.mood ?? "default";
-      if (newMood !== mood) {
-        setMood(newMood);
+      if (newMood !== moodRef.current) {
+        moodRef.current = newMood;
         const colors = MOOD_COLORS[newMood] ?? MOOD_COLORS.default;
         targetDotRef.current = hexToRgb(colors.dot);
-        // ladybug "white" has no hex — fall back gracefully
-        targetLadybugRef.current = colors.ladybug.startsWith("#")
-          ? hexToRgb(colors.ladybug)
-          : hexToRgb("#FFFFFF");
+        targetLadybugRef.current = hexToRgb(colors.ladybug);
       }
     };
     window.addEventListener("mousemove", move);
     return () => window.removeEventListener("mousemove", move);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [visible, mood]);
+  }, []);
 
   // rAF loop — lerp position + lerp colour
   useEffect(() => {

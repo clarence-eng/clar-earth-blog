@@ -12,7 +12,7 @@ function getSeasonalGradient() {
   return "linear-gradient(160deg, #1A2D3A 0%, #2A3D4A 40%, #1E3440 65%, #121E28 100%)";
 }
 
-const MARQUEE_TEXT = "A Promise to Protect What Cannot Speak  ·  Daughter of the Tides  ·  Embers  ·  Like Moth to Flame  ·  My Every Sense of You  ·  Nature's Choir  ·  Out of Time  ·  The Glass Between Us  ·  回声  ·  ";
+const MARQUEE_TEXT = "A Promise to Protect What Cannot Speak  ·  Blank Space  ·  Daughter of the Tides  ·  Drowning  ·  Embers  ·  From the Sun  ·  I'm a Sambar Deer  ·  Like Moth to Flame  ·  My Every Sense of You  ·  Nature's Choir  ·  Out of Time  ·  The Glass Between Us  ·  Untitled  ·  回声  ·  ";
 
 // Botanical sprig SVG — stem + 2 simple leaf strokes, renders crisply at small sizes
 function Sprig({ x, y, size, rotate, opacity }: { x: string; y: string; size: number; rotate: number; opacity: number }) {

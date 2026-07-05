@@ -10,9 +10,6 @@ interface Particle {
   type: "leaf" | "spore" | "petal";
 }
 
-const LEAF_PATH = "M0,-8 C3,-6 5,-2 4,2 C3,6 0,8 0,8 C0,8 -3,6 -4,2 C-5,-2 -3,-6 0,-8Z";
-const SPORE_PATH = "M0,-3 A3,3 0 1,1 0,3 A3,3 0 1,1 0,-3Z";
-
 export default function AmbientParticles() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 

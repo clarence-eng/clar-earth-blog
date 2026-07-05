@@ -31,11 +31,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url,
       siteName: "clar.earth",
       type: "article",
+      ...(post.coverImage ? { images: [{ url: `https://clar.earth${post.coverImage}` }] } : {}),
     },
     twitter: {
-      card: "summary",
+      card: post.coverImage ? "summary_large_image" : "summary",
       title: post.title,
       description: post.excerpt ?? "A poem by Clare.",
+      ...(post.coverImage ? { images: [`https://clar.earth${post.coverImage}`] } : {}),
     },
     alternates: { canonical: url },
   };
@@ -53,10 +55,10 @@ export default async function PostPage({ params }: Props) {
   const rt = readingTime(post.content);
   const readTime = natureReadingTime(rt.words);
 
-  // Schema.org CreativeWork / Poem structured data
+  // Schema.org structured data — Poem for poems, CreativeWork for other types
   const schema = {
     "@context": "https://schema.org",
-    "@type": "CreativeWork",
+    "@type": post.type === "poem" ? "Poem" : "CreativeWork",
     "name": post.title,
     "author": {
       "@type": "Person",

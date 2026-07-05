@@ -16,9 +16,7 @@ export interface PostMeta {
   coverImage?: string;
   dedication?: string;
   coAuthor?: string;
-  notes?: string;
   lang?: string;
-  tags?: string[];
   mood?: string;
 }
 

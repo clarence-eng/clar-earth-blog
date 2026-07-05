@@ -29,7 +29,8 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
     return (
       p.title.toLowerCase().includes(q) ||
       p.excerpt?.toLowerCase().includes(q) ||
-      p.dedication?.toLowerCase().includes(q)
+      p.dedication?.toLowerCase().includes(q) ||
+      p.mood?.toLowerCase().includes(q)
     );
   });
 
@@ -44,6 +45,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
         transition={{ duration: 0.2 }}
         className="fixed inset-0 z-[200] flex items-start justify-center pt-24 px-4 search-glass"
         onClick={onClose}
+        role="presentation"
       >
         <motion.div
           initial={{ opacity: 0, y: -16, scale: 0.97 }}
@@ -53,6 +55,9 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
           className="w-full max-w-xl rounded-sm overflow-hidden shadow-2xl"
           style={{ background: "var(--cream)" }}
           onClick={e => e.stopPropagation()}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Search poems"
         >
           {/* Input */}
           <div className="flex items-center gap-3 px-5 py-4 border-b border-[var(--border)]">

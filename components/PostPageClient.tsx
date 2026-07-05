@@ -57,6 +57,8 @@ export default function PostPageClient({
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+      // Don't navigate when the search modal is open
+      if (document.querySelector("[role=dialog]")) return;
       if (e.key === "ArrowRight" && next) router.push(`/${next.slug}`);
       if (e.key === "ArrowLeft" && prev) router.push(`/${prev.slug}`);
     };
@@ -167,7 +169,7 @@ export default function PostPageClient({
       </div>
 
       {/* ── Body — data-mood drives cursor colour ────────────── */}
-      <main className="px-8 pb-28 w-full" style={{ maxWidth: "780px", margin: "0 auto" }} data-mood={post.mood}>
+      <main className="px-8 pb-28 w-full" style={{ maxWidth: "780px", margin: "0 auto" }} data-mood={post.mood ?? undefined}>
         {/* Gold rule */}
         <motion.div
           initial={{ width: 0 }}
