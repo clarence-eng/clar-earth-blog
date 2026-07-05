@@ -13,6 +13,118 @@ function getSeasonalGradient() {
 
 const MARQUEE_TEXT = "A Promise to Protect What Cannot Speak  ·  Daughter of the Tides  ·  Embers  ·  Like Moth to Flame  ·  My Every Sense of You  ·  Nature's Choir  ·  Out of Time  ·  The Glass Between Us  ·  回声  ·  ";
 
+// Fern frond — arching up from bottom-left, fully self-contained
+function FernLeft() {
+  return (
+    <svg
+      viewBox="0 0 260 420"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="absolute bottom-0 left-0 h-full w-auto pointer-events-none select-none"
+      style={{ opacity: 0.42 }}
+      preserveAspectRatio="xMinYMax meet"
+      aria-hidden="true"
+    >
+      {/* Rachis — main stem curving up-right */}
+      <path d="M10 420 C20 370 40 320 65 272 C90 224 118 185 140 148 C162 112 175 80 172 48 C171 34 168 18 166 8"
+        stroke="white" strokeWidth="1.8" strokeLinecap="round" fill="none"/>
+
+      {/* Left pinnae (each curves away from rachis to the left) */}
+      <path d="M40 345 Q18 330 8 310 Q2 296 10 288 Q18 280 30 290 Q42 302 40 345" stroke="white" strokeWidth="1.1" fill="none" strokeLinecap="round"/>
+      <path d="M66 300 Q42 282 34 260 Q28 244 38 238 Q48 232 60 244 Q72 258 66 300" stroke="white" strokeWidth="1.05" fill="none" strokeLinecap="round"/>
+      <path d="M94 258 Q70 238 64 216 Q60 200 70 195 Q80 190 92 202 Q104 216 94 258" stroke="white" strokeWidth="1" fill="none" strokeLinecap="round"/>
+      <path d="M118 220 Q96 200 92 178 Q88 162 100 158 Q112 154 122 168 Q132 182 118 220" stroke="white" strokeWidth="0.95" fill="none" strokeLinecap="round"/>
+      <path d="M138 186 Q120 168 118 148 Q116 132 128 130 Q140 128 148 142 Q156 158 138 186" stroke="white" strokeWidth="0.9" fill="none" strokeLinecap="round"/>
+      <path d="M152 154 Q138 138 138 120 Q138 106 148 106 Q158 106 164 120 Q168 134 152 154" stroke="white" strokeWidth="0.85" fill="none" strokeLinecap="round"/>
+      <path d="M160 124 Q150 110 152 94 Q154 82 163 84 Q172 86 174 100 Q176 114 160 124" stroke="white" strokeWidth="0.8" fill="none" strokeLinecap="round"/>
+
+      {/* Right pinnae (mirror, curves right) */}
+      <path d="M52 336 Q74 322 82 302 Q88 286 78 280 Q68 274 56 286 Q44 298 52 336" stroke="white" strokeWidth="1.1" fill="none" strokeLinecap="round"/>
+      <path d="M78 292 Q102 274 108 252 Q114 236 104 230 Q94 224 82 238 Q70 252 78 292" stroke="white" strokeWidth="1.05" fill="none" strokeLinecap="round"/>
+      <path d="M106 250 Q130 230 134 208 Q138 192 128 188 Q118 184 108 198 Q98 214 106 250" stroke="white" strokeWidth="1" fill="none" strokeLinecap="round"/>
+      <path d="M128 212 Q150 194 152 174 Q154 158 144 156 Q134 154 126 170 Q118 186 128 212" stroke="white" strokeWidth="0.95" fill="none" strokeLinecap="round"/>
+      <path d="M146 178 Q166 162 166 144 Q166 130 156 130 Q146 130 140 144 Q134 158 146 178" stroke="white" strokeWidth="0.9" fill="none" strokeLinecap="round"/>
+      <path d="M158 148 Q176 134 174 118 Q172 104 162 106 Q152 108 148 122 Q144 136 158 148" stroke="white" strokeWidth="0.85" fill="none" strokeLinecap="round"/>
+
+      {/* Fiddlehead curl at top */}
+      <path d="M166 8 C168 0 176 -4 182 2 C188 8 184 18 176 20 C172 21 167 16 166 8"
+        stroke="white" strokeWidth="1.3" fill="none" strokeLinecap="round"/>
+
+      {/* Tiny leaf vein lines */}
+      <line x1="10" y1="310" x2="26" y2="306" stroke="white" strokeWidth="0.4" opacity="0.6"/>
+      <line x1="36" y1="260" x2="52" y2="252" stroke="white" strokeWidth="0.4" opacity="0.6"/>
+      <line x1="66" y1="216" x2="80" y2="208" stroke="white" strokeWidth="0.35" opacity="0.55"/>
+      <line x1="92" y1="180" x2="104" y2="172" stroke="white" strokeWidth="0.35" opacity="0.5"/>
+    </svg>
+  );
+}
+
+// Wild grasses + seed heads — right side, self-contained
+function GrassRight() {
+  return (
+    <svg
+      viewBox="0 0 260 420"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="absolute bottom-0 right-0 h-full w-auto pointer-events-none select-none"
+      style={{ opacity: 0.42 }}
+      preserveAspectRatio="xMaxYMax meet"
+      aria-hidden="true"
+    >
+      {/* Grass blade 1 — tallest, gently leaning left */}
+      <path d="M210 420 C208 375 200 328 192 280 C184 234 178 190 178 148 C178 108 182 72 180 38 C179 22 176 10 174 2"
+        stroke="white" strokeWidth="1.7" strokeLinecap="round" fill="none"/>
+
+      {/* Blade 2 */}
+      <path d="M230 420 C228 380 220 336 214 292 C208 250 204 208 206 170 C208 134 214 104 212 72 C211 56 208 42 206 28"
+        stroke="white" strokeWidth="1.55" strokeLinecap="round" fill="none"/>
+
+      {/* Blade 3 */}
+      <path d="M248 420 C247 384 242 344 238 304 C234 266 232 228 235 194 C238 162 244 136 242 108 C241 94 238 82 236 68"
+        stroke="white" strokeWidth="1.4" strokeLinecap="round" fill="none"/>
+
+      {/* Blade 4 — shorter */}
+      <path d="M188 420 C188 390 184 356 178 322 C172 290 168 258 170 228 C172 200 178 178 176 154"
+        stroke="white" strokeWidth="1.2" strokeLinecap="round" fill="none"/>
+
+      {/* Blade 5 — shortest */}
+      <path d="M260 420 C258 398 254 372 252 346 C250 320 250 296 253 272 C256 250 262 234 260 214"
+        stroke="white" strokeWidth="1.1" strokeLinecap="round" fill="none"/>
+
+      {/* Seed head on blade 1 — drooping panicle branches */}
+      <path d="M174 2 C168 -6 158 -8 152 -2" stroke="white" strokeWidth="1" strokeLinecap="round" fill="none"/>
+      <path d="M174 2 C172 -8 168 -14 165 -18" stroke="white" strokeWidth="1" strokeLinecap="round" fill="none"/>
+      <path d="M174 2 C180 -6 188 -10 192 -4" stroke="white" strokeWidth="1" strokeLinecap="round" fill="none"/>
+      <ellipse cx="152" cy="-4" rx="4" ry="6" stroke="white" strokeWidth="0.9" fill="none"/>
+      <ellipse cx="165" cy="-20" rx="3.5" ry="5.5" stroke="white" strokeWidth="0.9" fill="none"/>
+      <ellipse cx="192" cy="-6" rx="4" ry="6" stroke="white" strokeWidth="0.9" fill="none"/>
+      <ellipse cx="174" cy="10" rx="3" ry="5" stroke="white" strokeWidth="0.85" fill="none"/>
+
+      {/* Seed head on blade 2 */}
+      <path d="M206 28 C200 18 192 14 186 20" stroke="white" strokeWidth="0.9" strokeLinecap="round" fill="none"/>
+      <path d="M206 28 C204 18 200 12 198 8" stroke="white" strokeWidth="0.9" strokeLinecap="round" fill="none"/>
+      <path d="M206 28 C212 18 220 14 222 20" stroke="white" strokeWidth="0.9" strokeLinecap="round" fill="none"/>
+      <ellipse cx="186" cy="18" rx="3.5" ry="5" stroke="white" strokeWidth="0.8" fill="none"/>
+      <ellipse cx="198" cy="6" rx="3" ry="5" stroke="white" strokeWidth="0.8" fill="none"/>
+      <ellipse cx="222" cy="18" rx="3.5" ry="5" stroke="white" strokeWidth="0.8" fill="none"/>
+
+      {/* Small wildflower on blade 4 */}
+      <path d="M176 154 C172 144 166 138 160 134" stroke="white" strokeWidth="0.85" strokeLinecap="round" fill="none"/>
+      {/* 5 petals — simple open flower */}
+      <path d="M160 134 C155 126 150 120 152 114 C154 108 161 109 161 116 C161 122 158 128 160 134" stroke="white" strokeWidth="0.75" fill="none"/>
+      <path d="M160 134 C166 128 172 124 176 127 C180 130 178 137 172 136 C167 135 163 133 160 134" stroke="white" strokeWidth="0.75" fill="none"/>
+      <path d="M160 134 C158 141 156 148 152 150 C148 152 146 146 149 143 C152 140 156 139 160 134" stroke="white" strokeWidth="0.75" fill="none"/>
+      <path d="M160 134 C154 140 148 140 146 136 C144 132 147 127 151 129 C155 131 157 133 160 134" stroke="white" strokeWidth="0.75" fill="none"/>
+      <path d="M160 134 C157 127 158 120 162 117 C166 114 169 118 167 123 C165 128 162 131 160 134" stroke="white" strokeWidth="0.75" fill="none"/>
+      <circle cx="160" cy="134" r="3.5" stroke="white" strokeWidth="1" fill="none"/>
+
+      {/* Fine base crossing stems */}
+      <path d="M180 420 C200 412 222 408 248 406" stroke="white" strokeWidth="0.6" strokeLinecap="round" fill="none" opacity="0.55"/>
+      <path d="M190 420 C212 414 234 410 258 408" stroke="white" strokeWidth="0.5" strokeLinecap="round" fill="none" opacity="0.45"/>
+    </svg>
+  );
+}
+
 export default function HeroSection() {
   const [gradient, setGradient] = useState(
     "linear-gradient(160deg, #2D4A3E 0%, #3D6154 40%, #4A7A5A 70%, #2A3D34 100%)"
@@ -25,135 +137,31 @@ export default function HeroSection() {
         className="relative overflow-hidden min-h-[56vh] flex items-center"
         style={{ background: gradient }}
       >
-        {/* ── Decorative elements ── */}
-        <svg
-          className="absolute inset-0 w-full h-full pointer-events-none select-none"
-          viewBox="0 0 1440 420"
-          preserveAspectRatio="xMidYMid slice"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          aria-hidden="true"
-        >
-          {/* ═══════════════════════════════════════════════════
-              LEFT SIDE — Large fern frond arching inward
-          ═══════════════════════════════════════════════════ */}
-          <g stroke="white" fill="none" opacity="0.38">
-            {/* Main fern rachis — elegant arch from bottom-left upward */}
-            <path d="M-10 440 C20 380 60 310 100 250 C140 190 175 150 200 110 C220 78 230 50 225 20"
-              strokeWidth="1.6" strokeLinecap="round"/>
+        {/* Fern — left edge, always visible */}
+        <FernLeft />
 
-            {/* Fern pinnae — paired leaflets, left side of rachis */}
-            <path d="M50 335 C34 322 18 305 14 288 C10 271 22 264 34 272 C46 280 50 305 50 335"
-              strokeWidth="1" strokeLinecap="round"/>
-            <path d="M80 295 C60 280 42 260 40 242 C38 224 52 218 64 228 C76 238 80 265 80 295"
-              strokeWidth="0.95" strokeLinecap="round"/>
-            <path d="M112 258 C92 242 76 220 76 202 C76 184 90 180 102 190 C114 200 116 228 112 258"
-              strokeWidth="0.9" strokeLinecap="round"/>
-            <path d="M142 222 C124 206 112 184 114 166 C116 148 130 146 140 158 C150 170 148 196 142 222"
-              strokeWidth="0.85" strokeLinecap="round"/>
-            <path d="M166 190 C152 174 144 152 148 136 C152 120 164 120 172 132 C180 144 176 168 166 190"
-              strokeWidth="0.8" strokeLinecap="round"/>
-            <path d="M186 160 C174 146 170 126 175 112 C180 98 192 100 198 112 C204 124 198 144 186 160"
-              strokeWidth="0.75" strokeLinecap="round"/>
-            <path d="M202 132 C194 118 194 100 200 88 C206 76 216 80 220 92 C224 104 216 120 202 132"
-              strokeWidth="0.7" strokeLinecap="round"/>
-            <path d="M216 106 C210 94 212 78 218 68 C224 58 234 62 236 74 C238 86 230 100 216 106"
-              strokeWidth="0.65" strokeLinecap="round"/>
+        {/* Grasses — right edge, always visible */}
+        <GrassRight />
 
-            {/* Right side pinnae */}
-            <path d="M55 328 C72 318 88 304 90 288 C92 272 80 266 68 274 C56 282 55 306 55 328"
-              strokeWidth="1" strokeLinecap="round"/>
-            <path d="M88 288 C106 276 120 258 120 240 C120 222 108 218 96 228 C84 238 86 266 88 288"
-              strokeWidth="0.95" strokeLinecap="round"/>
-            <path d="M120 250 C138 236 150 216 148 198 C146 180 134 178 122 190 C110 202 114 228 120 250"
-              strokeWidth="0.9" strokeLinecap="round"/>
-            <path d="M150 214 C166 200 176 180 172 162 C168 144 156 144 146 156 C136 168 138 194 150 214"
-              strokeWidth="0.85" strokeLinecap="round"/>
-            <path d="M172 182 C186 170 194 150 190 134 C186 118 174 120 166 132 C158 144 160 166 172 182"
-              strokeWidth="0.8" strokeLinecap="round"/>
-            <path d="M190 154 C202 142 208 124 204 110 C200 96 188 98 182 110 C176 122 178 140 190 154"
-              strokeWidth="0.75" strokeLinecap="round"/>
-
-            {/* Fiddlehead curl at tip */}
-            <path d="M225 20 C230 12 240 8 248 14 C256 20 254 32 246 36 C240 38 232 34 228 28"
-              strokeWidth="1.2" strokeLinecap="round"/>
-          </g>
-
-          {/* ═══════════════════════════════════════════════════
-              RIGHT SIDE — Wild grasses + seed heads + small flowers
-          ═══════════════════════════════════════════════════ */}
-          <g stroke="white" fill="none" opacity="0.38">
-            {/* Tall grass blades — varying heights, gently curving */}
-            <path d="M1450 440 C1440 390 1420 340 1400 285 C1382 235 1368 190 1362 140 C1356 95 1360 60 1358 30"
-              strokeWidth="1.4" strokeLinecap="round"/>
-            <path d="M1420 440 C1412 395 1396 348 1380 298 C1366 252 1356 208 1354 165 C1352 125 1356 90 1354 55"
-              strokeWidth="1.3" strokeLinecap="round"/>
-            <path d="M1390 440 C1384 400 1372 358 1360 315 C1348 274 1340 234 1340 195 C1340 158 1344 128 1344 95"
-              strokeWidth="1.2" strokeLinecap="round"/>
-            <path d="M1460 440 C1454 405 1444 366 1436 328 C1428 292 1424 258 1426 225 C1428 196 1434 172 1432 145"
-              strokeWidth="1.1" strokeLinecap="round"/>
-            <path d="M1350 440 C1346 408 1340 374 1334 340 C1328 308 1324 278 1326 250 C1328 224 1334 202 1334 178"
-              strokeWidth="1" strokeLinecap="round"/>
-
-            {/* Seed head on tallest blade — drooping panicle */}
-            <path d="M1358 30 C1350 22 1342 18 1338 10"
-              strokeWidth="0.9" strokeLinecap="round"/>
-            <path d="M1358 30 C1358 20 1362 12 1360 4"
-              strokeWidth="0.9" strokeLinecap="round"/>
-            <path d="M1358 30 C1366 22 1372 18 1374 10"
-              strokeWidth="0.9" strokeLinecap="round"/>
-            {/* Small seed clusters */}
-            <circle cx="1338" cy="9" r="2.5" strokeWidth="0.8"/>
-            <circle cx="1360" cy="3" r="2.5" strokeWidth="0.8"/>
-            <circle cx="1374" cy="9" r="2.5" strokeWidth="0.8"/>
-            <circle cx="1349" cy="18" r="1.8" strokeWidth="0.7"/>
-            <circle cx="1368" cy="16" r="1.8" strokeWidth="0.7"/>
-
-            {/* Seed head on second blade */}
-            <path d="M1354 55 C1346 46 1340 40 1336 32"
-              strokeWidth="0.85" strokeLinecap="round"/>
-            <path d="M1354 55 C1356 44 1360 38 1358 28"
-              strokeWidth="0.85" strokeLinecap="round"/>
-            <path d="M1354 55 C1362 46 1368 42 1370 34"
-              strokeWidth="0.85" strokeLinecap="round"/>
-            <circle cx="1336" cy="31" r="2.2" strokeWidth="0.75"/>
-            <circle cx="1358" cy="27" r="2.2" strokeWidth="0.75"/>
-            <circle cx="1370" cy="33" r="2.2" strokeWidth="0.75"/>
-
-            {/* Small wildflower on shorter grass */}
-            <path d="M1344 95 C1338 86 1330 80 1324 74"
-              strokeWidth="0.8" strokeLinecap="round"/>
-            {/* 5 petals */}
-            <path d="M1324 74 C1320 68 1316 62 1318 57 C1320 52 1326 53 1326 58 C1326 63 1322 68 1324 74"
-              strokeWidth="0.7"/>
-            <path d="M1324 74 C1330 70 1336 66 1340 68 C1344 70 1342 76 1337 75 C1332 74 1328 72 1324 74"
-              strokeWidth="0.7"/>
-            <path d="M1324 74 C1322 80 1320 86 1316 88 C1312 90 1310 85 1314 82 C1318 79 1322 78 1324 74"
-              strokeWidth="0.7"/>
-            <path d="M1324 74 C1318 78 1312 78 1310 74 C1308 70 1312 66 1316 68 C1320 70 1320 73 1324 74"
-              strokeWidth="0.7"/>
-            <path d="M1324 74 C1322 68 1324 62 1328 60 C1332 58 1334 62 1332 66 C1330 70 1326 72 1324 74"
-              strokeWidth="0.7"/>
-            <circle cx="1324" cy="74" r="3" strokeWidth="0.9"/>
-
-            {/* Fine crossing base stems */}
-            <path d="M1450 440 C1420 425 1385 418 1350 415" strokeWidth="0.6" opacity="0.6"/>
-            <path d="M1440 440 C1408 430 1374 424 1340 422" strokeWidth="0.5" opacity="0.5"/>
-          </g>
-
-          {/* ═══════════════════════════════════════════════════
-              SCATTERED DOTS — like floating spores / pollen
-          ═══════════════════════════════════════════════════ */}
-          {([
-            [420, 60, 2, 0.28], [500, 150, 1.4, 0.22], [340, 240, 1.8, 0.2],
-            [560, 320, 1.2, 0.18], [280, 380, 1.5, 0.16],
-            [1020, 60, 2, 0.28], [940, 150, 1.4, 0.22], [1100, 240, 1.8, 0.2],
-            [880, 320, 1.2, 0.18], [1160, 380, 1.5, 0.16],
-            [700, 30, 1.6, 0.18], [740, 380, 1.3, 0.15],
-          ] as [number,number,number,number][]).map(([cx, cy, r, o], i) => (
-            <circle key={i} cx={cx} cy={cy} r={r} fill="white" opacity={o}/>
-          ))}
-        </svg>
+        {/* Scattered pollen dots */}
+        <div className="absolute inset-0 pointer-events-none select-none" aria-hidden="true">
+          <svg className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+            {([
+              [32, 14], [45, 28], [38, 42],
+              [92, 8], [88, 22], [94, 36],
+              [50, 52], [60, 18], [55, 64],
+              [72, 42], [78, 26], [68, 58],
+            ] as [number, number][]).map(([cx, cy], i) => (
+              <circle
+                key={i}
+                cx={`${cx}%`} cy={`${cy}%`}
+                r={i % 3 === 0 ? "2" : "1.3"}
+                fill="white"
+                opacity={i % 3 === 0 ? "0.22" : "0.15"}
+              />
+            ))}
+          </svg>
+        </div>
 
         {/* Bottom wave */}
         <div className="absolute bottom-0 left-0 right-0 pointer-events-none" style={{ height: 56 }}>

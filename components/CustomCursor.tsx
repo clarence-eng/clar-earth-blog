@@ -3,37 +3,6 @@
 import { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
-// Default dot cursor
-function DotCursor() {
-  return (
-    <circle cx="0" cy="0" r="4" fill="#F8F5EF" />
-  );
-}
-
-// Ladybug cursor — shown on hover
-function LadybugCursor() {
-  return (
-    <g>
-      {/* Body — red dome */}
-      <ellipse cx="0" cy="1" rx="10" ry="9" fill="#C0392B" />
-      {/* Head — black */}
-      <ellipse cx="0" cy="-8" rx="6" ry="5" fill="#1a1a1a" />
-      {/* Centre line */}
-      <line x1="0" y1="-4" x2="0" y2="9" stroke="#1a1a1a" strokeWidth="1.2" strokeLinecap="round"/>
-      {/* Spots */}
-      <circle cx="-4.5" cy="-1" r="2.2" fill="#1a1a1a" />
-      <circle cx="4.5" cy="-1" r="2.2" fill="#1a1a1a" />
-      <circle cx="-3.5" cy="5.5" r="1.8" fill="#1a1a1a" />
-      <circle cx="3.5" cy="5.5" r="1.8" fill="#1a1a1a" />
-      {/* Antennae */}
-      <line x1="-3" y1="-12" x2="-6" y2="-18" stroke="#1a1a1a" strokeWidth="0.9" strokeLinecap="round"/>
-      <line x1="3" y1="-12" x2="6" y2="-18" stroke="#1a1a1a" strokeWidth="0.9" strokeLinecap="round"/>
-      <circle cx="-6" cy="-18" r="1.2" fill="#1a1a1a" />
-      <circle cx="6" cy="-18" r="1.2" fill="#1a1a1a" />
-    </g>
-  );
-}
-
 export default function CustomCursor() {
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
@@ -60,13 +29,34 @@ export default function CustomCursor() {
     <motion.svg
       className="fixed top-0 left-0 pointer-events-none z-[9999]"
       style={{ x, y, translateX: "-50%", translateY: "-50%", overflow: "visible" }}
-      width={hovered ? 44 : 10}
-      height={hovered ? 44 : 10}
-      viewBox={hovered ? "-12 -22 24 28" : "-5 -5 10 10"}
       animate={{ opacity: visible ? 1 : 0 }}
       transition={{ duration: 0.15 }}
+      viewBox="-14 -20 28 28"
+      width={hovered ? 28 : 8}
+      height={hovered ? 28 : 8}
     >
-      {hovered ? <LadybugCursor /> : <DotCursor />}
+      {hovered ? (
+        /* Minimalist ladybug — pure line art, no fill */
+        <g stroke="#F8F5EF" fill="none" strokeLinecap="round">
+          {/* Body outline */}
+          <path d="M0 6 C-8 6 -11 0 -9 -6 C-7 -12 7 -12 9 -6 C11 0 8 6 0 6Z" strokeWidth="1.1"/>
+          {/* Head */}
+          <circle cx="0" cy="-13" r="4" strokeWidth="1"/>
+          {/* Centre line */}
+          <line x1="0" y1="-9" x2="0" y2="6" strokeWidth="0.8"/>
+          {/* Two spots each side */}
+          <circle cx="-4.5" cy="-4" r="1.5" strokeWidth="0.8"/>
+          <circle cx="4.5" cy="-4" r="1.5" strokeWidth="0.8"/>
+          <circle cx="-3" cy="2" r="1.2" strokeWidth="0.75"/>
+          <circle cx="3" cy="2" r="1.2" strokeWidth="0.75"/>
+          {/* Antennae */}
+          <path d="M-2.5 -16 Q-5 -20 -7 -19" strokeWidth="0.8"/>
+          <path d="M2.5 -16 Q5 -20 7 -19" strokeWidth="0.8"/>
+        </g>
+      ) : (
+        /* Default — tiny dot */
+        <circle cx="0" cy="0" r="3.5" fill="#F8F5EF" opacity="0.9"/>
+      )}
     </motion.svg>
   );
 }
