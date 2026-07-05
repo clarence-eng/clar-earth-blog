@@ -74,17 +74,6 @@ export default function HeroSection() {
         <Sprig x="18%" y="65%" size={18} rotate={25} opacity={0.12} />
         <Sprig x="77%" y="65%" size={18} rotate={-22} opacity={0.12} />
 
-        {/* ── Hairline rule framing the quote ── */}
-        <div
-          className="absolute pointer-events-none"
-          style={{
-            top: "10%", bottom: "12%",
-            left: "6%", right: "6%",
-            border: "1px solid rgba(255,255,255,0.06)",
-            borderRadius: "2px",
-          }}
-        />
-
         {/* ── Scattered pollen dots ── */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none select-none" aria-hidden="true">
           {([
