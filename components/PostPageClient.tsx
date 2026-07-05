@@ -3,9 +3,12 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import type { Post, PostMeta } from "@/lib/posts";
 import AnimatedStanza from "./AnimatedStanza";
 import ReadingProgress from "./ReadingProgress";
+import BackPill from "./BackPill";
 
 const NATURE_COLORS = [
   { bg: "#2D4A3E", accent: "#8A9A6A" },
@@ -32,24 +35,39 @@ export default function PostPageClient({
   post,
   prev,
   next,
+  readTime,
 }: {
   post: Post;
   prev: PostMeta | null;
   next: PostMeta | null;
+  readTime: string;
 }) {
   const { bg, accent } = hashColor(post.slug);
   const stanzas = post.content.trim().split(/\n\n+/);
+  const router = useRouter();
+
+  // Keyboard navigation ← →
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+      if (e.key === "ArrowRight" && next) router.push(`/${next.slug}`);
+      if (e.key === "ArrowLeft" && prev) router.push(`/${prev.slug}`);
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [prev, next, router]);
 
   return (
     <>
       <ReadingProgress />
+      <BackPill />
 
       {/* ── Hero ─────────────────────────────────────────────── */}
       <div
         className="relative w-full flex items-end overflow-hidden"
-        style={{ background: bg, minHeight: "50vh" }}
+        style={{ background: bg, minHeight: "clamp(340px, 60vh, 520px)" }}
       >
-        {/* Cover photo — more visible, less tint */}
+        {/* Cover photo — clearly visible */}
         {post.coverImage && (
           <Image
             src={post.coverImage}
@@ -62,7 +80,7 @@ export default function PostPageClient({
           />
         )}
 
-        {/* Gradient — lighter at top, heavier only at the very bottom for text legibility */}
+        {/* Gradient — light top, heavy only at bottom for text legibility */}
         <div
           className="absolute inset-0"
           style={{
@@ -78,15 +96,25 @@ export default function PostPageClient({
 
         {/* Title block */}
         <div className="relative z-10 w-full max-w-3xl mx-auto px-8 pb-14 pt-28">
-          <motion.span
-            initial={{ opacity: 0, x: -8 }}
-            animate={{ opacity: 1, x: 0 }}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="inline-block text-[9px] tracking-[0.35em] uppercase px-2.5 py-1 rounded-full mb-5"
-            style={{ fontFamily: "var(--font-jost)", background: `${accent}44`, color: accent }}
+            className="flex items-center gap-3 mb-5"
           >
-            {TYPE_LABELS[post.type ?? "poem"] ?? "Poem"}
-          </motion.span>
+            <span
+              className="inline-block text-[9px] tracking-[0.35em] uppercase px-2.5 py-1 rounded-full"
+              style={{ fontFamily: "var(--font-jost)", background: `${accent}44`, color: accent }}
+            >
+              {TYPE_LABELS[post.type ?? "poem"] ?? "Poem"}
+            </span>
+            <span
+              className="text-[9px] tracking-[0.2em] uppercase"
+              style={{ fontFamily: "var(--font-jost)", color: "rgba(255,255,255,0.38)" }}
+            >
+              {readTime}
+            </span>
+          </motion.div>
 
           <motion.h1
             initial={{ opacity: 0, y: 14 }}
@@ -98,7 +126,8 @@ export default function PostPageClient({
               fontStyle: "italic",
               fontWeight: 300,
               fontSize: "clamp(2.2rem, 5vw, 3.8rem)",
-            }}
+              textWrap: "balance",
+            } as React.CSSProperties}
           >
             {post.title}
           </motion.h1>
@@ -119,7 +148,7 @@ export default function PostPageClient({
 
       {/* ── Body ─────────────────────────────────────────────── */}
       <main className="px-8 pb-28 w-full" style={{ maxWidth: "780px", margin: "0 auto" }}>
-        {/* Gold rule */}
+        {/* Gold rule — animates in */}
         <motion.div
           initial={{ width: 0 }}
           animate={{ width: 40 }}
@@ -127,7 +156,7 @@ export default function PostPageClient({
           className="h-px bg-[var(--gold)] mb-12 mt-2 opacity-80"
         />
 
-        {/* Poem content */}
+        {/* Poem */}
         <div className="poem-content">
           {stanzas.map((stanza, i) => (
             <AnimatedStanza key={i} index={i} isFirst={i === 0}>
@@ -144,6 +173,13 @@ export default function PostPageClient({
           </svg>
           <div className="h-px flex-1 bg-[var(--border)]" />
         </div>
+
+        {/* Keyboard hint — desktop only */}
+        {(prev || next) && (
+          <p className="text-center text-[9px] tracking-[0.25em] uppercase text-[var(--muted-light)] mb-6 hidden md:block" style={{ fontFamily: "var(--font-jost)" }}>
+            ← → keys to navigate
+          </p>
+        )}
 
         {/* Prev / Next */}
         <nav className="grid grid-cols-2 gap-4" style={{ fontFamily: "var(--font-jost)" }}>

@@ -56,6 +56,34 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noise)' opacity='0.028'/%3E%3C/svg%3E");
 }
 
+/* Hide default cursor on desktop pointer devices */
+@media (pointer: fine) {
+  * { cursor: none !important; }
+}
+
+/* ── Marquee ───────────────────────────────────────────────── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-track { display: flex; width: max-content; }
+.marquee-content {
+  display: inline-block;
+  animation: marquee 38s linear infinite;
+  font-family: var(--font-jost);
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-right: 0;
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* ── Scrollbar hide for filter tabs ───────────────────────── */
+.scrollbar-none { scrollbar-width: none; }
+.scrollbar-none::-webkit-scrollbar { display: none; }
+
 /* ── Hero ──────────────────────────────────────────────────── */
 .hero-gradient {
   background: linear-gradient(
@@ -83,6 +111,7 @@ body {
 .poem-content {
   font-family: var(--font-cormorant), serif;
   color: var(--ink);
+  font-optical-sizing: auto;
 }
 
 /* Each stanza */

@@ -42,21 +42,28 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
       initial={{ opacity: 0, y: 28 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.55, delay: index * 0.06, ease: "easeOut" }}
-      className="post-card group"
+      className="group"
     >
       <Link href={`/${post.slug}`} className="block h-full">
-        {/* Image box */}
-        <div className="overflow-hidden rounded-sm aspect-[4/3] relative">
-          <div className="post-card-img w-full h-full">
+        {/* Image box — lift on hover, no scale */}
+        <motion.div
+          className="overflow-hidden rounded-sm aspect-[4/3] relative"
+          whileHover={{ y: -6, boxShadow: "0 18px 40px rgba(45,74,62,0.22)" }}
+          transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
+        >
+          <div
+            className="w-full h-full transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+            style={{ willChange: "transform" }}
+          >
             {post.coverImage ? (
               <Image src={post.coverImage} alt={post.title} fill sizes="(max-width:640px) 100vw,(max-width:1024px) 50vw,33vw" className="object-cover" />
             ) : (
               <PlaceholderCover title={post.title} index={index} />
             )}
           </div>
-          {/* Subtle dark overlay on hover */}
-          <div className="absolute inset-0 bg-[var(--forest)] opacity-0 group-hover:opacity-[0.18] transition-opacity duration-500" />
-        </div>
+          {/* Forest overlay on hover */}
+          <div className="absolute inset-0 bg-[var(--forest)] opacity-0 group-hover:opacity-[0.14] transition-opacity duration-500" />
+        </motion.div>
 
         {/* Meta */}
         <div className="mt-4 px-0.5">
@@ -69,18 +76,21 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
 
           <h2
             className="leading-tight text-[var(--ink)] group-hover:text-[var(--forest)] transition-colors duration-300 text-lg"
-            style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontWeight: 400 }}
+            style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontWeight: 400, textWrap: "balance" } as React.CSSProperties}
           >
             {post.title}
           </h2>
 
           {post.excerpt && (
-            <p className="mt-2 text-[var(--muted)] leading-relaxed line-clamp-2" style={{ fontFamily: "var(--font-jost)", fontSize: "0.78rem" }}>
+            <p
+              className="mt-2 text-[var(--muted)] leading-relaxed line-clamp-2"
+              style={{ fontFamily: "var(--font-jost)", fontSize: "0.78rem", textWrap: "pretty" } as React.CSSProperties}
+            >
               {post.excerpt}
             </p>
           )}
 
-          {/* Animated underline */}
+          {/* Gold underline reveal */}
           <div className="mt-3 h-px w-0 group-hover:w-10 bg-[var(--gold)] transition-all duration-500 ease-out" />
         </div>
       </Link>
