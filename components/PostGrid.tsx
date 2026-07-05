@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import PostCard from "./PostCard";
 import type { PostMeta } from "@/lib/posts";
+import { MOOD_CONFIG } from "./MoodTag";
 
 const FILTERS = [
   { key: "all", label: "All Works" },
@@ -16,6 +17,7 @@ type FilterKey = (typeof FILTERS)[number]["key"];
 
 export default function PostGrid({ posts }: { posts: PostMeta[] }) {
   const [active, setActive] = useState<FilterKey>("all");
+  const [ambientMood, setAmbientMood] = useState<string | null>(null);
 
   const filtered = active === "all" ? posts : posts.filter((p) => p.type === active);
 
@@ -26,8 +28,33 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
     "photo-essay": posts.filter((p) => p.type === "photo-essay").length,
   };
 
+  // IntersectionObserver callback: pick mood of the most-visible card
+  const sectionRef = useCallback((node: HTMLElement | null) => {
+    if (!node) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter(e => e.isIntersecting && e.intersectionRatio > 0.4);
+        if (visible.length === 0) return;
+        const top = visible.sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+        const mood = (top.target as HTMLElement).dataset.mood ?? null;
+        setAmbientMood(mood || null);
+      },
+      { threshold: 0.4 }
+    );
+    // Observe all article[data-mood] children once the grid mounts
+    const cards = node.querySelectorAll("article[data-mood]");
+    cards.forEach(card => observer.observe(card));
+    return () => observer.disconnect();
+  }, []);
+
+  const moodColor = ambientMood && MOOD_CONFIG[ambientMood] ? MOOD_CONFIG[ambientMood].bg : null;
+
   return (
-    <section className="px-8 py-14 max-w-6xl mx-auto w-full">
+    <section
+      className="px-8 py-14 max-w-6xl mx-auto w-full transition-colors duration-[1200ms]"
+      style={moodColor ? { backgroundColor: moodColor, borderRadius: "2px" } : undefined}
+      ref={sectionRef}
+    >
       {/* Section heading */}
       <div className="flex items-center gap-5 mb-10">
         <div className="h-px flex-1 bg-[var(--border)]" />
@@ -40,7 +67,7 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
         <div className="h-px flex-1 bg-[var(--border)]" />
       </div>
 
-      {/* Filter tabs with edge fade on mobile */}
+      {/* Filter tabs */}
       <div className="relative mb-10">
         <div className="filter-tabs-wrap flex gap-1.5 overflow-x-auto pb-1 scrollbar-none">
           {FILTERS.map(({ key, label }) => {
@@ -71,7 +98,6 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
             );
           })}
         </div>
-        {/* Edge fade on mobile */}
         <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-[var(--cream)] to-transparent sm:hidden" />
       </div>
 

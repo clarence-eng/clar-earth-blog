@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import AmbientParticles from "./AmbientParticles";
 
 function getSeasonalGradient() {
@@ -14,7 +14,6 @@ function getSeasonalGradient() {
 
 const MARQUEE_TEXT = "A Promise to Protect What Cannot Speak  ·  Blank Space  ·  Daughter of the Tides  ·  Drowning  ·  Embers  ·  From the Sun  ·  I'm a Sambar Deer  ·  Like Moth to Flame  ·  My Every Sense of You  ·  Nature's Choir  ·  Out of Time  ·  The Glass Between Us  ·  Untitled  ·  回声  ·  ";
 
-// Botanical sprig SVG — stem + 2 simple leaf strokes, renders crisply at small sizes
 function Sprig({ x, y, size, rotate, opacity }: { x: string; y: string; size: number; rotate: number; opacity: number }) {
   return (
     <div
@@ -23,13 +22,9 @@ function Sprig({ x, y, size, rotate, opacity }: { x: string; y: string; size: nu
       aria-hidden="true"
     >
       <svg viewBox="0 0 24 34" fill="none" stroke="white" strokeLinecap="round" xmlns="http://www.w3.org/2000/svg" width={size} height={size * 1.4}>
-        {/* Main stem */}
         <path d="M12 32 C12 26 11 20 10 14 C9 8 10 4 12 2" strokeWidth="0.9"/>
-        {/* Left leaf */}
         <path d="M11 18 C7 15 4 11 6 8 C8 5 12 8 11 13" strokeWidth="0.8"/>
-        {/* Right leaf */}
         <path d="M11 12 C15 9 18 6 16 3 C14 1 10 4 11 9" strokeWidth="0.8"/>
-        {/* Tiny bud at tip */}
         <circle cx="12" cy="2" r="1.2" fill="white" strokeWidth="0"/>
       </svg>
     </div>
@@ -42,40 +37,50 @@ export default function HeroSection() {
   );
   useEffect(() => { setGradient(getSeasonalGradient()); }, []);
 
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
+
+  // Quote fades and lifts as you scroll out of hero
+  const quoteY = useTransform(scrollYProgress, [0, 1], [0, -60]);
+  const quoteOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  // Decorative ornaments drift at different speeds (parallax layers)
+  const ornamentsY = useTransform(scrollYProgress, [0, 1], [0, -30]);
+  const sprigsY = useTransform(scrollYProgress, [0, 1], [0, -18]);
+
   return (
     <>
       <section
+        ref={sectionRef}
         className="relative overflow-hidden min-h-[56vh] flex items-center"
         style={{ background: gradient }}
       >
-        {/* ── 4 distinct Unicode floral ornaments ── */}
-        <div className="absolute pointer-events-none select-none leading-none"
-          style={{ top: "14%", left: "13%", fontSize: "clamp(2.6rem, 5.5vw, 5.2rem)", color: "white", opacity: 0.26, lineHeight: 1 }}
-          aria-hidden="true">&#10047;</div>
+        {/* Parallax ornament layer */}
+        <motion.div className="absolute inset-0 pointer-events-none" style={{ y: ornamentsY }}>
+          <div className="absolute pointer-events-none select-none leading-none"
+            style={{ top: "14%", left: "13%", fontSize: "clamp(2.6rem, 5.5vw, 5.2rem)", color: "white", opacity: 0.26, lineHeight: 1 }}
+            aria-hidden="true">&#10047;</div>
+          <div className="absolute pointer-events-none select-none leading-none"
+            style={{ top: "14%", right: "13%", fontSize: "clamp(2.6rem, 5.5vw, 5.2rem)", color: "white", opacity: 0.26, lineHeight: 1 }}
+            aria-hidden="true">&#10048;</div>
+          <div className="absolute pointer-events-none select-none leading-none"
+            style={{ bottom: "20%", left: "15%", fontSize: "clamp(1.8rem, 3.8vw, 3.6rem)", color: "white", opacity: 0.2, lineHeight: 1 }}
+            aria-hidden="true">&#10049;</div>
+          <div className="absolute pointer-events-none select-none leading-none"
+            style={{ bottom: "20%", right: "15%", fontSize: "clamp(1.8rem, 3.8vw, 3.6rem)", color: "white", opacity: 0.2, lineHeight: 1 }}
+            aria-hidden="true">&#10046;</div>
+        </motion.div>
 
-        <div className="absolute pointer-events-none select-none leading-none"
-          style={{ top: "14%", right: "13%", fontSize: "clamp(2.6rem, 5.5vw, 5.2rem)", color: "white", opacity: 0.26, lineHeight: 1 }}
-          aria-hidden="true">&#10048;</div>
+        {/* Parallax sprig layer (slower drift) */}
+        <motion.div className="absolute inset-0 pointer-events-none" style={{ y: sprigsY }}>
+          <Sprig x="8.5%" y="28%" size={28} rotate={-12} opacity={0.22} />
+          <Sprig x="86%" y="28%" size={28} rotate={14} opacity={0.22} />
+          <Sprig x="9%" y="52%" size={22} rotate={15} opacity={0.15} />
+          <Sprig x="85.5%" y="52%" size={22} rotate={-18} opacity={0.15} />
+          <Sprig x="18%" y="65%" size={18} rotate={25} opacity={0.12} />
+          <Sprig x="77%" y="65%" size={18} rotate={-22} opacity={0.12} />
+        </motion.div>
 
-        <div className="absolute pointer-events-none select-none leading-none"
-          style={{ bottom: "20%", left: "15%", fontSize: "clamp(1.8rem, 3.8vw, 3.6rem)", color: "white", opacity: 0.2, lineHeight: 1 }}
-          aria-hidden="true">&#10049;</div>
-
-        <div className="absolute pointer-events-none select-none leading-none"
-          style={{ bottom: "20%", right: "15%", fontSize: "clamp(1.8rem, 3.8vw, 3.6rem)", color: "white", opacity: 0.2, lineHeight: 1 }}
-          aria-hidden="true">&#10046;</div>
-
-        {/* ── Botanical sprigs — give the florettes stems & leaves ── */}
-        {/* Near each florette, a small sprig grounds them */}
-        <Sprig x="8.5%" y="28%" size={28} rotate={-12} opacity={0.22} />
-        <Sprig x="86%" y="28%" size={28} rotate={14} opacity={0.22} />
-        <Sprig x="9%" y="52%" size={22} rotate={15} opacity={0.15} />
-        <Sprig x="85.5%" y="52%" size={22} rotate={-18} opacity={0.15} />
-        {/* Extra small sprigs scattered */}
-        <Sprig x="18%" y="65%" size={18} rotate={25} opacity={0.12} />
-        <Sprig x="77%" y="65%" size={18} rotate={-22} opacity={0.12} />
-
-        {/* ── Scattered pollen dots ── */}
+        {/* Scattered pollen dots */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none select-none" aria-hidden="true">
           {([
             ["27%","10%",1.3,0.18],["35%","32%",0.9,0.12],["20%","55%",1.1,0.14],
@@ -86,10 +91,7 @@ export default function HeroSection() {
           ))}
         </svg>
 
-        {/* Ambient floating particles — leaves + spores */}
         <AmbientParticles />
-
-        {/* Organic noise overlay on the gradient — adds depth */}
         <div className="absolute inset-0 hero-noise-overlay" aria-hidden="true" />
 
         {/* Bottom wave */}
@@ -99,8 +101,11 @@ export default function HeroSection() {
           </svg>
         </div>
 
-        {/* Quote */}
-        <div className="relative z-10 w-full max-w-3xl mx-auto px-8 pt-28 pb-20 text-center">
+        {/* Quote — fades + lifts on scroll */}
+        <motion.div
+          className="relative z-10 w-full max-w-3xl mx-auto px-8 pt-28 pb-20 text-center"
+          style={{ y: quoteY, opacity: quoteOpacity }}
+        >
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -127,7 +132,7 @@ export default function HeroSection() {
               style={{ maxWidth: 120 }}
             />
           </motion.div>
-        </div>
+        </motion.div>
       </section>
 
       {/* Marquee */}

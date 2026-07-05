@@ -260,6 +260,39 @@ body {
 .dark .mood-tag[data-mood="defiance"]   { background: #2A1010; color: #C48080; border-color: #4A1A1A; }
 .dark .mood-tag[data-mood="love"]       { background: #2A0E18; color: #D4899A; border-color: #4A1A28; }
 
+/* ── Card mood shimmer — top-edge glow reveals on hover ───── */
+.card-mood-shimmer[data-mood="longing"]    { background: linear-gradient(90deg, #7AAABB, #A8D4E0); }
+.card-mood-shimmer[data-mood="nature"]     { background: linear-gradient(90deg, #5A8A74, #8AC4A0); }
+.card-mood-shimmer[data-mood="grief"]      { background: linear-gradient(90deg, #7A6A8A, #A89AB8); }
+.card-mood-shimmer[data-mood="warmth"]     { background: linear-gradient(90deg, #C4882A, #E0B870); }
+.card-mood-shimmer[data-mood="resilience"] { background: linear-gradient(90deg, #8A6A4A, #C4A070); }
+.card-mood-shimmer[data-mood="defiance"]   { background: linear-gradient(90deg, #8A4A4A, #C48080); }
+.card-mood-shimmer[data-mood="love"]       { background: linear-gradient(90deg, #B05C6A, #D4899A); }
+
+/* ── Poem page — ambient mood radial tint behind content ──── */
+/* data-mood on <main> emits a soft radial glow from the top  */
+[data-mood="longing"]  { --mood-glow: #7AAABB22; }
+[data-mood="nature"]   { --mood-glow: #5A8A7422; }
+[data-mood="grief"]    { --mood-glow: #7A6A8A22; }
+[data-mood="warmth"]   { --mood-glow: #C4882A1A; }
+[data-mood="resilience"] { --mood-glow: #8A6A4A1A; }
+[data-mood="defiance"] { --mood-glow: #8A4A4A1A; }
+[data-mood="love"]     { --mood-glow: #B05C6A20; }
+
+main[data-mood] {
+  background-image: radial-gradient(ellipse 80% 40% at 50% 0%, var(--mood-glow, transparent), transparent);
+}
+
+/* ── Poem line hover — subtle ink underline on each line ──── */
+@media (hover: hover) {
+  .poem-stanza span:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--gold);
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+}
+
 /* ── Reading focus mode ────────────────────────────────────── */
 .focus-mode nav,
 .focus-mode .reading-progress,

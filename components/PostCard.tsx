@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 import type { PostMeta } from "@/lib/posts";
 import MoodTag from "./MoodTag";
 
@@ -38,18 +38,35 @@ function PlaceholderCover({ title, index }: { title: string; index: number }) {
 export default function PostCard({ post, index }: { post: PostMeta; index: number }) {
   const typeLabel = TYPE_LABELS[post.type] ?? "Poem";
 
+  // Magnetic 3D tilt — track pointer within card
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const rotateX = useSpring(useTransform(y, [-1, 1], [6, -6]), { stiffness: 200, damping: 20 });
+  const rotateY = useSpring(useTransform(x, [-1, 1], [-6, 6]), { stiffness: 200, damping: 20 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    x.set(((e.clientX - rect.left) / rect.width - 0.5) * 2);
+    y.set(((e.clientY - rect.top) / rect.height - 0.5) * 2);
+  };
+  const handleMouseLeave = () => { x.set(0); y.set(0); };
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 28 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.55, delay: index * 0.06, ease: "easeOut" }}
       className="group"
+      data-mood={post.mood}
     >
       <Link href={`/${post.slug}`} className="block h-full">
-        {/* Image box — lift on hover, no scale */}
+        {/* 3D tilt image box */}
         <motion.div
           className="overflow-hidden rounded-sm aspect-[4/3] relative"
-          whileHover={{ y: -6, boxShadow: "0 18px 40px rgba(45,74,62,0.22)" }}
+          style={{ rotateX, rotateY, transformStyle: "preserve-3d", transformPerspective: 800 }}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          whileHover={{ y: -6, boxShadow: "0 20px 44px rgba(45,74,62,0.22)" }}
           transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
         >
           <div
@@ -64,6 +81,10 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
           </div>
           {/* Forest overlay on hover */}
           <div className="absolute inset-0 bg-[var(--forest)] opacity-0 group-hover:opacity-[0.14] transition-opacity duration-500" />
+          {/* Mood shimmer — top edge glow */}
+          {post.mood && (
+            <div className="card-mood-shimmer absolute inset-x-0 top-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" data-mood={post.mood} />
+          )}
         </motion.div>
 
         {/* Meta */}
@@ -86,7 +107,7 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
           {post.excerpt && (
             <p
               className="text-pretty mt-2 text-[var(--muted)] leading-relaxed line-clamp-2"
-              style={{ fontFamily: "var(--font-jost)", fontSize: "0.78rem" }}
+              style={{ fontFamily: "var(--font-cormorant)", fontSize: "0.97rem", fontStyle: "italic" }}
             >
               {post.excerpt}
             </p>
