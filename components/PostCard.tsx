@@ -75,16 +75,16 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
           </div>
 
           <h2
-            className="leading-tight text-[var(--ink)] group-hover:text-[var(--forest)] transition-colors duration-300 text-lg"
-            style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontWeight: 400, textWrap: "balance" } as React.CSSProperties}
+            className="text-balance leading-tight text-[var(--ink)] group-hover:text-[var(--forest)] transition-colors duration-300 text-lg"
+            style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontWeight: 400 }}
           >
             {post.title}
           </h2>
 
           {post.excerpt && (
             <p
-              className="mt-2 text-[var(--muted)] leading-relaxed line-clamp-2"
-              style={{ fontFamily: "var(--font-jost)", fontSize: "0.78rem", textWrap: "pretty" } as React.CSSProperties}
+              className="text-pretty mt-2 text-[var(--muted)] leading-relaxed line-clamp-2"
+              style={{ fontFamily: "var(--font-jost)", fontSize: "0.78rem" }}
             >
               {post.excerpt}
             </p>

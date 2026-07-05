@@ -1,93 +1,94 @@
-export default function BotanicalAccent({ className = "" }: { className?: string }) {
+// Leaf path helper — creates a proper pointed-tip leaf shape
+// cx, cy = center, rx = half-width, ry = half-height, angle = rotation in degrees
+function leaf(cx: number, cy: number, rx: number, ry: number, angle: number, vein = true) {
+  const rad = (angle * Math.PI) / 180;
+  const cos = Math.cos(rad);
+  const sin = Math.sin(rad);
+  // Local coords: top tip (0,-ry), bottom tip (0,ry), widest at (±rx, 0)
+  // Control points at (±rx*1.1, ±ry*0.15) for natural leaf curve
+  const pt = (lx: number, ly: number) => `${cx + lx * cos - ly * sin},${cy + lx * sin + ly * cos}`;
+  const d = [
+    `M ${pt(0, -ry)}`,
+    `C ${pt(rx * 1.1, -ry * 0.35)} ${pt(rx * 1.1, ry * 0.35)} ${pt(0, ry)}`,
+    `C ${pt(-rx * 1.1, ry * 0.35)} ${pt(-rx * 1.1, -ry * 0.35)} ${pt(0, -ry)}`,
+    `Z`,
+  ].join(" ");
+  const vd = vein ? `M ${pt(0, -ry)} L ${pt(0, ry)}` : null;
+  return { d, vd };
+}
+
+export default function BotanicalAccent({ className = "", style }: { className?: string; style?: React.CSSProperties }) {
+  const leaves = [
+    // [cx, cy, rx, ry, angle]
+    // Left side — 4 leaves
+    { cx: 14, cy: 100, rx: 6, ry: 18, a: -15 },
+    { cx: 12, cy: 72,  rx: 5.5, ry: 16, a: -12 },
+    { cx: 19, cy: 46,  rx: 5, ry: 14, a: -8 },
+    { cx: 27, cy: 24,  rx: 4, ry: 11, a: -5 },
+    // Right side — 4 leaves (mirror)
+    { cx: 106, cy: 90,  rx: 6, ry: 18, a: 15 },
+    { cx: 108, cy: 63,  rx: 5.5, ry: 16, a: 12 },
+    { cx: 101, cy: 38,  rx: 5, ry: 14, a: 8 },
+    { cx: 93,  cy: 18,  rx: 4, ry: 11, a: 5 },
+  ];
+
   return (
     <svg
-      viewBox="0 0 120 160"
+      viewBox="0 0 120 200"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
+      style={style}
       aria-hidden="true"
     >
       {/* Main stem */}
       <path
-        d="M60 155 C60 140 58 120 55 100 C52 80 50 60 53 40 C56 20 60 10 60 5"
-        stroke="currentColor"
-        strokeWidth="1"
-        strokeLinecap="round"
-        fill="none"
-        opacity="0.5"
+        d="M60 196 C60 174 57 148 54 124 C51 100 50 78 53 56 C56 36 60 18 60 4"
+        stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" fill="none"
       />
-      {/* Left branch 1 */}
+
+      {/* Branches and leaves */}
+      {/* L1 */}
+      <path d="M56 122 C44 118 30 115 16 114" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" fill="none"/>
+      {/* L2 */}
+      <path d="M54 92 C42 88 28 85 14 85" stroke="currentColor" strokeWidth="1" strokeLinecap="round" fill="none"/>
+      {/* L3 */}
+      <path d="M57 62 C47 57 35 54 22 54" stroke="currentColor" strokeWidth="0.9" strokeLinecap="round" fill="none"/>
+      {/* L4 */}
+      <path d="M58 36 C51 31 41 28 29 28" stroke="currentColor" strokeWidth="0.82" strokeLinecap="round" fill="none"/>
+      {/* R1 */}
+      <path d="M57 108 C70 104 84 101 98 100" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" fill="none"/>
+      {/* R2 */}
+      <path d="M56 80 C69 76 83 73 97 73" stroke="currentColor" strokeWidth="1" strokeLinecap="round" fill="none"/>
+      {/* R3 */}
+      <path d="M58 52 C69 47 81 44 92 43" stroke="currentColor" strokeWidth="0.9" strokeLinecap="round" fill="none"/>
+      {/* R4 */}
+      <path d="M59 28 C67 23 77 20 87 21" stroke="currentColor" strokeWidth="0.82" strokeLinecap="round" fill="none"/>
+
+      {/* Leaf shapes */}
+      {leaves.map(({ cx, cy, rx, ry, a }, i) => {
+        const { d, vd } = leaf(cx, cy, rx, ry, a);
+        const opacity = i < 2 || i === 4 || i === 5 ? 1 : i < 4 || i > 5 ? 0.92 : 0.85;
+        return (
+          <g key={i}>
+            <path d={d} stroke="currentColor" strokeWidth="0.95" fill="none" opacity={opacity} />
+            {vd && <path d={vd} stroke="currentColor" strokeWidth="0.38" fill="none" opacity={0.4} />}
+          </g>
+        );
+      })}
+
+      {/* Apex bud */}
       <path
-        d="M57 95 C50 88 38 82 28 80"
-        stroke="currentColor"
-        strokeWidth="0.8"
-        strokeLinecap="round"
-        fill="none"
-        opacity="0.45"
+        d={leaf(60, -4, 4, 10, 0).d}
+        stroke="currentColor" strokeWidth="0.88" fill="none"
       />
-      {/* Left leaf */}
-      <path
-        d="M28 80 C22 74 20 65 26 60 C32 55 38 60 38 68 C38 75 34 79 28 80Z"
-        stroke="currentColor"
-        strokeWidth="0.7"
-        fill="none"
-        opacity="0.4"
-      />
-      {/* Right branch 1 */}
-      <path
-        d="M56 75 C63 68 74 63 84 62"
-        stroke="currentColor"
-        strokeWidth="0.8"
-        strokeLinecap="round"
-        fill="none"
-        opacity="0.45"
-      />
-      {/* Right leaf */}
-      <path
-        d="M84 62 C90 56 92 47 86 42 C80 37 74 42 74 50 C74 57 78 61 84 62Z"
-        stroke="currentColor"
-        strokeWidth="0.7"
-        fill="none"
-        opacity="0.4"
-      />
-      {/* Upper left branch */}
-      <path
-        d="M57 48 C50 42 40 38 32 38"
-        stroke="currentColor"
-        strokeWidth="0.7"
-        strokeLinecap="round"
-        fill="none"
-        opacity="0.38"
-      />
-      {/* Small left leaf */}
-      <path
-        d="M32 38 C26 33 24 25 30 21 C36 17 42 22 41 30 C40 36 37 38 32 38Z"
-        stroke="currentColor"
-        strokeWidth="0.6"
-        fill="none"
-        opacity="0.35"
-      />
-      {/* Upper right branch */}
-      <path
-        d="M59 30 C66 24 75 21 83 22"
-        stroke="currentColor"
-        strokeWidth="0.7"
-        strokeLinecap="round"
-        fill="none"
-        opacity="0.38"
-      />
-      {/* Small right leaf */}
-      <path
-        d="M83 22 C89 17 90 9 84 6 C78 3 73 9 74 17 C75 23 78 22 83 22Z"
-        stroke="currentColor"
-        strokeWidth="0.6"
-        fill="none"
-        opacity="0.35"
-      />
-      {/* Small seed dots */}
-      <circle cx="60" cy="5" r="1.5" fill="currentColor" opacity="0.4" />
-      <circle cx="28" cy="80" r="1" fill="currentColor" opacity="0.3" />
-      <circle cx="84" cy="62" r="1" fill="currentColor" opacity="0.3" />
+      <circle cx="60" cy="4" r="2" fill="currentColor" opacity="0.7" />
+
+      {/* Junction dots */}
+      <circle cx="16" cy="114" r="1.3" fill="currentColor" opacity="0.55"/>
+      <circle cx="98" cy="100" r="1.3" fill="currentColor" opacity="0.55"/>
+      <circle cx="14" cy="85" r="1.1" fill="currentColor" opacity="0.45"/>
+      <circle cx="97" cy="73" r="1.1" fill="currentColor" opacity="0.45"/>
     </svg>
   );
 }

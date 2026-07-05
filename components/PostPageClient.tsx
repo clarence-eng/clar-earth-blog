@@ -120,14 +120,13 @@ export default function PostPageClient({
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="leading-[1.1] text-white mb-4"
+            className="text-balance leading-[1.1] text-white mb-4"
             style={{
               fontFamily: "var(--font-cormorant)",
               fontStyle: "italic",
               fontWeight: 300,
               fontSize: "clamp(2.2rem, 5vw, 3.8rem)",
-              textWrap: "balance",
-            } as React.CSSProperties}
+            }}
           >
             {post.title}
           </motion.h1>

@@ -9,7 +9,7 @@ export default function AnimatedStanza({
 }: {
   children: string;
   index: number;
-  isFirst: boolean;
+  isFirst?: boolean; // kept for API compat, unused intentionally
 }) {
   const ref = useRef<HTMLParagraphElement>(null);
   const inView = useInView(ref, { once: true, margin: "-40px 0px" });

@@ -23,14 +23,13 @@ export default function AboutPage() {
             About
           </p>
           <blockquote
-            className="text-[var(--forest)] leading-[1.4]"
+            className="text-balance text-[var(--forest)] leading-[1.4]"
             style={{
               fontFamily: "var(--font-cormorant)",
               fontStyle: "italic",
               fontWeight: 300,
               fontSize: "clamp(1.8rem, 4vw, 3rem)",
-              textWrap: "balance",
-            } as React.CSSProperties}
+            }}
           >
             &ldquo;In the shadow of trees, I find my voice.
             <br />

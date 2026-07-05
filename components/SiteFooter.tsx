@@ -29,7 +29,7 @@ export default function SiteFooter() {
           className="text-[10px] tracking-widest text-[var(--muted-light)]"
           style={{ fontFamily: "var(--font-jost)" }}
         >
-          © {new Date().getFullYear()}
+          © 2024–2026 clar.earth
         </span>
       </div>
     </footer>

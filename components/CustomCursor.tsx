@@ -18,38 +18,25 @@ export default function CustomCursor() {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
       if (!visible) setVisible(true);
-    };
-
-    const onEnter = (e: MouseEvent) => {
+      // Derive hover from target — single event, no extra listeners
       const el = e.target as HTMLElement;
-      if (el.closest("a, button, [role=button]")) setHovered(true);
-    };
-    const onLeave = (e: MouseEvent) => {
-      const el = e.target as HTMLElement;
-      if (!el.closest("a, button, [role=button]")) setHovered(false);
+      setHovered(!!el.closest("a, button, [role=button], label"));
     };
 
     window.addEventListener("mousemove", move);
-    document.addEventListener("mouseover", onEnter);
-    document.addEventListener("mouseout", onLeave);
-    return () => {
-      window.removeEventListener("mousemove", move);
-      document.removeEventListener("mouseover", onEnter);
-      document.removeEventListener("mouseout", onLeave);
-    };
+    return () => window.removeEventListener("mousemove", move);
   }, [cursorX, cursorY, visible]);
 
   return (
     <motion.div
-      className="fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-difference"
+      className="fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-difference rounded-full"
       style={{ x, y, translateX: "-50%", translateY: "-50%" }}
       animate={{
         opacity: visible ? 1 : 0,
         width: hovered ? 36 : 10,
         height: hovered ? 36 : 10,
-        borderRadius: "50%",
         background: hovered ? "transparent" : "#F8F5EF",
-        border: hovered ? "1.5px solid #F8F5EF" : "none",
+        border: hovered ? "1.5px solid #F8F5EF" : "1.5px solid transparent",
       }}
       transition={{ duration: 0.2, ease: "easeOut" }}
     />

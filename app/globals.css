@@ -66,19 +66,28 @@ body {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
-.marquee-track { display: flex; width: max-content; }
+.marquee-track {
+  display: flex;
+  width: max-content;
+  white-space: nowrap;
+}
 .marquee-content {
   display: inline-block;
-  animation: marquee 38s linear infinite;
+  animation: marquee 44s linear infinite;
   font-family: var(--font-jost);
   font-size: 0.6rem;
   letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--muted);
-  padding-right: 0;
-  white-space: nowrap;
   user-select: none;
 }
+
+/* ── Botanical flip (mirror horizontally) ──────────────────── */
+.botanical-flip { transform: scaleX(-1); }
+
+/* ── text-wrap utilities (not in all Tailwind versions) ────── */
+.text-balance { text-wrap: balance; }
+.text-pretty  { text-wrap: pretty; }
 
 /* ── Scrollbar hide for filter tabs ───────────────────────── */
 .scrollbar-none { scrollbar-width: none; }
