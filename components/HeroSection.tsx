@@ -2,65 +2,43 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import BotanicalAccent from "./BotanicalAccent";
+import { BannerBotanicalLeft, BannerBotanicalRight, BannerBotanicalCenter } from "./BotanicalAccent";
 
 function getSeasonalGradient() {
   const month = new Date().getMonth();
-  if (month >= 2 && month <= 4) {
-    return "linear-gradient(160deg, #2D4A3E 0%, #3D6154 40%, #4A7A5A 70%, #2A3D34 100%)";
-  } else if (month >= 5 && month <= 7) {
-    return "linear-gradient(160deg, #3A4A2A 0%, #4A5E2A 40%, #5A6E38 65%, #2A3D1A 100%)";
-  } else if (month >= 8 && month <= 10) {
-    return "linear-gradient(160deg, #4A3A1A 0%, #5A4A2A 40%, #6A5A3A 65%, #3A2A1A 100%)";
-  } else {
-    return "linear-gradient(160deg, #1A2D3A 0%, #2A3D4A 40%, #1E3440 65%, #121E28 100%)";
-  }
+  if (month >= 2 && month <= 4) return "linear-gradient(160deg, #2D4A3E 0%, #3D6154 40%, #4A7A5A 70%, #2A3D34 100%)";
+  if (month >= 5 && month <= 7) return "linear-gradient(160deg, #3A4A2A 0%, #4A5E2A 40%, #5A6E38 65%, #2A3D1A 100%)";
+  if (month >= 8 && month <= 10) return "linear-gradient(160deg, #4A3A1A 0%, #5A4A2A 40%, #6A5A3A 65%, #3A2A1A 100%)";
+  return "linear-gradient(160deg, #1A2D3A 0%, #2A3D4A 40%, #1E3440 65%, #121E28 100%)";
 }
 
-// Poem titles — meaningful, they are the actual works
 const MARQUEE_TEXT = "A Promise to Protect What Cannot Speak  ·  Daughter of the Tides  ·  Embers  ·  Like Moth to Flame  ·  My Every Sense of You  ·  Nature's Choir  ·  Out of Time  ·  The Glass Between Us  ·  回声  ·  ";
 
 export default function HeroSection() {
-  // Hydration-safe: render a default gradient on server, update on client
   const [gradient, setGradient] = useState(
     "linear-gradient(160deg, #2D4A3E 0%, #3D6154 40%, #4A7A5A 70%, #2A3D34 100%)"
   );
-
-  useEffect(() => {
-    setGradient(getSeasonalGradient());
-  }, []);
+  useEffect(() => { setGradient(getSeasonalGradient()); }, []);
 
   return (
     <>
       <section
-        className="relative overflow-hidden min-h-[54vh] flex items-center"
+        className="relative overflow-hidden min-h-[56vh] flex items-center"
         style={{ background: gradient }}
       >
-        {/* Left botanical — mirrored */}
-        <div
-          className="absolute left-0 top-0 bottom-0 flex items-center justify-start pl-4 pointer-events-none select-none"
-          style={{ width: "20%" }}
-        >
-          <BotanicalAccent
-            className="h-[68%] w-auto text-white botanical-flip"
-            style={{ opacity: 0.25 }}
-          />
+        {/* ── Left panel: tall grasses + seed heads ── */}
+        <div className="absolute left-0 bottom-0 top-0 pointer-events-none select-none" style={{ width: "22%" }}>
+          <BannerBotanicalLeft className="absolute bottom-0 left-0 w-full h-full text-white" style={{ opacity: 0.28 }} />
         </div>
 
-        {/* Right botanical */}
-        <div
-          className="absolute right-0 top-0 bottom-0 flex items-center justify-end pr-4 pointer-events-none select-none"
-          style={{ width: "20%" }}
-        >
-          <BotanicalAccent
-            className="h-[68%] w-auto text-white"
-            style={{ opacity: 0.25 }}
-          />
+        {/* ── Right panel: fern fronds + florets ── */}
+        <div className="absolute right-0 bottom-0 top-0 pointer-events-none select-none" style={{ width: "22%" }}>
+          <BannerBotanicalRight className="absolute bottom-0 right-0 w-full h-full text-white" style={{ opacity: 0.28 }} />
         </div>
 
-        {/* Very faint large outline behind quote — centred */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none opacity-[0.035]">
-          <BotanicalAccent className="h-[130%] w-auto text-white" />
+        {/* ── Centre behind quote: very faint arching stems ── */}
+        <div className="absolute inset-0 pointer-events-none select-none flex items-center justify-center">
+          <BannerBotanicalCenter className="w-full h-full text-white" style={{ opacity: 0.055 }} />
         </div>
 
         {/* Bottom wave */}
@@ -101,11 +79,8 @@ export default function HeroSection() {
         </div>
       </section>
 
-      {/* Marquee — poem titles scroll */}
-      <div
-        className="w-full overflow-hidden border-y border-[var(--border)] py-2.5"
-        style={{ background: "var(--cream-dark)" }}
-      >
+      {/* Marquee — poem titles */}
+      <div className="w-full overflow-hidden border-y border-[var(--border)] py-2.5" style={{ background: "var(--cream-dark)" }}>
         <div className="marquee-track">
           <span className="marquee-content">{MARQUEE_TEXT.repeat(5)}</span>
           <span className="marquee-content" aria-hidden="true">{MARQUEE_TEXT.repeat(5)}</span>

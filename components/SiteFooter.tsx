@@ -1,12 +1,12 @@
-import BotanicalAccent from "./BotanicalAccent";
+import { BannerBotanicalLeft } from "./BotanicalAccent";
 import Link from "next/link";
 
 export default function SiteFooter() {
   return (
     <footer className="relative border-t border-[var(--border)] mt-4 overflow-hidden">
       {/* Faint botanical background */}
-      <div className="absolute right-8 top-1/2 -translate-y-1/2 opacity-[0.055] pointer-events-none select-none">
-        <BotanicalAccent className="w-28 h-36 text-[var(--forest)]" />
+      <div className="absolute right-8 top-1/2 -translate-y-1/2 opacity-[0.07] pointer-events-none select-none">
+        <BannerBotanicalLeft className="w-24 h-32 text-[var(--forest)]" />
       </div>
 
       <div className="max-w-6xl mx-auto px-8 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">

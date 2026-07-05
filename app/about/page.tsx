@@ -1,6 +1,6 @@
 import Nav from "@/components/Nav";
 import SiteFooter from "@/components/SiteFooter";
-import BotanicalAccent from "@/components/BotanicalAccent";
+import { BannerBotanicalRight } from "@/components/BotanicalAccent";
 import Link from "next/link";
 import type { Metadata } from "next";
 
@@ -80,7 +80,7 @@ export default function AboutPage() {
 
           {/* Decorative botanical */}
           <div className="hidden md:block opacity-[0.18] select-none pointer-events-none pt-4">
-            <BotanicalAccent className="w-32 h-44 text-[var(--forest)]" />
+            <BannerBotanicalRight className="w-32 h-44 text-[var(--forest)]" />
           </div>
         </div>
 
