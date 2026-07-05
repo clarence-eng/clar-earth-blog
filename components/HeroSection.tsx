@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { BannerBotanicalLeft, BannerBotanicalRight, BannerBotanicalCenter } from "./BotanicalAccent";
 
 function getSeasonalGradient() {
   const month = new Date().getMonth();
@@ -26,20 +25,119 @@ export default function HeroSection() {
         className="relative overflow-hidden min-h-[56vh] flex items-center"
         style={{ background: gradient }}
       >
-        {/* ── Left panel: tall grasses + seed heads ── */}
-        <div className="absolute left-0 bottom-0 top-0 pointer-events-none select-none" style={{ width: "22%" }}>
-          <BannerBotanicalLeft className="absolute bottom-0 left-0 w-full h-full text-white" style={{ opacity: 0.28 }} />
-        </div>
+        {/* ── Decorative elements ── */}
+        <svg
+          className="absolute inset-0 w-full h-full pointer-events-none select-none"
+          viewBox="0 0 1440 400"
+          preserveAspectRatio="xMidYMid slice"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          {/* ── LEFT SIDE: concentric arcs + radiating lines (like a pressed bloom) ── */}
+          <g opacity="0.18" stroke="white" fill="none">
+            {/* Concentric partial circles — top-left corner bloom */}
+            <circle cx="80" cy="80" r="55" strokeWidth="0.6"/>
+            <circle cx="80" cy="80" r="90" strokeWidth="0.5"/>
+            <circle cx="80" cy="80" r="128" strokeWidth="0.4"/>
+            <circle cx="80" cy="80" r="168" strokeWidth="0.35"/>
+            {/* Radiating spokes from same centre */}
+            {[0,22,45,68,90,112,135,158,180,202,225,248,270,292,315,338].map((a, i) => {
+              const rad = (a * Math.PI) / 180;
+              return (
+                <line
+                  key={i}
+                  x1={80 + 40 * Math.cos(rad)}
+                  y1={80 + 40 * Math.sin(rad)}
+                  x2={80 + 180 * Math.cos(rad)}
+                  y2={80 + 180 * Math.sin(rad)}
+                  strokeWidth="0.4"
+                />
+              );
+            })}
+            {/* Small centre dot cluster */}
+            <circle cx="80" cy="80" r="3" strokeWidth="0.8"/>
+            <circle cx="80" cy="80" r="8" strokeWidth="0.5"/>
+          </g>
 
-        {/* ── Right panel: fern fronds + florets ── */}
-        <div className="absolute right-0 bottom-0 top-0 pointer-events-none select-none" style={{ width: "22%" }}>
-          <BannerBotanicalRight className="absolute bottom-0 right-0 w-full h-full text-white" style={{ opacity: 0.28 }} />
-        </div>
+          {/* ── RIGHT SIDE: matching concentric arcs — top-right ── */}
+          <g opacity="0.18" stroke="white" fill="none">
+            <circle cx="1360" cy="80" r="55" strokeWidth="0.6"/>
+            <circle cx="1360" cy="80" r="90" strokeWidth="0.5"/>
+            <circle cx="1360" cy="80" r="128" strokeWidth="0.4"/>
+            <circle cx="1360" cy="80" r="168" strokeWidth="0.35"/>
+            {[0,22,45,68,90,112,135,158,180,202,225,248,270,292,315,338].map((a, i) => {
+              const rad = (a * Math.PI) / 180;
+              return (
+                <line
+                  key={i}
+                  x1={1360 + 40 * Math.cos(rad)}
+                  y1={80 + 40 * Math.sin(rad)}
+                  x2={1360 + 180 * Math.cos(rad)}
+                  y2={80 + 180 * Math.sin(rad)}
+                  strokeWidth="0.4"
+                />
+              );
+            })}
+            <circle cx="1360" cy="80" r="3" strokeWidth="0.8"/>
+            <circle cx="1360" cy="80" r="8" strokeWidth="0.5"/>
+          </g>
 
-        {/* ── Centre behind quote: very faint arching stems ── */}
-        <div className="absolute inset-0 pointer-events-none select-none flex items-center justify-center">
-          <BannerBotanicalCenter className="w-full h-full text-white" style={{ opacity: 0.055 }} />
-        </div>
+          {/* ── BOTTOM-LEFT: small secondary bloom ── */}
+          <g opacity="0.12" stroke="white" fill="none">
+            <circle cx="200" cy="370" r="40" strokeWidth="0.5"/>
+            <circle cx="200" cy="370" r="65" strokeWidth="0.4"/>
+            <circle cx="200" cy="370" r="92" strokeWidth="0.3"/>
+            {[0,30,60,90,120,150,180,210,240,270,300,330].map((a, i) => {
+              const rad = (a * Math.PI) / 180;
+              return (
+                <line
+                  key={i}
+                  x1={200 + 28 * Math.cos(rad)}
+                  y1={370 + 28 * Math.sin(rad)}
+                  x2={200 + 100 * Math.cos(rad)}
+                  y2={370 + 100 * Math.sin(rad)}
+                  strokeWidth="0.35"
+                />
+              );
+            })}
+          </g>
+
+          {/* ── BOTTOM-RIGHT: small secondary bloom ── */}
+          <g opacity="0.12" stroke="white" fill="none">
+            <circle cx="1240" cy="370" r="40" strokeWidth="0.5"/>
+            <circle cx="1240" cy="370" r="65" strokeWidth="0.4"/>
+            <circle cx="1240" cy="370" r="92" strokeWidth="0.3"/>
+            {[0,30,60,90,120,150,180,210,240,270,300,330].map((a, i) => {
+              const rad = (a * Math.PI) / 180;
+              return (
+                <line
+                  key={i}
+                  x1={1240 + 28 * Math.cos(rad)}
+                  y1={370 + 28 * Math.sin(rad)}
+                  x2={1240 + 100 * Math.cos(rad)}
+                  y2={370 + 100 * Math.sin(rad)}
+                  strokeWidth="0.35"
+                />
+              );
+            })}
+          </g>
+
+          {/* ── Scattered fine dots — depth and texture ── */}
+          {[
+            [320, 55, 1.2, 0.25], [420, 140, 0.8, 0.2], [150, 220, 1, 0.18],
+            [1120, 55, 1.2, 0.25], [1020, 140, 0.8, 0.2], [1290, 220, 1, 0.18],
+            [580, 320, 0.9, 0.15], [860, 320, 0.9, 0.15],
+            [720, 50, 1, 0.12], [680, 340, 0.7, 0.12],
+            [480, 240, 0.7, 0.13], [960, 240, 0.7, 0.13],
+          ].map(([cx, cy, r, o], i) => (
+            <circle key={i} cx={cx} cy={cy} r={r} fill="white" opacity={o}/>
+          ))}
+
+          {/* ── Very faint long horizontal lines — like ruled parchment ── */}
+          <line x1="0" y1="130" x2="1440" y2="130" stroke="white" strokeWidth="0.25" opacity="0.06"/>
+          <line x1="0" y1="260" x2="1440" y2="260" stroke="white" strokeWidth="0.2" opacity="0.05"/>
+        </svg>
 
         {/* Bottom wave */}
         <div className="absolute bottom-0 left-0 right-0 pointer-events-none" style={{ height: 56 }}>
@@ -79,7 +177,7 @@ export default function HeroSection() {
         </div>
       </section>
 
-      {/* Marquee — poem titles */}
+      {/* Marquee */}
       <div className="w-full overflow-hidden border-y border-[var(--border)] py-2.5" style={{ background: "var(--cream-dark)" }}>
         <div className="marquee-track">
           <span className="marquee-content">{MARQUEE_TEXT.repeat(5)}</span>
