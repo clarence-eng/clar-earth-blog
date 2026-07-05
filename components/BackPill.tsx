@@ -18,7 +18,7 @@ export default function BackPill() {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: show ? 1 : 0, y: show ? 0 : 10 }}
       transition={{ duration: 0.35, ease: "easeOut" }}
-      className={`fixed bottom-7 right-7 z-40 ${show ? "pointer-events-auto" : "pointer-events-none"}`}
+      className={`back-pill fixed bottom-7 right-7 z-40 ${show ? "pointer-events-auto" : "pointer-events-none"}`}
     >
       <Link
         href="/"

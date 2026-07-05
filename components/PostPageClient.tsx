@@ -72,7 +72,7 @@ export default function PostPageClient({
       {/* ── Hero ─────────────────────────────────────────────── */}
       {/* Consistent dark forest overlay on ALL poems — no random per-slug colour */}
       <div
-        className="relative w-full overflow-hidden"
+        className="poem-hero relative w-full overflow-hidden"
         style={{ background: HERO_BG, minHeight: "clamp(320px, 55vh, 480px)" }}
       >
         {/* Cover photo — luminosity blend so it shows through naturally */}

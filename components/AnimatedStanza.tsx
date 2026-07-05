@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 interface StanzaProps {
   children: string;
   index: number;
-  isFirst?: boolean;
   align?: "left" | "right" | "center";
   italic?: boolean;
 }

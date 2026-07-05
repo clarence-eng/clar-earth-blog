@@ -6,9 +6,18 @@ import { motion } from "framer-motion";
 import type { PostMeta } from "@/lib/posts";
 
 export default function RelatedPoems({ posts, currentSlug }: { posts: PostMeta[]; currentSlug: string }) {
-  // Pick up to 3 adjacent poems (prev + next + one more)
   const idx = posts.findIndex(p => p.slug === currentSlug);
-  const candidates = posts.filter((_, i) => Math.abs(i - idx) <= 2 && posts[i].slug !== currentSlug).slice(0, 3);
+  const current = posts[idx];
+
+  // Prefer poems with the same mood; fall back to adjacent posts
+  const sameMood = posts.filter(p => p.slug !== currentSlug && p.mood && p.mood === current?.mood);
+  const adjacent = posts.filter((_, i) => Math.abs(i - idx) <= 2 && posts[i].slug !== currentSlug);
+  const seen = new Set<string>();
+  const candidates: PostMeta[] = [];
+  for (const p of [...sameMood, ...adjacent]) {
+    if (!seen.has(p.slug)) { seen.add(p.slug); candidates.push(p); }
+    if (candidates.length === 3) break;
+  }
   if (candidates.length === 0) return null;
 
   return (

@@ -254,11 +254,12 @@ body {
   .poem-stanza { font-size: 11pt; line-height: 1.6; break-inside: avoid; }
   h1 { font-size: 22pt; margin-bottom: 6pt; }
   .poem-hero { min-height: 0 !important; padding: 20pt 0 10pt !important; }
-  .poem-hero img, .poem-hero-overlay { display: none !important; }
+  .poem-hero > img, .poem-hero > div:first-of-type { display: none !important; }
 }
 
 /* ── Drop cap on first stanza — ::first-letter, no HTML changes ── */
-.poem-content .poem-stanza:first-child::first-letter {
+/* Exclude right-aligned and italic first stanzas in the selector itself to win specificity */
+.poem-content .poem-stanza:first-child:not([style*="text-align: right"]):not([style*="font-style: italic"])::first-letter {
   float: left;
   font-family: var(--font-cormorant), serif;
   font-size: 4.2em;
@@ -270,23 +271,13 @@ body {
   color: var(--sage);
 }
 
-/* Don't apply drop cap to right-aligned or italic stanzas */
-.poem-content [style*="text-align: right"]::first-letter,
-.poem-content [style*="font-style: italic"]::first-letter {
-  float: none;
-  font-size: inherit;
-  line-height: inherit;
-  margin: 0;
-  color: inherit;
-}
-
 /* ── Scroll-driven parallax on poem cover images ───────────── */
 /* Progressive enhancement: browsers without scroll-timeline skip this entirely */
 @supports (animation-timeline: scroll()) {
   .poem-cover-parallax {
     animation: poemCoverParallax linear both;
     animation-timeline: scroll(root);
-    animation-range: entry 0% cover 60%;
+    animation-range: 0% 60%;
     will-change: transform;
   }
   @keyframes poemCoverParallax {

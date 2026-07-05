@@ -37,6 +37,20 @@ export default config({
         coAuthor: fields.text({ label: "Co-author", validation: { isRequired: false } }),
         lang: fields.text({ label: "Language tag (e.g. 中文)", validation: { isRequired: false } }),
         published: fields.checkbox({ label: "Published", defaultValue: true }),
+        mood: fields.select({
+          label: "Mood",
+          description: "Drives cursor colour and mood tag display",
+          defaultValue: "longing",
+          options: [
+            { label: "Longing",    value: "longing" },
+            { label: "Nature",     value: "nature" },
+            { label: "Grief",      value: "grief" },
+            { label: "Warmth",     value: "warmth" },
+            { label: "Resilience", value: "resilience" },
+            { label: "Defiance",   value: "defiance" },
+            { label: "Love",       value: "love" },
+          ],
+        }),
         content: fields.mdx({
           label: "Content",
           extension: "mdx",

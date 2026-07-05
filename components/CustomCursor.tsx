@@ -17,38 +17,43 @@ const MOOD_COLORS: Record<string, { dot: string; ladybug: string }> = {
 
 function lerp(a: number, b: number, t: number) { return a + (b - a) * t; }
 
-function hexToRgb(hex: string): [number, number, number] {
+type RGB = [number, number, number];
+
+function hexToRgb(hex: string): RGB {
   const r = parseInt(hex.slice(1, 3), 16);
   const g = parseInt(hex.slice(3, 5), 16);
   const b = parseInt(hex.slice(5, 7), 16);
   return [r, g, b];
 }
 
-function lerpHex(a: string, b: string, t: number): string {
-  const [ar, ag, ab] = hexToRgb(a);
-  const [br, bg, bb] = hexToRgb(b);
-  const r = Math.round(lerp(ar, br, t));
-  const g = Math.round(lerp(ag, bg, t));
-  const bv = Math.round(lerp(ab, bb, t));
-  return `rgb(${r},${g},${bv})`;
+function lerpRgb(a: RGB, b: RGB, t: number): RGB {
+  return [
+    Math.round(lerp(a[0], b[0], t)),
+    Math.round(lerp(a[1], b[1], t)),
+    Math.round(lerp(a[2], b[2], t)),
+  ];
+}
+
+function rgbToCss([r, g, b]: RGB): string {
+  return `rgb(${r},${g},${b})`;
 }
 
 export default function CustomCursor() {
-  // Actual mouse position
   const mouseRef = useRef({ x: -100, y: -100 });
-  // Lagging display position (lerp)
   const posRef = useRef({ x: -100, y: -100 });
   const [pos, setPos] = useState({ x: -100, y: -100 });
   const [hovered, setHovered] = useState(false);
   const [visible, setVisible] = useState(false);
   const [mood, setMood] = useState("default");
-  const [dotColor, setDotColor] = useState(MOOD_COLORS.default.dot);
+  const [dotColor, setDotColor] = useState(rgbToCss(hexToRgb(MOOD_COLORS.default.dot)));
   const [ladybugColor, setLadybugColor] = useState(MOOD_COLORS.default.ladybug);
   const animRef = useRef<number>(0);
-  const targetDotRef = useRef(MOOD_COLORS.default.dot);
-  const targetLadybugRef = useRef(MOOD_COLORS.default.ladybug);
-  const curDotRef = useRef(MOOD_COLORS.default.dot);
-  const curLadybugRef = useRef(MOOD_COLORS.default.ladybug);
+
+  // Store current/target colours as RGB tuples so lerpRgb never receives an rgb() string
+  const targetDotRef = useRef<RGB>(hexToRgb(MOOD_COLORS.default.dot));
+  const targetLadybugRef = useRef<RGB>(hexToRgb(MOOD_COLORS.default.ladybug));
+  const curDotRef = useRef<RGB>(hexToRgb(MOOD_COLORS.default.dot));
+  const curLadybugRef = useRef<RGB>(hexToRgb(MOOD_COLORS.default.ladybug));
 
   useEffect(() => {
     const move = (e: MouseEvent) => {
@@ -56,14 +61,16 @@ export default function CustomCursor() {
       if (!visible) setVisible(true);
       const el = e.target as HTMLElement;
       setHovered(!!el.closest("a, button, [role=button], label"));
-      // Detect poem mood from nearest ancestor with data-mood
       const moodEl = el.closest("[data-mood]") as HTMLElement | null;
       const newMood = moodEl?.dataset.mood ?? "default";
       if (newMood !== mood) {
         setMood(newMood);
         const colors = MOOD_COLORS[newMood] ?? MOOD_COLORS.default;
-        targetDotRef.current = colors.dot;
-        targetLadybugRef.current = colors.ladybug;
+        targetDotRef.current = hexToRgb(colors.dot);
+        // ladybug "white" has no hex — fall back gracefully
+        targetLadybugRef.current = colors.ladybug.startsWith("#")
+          ? hexToRgb(colors.ladybug)
+          : hexToRgb("#FFFFFF");
       }
     };
     window.addEventListener("mousemove", move);
@@ -80,15 +87,14 @@ export default function CustomCursor() {
       const ny = lerp(cy, my, 0.18);
       posRef.current = { x: nx, y: ny };
 
-      // Colour lerp
-      const newDot = lerpHex(curDotRef.current, targetDotRef.current, 0.06);
-      const newLady = lerpHex(curLadybugRef.current, targetLadybugRef.current, 0.06);
+      const newDot = lerpRgb(curDotRef.current, targetDotRef.current, 0.06);
+      const newLady = lerpRgb(curLadybugRef.current, targetLadybugRef.current, 0.06);
       curDotRef.current = newDot;
       curLadybugRef.current = newLady;
 
       setPos({ x: nx, y: ny });
-      setDotColor(newDot);
-      setLadybugColor(newLady);
+      setDotColor(rgbToCss(newDot));
+      setLadybugColor(rgbToCss(newLady));
       animRef.current = requestAnimationFrame(tick);
     };
     animRef.current = requestAnimationFrame(tick);
