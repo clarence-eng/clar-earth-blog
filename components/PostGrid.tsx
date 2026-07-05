@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTheme } from "next-themes";
 import PostCard from "./PostCard";
 import type { PostMeta } from "@/lib/posts";
 import { MOOD_CONFIG } from "./MoodTag";
@@ -18,6 +19,8 @@ type FilterKey = (typeof FILTERS)[number]["key"];
 export default function PostGrid({ posts }: { posts: PostMeta[] }) {
   const [active, setActive] = useState<FilterKey>("all");
   const [ambientMood, setAmbientMood] = useState<string | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const { resolvedTheme } = useTheme();
 
   const filtered = active === "all" ? posts : posts.filter((p) => p.type === active);
 
@@ -28,26 +31,33 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
     "photo-essay": posts.filter((p) => p.type === "photo-essay").length,
   };
 
-  // IntersectionObserver callback: pick mood of the most-visible card
-  const sectionRef = useCallback((node: HTMLElement | null) => {
+  // Re-observe cards whenever the filtered list changes (filter tab switched)
+  useEffect(() => {
+    const node = sectionRef.current;
     if (!node) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries.filter(e => e.isIntersecting && e.intersectionRatio > 0.4);
-        if (visible.length === 0) return;
-        const top = visible.sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
-        const mood = (top.target as HTMLElement).dataset.mood ?? null;
-        setAmbientMood(mood || null);
-      },
-      { threshold: 0.4 }
-    );
-    // Observe all article[data-mood] children once the grid mounts
-    const cards = node.querySelectorAll("article[data-mood]");
-    cards.forEach(card => observer.observe(card));
-    return () => observer.disconnect();
-  }, []);
 
-  const moodColor = ambientMood && MOOD_CONFIG[ambientMood] ? MOOD_CONFIG[ambientMood].bg : null;
+    // Wait one frame for AnimatePresence to finish mounting new cards
+    const id = requestAnimationFrame(() => {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const visible = entries.filter(e => e.isIntersecting && e.intersectionRatio > 0.4);
+          if (visible.length === 0) return;
+          const top = visible.sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+          const mood = (top.target as HTMLElement).dataset.mood ?? null;
+          setAmbientMood(mood || null);
+        },
+        { threshold: 0.4 }
+      );
+      node.querySelectorAll("article[data-mood]").forEach(card => observer.observe(card));
+      return () => observer.disconnect();
+    });
+    return () => cancelAnimationFrame(id);
+  }, [filtered]);
+
+  // Pick light or dark mood background colour based on resolved theme
+  const moodColor = ambientMood && MOOD_CONFIG[ambientMood]
+    ? (resolvedTheme === "dark" ? MOOD_CONFIG[ambientMood].darkBg : MOOD_CONFIG[ambientMood].bg)
+    : null;
 
   return (
     <section

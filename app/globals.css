@@ -141,6 +141,10 @@ body {
   user-select: none;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .marquee-content { animation-play-state: paused; }
+}
+
 /* ── Botanical flip (mirror horizontally) ──────────────────── */
 .botanical-flip { transform: scaleX(-1); }
 
@@ -194,15 +198,6 @@ body {
 
 .poem-stanza:last-child {
   margin-bottom: 0;
-}
-
-/* ── Stanza fade-in ────────────────────────────────────────── */
-@keyframes stanzaIn {
-  from { opacity: 0; transform: translateY(18px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.stanza-animate {
-  animation: stanzaIn 0.7s ease both;
 }
 
 /* ── Scrollbar ─────────────────────────────────────────────── */
@@ -283,14 +278,22 @@ main[data-mood] {
   background-image: radial-gradient(ellipse 80% 40% at 50% 0%, var(--mood-glow, transparent), transparent);
 }
 
-/* ── Poem line hover — subtle ink underline on each line ──── */
+/* ── Poem line hover — gold underline on each line span ─────── */
 @media (hover: hover) {
-  .poem-stanza span:hover {
+  .poem-stanza > span:hover {
     text-decoration: underline;
     text-decoration-color: var(--gold);
     text-underline-offset: 3px;
     text-decoration-thickness: 1px;
   }
+}
+
+/* ── prefers-reduced-motion — disable all motion animations ── */
+@media (prefers-reduced-motion: reduce) {
+  /* Disable Framer Motion transform transitions on cards */
+  .poem-cover-parallax { animation: none !important; transform: scale(1) !important; }
+  /* Disable CSS transitions on section background color shift */
+  section { transition: none !important; }
 }
 
 /* ── Reading focus mode ────────────────────────────────────── */
