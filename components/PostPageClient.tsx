@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import type { Post, PostMeta } from "@/lib/posts";
+import AnimatedStanza from "./AnimatedStanza";
+import ReadingProgress from "./ReadingProgress";
 
 const NATURE_COLORS = [
   { bg: "#2D4A3E", accent: "#8A9A6A" },
@@ -40,12 +42,14 @@ export default function PostPageClient({
 
   return (
     <>
-      {/* Hero cover */}
+      <ReadingProgress />
+
+      {/* ── Hero ─────────────────────────────────────────────── */}
       <div
         className="relative w-full flex items-end overflow-hidden"
-        style={{ background: bg, minHeight: "45vh" }}
+        style={{ background: bg, minHeight: "55vh" }}
       >
-        {/* Real cover image with colour overlay */}
+        {/* Cover photo */}
         {post.coverImage && (
           <Image
             src={post.coverImage}
@@ -53,62 +57,66 @@ export default function PostPageClient({
             fill
             priority
             sizes="100vw"
-            className="object-cover opacity-30"
+            className="object-cover"
+            style={{ opacity: 0.22, mixBlendMode: "luminosity" }}
           />
         )}
-        {/* Botanical SVG texture */}
+
+        {/* Colour overlay gradient — bottom fade to solid bg colour */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `linear-gradient(to bottom, ${bg}55 0%, ${bg}CC 60%, ${bg} 100%)`,
+          }}
+        />
+
+        {/* Botanical SVG */}
         <svg
-          viewBox="0 0 400 400"
-          className="absolute right-0 top-0 bottom-0 h-full w-auto opacity-[0.08]"
+          viewBox="0 0 400 500"
+          className="absolute right-0 top-0 h-full w-auto pointer-events-none select-none"
           preserveAspectRatio="xMaxYMid slice"
           aria-hidden="true"
+          style={{ opacity: 0.1 }}
         >
-          <path
-            d="M200 380 C200 310 170 240 130 200 C90 160 50 150 60 110 C70 70 120 60 160 90 C180 105 195 130 200 160 C205 130 220 105 240 90 C280 60 330 70 340 110 C350 150 310 160 270 200 C230 240 200 310 200 380Z"
-            fill={accent} opacity="0.6"
-          />
-          <path
-            d="M200 20 C200 60 180 100 155 120 C130 140 105 135 95 120 C85 105 95 85 115 80 C130 76 150 85 200 20Z"
-            fill={accent} opacity="0.4"
-          />
-          <path
-            d="M200 20 C200 60 220 100 245 120 C270 140 295 135 305 120 C315 105 305 85 285 80 C270 76 250 85 200 20Z"
-            fill={accent} opacity="0.4"
-          />
-          <circle cx="200" cy="20" r="5" fill={accent} opacity="0.6" />
+          <path d="M200 480 C200 390 160 290 110 240 C60 190 20 180 35 130 C50 80 110 70 160 105 C182 120 196 148 200 175 C204 148 218 120 240 105 C290 70 350 80 365 130 C380 180 340 190 290 240 C240 290 200 390 200 480Z" fill={accent} />
+          <path d="M200 25 C200 70 175 115 145 138 C115 160 82 152 70 135 C58 118 72 95 96 90 C114 86 138 96 200 25Z" fill={accent} />
+          <path d="M200 25 C200 70 225 115 255 138 C285 160 318 152 330 135 C342 118 328 95 304 90 C286 86 262 96 200 25Z" fill={accent} />
+          <circle cx="200" cy="22" r="7" fill={accent} />
+          {/* Small side branches */}
+          <path d="M155 220 C130 210 105 215 90 205" stroke={accent} strokeWidth="1.5" fill="none" opacity="0.7" strokeLinecap="round"/>
+          <path d="M245 220 C270 210 295 215 310 205" stroke={accent} strokeWidth="1.5" fill="none" opacity="0.7" strokeLinecap="round"/>
+          <path d="M135 310 C110 298 88 302 75 290" stroke={accent} strokeWidth="1.2" fill="none" opacity="0.5" strokeLinecap="round"/>
+          <path d="M265 310 C290 298 312 302 325 290" stroke={accent} strokeWidth="1.2" fill="none" opacity="0.5" strokeLinecap="round"/>
         </svg>
 
         {/* Organic bottom curve */}
         <div
-          className="absolute bottom-0 left-0 right-0 h-12"
-          style={{
-            background: "var(--cream)",
-            clipPath: "ellipse(60% 100% at 50% 100%)",
-          }}
+          className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none"
+          style={{ background: "var(--cream)", clipPath: "ellipse(65% 100% at 50% 100%)" }}
         />
 
-        {/* Text content over hero */}
-        <div className="relative z-10 px-8 pb-14 pt-28 max-w-3xl mx-auto w-full">
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+        {/* Title block */}
+        <div className="relative z-10 w-full max-w-3xl mx-auto px-8 pb-16 pt-28">
+          <motion.span
+            initial={{ opacity: 0, x: -8 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-[9px] tracking-[0.3em] uppercase mb-3"
-            style={{ fontFamily: "var(--font-jost)", color: accent, opacity: 0.9 }}
+            className="inline-block text-[9px] tracking-[0.35em] uppercase px-2.5 py-1 rounded-full mb-5"
+            style={{ fontFamily: "var(--font-jost)", background: `${accent}33`, color: accent }}
           >
             {TYPE_LABELS[post.type ?? "poem"] ?? "Poem"}
-          </motion.p>
+          </motion.span>
 
           <motion.h1
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-white/90 leading-tight"
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="leading-[1.1] text-white/92 mb-4"
             style={{
               fontFamily: "var(--font-cormorant)",
               fontStyle: "italic",
               fontWeight: 300,
-              fontSize: "clamp(2rem, 5vw, 3.5rem)",
+              fontSize: "clamp(2.4rem, 6vw, 4.2rem)",
             }}
           >
             {post.title}
@@ -118,9 +126,9 @@ export default function PostPageClient({
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="mt-3 italic text-sm"
-              style={{ fontFamily: "var(--font-cormorant)", color: "rgba(255,255,255,0.5)" }}
+              transition={{ duration: 0.6, delay: 0.35 }}
+              className="text-sm italic"
+              style={{ fontFamily: "var(--font-cormorant)", color: `${accent}CC` }}
             >
               {post.dedication}{post.coAuthor ? ` · ${post.coAuthor}` : ""}
             </motion.p>
@@ -128,69 +136,55 @@ export default function PostPageClient({
         </div>
       </div>
 
-      {/* Poem body */}
-      <main className="px-8 pb-24 max-w-3xl mx-auto w-full">
-        {/* Gold accent rule */}
-        <div className="h-px w-10 bg-[var(--gold)] mb-14 opacity-70" />
+      {/* ── Body ─────────────────────────────────────────────── */}
+      <main className="px-8 pb-28 max-w-2xl mx-auto w-full">
+        {/* Gold rule */}
+        <motion.div
+          initial={{ width: 0 }}
+          animate={{ width: 40 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="h-px bg-[var(--gold)] mb-14 mt-2 opacity-80"
+        />
 
-        <div className="poem-body text-[var(--ink)]">
+        {/* Poem content */}
+        <div
+          className="text-[var(--ink)]"
+          style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(1.2rem, 2.2vw, 1.4rem)", lineHeight: 2 }}
+        >
           {stanzas.map((stanza, i) => (
-            <motion.p
-              key={i}
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 + i * 0.06, ease: "easeOut" }}
-              className="mb-8 last:mb-0 whitespace-pre-line leading-[2]"
-            >
+            <AnimatedStanza key={i} index={i} isFirst={i === 0}>
               {stanza}
-            </motion.p>
+            </AnimatedStanza>
           ))}
         </div>
 
-        {/* Bottom divider */}
-        <div className="flex items-center gap-4 mt-16 mb-12">
+        {/* Leaf divider */}
+        <div className="flex items-center gap-5 mt-20 mb-14">
           <div className="h-px flex-1 bg-[var(--border)]" />
-          <svg viewBox="0 0 16 20" width="10" height="12" fill="none" aria-hidden="true">
-            <path
-              d="M8 19 C8 15 6 11 4 9 C2 7 0 6 1 4 C2 2 5 1.5 7 3 C7.5 3.5 8 4.5 8 5.5 C8 4.5 8.5 3.5 9 3 C11 1.5 14 2 15 4 C16 6 14 7 12 9 C10 11 8 15 8 19Z"
-              fill="var(--sage)"
-              opacity="0.6"
-            />
+          <svg viewBox="0 0 24 30" width="14" height="18" fill="none" aria-hidden="true">
+            <path d="M12 28 C12 22 9 16 6 13 C3 10 0 9 1.5 6 C3 3 7.5 2 10.5 4.5 C11 5 12 7 12 9 C12 7 13 5 13.5 4.5 C16.5 2 21 3 22.5 6 C24 9 21 10 18 13 C15 16 12 22 12 28Z" fill="var(--sage)" opacity="0.55"/>
           </svg>
           <div className="h-px flex-1 bg-[var(--border)]" />
         </div>
 
-        {/* Prev / next */}
-        <nav
-          className="flex justify-between items-start gap-8 text-[10px] tracking-[0.2em] uppercase"
-          style={{ fontFamily: "var(--font-jost)" }}
-        >
+        {/* Prev / Next */}
+        <nav className="grid grid-cols-2 gap-4" style={{ fontFamily: "var(--font-jost)" }}>
           {prev ? (
-            <Link
-              href={`/${prev.slug}`}
-              className="text-[var(--muted)] hover:text-[var(--forest)] transition-colors group"
-            >
-              <span className="group-hover:-translate-x-1 inline-block transition-transform">←</span>{" "}
-              {prev.title}
+            <Link href={`/${prev.slug}`} className="group flex flex-col gap-1 p-4 border border-[var(--border)] rounded-sm hover:border-[var(--sage)] hover:bg-[var(--cream-dark)] transition-all">
+              <span className="text-[9px] tracking-[0.25em] uppercase text-[var(--muted-light)]">← Previous</span>
+              <span className="text-sm text-[var(--muted)] group-hover:text-[var(--forest)] transition-colors line-clamp-2" style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontSize: "1rem" }}>{prev.title}</span>
             </Link>
-          ) : <span />}
+          ) : <div />}
           {next ? (
-            <Link
-              href={`/${next.slug}`}
-              className="text-[var(--muted)] hover:text-[var(--forest)] transition-colors text-right group"
-            >
-              {next.title}{" "}
-              <span className="group-hover:translate-x-1 inline-block transition-transform">→</span>
+            <Link href={`/${next.slug}`} className="group flex flex-col gap-1 p-4 border border-[var(--border)] rounded-sm hover:border-[var(--sage)] hover:bg-[var(--cream-dark)] transition-all text-right">
+              <span className="text-[9px] tracking-[0.25em] uppercase text-[var(--muted-light)]">Next →</span>
+              <span className="text-sm text-[var(--muted)] group-hover:text-[var(--forest)] transition-colors line-clamp-2" style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontSize: "1rem" }}>{next.title}</span>
             </Link>
-          ) : <span />}
+          ) : <div />}
         </nav>
 
-        <div className="mt-10 text-center">
-          <Link
-            href="/"
-            className="text-[10px] tracking-[0.3em] uppercase text-[var(--muted)] hover:text-[var(--forest)] transition-colors"
-            style={{ fontFamily: "var(--font-jost)" }}
-          >
+        <div className="mt-8 text-center">
+          <Link href="/" className="text-[10px] tracking-[0.3em] uppercase text-[var(--muted)] hover:text-[var(--forest)] transition-colors" style={{ fontFamily: "var(--font-jost)" }}>
             ← All works
           </Link>
         </div>

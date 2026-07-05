@@ -16,6 +16,7 @@
     "@next/mdx": "^16.2.10",
     "@tailwindcss/typography": "^0.5.20",
     "@types/mdx": "^2.0.14",
+    "@use-gesture/react": "^10.3.1",
     "framer-motion": "^12.42.2",
     "gray-matter": "^4.0.3",
     "next": "16.2.10",
