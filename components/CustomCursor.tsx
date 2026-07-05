@@ -31,9 +31,9 @@ export default function CustomCursor() {
       style={{ x, y, translateX: "-50%", translateY: "-50%", overflow: "visible" }}
       animate={{ opacity: visible ? 1 : 0 }}
       transition={{ duration: 0.15 }}
-      viewBox="-14 -20 28 28"
-      width={hovered ? 28 : 8}
-      height={hovered ? 28 : 8}
+      viewBox="-14 -22 28 30"
+      width={hovered ? 42 : 8}
+      height={hovered ? 42 : 8}
     >
       {hovered ? (
         /* Minimalist ladybug — pure line art, no fill */
