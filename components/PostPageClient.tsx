@@ -27,20 +27,9 @@ function parseStanzas(content: string): { text: string; align: "left" | "right" 
 }
 import BackPill from "./BackPill";
 
-const NATURE_COLORS = [
-  { bg: "#2D4A3E", accent: "#8A9A6A" },
-  { bg: "#4A3D2A", accent: "#C4882A" },
-  { bg: "#3A4A3A", accent: "#A8C4A0" },
-  { bg: "#2A3D4A", accent: "#7AAABB" },
-  { bg: "#3D2A3A", accent: "#B57CAA" },
-  { bg: "#4A3A2A", accent: "#C4A47C" },
-];
-
-function hashColor(slug: string) {
-  let h = 0;
-  for (let i = 0; i < slug.length; i++) h = (h * 31 + slug.charCodeAt(i)) | 0;
-  return NATURE_COLORS[Math.abs(h) % NATURE_COLORS.length];
-}
+// Single consistent dark overlay colour for all poems — forest green.
+// The cover photo shows through via luminosity blend; no random per-poem colour.
+const HERO_BG = "#1E2E28"; // deep forest — dark enough for legibility, green-tinted
 
 const TYPE_LABELS: Record<string, string> = {
   poem: "Poem",
@@ -59,7 +48,6 @@ export default function PostPageClient({
   next: PostMeta | null;
   readTime: string;
 }) {
-  const { bg, accent } = hashColor(post.slug);
   const router = useRouter();
 
   // Keyboard navigation ← →
@@ -79,11 +67,12 @@ export default function PostPageClient({
       <BackPill />
 
       {/* ── Hero ─────────────────────────────────────────────── */}
+      {/* Consistent dark forest overlay on ALL poems — no random per-slug colour */}
       <div
-        className="relative w-full flex items-end overflow-hidden"
-        style={{ background: bg, minHeight: "clamp(340px, 60vh, 520px)" }}
+        className="relative w-full overflow-hidden"
+        style={{ background: HERO_BG, minHeight: "clamp(320px, 55vh, 480px)" }}
       >
-        {/* Cover photo — clearly visible */}
+        {/* Cover photo — luminosity blend so it shows through naturally */}
         {post.coverImage && (
           <Image
             src={post.coverImage}
@@ -92,15 +81,15 @@ export default function PostPageClient({
             priority
             sizes="100vw"
             className="object-cover"
-            style={{ opacity: 0.55, mixBlendMode: "luminosity" }}
+            style={{ opacity: 0.5, mixBlendMode: "luminosity" }}
           />
         )}
 
-        {/* Gradient — light top, heavy only at bottom for text legibility */}
+        {/* Gradient — transparent at top, solid at bottom for text legibility */}
         <div
           className="absolute inset-0"
           style={{
-            background: `linear-gradient(to bottom, ${bg}22 0%, ${bg}44 50%, ${bg}DD 85%, ${bg} 100%)`,
+            background: `linear-gradient(to bottom, ${HERO_BG}11 0%, ${HERO_BG}55 45%, ${HERO_BG}CC 75%, ${HERO_BG} 100%)`,
           }}
         />
 
@@ -110,8 +99,11 @@ export default function PostPageClient({
           style={{ background: "var(--cream)", clipPath: "ellipse(65% 100% at 50% 100%)" }}
         />
 
-        {/* Title block */}
-        <div className="relative z-10 w-full max-w-3xl mx-auto px-8 pb-14 pt-28">
+        {/* Title block — vertically centred with generous padding top and bottom */}
+        <div className="relative z-10 w-full max-w-3xl mx-auto px-8 flex flex-col justify-center"
+          style={{ minHeight: "clamp(320px, 55vh, 480px)", paddingTop: "5.5rem", paddingBottom: "5rem" }}>
+
+          {/* Type badge + read time */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -119,41 +111,44 @@ export default function PostPageClient({
             className="flex items-center gap-3 mb-5"
           >
             <span
-              className="inline-block text-[9px] tracking-[0.35em] uppercase px-2.5 py-1 rounded-full"
-              style={{ fontFamily: "var(--font-jost)", background: `${accent}44`, color: accent }}
+              className="inline-block text-[9px] tracking-[0.35em] uppercase px-2.5 py-1 rounded-full bg-white/15 text-white/70"
+              style={{ fontFamily: "var(--font-jost)" }}
             >
               {TYPE_LABELS[post.type ?? "poem"] ?? "Poem"}
             </span>
             <span
-              className="text-[9px] tracking-[0.2em] uppercase"
-              style={{ fontFamily: "var(--font-jost)", color: "rgba(255,255,255,0.38)" }}
+              className="text-[9px] tracking-[0.2em] uppercase text-white/35"
+              style={{ fontFamily: "var(--font-jost)" }}
             >
               {readTime}
             </span>
           </motion.div>
 
+          {/* Title */}
           <motion.h1
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-balance leading-[1.1] text-white mb-4"
+            className="text-balance text-white mb-3"
             style={{
               fontFamily: "var(--font-cormorant)",
               fontStyle: "italic",
               fontWeight: 300,
               fontSize: "clamp(2.2rem, 5vw, 3.8rem)",
+              lineHeight: 1.15,
             }}
           >
             {post.title}
           </motion.h1>
 
+          {/* Dedication / co-author */}
           {(post.dedication || post.coAuthor) && (
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.35 }}
-              className="text-sm italic"
-              style={{ fontFamily: "var(--font-cormorant)", color: `${accent}DD` }}
+              className="text-white/55 italic mt-1"
+              style={{ fontFamily: "var(--font-cormorant)", fontSize: "1rem" }}
             >
               {post.dedication}{post.coAuthor ? ` · ${post.coAuthor}` : ""}
             </motion.p>

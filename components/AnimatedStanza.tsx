@@ -1,7 +1,6 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 
 interface StanzaProps {
   children: string;
@@ -27,26 +26,30 @@ function renderLine(line: string, key: number) {
 }
 
 export default function AnimatedStanza({ children, index, align = "left", italic = false }: StanzaProps) {
-  const ref = useRef<HTMLParagraphElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-40px 0px" });
-
   const textAlign = align === "right" ? "right" : align === "center" ? "center" : "left";
 
-  // Split into lines and render each with possible inline italics
-  const lines = children.split("\n");
+  // Strip *asterisks* when whole stanza is italic — avoid double-wrapping
+  const lines = children.split("\n").map(line =>
+    italic ? line.replace(/^\*|\*$/g, "").trim() : line
+  );
 
+  // Simple stagger-in on page load — NO useInView, which leaves off-screen stanzas invisible
   return (
     <motion.p
-      ref={ref}
-      initial={{ opacity: 0, y: 16 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.65, delay: index < 4 ? index * 0.07 : 0, ease: [0.25, 0.1, 0.25, 1] }}
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        duration: 0.55,
+        // First 6 stanzas stagger; rest appear together immediately after
+        delay: index < 6 ? 0.05 + index * 0.06 : 0.4,
+        ease: [0.25, 0.1, 0.25, 1],
+      }}
       className="poem-stanza"
       style={{ textAlign, fontStyle: italic ? "italic" : undefined }}
     >
       {lines.map((line, i) => (
         <span key={i}>
-          {renderLine(line, i)}
+          {italic ? line : renderLine(line, i)}
           {i < lines.length - 1 && "\n"}
         </span>
       ))}

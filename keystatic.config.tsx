@@ -32,6 +32,7 @@ export default config({
           label: "Excerpt",
           description: "First line or short teaser shown on the homepage",
         }),
+        coverImage: fields.text({ label: "Cover Image path (e.g. /images/posts/name.jpg)", validation: { isRequired: false } }),
         dedication: fields.text({ label: "Dedication", validation: { isRequired: false } }),
         coAuthor: fields.text({ label: "Co-author", validation: { isRequired: false } }),
         lang: fields.text({ label: "Language tag (e.g. 中文)", validation: { isRequired: false } }),

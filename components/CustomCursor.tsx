@@ -23,7 +23,8 @@ export default function CustomCursor() {
     };
     window.addEventListener("mousemove", move);
     return () => window.removeEventListener("mousemove", move);
-  }, [cursorX, cursorY, visible]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [visible]);
 
   return (
     <motion.svg
