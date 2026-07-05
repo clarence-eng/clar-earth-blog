@@ -38,10 +38,15 @@ export function getAllPosts(): PostMeta[] {
     })
     .filter((p) => p.published !== false)
     .sort((a, b) => {
-      if (!a.date && !b.date) return 0;
-      if (!a.date) return 1;
-      if (!b.date) return -1;
-      return new Date(b.date).getTime() - new Date(a.date).getTime();
+      // Chinese/non-Latin titles go last
+      const aLatin = /^[A-Za-z]/.test(a.title);
+      const bLatin = /^[A-Za-z]/.test(b.title);
+      if (aLatin && !bLatin) return -1;
+      if (!aLatin && bLatin) return 1;
+      // Both Latin: alphabetical by title
+      if (aLatin && bLatin) return a.title.localeCompare(b.title, "en");
+      // Both non-Latin: stable order
+      return 0;
     });
 
   return posts as PostMeta[];

@@ -27,41 +27,22 @@ export default function HeroSection() {
 
       {/* Content */}
       <div className="relative z-10 max-w-3xl">
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-[11px] tracking-[0.35em] uppercase text-white/50 mb-4"
-          style={{ fontFamily: "var(--font-jost)" }}
-        >
-          CLAR.EARTH
-        </motion.p>
-
-        <motion.h1
+        <motion.blockquote
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-white/90 leading-[1.25] mb-5"
+          transition={{ duration: 0.9, delay: 0.2 }}
+          className="text-white/85 leading-[1.45]"
           style={{
             fontFamily: "var(--font-cormorant)",
             fontStyle: "italic",
-            fontSize: "clamp(1.8rem, 4vw, 3rem)",
+            fontSize: "clamp(1.6rem, 3.5vw, 2.6rem)",
             fontWeight: 300,
           }}
         >
-          &ldquo;In the shadow of trees,<br className="hidden sm:block" />
-          I find my voice.&rdquo;
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="text-white/40 text-sm italic"
-          style={{ fontFamily: "var(--font-cormorant)" }}
-        >
-          Where the earth listens, and the pen replies.
-        </motion.p>
+          &ldquo;In the shadow of trees, I find my voice.
+          <br />
+          Where the earth listens, and the pen replies.&rdquo;
+        </motion.blockquote>
       </div>
     </section>
   );
