@@ -19,6 +19,7 @@ export interface PostMeta {
   notes?: string;
   lang?: string;
   tags?: string[];
+  mood?: string;
 }
 
 export interface Post extends PostMeta {

@@ -12,6 +12,7 @@ import RelatedPoems from "./RelatedPoems";
 import FocusModeToggle from "./FocusModeToggle";
 import PrintButton from "./PrintButton";
 import BackPill from "./BackPill";
+import MoodTag from "./MoodTag";
 
 // Parse MDX content into stanzas with alignment/italic metadata
 //   \t or em-spaces = preserved as-is (white-space: pre-wrap handles them)
@@ -82,7 +83,7 @@ export default function PostPageClient({
             fill
             priority
             sizes="100vw"
-            className="object-cover"
+            className="object-cover poem-cover-parallax"
             style={{ opacity: 0.5, mixBlendMode: "luminosity" }}
           />
         )}
@@ -143,24 +144,31 @@ export default function PostPageClient({
             {post.title}
           </motion.h1>
 
-          {/* Dedication / co-author */}
-          {(post.dedication || post.coAuthor) && (
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.35 }}
-              className="text-white/55 italic mt-1"
-              style={{ fontFamily: "var(--font-cormorant)", fontSize: "1rem" }}
-            >
-              {post.dedication}{post.coAuthor ? ` · ${post.coAuthor}` : ""}
-            </motion.p>
-          )}
+          {/* Dedication / co-author + mood tag */}
+          <div className="flex items-center gap-3 mt-3 flex-wrap">
+            {(post.dedication || post.coAuthor) && (
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.35 }}
+                className="text-white/55 italic"
+                style={{ fontFamily: "var(--font-cormorant)", fontSize: "1rem" }}
+              >
+                {post.dedication}{post.coAuthor ? ` · ${post.coAuthor}` : ""}
+              </motion.p>
+            )}
+            {post.mood && (
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.45 }}>
+                <MoodTag mood={post.mood} />
+              </motion.div>
+            )}
+          </div>
         </div>
       </div>
 
-      {/* ── Body ─────────────────────────────────────────────── */}
-      <main className="px-8 pb-28 w-full" style={{ maxWidth: "780px", margin: "0 auto" }}>
-        {/* Gold rule — animates in */}
+      {/* ── Body — data-mood drives cursor colour ────────────── */}
+      <main className="px-8 pb-28 w-full" style={{ maxWidth: "780px", margin: "0 auto" }} data-mood={post.mood}>
+        {/* Gold rule */}
         <motion.div
           initial={{ width: 0 }}
           animate={{ width: 40 }}

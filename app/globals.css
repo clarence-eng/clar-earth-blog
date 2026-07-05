@@ -280,6 +280,26 @@ body {
   color: inherit;
 }
 
+/* ── Scroll-driven parallax on poem cover images ───────────── */
+/* Progressive enhancement: browsers without scroll-timeline skip this entirely */
+@supports (animation-timeline: scroll()) {
+  .poem-cover-parallax {
+    animation: poemCoverParallax linear both;
+    animation-timeline: scroll(root);
+    animation-range: entry 0% cover 60%;
+    will-change: transform;
+  }
+  @keyframes poemCoverParallax {
+    from { transform: translateY(-8%) scale(1.12); }
+    to   { transform: translateY(8%)  scale(1.12); }
+  }
+}
+
+/* When no scroll-timeline support: keep the image slightly zoomed so it fills the container */
+.poem-cover-parallax {
+  transform: scale(1.12);
+}
+
 /* ── Glassmorphism search modal ────────────────────────────── */
 .search-glass {
   background: rgba(15, 28, 15, 0.55);
