@@ -13,9 +13,11 @@ function getSeasonalGradient() {
 
 const MARQUEE_TEXT = "A Promise to Protect What Cannot Speak  ·  Daughter of the Tides  ·  Embers  ·  Like Moth to Flame  ·  My Every Sense of You  ·  Nature's Choir  ·  Out of Time  ·  The Glass Between Us  ·  回声  ·  ";
 
-// Professional plant path from Phosphor Icons (256×256 viewBox)
-// This is a real high-quality botanical illustration path
-const PLANT_PATH = "M247.63,47.89a8,8,0,0,0-7.52-7.52c-51.76-3-93.32,12.74-111.18,42.22-11.8,19.49-11.78,43.16-.16,65.74a71.34,71.34,0,0,0-14.17,27L98.33,159c7.82-16.33,7.52-33.35-1-47.49-13.2-21.79-43.67-33.47-81.5-31.25a8,8,0,0,0-7.52,7.52c-2.23,37.83,9.46,68.3,31.25,81.5A45.82,45.82,0,0,0,63.44,176,54.58,54.58,0,0,0,87,170.33l25,25V224a8,8,0,0,0,16,0V194.51a55.61,55.61,0,0,1,12.27-35,73.91,73.91,0,0,0,33.31,8.4,60.9,60.9,0,0,0,31.83-8.86C234.89,141.21,250.67,99.65,247.63,47.89ZM47.81,155.6C32.47,146.31,23.79,124.32,24,96c28.32-.24,50.31,8.47,59.6,23.81,4.85,8,5.64,17.33,2.46,26.94L61.65,122.34a8,8,0,0,0-11.31,11.31l24.41,24.41C65.14,161.24,55.82,160.45,47.81,155.6Zm149.31-10.22c-13.4,8.11-29.15,8.73-45.15,2L153.66,93.68a8,8,0,0,0-11.31-11.31L140.65,136c-6.76-16-6.15-31.76,2-45.15,13.94-23,47-35.82,89.33-34.83C232.94,98.34,220.14,131.44,197.12,145.38Z";
+// Phosphor flower-lotus path (256×256)
+const LOTUS_PATH = "M245.83,121.63a15.53,15.53,0,0,0-9.52-7.33,73.51,73.51,0,0,0-22.17-2.22c4-19.85,1-35.55-2.06-44.86a16.15,16.15,0,0,0-18.79-10.88,85.53,85.53,0,0,0-28.55,12.12,94.58,94.58,0,0,0-27.11-33.25,16.05,16.05,0,0,0-19.26,0A94.48,94.48,0,0,0,91.26,68.46,85.53,85.53,0,0,0,62.71,56.34,16.15,16.15,0,0,0,43.92,67.22c-3,9.31-6,25-2.06,44.86a73.51,73.51,0,0,0-22.17,2.22,15.53,15.53,0,0,0-9.52,7.33,16,16,0,0,0-1.6,12.27c3.39,12.57,13.8,36.48,45.33,55.32S113.13,208,128.05,208s42.67,0,74-18.78c31.53-18.84,41.94-42.75,45.33-55.32A16,16,0,0,0,245.83,121.63Z";
+
+// Phosphor flower-tulip path (256×256)
+const TULIP_PATH = "M208,48a87.48,87.48,0,0,0-35.36,7.43c-15.1-25.37-39.92-38-41.06-38.59a8,8,0,0,0-7.16,0c-1.14.58-26,13.22-41.06,38.59A87.48,87.48,0,0,0,48,48a8,8,0,0,0-8,8V96a88.11,88.11,0,0,0,80,87.63v35.43L83.58,200.84a8,8,0,1,0-7.16,14.32l48,24a8,8,0,0,0,7.16,0l48-24a8,8,0,0,0-7.16-14.32L136,219.06V183.63A88.11,88.11,0,0,0,216,96V56A8,8,0,0,0,208,48ZM120,167.56A72.1,72.1,0,0,1,56,96V64.44A72.1,72.1,0,0,1,120,136Zm8-68.2A88.4,88.4,0,0,0,97.36,63.19c9.57-15.79,24-25.9,30.64-30,6.65,4.08,21.08,14.19,30.64,30A88.46,88.46,0,0,0,128,99.36ZM200,96a72.1,72.1,0,0,1-64,71.56V136a72.1,72.1,0,0,1,64-71.56Z";
 
 export default function HeroSection() {
   const [gradient, setGradient] = useState(
@@ -29,37 +31,81 @@ export default function HeroSection() {
         className="relative overflow-hidden min-h-[56vh] flex items-center"
         style={{ background: gradient }}
       >
-        {/* ── LEFT: large plant silhouette, bottom-left anchored ── */}
+        {/* ── LEFT: lotus flower, bottom-left, thin stroke only ── */}
         <svg
           viewBox="0 0 256 256"
           className="absolute bottom-0 left-0 pointer-events-none select-none"
-          style={{ width: "clamp(180px, 22vw, 300px)", opacity: 0.18, transform: "translateY(18%)" }}
-          fill="white"
+          style={{
+            width: "clamp(200px, 24vw, 320px)",
+            opacity: 0.28,
+            transform: "translate(-8%, 22%) rotate(-12deg)",
+          }}
+          fill="none"
+          stroke="white"
+          strokeWidth="4"
           aria-hidden="true"
         >
-          <path d={PLANT_PATH}/>
+          <path d={LOTUS_PATH} strokeLinejoin="round"/>
         </svg>
 
-        {/* ── RIGHT: same plant, flipped horizontally ── */}
+        {/* ── RIGHT: tulip, bottom-right, thin stroke ── */}
         <svg
           viewBox="0 0 256 256"
           className="absolute bottom-0 right-0 pointer-events-none select-none"
-          style={{ width: "clamp(180px, 22vw, 300px)", opacity: 0.18, transform: "scaleX(-1) translateY(18%)" }}
-          fill="white"
+          style={{
+            width: "clamp(200px, 24vw, 320px)",
+            opacity: 0.28,
+            transform: "translate(8%, 14%) rotate(8deg)",
+          }}
+          fill="none"
+          stroke="white"
+          strokeWidth="4"
           aria-hidden="true"
         >
-          <path d={PLANT_PATH}/>
+          <path d={TULIP_PATH} strokeLinejoin="round"/>
         </svg>
 
-        {/* ── Delicate scattered dots ── */}
+        {/* ── Small lotus top-right, very faint ── */}
+        <svg
+          viewBox="0 0 256 256"
+          className="absolute top-0 right-0 pointer-events-none select-none hidden md:block"
+          style={{
+            width: "clamp(80px, 10vw, 130px)",
+            opacity: 0.13,
+            transform: "translate(15%, -20%) rotate(20deg)",
+          }}
+          fill="none"
+          stroke="white"
+          strokeWidth="5"
+          aria-hidden="true"
+        >
+          <path d={LOTUS_PATH} strokeLinejoin="round"/>
+        </svg>
+
+        {/* ── Small tulip top-left, very faint ── */}
+        <svg
+          viewBox="0 0 256 256"
+          className="absolute top-0 left-0 pointer-events-none select-none hidden md:block"
+          style={{
+            width: "clamp(80px, 10vw, 130px)",
+            opacity: 0.13,
+            transform: "translate(-15%, -20%) rotate(-20deg)",
+          }}
+          fill="none"
+          stroke="white"
+          strokeWidth="5"
+          aria-hidden="true"
+        >
+          <path d={TULIP_PATH} strokeLinejoin="round"/>
+        </svg>
+
+        {/* Subtle pollen dots */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none select-none" aria-hidden="true">
           {([
-            ["34%", "12%", 1.8, 0.22], ["44%", "22%", 1.2, 0.16],
-            ["28%", "68%", 1.5, 0.18], ["38%", "54%", 1, 0.14],
-            ["66%", "12%", 1.8, 0.22], ["56%", "22%", 1.2, 0.16],
-            ["72%", "68%", 1.5, 0.18], ["62%", "54%", 1, 0.14],
-            ["50%", "8%",  1.4, 0.14], ["50%", "78%", 1.2, 0.12],
-          ] as [string,string,number,number][]).map(([cx,cy,r,o], i) => (
+            ["38%","14%",1.6,0.2],["44%","28%",1,0.14],["56%","14%",1.6,0.2],
+            ["62%","28%",1,0.14],["50%","8%",1.4,0.14],["32%","55%",1.2,0.13],
+            ["68%","55%",1.2,0.13],
+          ] as [string,string,number,number][]).map(([cx,cy,r,o],i) => (
             <circle key={i} cx={cx} cy={cy} r={r} fill="white" opacity={o}/>
           ))}
         </svg>
