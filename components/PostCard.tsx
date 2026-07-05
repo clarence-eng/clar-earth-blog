@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import type { PostMeta } from "@/lib/posts";
 
@@ -76,11 +77,21 @@ export default function PostCard({
     >
       <Link href={`/${post.slug}`} className="block h-full">
         <div
-          className={`overflow-hidden rounded-sm ${featured ? "aspect-[16/9]" : "aspect-[4/3]"}`}
+          className="overflow-hidden rounded-sm aspect-[4/3] relative"
           style={{ background: "var(--cream-dark)" }}
         >
           <div className="post-card-img w-full h-full">
-            <PlaceholderCover title={post.title} index={index} />
+            {post.coverImage ? (
+              <Image
+                src={post.coverImage}
+                alt={post.title}
+                fill
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                className="object-cover"
+              />
+            ) : (
+              <PlaceholderCover title={post.title} index={index} />
+            )}
           </div>
         </div>
 

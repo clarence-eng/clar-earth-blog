@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import type { Post, PostMeta } from "@/lib/posts";
 
 const NATURE_COLORS = [
@@ -44,6 +45,17 @@ export default function PostPageClient({
         className="relative w-full flex items-end overflow-hidden"
         style={{ background: bg, minHeight: "45vh" }}
       >
+        {/* Real cover image with colour overlay */}
+        {post.coverImage && (
+          <Image
+            src={post.coverImage}
+            alt={post.title}
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover opacity-30"
+          />
+        )}
         {/* Botanical SVG texture */}
         <svg
           viewBox="0 0 400 400"

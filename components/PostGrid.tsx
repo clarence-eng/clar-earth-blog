@@ -55,7 +55,6 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
               key={post.slug}
               post={post}
               index={i}
-              featured={i === 0 && active === "all"}
             />
           ))}
         </motion.div>
