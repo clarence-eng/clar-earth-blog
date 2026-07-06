@@ -51,7 +51,8 @@ export default function HeroSection({ titles = [] }: { titles?: string[] }) {
       <section
         ref={sectionRef}
         className="relative overflow-hidden min-h-[56vh] flex items-center"
-        style={{ background: gradient || undefined }}
+        suppressHydrationWarning
+        style={{ background: gradient }}
       >
         {/* Parallax ornament layer */}
         <motion.div className="absolute inset-0 pointer-events-none" style={reducedMotion ? undefined : { y: ornamentsY }}>

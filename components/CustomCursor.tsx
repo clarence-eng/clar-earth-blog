@@ -5,7 +5,7 @@ import { useEffect, useState, useRef } from "react";
 const MOOD_COLORS: Record<string, { dot: string; ladybug: string }> = {
   longing:    { dot: "#7AAABB", ladybug: "#A8D4E0" },
   nature:     { dot: "#5A8A74", ladybug: "#8AC4A0" },
-  grief:      { dot: "#6A5A7A", ladybug: "#A89AB8" },
+  grief:      { dot: "#7A6A8A", ladybug: "#A89AB8" },
   warmth:     { dot: "#C4882A", ladybug: "#E0B870" },
   resilience: { dot: "#8A6A4A", ladybug: "#C4A070" },
   defiance:   { dot: "#8A4A4A", ladybug: "#C48080" },

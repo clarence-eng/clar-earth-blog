@@ -32,6 +32,12 @@ export const metadata: Metadata = {
     siteName: "clar.earth",
     images: [{ url: `${BASE_URL}/images/posts/daughter-of-the-tides.jpg`, width: 1200, height: 800, alt: "clar.earth" }],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "clar.earth",
+    description: "Poetry and writing by Clare",
+    images: [`${BASE_URL}/images/posts/daughter-of-the-tides.jpg`],
+  },
 };
 
 export default function RootLayout({

@@ -38,7 +38,7 @@ export default function FeaturedPoem({ post }: { post: PostMeta }) {
               fill
               priority
               sizes="100vw"
-              className="object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+              className="object-cover motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:scale-[1.02]"
             />
           )}
 

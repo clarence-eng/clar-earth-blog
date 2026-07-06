@@ -71,7 +71,7 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
           transition={{ y: { duration: 0.4, ease: [0.32, 0.72, 0, 1] }, boxShadow: { duration: 0.4, ease: [0.32, 0.72, 0, 1] } }}
         >
           <div
-            className="relative w-full h-full transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+            className="relative w-full h-full motion-safe:transition-transform motion-safe:duration-700 motion-safe:ease-out motion-safe:group-hover:scale-[1.03]"
           >
             {post.coverImage ? (
               <Image src={post.coverImage} alt={post.title} fill sizes="(max-width:640px) 100vw,(max-width:1024px) 50vw,33vw" className="object-cover" />

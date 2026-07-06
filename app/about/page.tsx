@@ -15,6 +15,11 @@ export const metadata: Metadata = {
     url: `${BASE_URL}/about`,
     siteName: "clar.earth",
   },
+  twitter: {
+    card: "summary",
+    title: "About — clar.earth",
+    description: "About Clare — poetry, nature, and the spaces between.",
+  },
   alternates: {
     canonical: `${BASE_URL}/about`,
   },
