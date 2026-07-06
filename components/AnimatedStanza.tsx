@@ -9,6 +9,7 @@ interface StanzaProps {
   align?: "left" | "right" | "center";
   italic?: boolean;
   lang?: string;
+  isFirstDrop?: boolean;
 }
 
 function renderLine(line: string, key: number) {
@@ -25,7 +26,7 @@ function renderLine(line: string, key: number) {
   );
 }
 
-export default function AnimatedStanza({ children, index, align = "left", italic = false, lang }: StanzaProps) {
+export default function AnimatedStanza({ children, index, align = "left", italic = false, lang, isFirstDrop = false }: StanzaProps) {
   const ref = useRef<HTMLParagraphElement>(null);
   const reducedMotion = useReducedMotion();
 
@@ -43,14 +44,14 @@ export default function AnimatedStanza({ children, index, align = "left", italic
     </span>
   ));
 
-  // poem-stanza--no-drop suppresses the drop cap when:
-  // - stanza is italic/non-left/lang-tagged (handled by parseStanzas flags)
-  // - stanza text starts with * (markdown italic wrapping the whole first line),
-  //   which renders as <em> and causes ::first-letter to grab the wrong character
   const startsWithItalicMark = children.trimStart().startsWith("*");
-  const className = italic || align !== "left" || lang || startsWithItalicMark
-    ? "poem-stanza poem-stanza--no-drop"
-    : "poem-stanza";
+  const suppressDrop = italic || align !== "left" || lang || startsWithItalicMark;
+
+  const className = [
+    "poem-stanza",
+    suppressDrop ? "poem-stanza--no-drop" : "",
+    isFirstDrop ? "poem-stanza--drop" : "",
+  ].filter(Boolean).join(" ");
 
   const sharedProps = {
     ref,

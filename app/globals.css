@@ -213,19 +213,7 @@ body {
 .card-mood-shimmer[data-mood="defiance"]   { background: linear-gradient(90deg, #8A4A4A, #C48080); }
 .card-mood-shimmer[data-mood="love"]       { background: linear-gradient(90deg, #B05C6A, #D4899A); }
 
-/* ── Poem page — ambient mood radial tint behind content ──── */
-/* data-mood on <main> emits a soft radial glow from the top  */
-[data-mood="longing"]  { --mood-glow: #7AAABB22; }
-[data-mood="nature"]   { --mood-glow: #5A8A7422; }
-[data-mood="grief"]    { --mood-glow: #7A6A8A22; }
-[data-mood="warmth"]   { --mood-glow: #C4882A1A; }
-[data-mood="resilience"] { --mood-glow: #8A6A4A1A; }
-[data-mood="defiance"] { --mood-glow: #8A4A4A1A; }
-[data-mood="love"]     { --mood-glow: #B05C6A20; }
-
-main[data-mood] {
-  background-image: radial-gradient(ellipse 80% 40% at 50% 0%, var(--mood-glow, transparent), transparent);
-}
+/* ── Poem page — mood radial tint removed (too distracting) ── */
 
 /* ── Poem line hover — gold underline on each line span ─────── */
 @media (hover: hover) {
@@ -264,12 +252,17 @@ main[data-mood] {
   .poem-hero > span, .poem-hero span > img, .poem-hero > img, .poem-hero > div:first-of-type { display: none !important; }
 }
 
-/* ── First-letter accent — colour only, no size change, no layout impact ── */
-.poem-content:not([lang]) .poem-stanza:first-child:not(.poem-stanza--no-drop)::first-letter {
+/* ── First-letter accent — enlarged, green, bottom-aligned to the first line ── */
+.poem-content:not([lang]) .poem-stanza:first-child:not(.poem-stanza--no-drop)::first-letter,
+.poem-content:not([lang]) .poem-stanza.poem-stanza--drop::first-letter {
   font-family: var(--font-cormorant), serif;
   font-style: italic;
   font-weight: 300;
   color: var(--sage);
+  font-size: 2.2em;
+  vertical-align: bottom;
+  line-height: 1;
+  margin-right: 0.04em;
 }
 
 /* ── Scroll-driven parallax on poem cover images ───────────── */

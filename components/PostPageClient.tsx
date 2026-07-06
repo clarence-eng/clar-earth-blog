@@ -183,11 +183,26 @@ export default function PostPageClient({
 
         {/* Poem — lang attribute from post.lang (e.g. "中文" → "zh") when the whole poem is non-English */}
         <div className="poem-content" lang={post.lang === "中文" ? "zh" : undefined}>
-          {parseStanzas(post.content).map((stanza, i) => (
-            <AnimatedStanza key={i} index={i} align={stanza.align} italic={stanza.italic} lang={stanza.lang}>
-              {stanza.text}
-            </AnimatedStanza>
-          ))}
+          {(() => {
+            const stanzas = parseStanzas(post.content);
+            // Find the first stanza that is eligible for the drop cap
+            // (not italic, not non-left, no lang, doesn't start with *)
+            const firstDropIdx = stanzas.findIndex(s =>
+              !s.italic && s.align === "left" && !s.lang && !s.text.trimStart().startsWith("*")
+            );
+            return stanzas.map((stanza, i) => (
+              <AnimatedStanza
+                key={i}
+                index={i}
+                align={stanza.align}
+                italic={stanza.italic}
+                lang={stanza.lang}
+                isFirstDrop={i === firstDropIdx}
+              >
+                {stanza.text}
+              </AnimatedStanza>
+            ));
+          })()}
         </div>
 
         {/* Leaf divider */}
