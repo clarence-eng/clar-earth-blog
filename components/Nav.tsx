@@ -25,9 +25,7 @@ export default function Nav({ posts = [] }: NavProps) {
     setTimeout(() => searchButtonRef.current?.focus(), 0);
   };
   const { setTheme, resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
 
-  useEffect(() => { setMounted(true); }, []);
   useEffect(() => {
     const h = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", h, { passive: true });
@@ -86,7 +84,7 @@ export default function Nav({ posts = [] }: NavProps) {
             </Link>
 
             {/* Dark mode toggle */}
-            {mounted && (
+            {resolvedTheme && (
               <button
                 onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
                 className={`transition-colors duration-300 ${textMuted}`}

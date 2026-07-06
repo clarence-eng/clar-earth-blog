@@ -109,7 +109,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
               No poems match &ldquo;{query}&rdquo;
             </p>
           )}
-          {shown.map((post, i) => (
+          {shown.map((post) => (
             <div key={post.slug} role="listitem">
             <Link
               href={`/${post.slug}`}

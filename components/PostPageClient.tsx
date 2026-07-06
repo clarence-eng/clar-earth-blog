@@ -233,7 +233,7 @@ export default function PostPageClient({
             // Two-column mirror layout ONLY when left and right stanza counts match
             // (e.g. The Glass Between Us: 2 left + 2 right = true mirror).
             // Unequal counts (e.g. Blank Space: 3 left + 5 right) render sequentially.
-            const leftStanzas = stanzas.filter(s => s.align !== "right");
+            const leftStanzas = stanzas.filter(s => s.align === "left");
             const rightStanzas = stanzas.filter(s => s.align === "right");
             const isMirror = rightStanzas.length > 0 && leftStanzas.length === rightStanzas.length;
 
@@ -326,7 +326,7 @@ export default function PostPageClient({
           </Link>
           <div className="flex items-center gap-4">
             <FocusModeToggle />
-            <PrintButton title={post.title} />
+            <PrintButton title={post.title} type={post.type ?? "poem"} />
           </div>
         </div>
 

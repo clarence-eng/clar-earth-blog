@@ -63,7 +63,7 @@ export default function CustomCursor() {
 
   const moodRef = useRef("default");
   const visibleRef = useRef(false);
-  visibleRef.current = visible;
+  useEffect(() => { visibleRef.current = visible; }, [visible]);
   const animRef = useRef<number>(0);
 
   useEffect(() => {

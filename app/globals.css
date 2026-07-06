@@ -303,8 +303,8 @@ header nav,
   .poem-stanza { font-size: 11pt; line-height: 1.6; break-inside: avoid; }
   h1 { font-size: 22pt; margin-bottom: 6pt; }
   .poem-hero { min-height: 0 !important; padding: 20pt 0 10pt !important; }
-  /* Next.js <Image fill> renders as <span><img> — hide both the wrapper and img */
-  .poem-hero > span, .poem-hero span > img, .poem-hero > img, .poem-hero > div:first-of-type { display: none !important; }
+  /* Next.js <Image fill> renders directly as <img data-nimg="fill"> child of poem-hero */
+  .poem-hero > img, .poem-hero > div:first-of-type { display: none !important; }
 }
 
 /* ── First-letter accent — enlarged, green, bottom-aligned to the first line ── */
@@ -312,7 +312,7 @@ header nav,
    hui-sheng uses poem-stanza--drop so it gets the cap even though poem-content has lang="zh" */
 .poem-content:not([lang]) .poem-stanza:first-child:not(.poem-stanza--no-drop)::first-letter,
 .poem-stanza.poem-stanza--drop::first-letter {
-  font-family: var(--font-cormorant), serif;
+  font-family: var(--font-cormorant), "Noto Serif CJK SC", "STSong", "SimSun", serif;
   font-style: italic;
   font-weight: 300;
   color: var(--sage);

@@ -2,9 +2,10 @@
 
 interface PrintButtonProps {
   title: string;
+  type?: string;
 }
 
-export default function PrintButton({ title }: PrintButtonProps) {
+export default function PrintButton({ title, type = "poem" }: PrintButtonProps) {
   const handlePrint = () => {
     const prev = document.title;
     document.title = `${title} — clar.earth`;
@@ -18,8 +19,8 @@ export default function PrintButton({ title }: PrintButtonProps) {
       onClick={handlePrint}
       className="flex items-center gap-1.5 text-[var(--muted)] hover:text-[var(--forest)] transition-colors"
       style={{ fontFamily: "var(--font-jost)", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase" }}
-      title="Print poem"
-      aria-label="Print poem"
+      title={`Print ${type}`}
+      aria-label={`Print ${type}`}
     >
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
         <polyline points="6,9 6,2 18,2 18,9"/>
