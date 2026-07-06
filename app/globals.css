@@ -268,7 +268,6 @@ body {
 /* ── prefers-reduced-motion — disable motion animations ─────── */
 @media (prefers-reduced-motion: reduce) {
   .poem-cover-parallax { animation: none !important; transform: scale(1) !important; will-change: auto !important; }
-  .post-grid-section { transition: none !important; }
 }
 
 /* ── Reading focus mode ────────────────────────────────────── */
