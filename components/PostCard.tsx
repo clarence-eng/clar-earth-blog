@@ -67,7 +67,7 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
           whileHover={{ y: -6, boxShadow: "0 20px 44px rgba(45,74,62,0.22)" }}
-          transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
+          transition={{ y: { duration: 0.4, ease: [0.32, 0.72, 0, 1] }, boxShadow: { duration: 0.4, ease: [0.32, 0.72, 0, 1] } }}
         >
           <div
             className="w-full h-full transition-transform duration-700 ease-out group-hover:scale-[1.03]"

@@ -239,7 +239,7 @@ main[data-mood] {
 
 /* ── prefers-reduced-motion — disable motion animations ─────── */
 @media (prefers-reduced-motion: reduce) {
-  .poem-cover-parallax { animation: none !important; transform: scale(1) !important; }
+  .poem-cover-parallax { animation: none !important; transform: scale(1) !important; will-change: auto !important; }
   .post-grid-section { transition: none !important; }
 }
 
@@ -264,8 +264,8 @@ main[data-mood] {
 }
 
 /* ── Drop cap on first stanza — ::first-letter, no HTML changes ── */
-/* Exclude right-aligned, center-aligned, and italic first stanzas in the selector itself to win specificity */
-.poem-content .poem-stanza:first-child:not([style*="text-align: right"]):not([style*="text-align: center"]):not([style*="font-style: italic"])::first-letter {
+/* Exclude right-aligned, center-aligned, italic, and lang-tagged first stanzas */
+.poem-content .poem-stanza:first-child:not([style*="text-align: right"]):not([style*="text-align: center"]):not([style*="font-style: italic"]):not([lang])::first-letter {
   float: left;
   font-family: var(--font-cormorant), serif;
   font-size: 4.2em;

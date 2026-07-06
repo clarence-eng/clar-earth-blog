@@ -29,8 +29,11 @@ export default function AnimatedStanza({ children, index, align = "left", italic
   const ref = useRef<HTMLParagraphElement>(null);
   const reducedMotion = useReducedMotion();
 
-  // `amount: "some"` fires as soon as any part of the stanza is visible,
-  // which prevents above-the-fold stanzas from flashing invisible on load.
+  // `amount: "some"` fires as soon as any part of the stanza is visible.
+  // useReducedMotion() returns null on the server — treat null as false (animated)
+  // so server and client render the same branch on first paint.
+  // When reducedMotion===true the ref is on a plain <p> and inView is never used,
+  // but the hook must be called unconditionally (Rules of Hooks).
   const inView = useInView(ref, { once: true, amount: "some" });
 
   const textAlign = align === "right" ? "right" : align === "center" ? "center" : "left";
@@ -38,8 +41,13 @@ export default function AnimatedStanza({ children, index, align = "left", italic
     italic ? line.replace(/^\*|\*$/g, "").trim() : line
   );
 
-  // useReducedMotion() returns null on the server — treat null as false (animated)
-  // so server and client render the same branch on first paint.
+  const lineNodes = lines.map((line, i) => (
+    <span key={i}>
+      {italic ? line : renderLine(line, i)}
+      {i < lines.length - 1 && "\n"}
+    </span>
+  ));
+
   if (reducedMotion === true) {
     return (
       <p
@@ -48,12 +56,7 @@ export default function AnimatedStanza({ children, index, align = "left", italic
         style={{ textAlign, fontStyle: italic ? "italic" : undefined }}
         lang={lang}
       >
-        {lines.map((line, i) => (
-          <span key={i}>
-            {italic ? line : renderLine(line, i)}
-            {i < lines.length - 1 && "\n"}
-          </span>
-        ))}
+        {lineNodes}
       </p>
     );
   }
@@ -72,12 +75,7 @@ export default function AnimatedStanza({ children, index, align = "left", italic
       style={{ textAlign, fontStyle: italic ? "italic" : undefined }}
       lang={lang}
     >
-      {lines.map((line, i) => (
-        <span key={i}>
-          {italic ? line : renderLine(line, i)}
-          {i < lines.length - 1 && "\n"}
-        </span>
-      ))}
+      {lineNodes}
     </motion.p>
   );
 }

@@ -181,8 +181,8 @@ export default function PostPageClient({
           className="h-px bg-[var(--gold)] mb-12 mt-2 opacity-80"
         />
 
-        {/* Poem */}
-        <div className="poem-content">
+        {/* Poem — lang attribute from post.lang (e.g. "中文" → "zh") when the whole poem is non-English */}
+        <div className="poem-content" lang={post.lang === "中文" ? "zh" : undefined}>
           {parseStanzas(post.content).map((stanza, i) => (
             <AnimatedStanza key={i} index={i} align={stanza.align} italic={stanza.italic} lang={stanza.lang}>
               {stanza.text}

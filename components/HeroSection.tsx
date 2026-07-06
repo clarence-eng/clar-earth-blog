@@ -137,9 +137,9 @@ export default function HeroSection() {
 
       {/* Marquee */}
       <div className="w-full overflow-hidden border-y border-[var(--border)] py-2.5" style={{ background: "var(--cream-dark)" }}>
-        <div className="marquee-track">
+        <div className="marquee-track" aria-hidden="true">
           <span className="marquee-content">{MARQUEE_TEXT.repeat(5)}</span>
-          <span className="marquee-content" aria-hidden="true">{MARQUEE_TEXT.repeat(5)}</span>
+          <span className="marquee-content">{MARQUEE_TEXT.repeat(5)}</span>
         </div>
       </div>
     </>
