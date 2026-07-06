@@ -14,12 +14,13 @@ export default function Nav({ posts = [] }: NavProps) {
   const isAdmin = pathname.startsWith("/keystatic");
   const [scrolled, setScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const searchOpenRef = useRef(false);
   const searchButtonRef = useRef<HTMLButtonElement>(null);
 
-  const openSearch = () => setSearchOpen(true);
+  const openSearch = () => { setSearchOpen(true); searchOpenRef.current = true; };
   const closeSearch = () => {
     setSearchOpen(false);
-    // Restore focus to the button that opened the modal
+    searchOpenRef.current = false;
     setTimeout(() => searchButtonRef.current?.focus(), 0);
   };
   const { theme, setTheme, resolvedTheme } = useTheme();
@@ -36,7 +37,7 @@ export default function Nav({ posts = [] }: NavProps) {
   useEffect(() => {
     const h = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === "k") { e.preventDefault(); openSearch(); }
-      if (e.key === "Escape") closeSearch();
+      if (e.key === "Escape" && searchOpenRef.current) closeSearch();
     };
     window.addEventListener("keydown", h);
     return () => window.removeEventListener("keydown", h);
