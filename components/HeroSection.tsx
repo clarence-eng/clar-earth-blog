@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import { useRef, useState } from "react";
 import AmbientParticles from "./AmbientParticles";
 
 function getSeasonalGradient() {
@@ -30,11 +30,9 @@ function Sprig({ x, y, size, rotate, opacity }: { x: string; y: string; size: nu
 }
 
 export default function HeroSection({ titles = [] }: { titles?: string[] }) {
-  const [gradient, setGradient] = useState(
-    "linear-gradient(160deg, #2D4A3E 0%, #3D6154 40%, #4A7A5A 70%, #2A3D34 100%)"
-  );
-  useEffect(() => { setGradient(getSeasonalGradient()); }, []);
+  const [gradient] = useState(() => getSeasonalGradient());
 
+  const reducedMotion = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
 
@@ -53,10 +51,10 @@ export default function HeroSection({ titles = [] }: { titles?: string[] }) {
       <section
         ref={sectionRef}
         className="relative overflow-hidden min-h-[56vh] flex items-center"
-        style={{ background: gradient }}
+        style={{ background: gradient || undefined }}
       >
         {/* Parallax ornament layer */}
-        <motion.div className="absolute inset-0 pointer-events-none" style={{ y: ornamentsY }}>
+        <motion.div className="absolute inset-0 pointer-events-none" style={reducedMotion ? undefined : { y: ornamentsY }}>
           <div className="absolute pointer-events-none select-none leading-none"
             style={{ top: "14%", left: "13%", fontSize: "clamp(2.6rem, 5.5vw, 5.2rem)", color: "white", opacity: 0.26, lineHeight: 1 }}
             aria-hidden="true">&#10047;</div>
@@ -72,7 +70,7 @@ export default function HeroSection({ titles = [] }: { titles?: string[] }) {
         </motion.div>
 
         {/* Parallax sprig layer */}
-        <motion.div className="absolute inset-0 pointer-events-none" style={{ y: sprigsY }}>
+        <motion.div className="absolute inset-0 pointer-events-none" style={reducedMotion ? undefined : { y: sprigsY }}>
           <Sprig x="8.5%" y="28%" size={28} rotate={-12} opacity={0.22} />
           <Sprig x="86%" y="28%" size={28} rotate={14} opacity={0.22} />
           <Sprig x="9%" y="52%" size={22} rotate={15} opacity={0.15} />
@@ -105,7 +103,7 @@ export default function HeroSection({ titles = [] }: { titles?: string[] }) {
         {/* Quote — fades + lifts on scroll */}
         <motion.div
           className="relative z-10 w-full max-w-3xl mx-auto px-8 pt-28 pb-20 text-center"
-          style={{ y: quoteY, opacity: quoteOpacity }}
+          style={reducedMotion ? undefined : { y: quoteY, opacity: quoteOpacity }}
         >
           <motion.div
             initial={{ opacity: 0, y: 20 }}

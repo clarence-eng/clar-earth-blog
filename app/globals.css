@@ -326,7 +326,6 @@ header nav,
   gap: 2.5rem;
   align-items: stretch;
 }
-.poem-two-col__left { }
 .poem-two-col__right {
   display: flex;
   flex-direction: column;

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import type { PostMeta } from "@/lib/posts";
 
 const TYPE_LABELS: Record<string, string> = {
@@ -12,6 +12,7 @@ const TYPE_LABELS: Record<string, string> = {
 };
 
 export default function FeaturedPoem({ post }: { post: PostMeta }) {
+  const reducedMotion = useReducedMotion();
   return (
     <section aria-label="Featured work" className="max-w-6xl mx-auto px-8 pt-12 pb-0">
       <div className="flex items-center gap-4 mb-6">
@@ -23,8 +24,8 @@ export default function FeaturedPoem({ post }: { post: PostMeta }) {
 
       <Link href={`/${post.slug}`} className="group block">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={reducedMotion ? {} : { opacity: 0, y: 20 }}
+          animate={reducedMotion ? {} : { opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
           className="relative overflow-hidden rounded-sm"
           style={{ aspectRatio: "21/7", minHeight: 220 }}

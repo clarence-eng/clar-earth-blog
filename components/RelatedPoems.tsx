@@ -36,6 +36,7 @@ export default function RelatedPoems({ posts, currentSlug }: { posts: PostMeta[]
       animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
       transition={{ duration: 0.6, delay: 0.1 }}
       className="mt-20 pt-10 border-t border-[var(--border)]"
+      aria-label="More poems"
     >
       <p className="text-[9px] tracking-[0.35em] uppercase text-[var(--muted)] mb-6"
         style={{ fontFamily: "var(--font-jost)" }}>

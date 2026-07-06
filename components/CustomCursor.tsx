@@ -126,7 +126,7 @@ export default function CustomCursor() {
 
   return (
     <svg
-      className="fixed top-0 left-0 pointer-events-none z-[9999]"
+      className="fixed pointer-events-none z-[9999]"
       style={{
         left: pos.x,
         top: pos.y,

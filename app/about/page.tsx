@@ -4,10 +4,20 @@ import { BannerBotanicalRight } from "@/components/BotanicalAccent";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getAllPosts } from "@/lib/posts";
+import { BASE_URL } from "@/lib/config";
 
 export const metadata: Metadata = {
   title: "About — clar.earth",
   description: "About Clare — poetry, nature, and the spaces between.",
+  openGraph: {
+    title: "About — clar.earth",
+    description: "About Clare — poetry, nature, and the spaces between.",
+    url: `${BASE_URL}/about`,
+    siteName: "clar.earth",
+  },
+  alternates: {
+    canonical: `${BASE_URL}/about`,
+  },
 };
 
 export default function AboutPage() {

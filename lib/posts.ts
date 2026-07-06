@@ -56,7 +56,7 @@ export function getAllPosts(): PostMeta[] {
       if (aLatin && !bLatin) return -1;
       if (!aLatin && bLatin) return 1;
       if (aLatin && bLatin) return a.title.localeCompare(b.title, "en");
-      return 0;
+      return a.title.localeCompare(b.title, "zh");
     });
 
   return posts as PostMeta[];
