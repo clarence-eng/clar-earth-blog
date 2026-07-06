@@ -1,5 +1,3 @@
-"use client";
-
 import { BannerBotanicalRight } from "./BotanicalAccent";
 import Link from "next/link";
 
@@ -27,7 +25,9 @@ export default function SiteFooter() {
           where the earth listens, and the pen replies
         </p>
 
+        {/* suppressHydrationWarning: year is baked at build time on server, re-evaluated at runtime on client */}
         <span
+          suppressHydrationWarning
           className="text-[10px] tracking-widest text-[var(--muted-light)]"
           style={{ fontFamily: "var(--font-jost)" }}
         >

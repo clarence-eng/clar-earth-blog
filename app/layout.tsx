@@ -3,6 +3,7 @@ import { Cormorant_Garamond, Jost } from "next/font/google";
 import "./globals.css";
 import CustomCursor from "@/components/CustomCursor";
 import Providers from "@/components/Providers";
+import { BASE_URL } from "@/lib/config";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
     title: "clar.earth",
     description: "Poetry and writing by Clare",
     siteName: "clar.earth",
-    images: [{ url: "https://clar-earth-blog.vercel.app/images/posts/daughter-of-the-tides.jpg", width: 1200, height: 800, alt: "clar.earth" }],
+    images: [{ url: `${BASE_URL}/images/posts/daughter-of-the-tides.jpg`, width: 1200, height: 800, alt: "clar.earth" }],
   },
 };
 

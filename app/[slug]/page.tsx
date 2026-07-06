@@ -4,6 +4,7 @@ import Nav from "@/components/Nav";
 import PostPageClient from "@/components/PostPageClient";
 import type { Metadata } from "next";
 import readingTime from "reading-time";
+import { BASE_URL } from "@/lib/config";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -20,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = getPost(slug);
   if (!post) return {};
 
-  const url = `https://clar-earth-blog.vercel.app/${slug}`;
+  const url = `${BASE_URL}/${slug}`;
 
   return {
     title: `${post.title} — clar.earth`,
@@ -31,13 +32,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url,
       siteName: "clar.earth",
       type: "article",
-      ...(post.coverImage ? { images: [{ url: `https://clar-earth-blog.vercel.app${post.coverImage}` }] } : {}),
+      ...(post.coverImage ? { images: [{ url: `${BASE_URL}${post.coverImage}` }] } : {}),
     },
     twitter: {
       card: post.coverImage ? "summary_large_image" : "summary",
       title: post.title,
       description: post.excerpt ?? "A poem by Clare.",
-      ...(post.coverImage ? { images: [`https://clar-earth-blog.vercel.app${post.coverImage}`] } : {}),
+      ...(post.coverImage ? { images: [`${BASE_URL}${post.coverImage}`] } : {}),
     },
     alternates: { canonical: url },
   };
@@ -72,15 +73,15 @@ export default async function PostPage({ params }: Props) {
     "author": {
       "@type": "Person",
       "name": "Clare",
-      "url": "https://clar-earth-blog.vercel.app/about",
+      "url": `${BASE_URL}/about`,
     },
-    "url": `https://clar-earth-blog.vercel.app/${slug}`,
+    "url": `${BASE_URL}/${slug}`,
     "description": post.excerpt ?? "",
     "inLanguage": post.lang === "中文" ? "zh" : "en",
     "publisher": {
       "@type": "Organization",
       "name": "clar.earth",
-      "url": "https://clar-earth-blog.vercel.app",
+      "url": BASE_URL,
     },
   };
 

@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { BASE_URL } from "@/lib/config";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -7,6 +8,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: "/keystatic/",
     },
-    sitemap: "https://clar-earth-blog.vercel.app/sitemap.xml",
+    sitemap: `${BASE_URL}/sitemap.xml`,
   };
 }

@@ -86,7 +86,7 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* Selected works strip */}
+        {/* Selected works strip — picks 5 poems dynamically so slugs/titles stay in sync */}
         <div className="max-w-4xl mx-auto px-8 mt-20 pt-10 border-t border-[var(--border)]">
           <p
             className="text-[9px] tracking-[0.35em] uppercase text-[var(--muted)] mb-6"
@@ -95,16 +95,13 @@ export default function AboutPage() {
             A few poems
           </p>
           <div className="flex flex-wrap gap-x-8 gap-y-2">
-            {[
-              { slug: "my-every-sense-of-you", title: "My Every Sense of You" },
-              { slug: "daughter-of-the-tides", title: "Daughter of the Tides" },
-              { slug: "embers", title: "Embers" },
-              { slug: "drowning", title: "Drowning" },
-              { slug: "like-moth-to-flame", title: "Like Moth to Flame" },
-            ].map(({ slug, title }) => (
+            {posts
+              .filter(p => ["my-every-sense-of-you", "daughter-of-the-tides", "embers", "drowning", "like-moth-to-flame"].includes(p.slug))
+              .sort((a, b) => ["my-every-sense-of-you", "daughter-of-the-tides", "embers", "drowning", "like-moth-to-flame"].indexOf(a.slug) - ["my-every-sense-of-you", "daughter-of-the-tides", "embers", "drowning", "like-moth-to-flame"].indexOf(b.slug))
+              .map(p => (
               <Link
-                key={slug}
-                href={`/${slug}`}
+                key={p.slug}
+                href={`/${p.slug}`}
                 className="text-[var(--muted)] hover:text-[var(--forest)] transition-colors"
                 style={{
                   fontFamily: "var(--font-cormorant)",
@@ -112,7 +109,7 @@ export default function AboutPage() {
                   fontSize: "1.05rem",
                 }}
               >
-                {title}
+                {p.title}
               </Link>
             ))}
           </div>

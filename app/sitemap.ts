@@ -1,7 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getAllPosts } from "@/lib/posts";
-
-const BASE_URL = "https://clar-earth-blog.vercel.app";
+import { BASE_URL } from "@/lib/config";
 // Fixed fallback — avoids non-deterministic builds when no date field is present
 const SITE_LAUNCH = new Date("2025-06-01");
 

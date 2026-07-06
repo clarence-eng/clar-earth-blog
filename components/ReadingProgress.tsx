@@ -17,7 +17,7 @@ export default function ReadingProgress() {
   }, []);
 
   return (
-    <div className="reading-progress fixed top-0 left-0 right-0 z-[100] h-[2px] bg-transparent pointer-events-none">
+    <div aria-hidden="true" className="reading-progress fixed top-0 left-0 right-0 z-[100] h-[2px] bg-transparent pointer-events-none">
       <div
         className="h-full transition-none"
         style={{
