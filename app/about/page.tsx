@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "About — clar.earth",
-  description: "About Clare — poetry, nature, and the spaces between.",
+  description: "Clare writes from the edges — intertidal flats, peat forests, the threshold between the personal and the planetary.",
 };
 
 export default function AboutPage() {
@@ -31,9 +31,7 @@ export default function AboutPage() {
               fontSize: "clamp(1.8rem, 4vw, 3rem)",
             }}
           >
-            &ldquo;In the shadow of trees, I find my voice.
-            <br />
-            Where the earth listens, and the pen replies.&rdquo;
+            &ldquo;She watches first. Then makes demands.&rdquo;
           </blockquote>
           <div className="h-px w-12 bg-[var(--gold)] mt-8 opacity-70" />
         </div>
@@ -43,21 +41,24 @@ export default function AboutPage() {
           {/* Bio */}
           <div>
             <div
-              className="space-y-5 text-[var(--ink)]"
+              className="space-y-6 text-[var(--ink)]"
               style={{
                 fontFamily: "var(--font-cormorant)",
                 fontSize: "1.2rem",
-                lineHeight: 1.8,
+                lineHeight: 1.85,
               }}
             >
               <p>
-                I write from the margins of nature — where the forest meets the city, where silence meets speech, where the personal meets the planetary.
+                Clare&rsquo;s poems take their time before they make demands. She watches first — a hermit crab scribing paths across tidal silt, an ember kept alive beneath the ribs long after a gathering ends, peat that holds eight thousand years of carbon in a wet, dark patience. The attention is not decorative. It is the argument.
               </p>
               <p>
-                My poetry explores longing, ecology, identity, and the small sacred things that hold us together. I believe in the power of language to make the invisible visible, and the quiet radical act of paying attention.
+                Her work moves between the living world of Southeast Asian forests, intertidal flats, and peat swamps and the interior world of longing, fellowship, and loss — and finds that both require the same instrument: precise, unhurried looking. She writes in English and Chinese, and reaches for Vietnamese or Malay when those are the more truthful words.
               </p>
               <p>
-                I&rsquo;m based in Singapore, and I write in English and Chinese.
+                Formally, she follows the feeling. A sonnet where the volta must do moral work. A poem about drowning that moves down the page like a current. An abandoned notebook that speaks its own grief. The form is chosen for its fit, and so is every image: she names the seagrass blade by blade — Fern, Needle, Spoon — and counts the 27,000 signatures on the petition. Facts are load-bearing here. They are what keeps the political poems from becoming slogans.
+              </p>
+              <p>
+                Clare is based in Singapore. She has knelt in restoration canals, guided nature walks through mangroves at low tide, and lost notebooks to rain. She writes to keep what she has touched from disappearing entirely.
               </p>
             </div>
 
