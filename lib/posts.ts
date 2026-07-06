@@ -11,7 +11,7 @@ export interface PostMeta {
   title: string;
   date?: string;
   type: PostType;
-  excerpt: string;
+  excerpt?: string;
   published: boolean;
   coverImage?: string;
   dedication?: string;

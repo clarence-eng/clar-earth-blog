@@ -81,13 +81,16 @@ export default function CustomCursor() {
         const colors = MOOD_COLORS[newMood] ?? MOOD_COLORS.default;
         targetDotRef.current = hexToRgb(colors.dot);
         targetLadybugRef.current = hexToRgb(colors.ladybug);
+        // When reduced motion: snap colours immediately on mood change
+        if (reducedMotion) {
+          setDotColor(rgbToCss(hexToRgb(colors.dot)));
+          setLadybugColor(rgbToCss(hexToRgb(colors.ladybug)));
+        }
       }
-      // When reduced motion: snap position + colours directly, no lerp
+      // When reduced motion: snap position directly, no lerp
       if (reducedMotion) {
         posRef.current = { x: e.clientX, y: e.clientY };
         setPos({ x: e.clientX, y: e.clientY });
-        setDotColor(rgbToCss(hexToRgb(MOOD_COLORS[newMood]?.dot ?? MOOD_COLORS.default.dot)));
-        setLadybugColor(rgbToCss(hexToRgb(MOOD_COLORS[newMood]?.ladybug ?? MOOD_COLORS.default.ladybug)));
       }
     };
     window.addEventListener("mousemove", move);
