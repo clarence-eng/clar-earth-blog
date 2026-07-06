@@ -281,7 +281,7 @@ header nav,
 .focus-mode .reading-progress,
 .focus-mode .back-pill,
 .focus-mode .poem-back-arrow {
-  opacity: 0;
+  opacity: 0 !important;  /* !important beats Framer Motion inline opacity: 1 */
   visibility: hidden;
   pointer-events: none;
 }

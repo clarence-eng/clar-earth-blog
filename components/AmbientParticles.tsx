@@ -41,7 +41,7 @@ export default function AmbientParticles() {
       type: Math.random() < 0.5 ? "leaf" : "spore",
     }));
 
-    let animId: number;
+    let animId = 0;
 
     const drawLeaf = (ctx: CanvasRenderingContext2D, p: Particle) => {
       ctx.save();
