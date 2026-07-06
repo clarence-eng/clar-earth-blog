@@ -260,7 +260,8 @@ main[data-mood] {
   .poem-stanza { font-size: 11pt; line-height: 1.6; break-inside: avoid; }
   h1 { font-size: 22pt; margin-bottom: 6pt; }
   .poem-hero { min-height: 0 !important; padding: 20pt 0 10pt !important; }
-  .poem-hero > img, .poem-hero > div:first-of-type { display: none !important; }
+  /* Next.js <Image fill> renders as <span><img> — hide both the wrapper and img */
+  .poem-hero > span, .poem-hero span > img, .poem-hero > img, .poem-hero > div:first-of-type { display: none !important; }
 }
 
 /* ── Drop cap on first stanza — ::first-letter, no HTML changes ── */
