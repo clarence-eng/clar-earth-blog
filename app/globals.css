@@ -116,7 +116,7 @@ body {
 }
 .marquee-content {
   display: inline-block;
-  font-family: var(--font-jost);
+  font-family: var(--font-jost), "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
   font-size: 0.6rem;
   letter-spacing: 0.3em;
   text-transform: uppercase;
@@ -324,6 +324,10 @@ body {
 }
 .poem-two-col__right .poem-stanza {
   text-align: right;
+}
+@media (max-width: 600px) {
+  .poem-two-col { grid-template-columns: 1fr; }
+  .poem-two-col__right .poem-stanza { text-align: left; }
 }
 
 /* ── Scroll-driven parallax on poem cover images ───────────── */

@@ -65,7 +65,7 @@ export default function Nav({ posts = [] }: NavProps) {
             CLAR.EARTH
           </Link>
 
-          <div className="flex items-center gap-5">
+          <nav aria-label="Site navigation" className="flex items-center gap-5">
             {/* Search */}
             <button
               ref={searchButtonRef}
@@ -106,7 +106,7 @@ export default function Nav({ posts = [] }: NavProps) {
                 )}
               </button>
             )}
-          </div>
+          </nav>
         </div>
       </header>
 

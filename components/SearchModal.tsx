@@ -67,78 +67,78 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.2 }}
-        className="fixed inset-0 z-[200] flex items-start justify-center pt-24 px-4 search-glass"
-        onClick={onClose}
-        role="presentation"
+      className="fixed inset-0 z-[200] flex items-start justify-center pt-24 px-4 search-glass"
+      onClick={onClose}
+      role="presentation"
+    >
+      <motion.div
+        initial={{ opacity: 0, y: -16, scale: 0.97 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: -8 }}
+        transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
+        className="w-full max-w-xl rounded-sm overflow-hidden shadow-2xl"
+        style={{ background: "var(--cream)" }}
+        onClick={e => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Search all works"
+        ref={dialogRef}
       >
-        <motion.div
-          initial={{ opacity: 0, y: -16, scale: 0.97 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: -8 }}
-          transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
-          className="w-full max-w-xl rounded-sm overflow-hidden shadow-2xl"
-          style={{ background: "var(--cream)" }}
-          onClick={e => e.stopPropagation()}
-          role="dialog"
-          aria-modal="true"
-          aria-label="Search poems"
-          ref={dialogRef}
-        >
-          {/* Input */}
-          <div className="flex items-center gap-3 px-5 py-4 border-b border-[var(--border)]">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" strokeWidth="1.8" strokeLinecap="round">
-              <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
-            </svg>
-            <input
-              aria-label="Search poems"
-              ref={inputRef}
-              value={query}
-              onChange={e => setQuery(e.target.value)}
-              placeholder="Search poems..."
-              className="flex-1 bg-transparent outline-none text-[var(--ink)] placeholder:text-[var(--muted-light)]"
-              style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.1rem" }}
-            />
-            <kbd className="text-[9px] tracking-wider text-[var(--muted)] border border-[var(--border)] rounded px-1.5 py-0.5" style={{ fontFamily: "var(--font-jost)" }}>ESC</kbd>
-          </div>
+        {/* Input */}
+        <div className="flex items-center gap-3 px-5 py-4 border-b border-[var(--border)]">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" strokeWidth="1.8" strokeLinecap="round">
+            <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+          </svg>
+          <input
+            aria-label="Search query"
+            ref={inputRef}
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+            placeholder="Search poems..."
+            className="flex-1 bg-transparent outline-none text-[var(--ink)] placeholder:text-[var(--muted-light)]"
+            style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.1rem" }}
+          />
+          <kbd className="text-[9px] tracking-wider text-[var(--muted)] border border-[var(--border)] rounded px-1.5 py-0.5" style={{ fontFamily: "var(--font-jost)" }}>ESC</kbd>
+        </div>
 
-          {/* Results */}
-          <div className="max-h-80 overflow-y-auto">
-            {shown.length === 0 && query.trim().length >= 2 && (
-              <p className="px-5 py-8 text-center text-[var(--muted)] italic" style={{ fontFamily: "var(--font-cormorant)", fontSize: "1rem" }}>
-                No poems match &ldquo;{query}&rdquo;
-              </p>
-            )}
-            {shown.map((post, i) => (
-              <Link
-                key={post.slug}
-                href={`/${post.slug}`}
-                onClick={onClose}
-                className="flex items-start gap-4 px-5 py-3.5 hover:bg-[var(--cream-dark)] transition-colors border-b border-[var(--border)] last:border-0 group"
-              >
-                <span className="text-[8px] tracking-[0.25em] uppercase text-[var(--muted)] pt-1 w-12 flex-shrink-0" style={{ fontFamily: "var(--font-jost)" }}>
-                  {TYPE_LABELS[post.type ?? "poem"] ?? post.type}
-                </span>
-                <div>
-                  <p className="text-[var(--ink)] group-hover:text-[var(--forest)] transition-colors leading-snug" style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontSize: "1.1rem" }}>
-                    {post.title}
-                    {post.lang && <span className="ml-2 text-[10px] not-italic text-[var(--muted)]">{post.lang}</span>}
-                  </p>
-                  {post.excerpt && (
-                    <p className="text-[var(--muted)] text-xs mt-0.5 line-clamp-1" style={{ fontFamily: "var(--font-jost)" }}>
-                      {post.excerpt}
-                    </p>
-                  )}
-                </div>
-              </Link>
-            ))}
-          </div>
-
-          {query.trim().length < 2 && (
-            <p className="px-5 py-2.5 text-[9px] tracking-[0.2em] uppercase text-[var(--muted-light)]" style={{ fontFamily: "var(--font-jost)" }}>
-              All works — {posts.length} {posts.length === 1 ? "work" : "works"}
+        {/* Results */}
+        <div className="max-h-80 overflow-y-auto">
+          {shown.length === 0 && query.trim().length >= 2 && (
+            <p className="px-5 py-8 text-center text-[var(--muted)] italic" style={{ fontFamily: "var(--font-cormorant)", fontSize: "1rem" }}>
+              No poems match &ldquo;{query}&rdquo;
             </p>
           )}
-        </motion.div>
+          {shown.map((post, i) => (
+            <Link
+              key={post.slug}
+              href={`/${post.slug}`}
+              onClick={onClose}
+              className="flex items-start gap-4 px-5 py-3.5 hover:bg-[var(--cream-dark)] transition-colors border-b border-[var(--border)] last:border-0 group"
+            >
+              <span className="text-[8px] tracking-[0.25em] uppercase text-[var(--muted)] pt-1 w-12 flex-shrink-0" style={{ fontFamily: "var(--font-jost)" }}>
+                {TYPE_LABELS[post.type ?? "poem"] ?? post.type}
+              </span>
+              <div>
+                <p className="text-[var(--ink)] group-hover:text-[var(--forest)] transition-colors leading-snug" style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontSize: "1.1rem" }}>
+                  {post.title}
+                  {post.lang && <span className="ml-2 text-[10px] not-italic text-[var(--muted)]">{post.lang}</span>}
+                </p>
+                {post.excerpt && (
+                  <p className="text-[var(--muted)] text-xs mt-0.5 line-clamp-1" style={{ fontFamily: "var(--font-jost)" }}>
+                    {post.excerpt}
+                  </p>
+                )}
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        {query.trim().length < 2 && (
+          <p className="px-5 py-2.5 text-[9px] tracking-[0.2em] uppercase text-[var(--muted-light)]" style={{ fontFamily: "var(--font-jost)" }}>
+            All works — {posts.length} {posts.length === 1 ? "work" : "works"}
+          </p>
+        )}
       </motion.div>
+    </motion.div>
   );
 }

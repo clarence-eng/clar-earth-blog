@@ -44,7 +44,7 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
 
       {/* Filter tabs */}
       <div className="relative mb-10">
-        <div className="filter-tabs-wrap flex gap-1.5 overflow-x-auto pb-1 scrollbar-none">
+        <div className="filter-tabs-wrap flex gap-1.5 overflow-x-auto pb-1 scrollbar-none" role="group" aria-label="Filter by content type">
           {FILTERS.map(({ key, label }) => {
             const count = counts[key];
             const isActive = active === key;
