@@ -48,7 +48,7 @@ export default function FeaturedPoem({ post }: { post: PostMeta }) {
           />
 
           {/* Content */}
-          <div className="absolute inset-0 flex items-center px-10 md:px-16">
+          <div className="absolute inset-0 flex items-center px-10 md:px-16 py-8">
             <div className="max-w-lg">
               <span
                 className="inline-block text-[9px] tracking-[0.3em] uppercase px-2 py-0.5 rounded-full mb-4 bg-white/15 text-white/70"
@@ -62,7 +62,7 @@ export default function FeaturedPoem({ post }: { post: PostMeta }) {
                   fontFamily: "var(--font-cormorant)",
                   fontStyle: "italic",
                   fontWeight: 300,
-                  fontSize: "clamp(1.8rem, 4vw, 3.2rem)",
+                  fontSize: "clamp(1.6rem, 3.5vw, 2.8rem)",
                 }}
               >
                 {post.title}
@@ -70,7 +70,7 @@ export default function FeaturedPoem({ post }: { post: PostMeta }) {
               {post.excerpt && (
                 <p
                   className="text-white/55 leading-relaxed line-clamp-2 mb-5"
-                  style={{ fontFamily: "var(--font-cormorant)", fontSize: "1rem" }}
+                  style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(0.88rem, 1.5vw, 1rem)" }}
                 >
                   {post.excerpt}
                 </p>

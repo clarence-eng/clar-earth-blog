@@ -264,18 +264,29 @@ main[data-mood] {
   .poem-hero > span, .poem-hero span > img, .poem-hero > img, .poem-hero > div:first-of-type { display: none !important; }
 }
 
-/* ── Drop cap on first stanza — ::first-letter, no HTML changes ── */
+/* ── Drop cap on first stanza — raised cap, bottom-aligns with first line ── */
 /* Exclude right-aligned, center-aligned, italic, and lang-tagged first stanzas */
 .poem-content .poem-stanza:first-child:not([style*="text-align: right"]):not([style*="text-align: center"]):not([style*="font-style: italic"]):not([lang])::first-letter {
-  float: left;
   font-family: var(--font-cormorant), serif;
-  font-size: 4.2em;
   font-style: italic;
   font-weight: 300;
-  line-height: 0.78;
-  margin-right: 0.08em;
-  margin-top: 0.1em;
   color: var(--sage);
+  /* Raised cap: letter rises above the first line, bottom-aligned with it.
+     initial-letter: <size> <sink> — sink=1 means bottom of letter sits on the first line baseline. */
+  initial-letter: 3.2 1;
+  margin-right: 0.12em;
+  line-height: 1;
+}
+
+/* Firefox doesn't support initial-letter — fall back to a modest inline size increase */
+@supports not (initial-letter: 1) {
+  .poem-content .poem-stanza:first-child:not([style*="text-align: right"]):not([style*="text-align: center"]):not([style*="font-style: italic"]):not([lang])::first-letter {
+    font-size: 2.4em;
+    float: left;
+    line-height: 0.85;
+    margin-top: 0.05em;
+    margin-right: 0.08em;
+  }
 }
 
 /* ── Scroll-driven parallax on poem cover images ───────────── */
