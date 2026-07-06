@@ -52,6 +52,7 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
               <button
                 key={key}
                 onClick={() => setActive(key)}
+                aria-pressed={isActive}
                 className={`flex-shrink-0 flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[10px] tracking-[0.2em] uppercase transition-all duration-300 cursor-pointer ${
                   isActive
                     ? "bg-[var(--forest)] text-white"

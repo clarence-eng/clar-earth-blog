@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import type { PostMeta } from "@/lib/posts";
 
 interface SearchModalProps {
@@ -62,12 +62,11 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
   const shown = query.trim().length < 2 ? posts.slice(0, 8) : results;
 
   return (
-    <AnimatePresence>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.2 }}
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
         className="fixed inset-0 z-[200] flex items-start justify-center pt-24 px-4 search-glass"
         onClick={onClose}
         role="presentation"
@@ -141,6 +140,5 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
           )}
         </motion.div>
       </motion.div>
-    </AnimatePresence>
   );
 }

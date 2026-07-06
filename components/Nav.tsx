@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import { useTheme } from "next-themes";
+import { AnimatePresence } from "framer-motion";
 import SearchModal from "./SearchModal";
 import type { PostMeta } from "@/lib/posts";
 
@@ -109,9 +110,11 @@ export default function Nav({ posts = [] }: NavProps) {
         </div>
       </header>
 
-      {searchOpen && (
-        <SearchModal posts={posts} onClose={closeSearch} />
-      )}
+      <AnimatePresence>
+        {searchOpen && (
+          <SearchModal posts={posts} onClose={closeSearch} />
+        )}
+      </AnimatePresence>
     </>
   );
 }

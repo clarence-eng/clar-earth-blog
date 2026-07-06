@@ -281,7 +281,7 @@ body {
 
 /* ── Print ─────────────────────────────────────────────────── */
 @media print {
-  nav, .reading-progress, .back-pill, footer,
+  nav, .reading-progress, .back-pill, .poem-back-arrow, footer,
   .marquee-track, .filter-tabs-wrap,
   .poem-prev-next, .keyboard-hint, button { display: none !important; }
   body { background: white; color: black; font-size: 12pt; }
