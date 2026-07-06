@@ -264,29 +264,17 @@ main[data-mood] {
   .poem-hero > span, .poem-hero span > img, .poem-hero > img, .poem-hero > div:first-of-type { display: none !important; }
 }
 
-/* ── Drop cap on first stanza — raised cap, bottom-aligns with first line ── */
-/* .poem-stanza--no-drop is set by AnimatedStanza when the stanza is italic, non-left, or has a lang tag.
-   .poem-content[lang] excludes whole-poem non-English content (e.g. hui-sheng). */
+/* ── First-letter accent — inline, no float, no layout disruption ── */
+/* Larger, sage-coloured, italic — sits inline on the first line only.
+   .poem-stanza--no-drop suppresses it for italic/non-left/lang/asterisk-wrapped stanzas.
+   .poem-content[lang] suppresses it for whole-poem non-English content. */
 .poem-content:not([lang]) .poem-stanza:first-child:not(.poem-stanza--no-drop)::first-letter {
   font-family: var(--font-cormorant), serif;
   font-style: italic;
   font-weight: 300;
   color: var(--sage);
-  initial-letter: 3.2 1;
-  -webkit-initial-letter: 3.2 1;
-  margin-right: 0.12em;
-  line-height: 1;
-}
-
-/* Firefox doesn't support initial-letter — modest float fallback */
-@supports not (initial-letter: 1) {
-  .poem-content:not([lang]) .poem-stanza:first-child:not(.poem-stanza--no-drop)::first-letter {
-    font-size: 2.4em;
-    float: left;
-    line-height: 0.85;
-    margin-top: 0.05em;
-    margin-right: 0.08em;
-  }
+  font-size: 1.9em;
+  margin-right: 0.03em;
 }
 
 /* ── Scroll-driven parallax on poem cover images ───────────── */

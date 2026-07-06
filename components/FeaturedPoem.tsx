@@ -57,20 +57,20 @@ export default function FeaturedPoem({ post }: { post: PostMeta }) {
                 {TYPE_LABELS[post.type ?? "poem"] ?? "Poem"}
               </span>
               <h2
-                className="text-white leading-[1.15] mb-3 group-hover:opacity-90 transition-opacity"
+                className="text-white leading-[1.2] mb-2 group-hover:opacity-90 transition-opacity"
                 style={{
                   fontFamily: "var(--font-cormorant)",
                   fontStyle: "italic",
                   fontWeight: 300,
-                  fontSize: "clamp(1.6rem, 3.5vw, 2.8rem)",
+                  fontSize: "clamp(1.25rem, 2.5vw, 2rem)",
                 }}
               >
                 {post.title}
               </h2>
               {post.excerpt && (
                 <p
-                  className="text-white/55 leading-relaxed line-clamp-2 mb-5"
-                  style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(0.88rem, 1.5vw, 1rem)" }}
+                  className="text-white/50 leading-relaxed line-clamp-1 mb-4"
+                  style={{ fontFamily: "var(--font-cormorant)", fontSize: "0.9rem" }}
                 >
                   {post.excerpt}
                 </p>
