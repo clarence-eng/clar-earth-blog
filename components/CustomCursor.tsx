@@ -10,6 +10,14 @@ const MOOD_COLORS: Record<string, { dot: string; ladybug: string }> = {
   resilience: { dot: "#8A6A4A", ladybug: "#C4A070" },
   defiance:   { dot: "#8A4A4A", ladybug: "#C48080" },
   love:       { dot: "#B05C6A", ladybug: "#D4899A" },
+  nostalgia:  { dot: "#A08850", ladybug: "#D0B880" },
+  wonder:     { dot: "#4A9A90", ladybug: "#80CAC0" },
+  melancholy: { dot: "#6A6A8A", ladybug: "#A0A0C0" },
+  protest:    { dot: "#A04040", ladybug: "#D08080" },
+  solidarity: { dot: "#3A7AAA", ladybug: "#70AADA" },
+  reverence:  { dot: "#4A8A44", ladybug: "#80C078" },
+  bitterness: { dot: "#8A5A38", ladybug: "#C49070" },
+  anguish:    { dot: "#7A4A8A", ladybug: "#B080C0" },
   default:    { dot: "#2D4A3E", ladybug: "#FFFFFF" },
 };
 

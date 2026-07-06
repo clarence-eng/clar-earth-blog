@@ -182,6 +182,14 @@ body {
 .mood-tag[data-mood="resilience"] { background: #F2EDE8; color: #5A3A28; border: 1px solid #C8A888; }
 .mood-tag[data-mood="defiance"]   { background: #F5ECEA; color: #6A2A2A; border: 1px solid #D0A8A0; }
 .mood-tag[data-mood="love"]       { background: #F7EEF0; color: #7A2A3A; border: 1px solid #D8A0B0; }
+.mood-tag[data-mood="nostalgia"]  { background: #F5F0E8; color: #5A4A28; border: 1px solid #D0C0A0; }
+.mood-tag[data-mood="wonder"]     { background: #EAF2F0; color: #2A5A54; border: 1px solid #A0C8C0; }
+.mood-tag[data-mood="melancholy"] { background: #EEEDF4; color: #3A3A5A; border: 1px solid #B8B4D0; }
+.mood-tag[data-mood="protest"]    { background: #F5EAE8; color: #5A1818; border: 1px solid #D09888; }
+.mood-tag[data-mood="solidarity"] { background: #EAF0F5; color: #1A3A5A; border: 1px solid #90B8D8; }
+.mood-tag[data-mood="reverence"]  { background: #EEF4EC; color: #2A4A28; border: 1px solid #A0C498; }
+.mood-tag[data-mood="bitterness"] { background: #F4EEEA; color: #4A2A18; border: 1px solid #C8A888; }
+.mood-tag[data-mood="anguish"]    { background: #F2EEF4; color: #3A1A4A; border: 1px solid #C4A8D4; }
 .mood-tag[data-mood="longing"]    .mood-tag-dot { background: #7AAABB; }
 .mood-tag[data-mood="nature"]     .mood-tag-dot { background: #5A8A74; }
 .mood-tag[data-mood="grief"]      .mood-tag-dot { background: #7A6A8A; }
@@ -189,6 +197,14 @@ body {
 .mood-tag[data-mood="resilience"] .mood-tag-dot { background: #8A6A4A; }
 .mood-tag[data-mood="defiance"]   .mood-tag-dot { background: #8A4A4A; }
 .mood-tag[data-mood="love"]       .mood-tag-dot { background: #B05C6A; }
+.mood-tag[data-mood="nostalgia"]  .mood-tag-dot { background: #A08850; }
+.mood-tag[data-mood="wonder"]     .mood-tag-dot { background: #4A9A90; }
+.mood-tag[data-mood="melancholy"] .mood-tag-dot { background: #6A6A8A; }
+.mood-tag[data-mood="protest"]    .mood-tag-dot { background: #A04040; }
+.mood-tag[data-mood="solidarity"] .mood-tag-dot { background: #3A7AAA; }
+.mood-tag[data-mood="reverence"]  .mood-tag-dot { background: #4A8A44; }
+.mood-tag[data-mood="bitterness"] .mood-tag-dot { background: #8A5A38; }
+.mood-tag[data-mood="anguish"]    .mood-tag-dot { background: #7A4A8A; }
 .dark .mood-tag[data-mood="longing"]    { background: #1A2E36; color: #7AAABB; border-color: #2A4A5A; }
 .dark .mood-tag[data-mood="nature"]     { background: #1A2E20; color: #5A8A74; border-color: #2A4A30; }
 .dark .mood-tag[data-mood="grief"]      { background: #201A2E; color: #A899B8; border-color: #3A2A4A; }
@@ -196,6 +212,14 @@ body {
 .dark .mood-tag[data-mood="resilience"] { background: #281808; color: #C4A888; border-color: #3A2A18; }
 .dark .mood-tag[data-mood="defiance"]   { background: #2A1010; color: #C48080; border-color: #4A1A1A; }
 .dark .mood-tag[data-mood="love"]       { background: #2A0E18; color: #D4899A; border-color: #4A1A28; }
+.dark .mood-tag[data-mood="nostalgia"]  { background: #2A2010; color: #C4A870; border-color: #3A2A18; }
+.dark .mood-tag[data-mood="wonder"]     { background: #0E2826; color: #5ABAB0; border-color: #1A3A38; }
+.dark .mood-tag[data-mood="melancholy"] { background: #181824; color: #9090B8; border-color: #282840; }
+.dark .mood-tag[data-mood="protest"]    { background: #280E0E; color: #D07070; border-color: #401818; }
+.dark .mood-tag[data-mood="solidarity"] { background: #0E2030; color: #5A9ACA; border-color: #183048; }
+.dark .mood-tag[data-mood="reverence"]  { background: #101E10; color: #70AA68; border-color: #1A3018; }
+.dark .mood-tag[data-mood="bitterness"] { background: #201408; color: #C4905A; border-color: #382010; }
+.dark .mood-tag[data-mood="anguish"]    { background: #1A0A24; color: #B080C4; border-color: #2C1840; }
 .dark .mood-tag[data-mood="longing"]    .mood-tag-dot { background: #7AAABB; }
 .dark .mood-tag[data-mood="nature"]     .mood-tag-dot { background: #5A8A74; }
 .dark .mood-tag[data-mood="grief"]      .mood-tag-dot { background: #A899B8; }
@@ -203,6 +227,14 @@ body {
 .dark .mood-tag[data-mood="resilience"] .mood-tag-dot { background: #C4A888; }
 .dark .mood-tag[data-mood="defiance"]   .mood-tag-dot { background: #C48080; }
 .dark .mood-tag[data-mood="love"]       .mood-tag-dot { background: #D4899A; }
+.dark .mood-tag[data-mood="nostalgia"]  .mood-tag-dot { background: #C4A870; }
+.dark .mood-tag[data-mood="wonder"]     .mood-tag-dot { background: #5ABAB0; }
+.dark .mood-tag[data-mood="melancholy"] .mood-tag-dot { background: #9090B8; }
+.dark .mood-tag[data-mood="protest"]    .mood-tag-dot { background: #D07070; }
+.dark .mood-tag[data-mood="solidarity"] .mood-tag-dot { background: #5A9ACA; }
+.dark .mood-tag[data-mood="reverence"]  .mood-tag-dot { background: #70AA68; }
+.dark .mood-tag[data-mood="bitterness"] .mood-tag-dot { background: #C4905A; }
+.dark .mood-tag[data-mood="anguish"]    .mood-tag-dot { background: #B080C4; }
 
 /* ── Card mood shimmer — top-edge glow reveals on hover ───── */
 .card-mood-shimmer[data-mood="longing"]    { background: linear-gradient(90deg, #7AAABB, #A8D4E0); }
@@ -212,6 +244,14 @@ body {
 .card-mood-shimmer[data-mood="resilience"] { background: linear-gradient(90deg, #8A6A4A, #C4A070); }
 .card-mood-shimmer[data-mood="defiance"]   { background: linear-gradient(90deg, #8A4A4A, #C48080); }
 .card-mood-shimmer[data-mood="love"]       { background: linear-gradient(90deg, #B05C6A, #D4899A); }
+.card-mood-shimmer[data-mood="nostalgia"]  { background: linear-gradient(90deg, #A08850, #D0B880); }
+.card-mood-shimmer[data-mood="wonder"]     { background: linear-gradient(90deg, #4A9A90, #80CAC0); }
+.card-mood-shimmer[data-mood="melancholy"] { background: linear-gradient(90deg, #6A6A8A, #A0A0C0); }
+.card-mood-shimmer[data-mood="protest"]    { background: linear-gradient(90deg, #A04040, #D08080); }
+.card-mood-shimmer[data-mood="solidarity"] { background: linear-gradient(90deg, #3A7AAA, #70AADA); }
+.card-mood-shimmer[data-mood="reverence"]  { background: linear-gradient(90deg, #4A8A44, #80C078); }
+.card-mood-shimmer[data-mood="bitterness"] { background: linear-gradient(90deg, #8A5A38, #C49070); }
+.card-mood-shimmer[data-mood="anguish"]    { background: linear-gradient(90deg, #7A4A8A, #B080C0); }
 
 /* ── Poem page — mood radial tint removed (too distracting) ── */
 
