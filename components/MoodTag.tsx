@@ -9,18 +9,28 @@ export const MOOD_CONFIG: Record<string, { label: string; bg: string; text: stri
   love:       { label: "Love",       bg: "#F7EEF0", text: "#7A2A3A", border: "#D8A0B0", dot: "#B05C6A", darkBg: "#2A0E18", darkText: "#D4899A", darkBorder: "#4A1A28", darkDot: "#B05C6A" },
 };
 
-export default function MoodTag({ mood }: { mood?: string }) {
-  if (!mood || !MOOD_CONFIG[mood]) return null;
-  const c = MOOD_CONFIG[mood];
+export default function MoodTag({ mood }: { mood?: string | string[] }) {
+  if (!mood) return null;
+  const moods = Array.isArray(mood) ? mood : [mood];
+  const valid = moods.filter(m => MOOD_CONFIG[m]);
+  if (valid.length === 0) return null;
 
   return (
-    <span
-      className="mood-tag inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[9px] tracking-[0.25em] uppercase"
-      data-mood={mood}
-      style={{ fontFamily: "var(--font-jost)" }}
-    >
-      <span className="mood-tag-dot w-1.5 h-1.5 rounded-full flex-shrink-0" />
-      {c.label}
+    <span className="inline-flex flex-wrap gap-1">
+      {valid.map(m => {
+        const c = MOOD_CONFIG[m];
+        return (
+          <span
+            key={m}
+            className="mood-tag inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[9px] tracking-[0.25em] uppercase"
+            data-mood={m}
+            style={{ fontFamily: "var(--font-jost)" }}
+          >
+            <span className="mood-tag-dot w-1.5 h-1.5 rounded-full flex-shrink-0" />
+            {c.label}
+          </span>
+        );
+      })}
     </span>
   );
 }

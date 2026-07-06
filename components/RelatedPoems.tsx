@@ -10,8 +10,13 @@ export default function RelatedPoems({ posts, currentSlug }: { posts: PostMeta[]
   if (idx === -1) return null;
   const current = posts[idx];
 
-  // Prefer poems with the same mood; fall back to adjacent posts
-  const sameMood = posts.filter(p => p.slug !== currentSlug && p.mood && p.mood === current?.mood);
+  // Prefer poems that share any mood with the current poem
+  const currentMoods = new Set(Array.isArray(current?.mood) ? current.mood : current?.mood ? [current.mood] : []);
+  const sameMood = posts.filter(p => {
+    if (p.slug === currentSlug) return false;
+    const pMoods = Array.isArray(p.mood) ? p.mood : p.mood ? [p.mood] : [];
+    return pMoods.some(m => currentMoods.has(m));
+  });
   const adjacent = posts.filter((_, i) => Math.abs(i - idx) <= 2 && posts[i].slug !== currentSlug);
   const seen = new Set<string>();
   const candidates: PostMeta[] = [];

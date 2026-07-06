@@ -38,10 +38,9 @@ export default config({
         lang: fields.text({ label: "Language tag (e.g. 中文)", validation: { isRequired: false } }),
         date: fields.text({ label: "Date (e.g. 2025-04)", validation: { isRequired: false } }),
         published: fields.checkbox({ label: "Published", defaultValue: true }),
-        mood: fields.select({
-          label: "Mood",
-          description: "Drives cursor colour and mood tag display",
-          defaultValue: "longing",
+        mood: fields.multiselect({
+          label: "Moods",
+          description: "Primary mood first — drives cursor colour and mood tags",
           options: [
             { label: "Longing",    value: "longing" },
             { label: "Nature",     value: "nature" },

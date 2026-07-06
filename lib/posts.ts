@@ -17,7 +17,7 @@ export interface PostMeta {
   dedication?: string;
   coAuthor?: string;
   lang?: string;
-  mood?: string;
+  mood?: string[];
 }
 
 export interface Post extends PostMeta {

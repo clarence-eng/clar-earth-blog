@@ -57,7 +57,7 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.55, delay: index * 0.06, ease: "easeOut" }}
       className="group"
-      data-mood={post.mood}
+      data-mood={Array.isArray(post.mood) ? post.mood[0] : post.mood}
     >
       <Link href={`/${post.slug}`} className="block h-full">
         {/* 3D tilt image box */}
@@ -82,7 +82,7 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
           <div className="absolute inset-0 bg-[var(--forest)] opacity-0 group-hover:opacity-[0.14] transition-opacity duration-500" />
           {/* Mood shimmer — top edge glow */}
           {post.mood && (
-            <div className="card-mood-shimmer absolute inset-x-0 top-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" data-mood={post.mood} />
+            <div className="card-mood-shimmer absolute inset-x-0 top-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" data-mood={Array.isArray(post.mood) ? post.mood[0] : post.mood} />
           )}
         </motion.div>
 
