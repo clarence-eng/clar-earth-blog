@@ -266,17 +266,25 @@ body {
 }
 
 /* ── Reading focus mode ────────────────────────────────────── */
-/* Transition on base state so both enter AND exit animate smoothly */
+/* Base states: opacity+visibility transition so both enter AND exit animate smoothly.
+   visibility: hidden removes elements from the tab order when focus mode is active. */
 header nav,
 .reading-progress,
 .back-pill,
-.poem-back-arrow { transition: opacity 0.4s ease; }
+.poem-back-arrow {
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+  visibility: visible;
+}
 
 /* header nav = site navigation only; poem prev/next nav must stay accessible */
 .focus-mode header nav,
 .focus-mode .reading-progress,
 .focus-mode .back-pill,
-.focus-mode .poem-back-arrow { opacity: 0 !important; pointer-events: none; }
+.focus-mode .poem-back-arrow {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
 .focus-mode .poem-content { font-size: 1.22rem; line-height: 1.85; }
 .focus-mode .poem-stanza { letter-spacing: 0.01em; }
 
