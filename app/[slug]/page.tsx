@@ -43,6 +43,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+// Escape characters that are valid JSON but break inline <script> blocks
+function safeJsonLd(obj: object): string {
+  const LS = String.fromCharCode(0x2028);
+  const PS = String.fromCharCode(0x2029);
+  return JSON.stringify(obj)
+    .replace(/<\/script>/gi, "<\\/script>")
+    .split(LS).join("\\u2028")
+    .split(PS).join("\\u2029");
+}
+
 export default async function PostPage({ params }: Props) {
   const { slug } = await params;
   const post = getPost(slug);
@@ -55,7 +65,6 @@ export default async function PostPage({ params }: Props) {
   const rt = readingTime(post.content);
   const readTime = natureReadingTime(rt.words);
 
-  // Schema.org structured data — Poem for poems, CreativeWork for other types
   const schema = {
     "@context": "https://schema.org",
     "@type": post.type === "poem" ? "Poem" : "CreativeWork",
@@ -79,7 +88,7 @@ export default async function PostPage({ params }: Props) {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }}
       />
       <Nav posts={allPosts} />
       <PostPageClient post={post} prev={prev} next={next} readTime={readTime} allPosts={allPosts} />

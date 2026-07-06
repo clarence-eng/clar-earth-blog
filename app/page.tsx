@@ -13,9 +13,11 @@ export default function HomePage() {
   return (
     <>
       <Nav posts={posts} />
-      <HeroSection />
-      {featured && <FeaturedPoem post={featured} />}
-      <PostGrid posts={posts} />
+      <main id="main-content">
+        <HeroSection />
+        {featured && <FeaturedPoem post={featured} />}
+        <PostGrid posts={posts} />
+      </main>
       <SiteFooter />
     </>
   );

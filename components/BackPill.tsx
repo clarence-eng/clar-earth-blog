@@ -22,6 +22,8 @@ export default function BackPill() {
     >
       <Link
         href="/"
+        tabIndex={show ? 0 : -1}
+        aria-hidden={!show}
         className="flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--forest)] text-white/90 hover:bg-[var(--forest-mid)] transition-colors shadow-lg"
         style={{ fontFamily: "var(--font-jost)", fontSize: "0.7rem", letterSpacing: "0.18em", textTransform: "uppercase" }}
       >

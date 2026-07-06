@@ -16,15 +16,18 @@ import MoodTag from "./MoodTag";
 
 // Parse MDX content into stanzas with alignment/italic metadata
 //   \t or em-spaces = preserved as-is (white-space: pre-wrap handles them)
-function parseStanzas(content: string): { text: string; align: "left" | "right" | "center"; italic: boolean }[] {
+function parseStanzas(content: string): { text: string; align: "left" | "right" | "center"; italic: boolean; lang?: string }[] {
   return content.trim().split(/\n\n+/).map(block => {
     let text = block;
     let align: "left" | "right" | "center" = "left";
     let italic = false;
+    let lang: string | undefined;
     if (text.startsWith("[right]")) { align = "right"; text = text.slice(7).trimStart(); }
     else if (text.startsWith("[center]")) { align = "center"; text = text.slice(8).trimStart(); }
     if (text.startsWith("[italic]")) { italic = true; text = text.slice(8).trimStart(); }
-    return { text, align, italic };
+    const langMatch = text.match(/^\[lang:([a-z]{2}(?:-[a-zA-Z]+)?)\]/);
+    if (langMatch) { lang = langMatch[1]; text = text.slice(langMatch[0].length).trimStart(); }
+    return { text, align, italic, lang };
   }).filter(s => s.text.trim().length > 0);
 }
 
@@ -169,7 +172,7 @@ export default function PostPageClient({
       </div>
 
       {/* ── Body — data-mood drives cursor colour ────────────── */}
-      <main className="px-8 pb-28 w-full" style={{ maxWidth: "780px", margin: "0 auto" }} data-mood={post.mood ?? undefined}>
+      <main id="main-content" className="px-8 pb-28 w-full" style={{ maxWidth: "780px", margin: "0 auto" }} data-mood={post.mood ?? undefined}>
         {/* Gold rule */}
         <motion.div
           initial={{ width: 0 }}
@@ -181,7 +184,7 @@ export default function PostPageClient({
         {/* Poem */}
         <div className="poem-content">
           {parseStanzas(post.content).map((stanza, i) => (
-            <AnimatedStanza key={i} index={i} align={stanza.align} italic={stanza.italic}>
+            <AnimatedStanza key={i} index={i} align={stanza.align} italic={stanza.italic} lang={stanza.lang}>
               {stanza.text}
             </AnimatedStanza>
           ))}

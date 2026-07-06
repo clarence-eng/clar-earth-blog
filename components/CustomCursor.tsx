@@ -84,7 +84,10 @@ export default function CustomCursor() {
   }, []);
 
   // rAF loop — lerp position + lerp colour
+  // Guard: skip the animation loop entirely when the user prefers reduced motion
   useEffect(() => {
+    if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
     const tick = () => {
       const { x: mx, y: my } = mouseRef.current;
       const { x: cx, y: cy } = posRef.current;

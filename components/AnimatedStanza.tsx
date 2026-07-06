@@ -8,6 +8,7 @@ interface StanzaProps {
   index: number;
   align?: "left" | "right" | "center";
   italic?: boolean;
+  lang?: string;
 }
 
 function renderLine(line: string, key: number) {
@@ -24,7 +25,7 @@ function renderLine(line: string, key: number) {
   );
 }
 
-export default function AnimatedStanza({ children, index, align = "left", italic = false }: StanzaProps) {
+export default function AnimatedStanza({ children, index, align = "left", italic = false, lang }: StanzaProps) {
   const ref = useRef<HTMLParagraphElement>(null);
   const reducedMotion = useReducedMotion();
 
@@ -45,6 +46,7 @@ export default function AnimatedStanza({ children, index, align = "left", italic
         ref={ref}
         className="poem-stanza"
         style={{ textAlign, fontStyle: italic ? "italic" : undefined }}
+        lang={lang}
       >
         {lines.map((line, i) => (
           <span key={i}>
@@ -68,6 +70,7 @@ export default function AnimatedStanza({ children, index, align = "left", italic
       }}
       className="poem-stanza"
       style={{ textAlign, fontStyle: italic ? "italic" : undefined }}
+      lang={lang}
     >
       {lines.map((line, i) => (
         <span key={i}>

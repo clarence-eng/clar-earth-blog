@@ -24,6 +24,7 @@ export default function FocusModeToggle() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ delay: 0.8 }}
+      aria-pressed={focus}
       className="flex items-center gap-1.5 text-[var(--muted)] hover:text-[var(--forest)] transition-colors"
       title={focus ? "Exit focus mode" : "Focus mode"}
       style={{ fontFamily: "var(--font-jost)", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase" }}

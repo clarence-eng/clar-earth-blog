@@ -13,7 +13,7 @@ export default function AboutPage() {
   return (
     <>
       <Nav />
-      <main className="min-h-screen pt-28 pb-24">
+      <main id="main-content" className="min-h-screen pt-28 pb-24">
         {/* Hero tagline */}
         <div className="max-w-4xl mx-auto px-8 mb-20">
           <p

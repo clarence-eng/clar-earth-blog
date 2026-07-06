@@ -92,14 +92,6 @@ body {
   pointer-events: none;
 }
 
-/* ── Reading time nature metaphor ─────────────────────────── */
-.reading-time-nature {
-  font-style: italic;
-  color: var(--muted);
-  font-family: var(--font-cormorant);
-  font-size: 0.92rem;
-}
-
 /* ── Poem title on post page — slightly larger + tighter tracking */
 .poem-page-title {
   letter-spacing: -0.02em;
@@ -157,6 +149,7 @@ body {
   line-height: 1.7;      /* comfortable single-spaced verse */
   white-space: pre-wrap; /* preserve every line break; wrap only at word boundaries */
   overflow-wrap: break-word;
+  tab-size: 4;           /* prevent tab characters (drowning.mdx) from producing 8-wide indents */
   margin-bottom: 1.75rem;/* stanza gap */
   letter-spacing: 0.005em;
 }
@@ -172,22 +165,6 @@ body {
 
 /* ── Selection ─────────────────────────────────────────────── */
 ::selection { background: #C8D8B8; color: var(--forest); }
-
-/* ── Prose (articles) ──────────────────────────────────────── */
-.prose-body {
-  font-size: 1.05rem;
-  line-height: 1.85;
-  max-width: 65ch;
-  color: var(--ink);
-}
-.prose-body h2 {
-  font-family: var(--font-cormorant), serif;
-  font-size: 1.7rem;
-  font-weight: 500;
-  margin-top: 2.5rem;
-  margin-bottom: 0.75rem;
-}
-.prose-body p { margin-bottom: 1.25rem; }
 
 /* ── Type badge — adapts to dark mode ─────────────────────── */
 .type-badge-poem        { background: #EAF0E2; color: #4A6A38; }
