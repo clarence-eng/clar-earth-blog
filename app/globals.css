@@ -268,12 +268,18 @@ body {
 }
 
 /* ── Two-column left/right poem layout (e.g. The Glass Between Us) ── */
-/* align-items: end → both columns bottom-align, last lines are flush */
+/* Both columns stretch to the same height; right column content is pushed
+   to the bottom so the last lines are flush regardless of drop-cap height difference */
 .poem-two-col {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2.5rem;
-  align-items: end;
+  align-items: stretch;
+}
+.poem-two-col__right {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 .poem-two-col__right .poem-stanza {
   text-align: right;
