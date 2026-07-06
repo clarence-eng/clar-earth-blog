@@ -63,8 +63,7 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
 
   return (
     <section
-      className="post-grid-section px-8 py-14 max-w-6xl mx-auto w-full transition-colors duration-[1200ms]"
-      style={moodColor ? { backgroundColor: moodColor, borderRadius: "2px" } : undefined}
+      className="post-grid-section px-8 py-14 max-w-6xl mx-auto w-full"
       ref={sectionRef}
     >
       {/* Section heading */}

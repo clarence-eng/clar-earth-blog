@@ -2,8 +2,6 @@
 
 import { useEffect, useState, useRef } from "react";
 
-// Mood colours — each poem carries a data-mood attribute
-// The cursor dot and ladybug smoothly interpolate toward the mood colour
 const MOOD_COLORS: Record<string, { dot: string; ladybug: string }> = {
   longing:    { dot: "#7AAABB", ladybug: "#A8D4E0" },
   nature:     { dot: "#5A8A74", ladybug: "#8AC4A0" },
@@ -38,7 +36,6 @@ function rgbToCss([r, g, b]: RGB): string {
   return `rgb(${r},${g},${b})`;
 }
 
-// Module-level constants — hexToRgb not called on every render
 const DEFAULT_DOT_RGB: RGB = hexToRgb(MOOD_COLORS.default.dot);
 const DEFAULT_LADYBUG_RGB: RGB = hexToRgb(MOOD_COLORS.default.ladybug);
 
@@ -49,7 +46,6 @@ export default function CustomCursor() {
   const [hovered, setHovered] = useState(false);
   const [visible, setVisible] = useState(false);
 
-  // Store current/target colours as RGB tuples so lerpRgb never receives an rgb() string
   const targetDotRef = useRef<RGB>(DEFAULT_DOT_RGB);
   const targetLadybugRef = useRef<RGB>(DEFAULT_LADYBUG_RGB);
   const curDotRef = useRef<RGB>(DEFAULT_DOT_RGB);
@@ -57,14 +53,14 @@ export default function CustomCursor() {
   const [dotColor, setDotColor] = useState(rgbToCss(DEFAULT_DOT_RGB));
   const [ladybugColor, setLadybugColor] = useState(rgbToCss(DEFAULT_LADYBUG_RGB));
 
-  // moodRef lets the mousemove handler read current mood without being a dep
   const moodRef = useRef("default");
-  // visibleRef lets the mousemove handler read visible without being a dep
   const visibleRef = useRef(false);
   visibleRef.current = visible;
   const animRef = useRef<number>(0);
 
   useEffect(() => {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
     const move = (e: MouseEvent) => {
       mouseRef.current = { x: e.clientX, y: e.clientY };
       if (!visibleRef.current) setVisible(true);
@@ -78,15 +74,20 @@ export default function CustomCursor() {
         targetDotRef.current = hexToRgb(colors.dot);
         targetLadybugRef.current = hexToRgb(colors.ladybug);
       }
+      // When reduced motion: snap position directly, no lerp
+      if (reducedMotion) {
+        posRef.current = { x: e.clientX, y: e.clientY };
+        setPos({ x: e.clientX, y: e.clientY });
+        setDotColor(rgbToCss(hexToRgb(MOOD_COLORS[newMood]?.dot ?? MOOD_COLORS.default.dot)));
+      }
     };
     window.addEventListener("mousemove", move);
     return () => window.removeEventListener("mousemove", move);
   }, []);
 
-  // rAF loop — lerp position + lerp colour
-  // Guard: skip the animation loop entirely when the user prefers reduced motion
+  // rAF lerp loop — only runs when reduced motion is OFF
   useEffect(() => {
-    if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const tick = () => {
       const { x: mx, y: my } = mouseRef.current;
