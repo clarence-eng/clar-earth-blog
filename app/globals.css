@@ -266,7 +266,8 @@ body {
 }
 
 /* ── Reading focus mode ────────────────────────────────────── */
-.focus-mode nav,
+/* header nav = site navigation only; poem prev/next nav is a separate landmark and must stay accessible */
+.focus-mode header nav,
 .focus-mode .reading-progress,
 .focus-mode .back-pill,
 .focus-mode .poem-back-arrow { opacity: 0 !important; pointer-events: none; transition: opacity 0.4s ease; }
