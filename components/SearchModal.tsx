@@ -13,7 +13,7 @@ interface SearchModalProps {
 const TYPE_LABELS: Record<string, string> = {
   poem: "Poem",
   article: "Article",
-  "photo-essay": "Essay",
+  "photo-essay": "Photo Essay",
 };
 
 export default function SearchModal({ posts, onClose }: SearchModalProps) {

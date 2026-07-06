@@ -12,8 +12,6 @@ function getSeasonalGradient() {
   return "linear-gradient(160deg, #1A2D3A 0%, #2A3D4A 40%, #1E3440 65%, #121E28 100%)";
 }
 
-const MARQUEE_TEXT = "A Promise to Protect What Cannot Speak  ·  Blank Space  ·  Daughter of the Tides  ·  Drowning  ·  Embers  ·  From the Sun  ·  I'm a Sambar Deer  ·  Like Moth to Flame  ·  My Every Sense of You  ·  Nature's Choir  ·  Out of Time  ·  The Glass Between Us  ·  Untitled  ·  回声  ·  ";
-
 function Sprig({ x, y, size, rotate, opacity }: { x: string; y: string; size: number; rotate: number; opacity: number }) {
   return (
     <div
@@ -31,7 +29,7 @@ function Sprig({ x, y, size, rotate, opacity }: { x: string; y: string; size: nu
   );
 }
 
-export default function HeroSection() {
+export default function HeroSection({ titles = [] }: { titles?: string[] }) {
   const [gradient, setGradient] = useState(
     "linear-gradient(160deg, #2D4A3E 0%, #3D6154 40%, #4A7A5A 70%, #2A3D34 100%)"
   );
@@ -40,12 +38,15 @@ export default function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
 
-  // Quote fades and lifts as you scroll out of hero
   const quoteY = useTransform(scrollYProgress, [0, 1], [0, -60]);
   const quoteOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
-  // Decorative ornaments drift at different speeds (parallax layers)
   const ornamentsY = useTransform(scrollYProgress, [0, 1], [0, -30]);
   const sprigsY = useTransform(scrollYProgress, [0, 1], [0, -18]);
+
+  // Derive marquee text from titles prop — auto-updates when poems are added
+  const marqueeText = titles.length > 0
+    ? titles.join("  ·  ") + "  ·  "
+    : "";
 
   return (
     <>
@@ -70,7 +71,7 @@ export default function HeroSection() {
             aria-hidden="true">&#10046;</div>
         </motion.div>
 
-        {/* Parallax sprig layer (slower drift) */}
+        {/* Parallax sprig layer */}
         <motion.div className="absolute inset-0 pointer-events-none" style={{ y: sprigsY }}>
           <Sprig x="8.5%" y="28%" size={28} rotate={-12} opacity={0.22} />
           <Sprig x="86%" y="28%" size={28} rotate={14} opacity={0.22} />
@@ -135,13 +136,15 @@ export default function HeroSection() {
         </motion.div>
       </section>
 
-      {/* Marquee */}
-      <div className="w-full overflow-hidden border-y border-[var(--border)] py-2.5" style={{ background: "var(--cream-dark)" }}>
-        <div className="marquee-track" aria-hidden="true">
-          <span className="marquee-content">{MARQUEE_TEXT.repeat(5)}</span>
-          <span className="marquee-content">{MARQUEE_TEXT.repeat(5)}</span>
+      {/* Marquee — derived from poem titles, auto-updates when new poems are added */}
+      {marqueeText && (
+        <div className="w-full overflow-hidden border-y border-[var(--border)] py-2.5" style={{ background: "var(--cream-dark)" }}>
+          <div className="marquee-track" aria-hidden="true">
+            <span className="marquee-content">{marqueeText.repeat(5)}</span>
+            <span className="marquee-content">{marqueeText.repeat(5)}</span>
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 }

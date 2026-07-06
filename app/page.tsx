@@ -14,7 +14,7 @@ export default function HomePage() {
     <>
       <Nav posts={posts} />
       <main id="main-content">
-        <HeroSection />
+        <HeroSection titles={posts.map(p => p.title)} />
         {featured && <FeaturedPoem post={featured} />}
         <PostGrid posts={posts} />
       </main>

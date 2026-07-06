@@ -1,11 +1,9 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useTheme } from "next-themes";
 import PostCard from "./PostCard";
 import type { PostMeta } from "@/lib/posts";
-import { MOOD_CONFIG } from "./MoodTag";
 
 const FILTERS = [
   { key: "all", label: "All Works" },
@@ -18,9 +16,6 @@ type FilterKey = (typeof FILTERS)[number]["key"];
 
 export default function PostGrid({ posts }: { posts: PostMeta[] }) {
   const [active, setActive] = useState<FilterKey>("all");
-  const [ambientMood, setAmbientMood] = useState<string | null>(null);
-  const sectionRef = useRef<HTMLElement>(null);
-  const { resolvedTheme } = useTheme();
 
   const filtered = active === "all" ? posts : posts.filter((p) => p.type === active);
 
@@ -31,40 +26,9 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
     "photo-essay": posts.filter((p) => p.type === "photo-essay").length,
   };
 
-  // Re-observe cards whenever the active filter changes
-  useEffect(() => {
-    const node = sectionRef.current;
-    if (!node) return;
-    let observer: IntersectionObserver | null = null;
-    // Wait one frame for AnimatePresence to finish mounting new cards
-    const id = requestAnimationFrame(() => {
-      observer = new IntersectionObserver(
-        (entries) => {
-          const visible = entries.filter(e => e.isIntersecting && e.intersectionRatio > 0.4);
-          if (visible.length === 0) return;
-          const top = visible.sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
-          const mood = (top.target as HTMLElement).dataset.mood ?? null;
-          setAmbientMood(mood || null);
-        },
-        { threshold: 0.4 }
-      );
-      node.querySelectorAll("article[data-mood]").forEach(card => observer!.observe(card));
-    });
-    return () => {
-      cancelAnimationFrame(id);
-      observer?.disconnect();
-    };
-  }, [active, posts]);
-
-  // Pick light or dark mood background colour based on resolved theme
-  const moodColor = ambientMood && MOOD_CONFIG[ambientMood]
-    ? (resolvedTheme === "dark" ? MOOD_CONFIG[ambientMood].darkBg : MOOD_CONFIG[ambientMood].bg)
-    : null;
-
   return (
     <section
       className="post-grid-section px-8 py-14 max-w-6xl mx-auto w-full"
-      ref={sectionRef}
     >
       {/* Section heading */}
       <div className="flex items-center gap-5 mb-10">
