@@ -57,7 +57,7 @@ export default function AboutPage() {
                 My poetry moves between ecology and intimacy, between longing and the living world. I&rsquo;m drawn to thresholds: the intertidal zone, the moment before departure, the place where what we love and what we are losing become the same thing.
               </p>
               <p>
-                I write in English and Chinese, and reach for Vietnamese or Malay when those are the more honest words. I&rsquo;m based in Singapore.
+                I&rsquo;m based in Singapore.
               </p>
             </div>
 
