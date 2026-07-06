@@ -193,7 +193,9 @@ export default function PostPageClient({
                 className="text-white/55 italic"
                 style={{ fontFamily: "var(--font-cormorant)", fontSize: "1rem" }}
               >
-                {post.dedication}{post.coAuthor ? ` · ${post.coAuthor}` : ""}
+                {post.dedication && post.coAuthor
+                  ? `${post.dedication} · ${post.coAuthor}`
+                  : post.dedication ?? post.coAuthor}
               </motion.p>
             )}
             {post.mood && (

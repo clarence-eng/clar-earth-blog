@@ -95,23 +95,22 @@ export default function AboutPage() {
             A few poems
           </p>
           <div className="flex flex-wrap gap-x-8 gap-y-2">
-            {posts
-              .filter(p => ["my-every-sense-of-you", "daughter-of-the-tides", "embers", "drowning", "like-moth-to-flame"].includes(p.slug))
-              .sort((a, b) => ["my-every-sense-of-you", "daughter-of-the-tides", "embers", "drowning", "like-moth-to-flame"].indexOf(a.slug) - ["my-every-sense-of-you", "daughter-of-the-tides", "embers", "drowning", "like-moth-to-flame"].indexOf(b.slug))
-              .map(p => (
-              <Link
-                key={p.slug}
-                href={`/${p.slug}`}
-                className="text-[var(--muted)] hover:text-[var(--forest)] transition-colors"
-                style={{
-                  fontFamily: "var(--font-cormorant)",
-                  fontStyle: "italic",
-                  fontSize: "1.05rem",
-                }}
-              >
-                {p.title}
-              </Link>
-            ))}
+            {(() => {
+              const ORDER = ["my-every-sense-of-you", "daughter-of-the-tides", "embers", "drowning", "like-moth-to-flame"];
+              return posts
+                .filter(p => ORDER.includes(p.slug))
+                .sort((a, b) => ORDER.indexOf(a.slug) - ORDER.indexOf(b.slug))
+                .map(p => (
+                  <Link
+                    key={p.slug}
+                    href={`/${p.slug}`}
+                    className="text-[var(--muted)] hover:text-[var(--forest)] transition-colors"
+                    style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontSize: "1.05rem" }}
+                  >
+                    {p.title}
+                  </Link>
+                ));
+            })()}
           </div>
         </div>
       </main>

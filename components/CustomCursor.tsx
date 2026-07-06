@@ -82,11 +82,12 @@ export default function CustomCursor() {
         targetDotRef.current = hexToRgb(colors.dot);
         targetLadybugRef.current = hexToRgb(colors.ladybug);
       }
-      // When reduced motion: snap position directly, no lerp
+      // When reduced motion: snap position + colours directly, no lerp
       if (reducedMotion) {
         posRef.current = { x: e.clientX, y: e.clientY };
         setPos({ x: e.clientX, y: e.clientY });
         setDotColor(rgbToCss(hexToRgb(MOOD_COLORS[newMood]?.dot ?? MOOD_COLORS.default.dot)));
+        setLadybugColor(rgbToCss(hexToRgb(MOOD_COLORS[newMood]?.ladybug ?? MOOD_COLORS.default.ladybug)));
       }
     };
     window.addEventListener("mousemove", move);
