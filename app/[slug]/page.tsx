@@ -63,7 +63,7 @@ export default async function PostPage({ params }: Props) {
   const prev = allPosts[idx - 1] ?? null;
   const next = allPosts[idx + 1] ?? null;
   const rt = readingTime(post.content);
-  const readTime = natureReadingTime(rt.words);
+  const readTime = post.readingPhrase ?? natureReadingTime(rt.words);
 
   const schema = {
     "@context": "https://schema.org",

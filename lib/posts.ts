@@ -18,6 +18,7 @@ export interface PostMeta {
   coAuthor?: string;
   lang?: string;
   mood?: string[];
+  readingPhrase?: string;
 }
 
 export interface Post extends PostMeta {

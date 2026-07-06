@@ -37,6 +37,7 @@ export default config({
         coAuthor: fields.text({ label: "Co-author", validation: { isRequired: false } }),
         lang: fields.text({ label: "Language tag (e.g. 中文)", validation: { isRequired: false } }),
         date: fields.text({ label: "Date (e.g. 2025-04)", validation: { isRequired: false } }),
+        readingPhrase: fields.text({ label: "Reading phrase (e.g. 'a fire held between cupped hands')", validation: { isRequired: false } }),
         published: fields.checkbox({ label: "Published", defaultValue: true }),
         mood: fields.multiselect({
           label: "Moods",
