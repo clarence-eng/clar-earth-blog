@@ -50,7 +50,7 @@ export default function AnimatedStanza({ children, index, align = "left", italic
   const className = [
     "poem-stanza",
     suppressDrop ? "poem-stanza--no-drop" : "",
-    isFirstDrop ? "poem-stanza--drop" : "",
+    isFirstDrop && !suppressDrop ? "poem-stanza--drop" : "",
   ].filter(Boolean).join(" ");
 
   const sharedProps = {
