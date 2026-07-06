@@ -13,7 +13,7 @@ const TYPE_LABELS: Record<string, string> = {
 
 export default function FeaturedPoem({ post }: { post: PostMeta }) {
   return (
-    <section className="max-w-6xl mx-auto px-8 pt-12 pb-0">
+    <section aria-label="Featured work" className="max-w-6xl mx-auto px-8 pt-12 pb-0">
       <div className="flex items-center gap-4 mb-6">
         <span className="text-[9px] tracking-[0.35em] uppercase text-[var(--muted)]" style={{ fontFamily: "var(--font-jost)" }}>
           Featured

@@ -95,7 +95,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
             value={query}
             onChange={e => setQuery(e.target.value)}
             placeholder="Search poems..."
-            className="flex-1 bg-transparent outline-none text-[var(--ink)] placeholder:text-[var(--muted-light)]"
+            className="flex-1 bg-transparent outline-none focus:ring-1 focus:ring-[var(--sage)] rounded-sm text-[var(--ink)] placeholder:text-[var(--muted-light)]"
             style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.1rem" }}
           />
           <kbd className="text-[9px] tracking-wider text-[var(--muted)] border border-[var(--border)] rounded px-1.5 py-0.5" style={{ fontFamily: "var(--font-jost)" }}>ESC</kbd>

@@ -24,7 +24,7 @@ export default function Nav({ posts = [] }: NavProps) {
     searchOpenRef.current = false;
     setTimeout(() => searchButtonRef.current?.focus(), 0);
   };
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => { setMounted(true); }, []);

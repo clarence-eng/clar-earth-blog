@@ -28,12 +28,14 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
 
   return (
     <section
+      aria-labelledby="works-heading"
       className="post-grid-section px-8 py-14 max-w-6xl mx-auto w-full"
     >
       {/* Section heading */}
       <div className="flex items-center gap-5 mb-10">
         <div className="h-px flex-1 bg-[var(--border)]" />
         <h2
+          id="works-heading"
           className="text-[var(--muted)] tracking-[0.25em] uppercase"
           style={{ fontFamily: "var(--font-jost)", fontSize: "0.68rem" }}
         >

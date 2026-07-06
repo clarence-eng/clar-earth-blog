@@ -126,10 +126,6 @@ body {
   .marquee-track { animation-play-state: paused; }
 }
 
-/* ── text-wrap utilities (not in all Tailwind versions) ────── */
-.text-balance { text-wrap: balance; }
-.text-pretty  { text-wrap: pretty; }
-
 /* ── Scrollbar hide for filter tabs ───────────────────────── */
 .scrollbar-none { scrollbar-width: none; }
 .scrollbar-none::-webkit-scrollbar { display: none; }

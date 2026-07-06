@@ -45,12 +45,12 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
   const rotateX = useSpring(useTransform(y, [-1, 1], [6, -6]), { stiffness: 200, damping: 20 });
   const rotateY = useSpring(useTransform(x, [-1, 1], [-6, 6]), { stiffness: 200, damping: 20 });
 
-  const handleMouseMove = reducedMotion ? undefined : (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseMove = reducedMotion !== false ? undefined : (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     x.set(((e.clientX - rect.left) / rect.width - 0.5) * 2);
     y.set(((e.clientY - rect.top) / rect.height - 0.5) * 2);
   };
-  const handleMouseLeave = reducedMotion ? undefined : () => { x.set(0); y.set(0); };
+  const handleMouseLeave = reducedMotion !== false ? undefined : () => { x.set(0); y.set(0); };
 
   return (
     <motion.article
@@ -64,10 +64,10 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
         {/* 3D tilt image box */}
         <motion.div
           className="overflow-hidden rounded-sm aspect-[4/3] relative"
-          style={{ rotateX: reducedMotion ? 0 : rotateX, rotateY: reducedMotion ? 0 : rotateY, transformStyle: "preserve-3d", transformPerspective: 800 }}
+          style={{ rotateX: reducedMotion !== false ? 0 : rotateX, rotateY: reducedMotion !== false ? 0 : rotateY, transformStyle: "preserve-3d", transformPerspective: 800 }}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
-          whileHover={reducedMotion ? undefined : { y: -6, boxShadow: "0 20px 44px rgba(45,74,62,0.22)" }}
+          whileHover={reducedMotion !== false ? undefined : { y: -6, boxShadow: "0 20px 44px rgba(45,74,62,0.22)" }}
           transition={{ y: { duration: 0.4, ease: [0.32, 0.72, 0, 1] }, boxShadow: { duration: 0.4, ease: [0.32, 0.72, 0, 1] } }}
         >
           <div
