@@ -193,14 +193,14 @@ export default function PostPageClient({
             );
             if (firstDropIdx === -1) firstDropIdx = 0;
 
-            // Detect poems that use a two-column left/right layout:
-            // if any stanza is right-aligned, split all stanzas into left and right
-            // columns and render them as a single side-by-side block.
-            const hasRightAligned = stanzas.some(s => s.align === "right");
+            // Two-column mirror layout ONLY when left and right stanza counts match
+            // (e.g. The Glass Between Us: 2 left + 2 right = true mirror).
+            // Unequal counts (e.g. Blank Space: 3 left + 5 right) render sequentially.
+            const leftStanzas = stanzas.filter(s => s.align !== "right");
+            const rightStanzas = stanzas.filter(s => s.align === "right");
+            const isMirror = rightStanzas.length > 0 && leftStanzas.length === rightStanzas.length;
 
-            if (hasRightAligned) {
-              const leftStanzas = stanzas.filter(s => s.align !== "right");
-              const rightStanzas = stanzas.filter(s => s.align === "right");
+            if (isMirror) {
               return (
                 <div className="poem-two-col">
                   <div className="poem-two-col__left">
