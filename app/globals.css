@@ -100,15 +100,6 @@ body {
   font-size: 0.92rem;
 }
 
-/* ── Featured poem strip ───────────────────────────────────── */
-.featured-cover-img {
-  filter: saturate(0.75) brightness(0.85);
-  transition: filter 0.6s ease, transform 0.7s cubic-bezier(0.32,0.72,0,1);
-}
-.group:hover .featured-cover-img {
-  filter: saturate(0.9) brightness(0.9);
-}
-
 /* ── Poem title on post page — slightly larger + tighter tracking */
 .poem-page-title {
   letter-spacing: -0.02em;
@@ -129,10 +120,10 @@ body {
   display: flex;
   width: max-content;
   white-space: nowrap;
+  animation: marquee 44s linear infinite;
 }
 .marquee-content {
   display: inline-block;
-  animation: marquee 44s linear infinite;
   font-family: var(--font-jost);
   font-size: 0.6rem;
   letter-spacing: 0.3em;
@@ -142,11 +133,8 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .marquee-content { animation-play-state: paused; }
+  .marquee-track { animation-play-state: paused; }
 }
-
-/* ── Botanical flip (mirror horizontally) ──────────────────── */
-.botanical-flip { transform: scaleX(-1); }
 
 /* ── text-wrap utilities (not in all Tailwind versions) ────── */
 .text-balance { text-wrap: balance; }
@@ -155,29 +143,6 @@ body {
 /* ── Scrollbar hide for filter tabs ───────────────────────── */
 .scrollbar-none { scrollbar-width: none; }
 .scrollbar-none::-webkit-scrollbar { display: none; }
-
-/* ── Hero ──────────────────────────────────────────────────── */
-.hero-gradient {
-  background: linear-gradient(
-    160deg,
-    var(--forest) 0%,
-    var(--forest-mid) 35%,
-    #4A6E5A 60%,
-    #3D5C4A 80%,
-    #2A3D34 100%
-  );
-}
-
-/* ── Card hover ────────────────────────────────────────────── */
-.post-card-img {
-  transition: transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1),
-              filter 0.6s ease;
-  will-change: transform;
-}
-.post-card:hover .post-card-img {
-  transform: scale(1.04);
-  filter: brightness(1.05);
-}
 
 /* ── Poem typography ───────────────────────────────────────── */
 .poem-content {

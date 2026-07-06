@@ -71,7 +71,6 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
         >
           <div
             className="w-full h-full transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-            style={{ willChange: "transform" }}
           >
             {post.coverImage ? (
               <Image src={post.coverImage} alt={post.title} fill sizes="(max-width:640px) 100vw,(max-width:1024px) 50vw,33vw" className="object-cover" />
