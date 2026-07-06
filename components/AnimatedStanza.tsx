@@ -29,11 +29,6 @@ export default function AnimatedStanza({ children, index, align = "left", italic
   const ref = useRef<HTMLParagraphElement>(null);
   const reducedMotion = useReducedMotion();
 
-  // `amount: "some"` fires as soon as any part of the stanza is visible.
-  // useReducedMotion() returns null on the server — treat null as false (animated)
-  // so server and client render the same branch on first paint.
-  // When reducedMotion===true the ref is on a plain <p> and inView is never used,
-  // but the hook must be called unconditionally (Rules of Hooks).
   const inView = useInView(ref, { once: true, amount: "some" });
 
   const textAlign = align === "right" ? "right" : align === "center" ? "center" : "left";
@@ -48,22 +43,29 @@ export default function AnimatedStanza({ children, index, align = "left", italic
     </span>
   ));
 
+  // poem-stanza--no-drop suppresses the drop cap when:
+  // - stanza is italic/non-left/lang-tagged (handled by parseStanzas flags)
+  // - stanza text starts with * (markdown italic wrapping the whole first line),
+  //   which renders as <em> and causes ::first-letter to grab the wrong character
+  const startsWithItalicMark = children.trimStart().startsWith("*");
+  const className = italic || align !== "left" || lang || startsWithItalicMark
+    ? "poem-stanza poem-stanza--no-drop"
+    : "poem-stanza";
+
+  const sharedProps = {
+    ref,
+    className,
+    style: { textAlign, fontStyle: italic ? "italic" : undefined } as React.CSSProperties,
+    lang,
+  };
+
   if (reducedMotion === true) {
-    return (
-      <p
-        ref={ref}
-        className="poem-stanza"
-        style={{ textAlign, fontStyle: italic ? "italic" : undefined }}
-        lang={lang}
-      >
-        {lineNodes}
-      </p>
-    );
+    return <p {...sharedProps}>{lineNodes}</p>;
   }
 
   return (
     <motion.p
-      ref={ref}
+      {...sharedProps}
       initial={{ opacity: 0, y: 12 }}
       animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
       transition={{
@@ -71,9 +73,6 @@ export default function AnimatedStanza({ children, index, align = "left", italic
         delay: index < 3 ? index * 0.07 : 0,
         ease: [0.25, 0.1, 0.25, 1],
       }}
-      className="poem-stanza"
-      style={{ textAlign, fontStyle: italic ? "italic" : undefined }}
-      lang={lang}
     >
       {lineNodes}
     </motion.p>

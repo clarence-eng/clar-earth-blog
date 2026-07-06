@@ -265,24 +265,22 @@ main[data-mood] {
 }
 
 /* ── Drop cap on first stanza — raised cap, bottom-aligns with first line ── */
-/* Exclude: right-aligned, center-aligned, italic, lang-tagged stanzas,
-   and poems whose entire content is in a non-English language (lang on wrapper) */
-.poem-content:not([lang]) .poem-stanza:first-child:not([style*="text-align: right"]):not([style*="text-align: center"]):not([style*="font-style: italic"]):not([lang])::first-letter {
+/* .poem-stanza--no-drop is set by AnimatedStanza when the stanza is italic, non-left, or has a lang tag.
+   .poem-content[lang] excludes whole-poem non-English content (e.g. hui-sheng). */
+.poem-content:not([lang]) .poem-stanza:first-child:not(.poem-stanza--no-drop)::first-letter {
   font-family: var(--font-cormorant), serif;
   font-style: italic;
   font-weight: 300;
   color: var(--sage);
-  /* Raised cap: letter rises above the first line, bottom-aligned with it.
-     initial-letter: <size> <sink> — sink=1 means bottom of letter sits on the first line baseline. */
   initial-letter: 3.2 1;
   -webkit-initial-letter: 3.2 1;
   margin-right: 0.12em;
   line-height: 1;
 }
 
-/* Firefox doesn't support initial-letter — fall back to a modest inline size increase */
+/* Firefox doesn't support initial-letter — modest float fallback */
 @supports not (initial-letter: 1) {
-  .poem-content:not([lang]) .poem-stanza:first-child:not([style*="text-align: right"]):not([style*="text-align: center"]):not([style*="font-style: italic"]):not([lang])::first-letter {
+  .poem-content:not([lang]) .poem-stanza:first-child:not(.poem-stanza--no-drop)::first-letter {
     font-size: 2.4em;
     float: left;
     line-height: 0.85;
