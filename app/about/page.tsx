@@ -54,7 +54,7 @@ export default function AboutPage() {
                 I write from the margins of nature — where the forest meets the city, where silence meets speech, where the personal meets the planetary.
               </p>
               <p>
-                My poetry moves between ecology and intimacy, between longing and the living world. I&rsquo;m drawn to thresholds: the intertidal zone, the moment before departure, the place where what we love and what we are losing become the same thing.
+                My poetry explores longing, ecology, identity, and the small sacred things that hold us together.
               </p>
               <p>
                 I&rsquo;m based in Singapore.
