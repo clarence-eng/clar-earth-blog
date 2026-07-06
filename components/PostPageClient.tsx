@@ -69,10 +69,44 @@ export default function PostPageClient({
     return () => window.removeEventListener("keydown", handleKey);
   }, [prev, next, router]);
 
+  // Track whether user has scrolled past the dark hero into the cream body
+  const [pastHero, setPastHero] = useState(false);
+  useEffect(() => {
+    const handler = () => setPastHero(window.scrollY > 380);
+    window.addEventListener("scroll", handler, { passive: true });
+    return () => window.removeEventListener("scroll", handler);
+  }, []);
+
   return (
     <>
       <ReadingProgress />
       <BackPill />
+
+      {/* ── Back arrow — fixed top-left, always visible on poem pages ── */}
+      <motion.div
+        initial={{ opacity: 0, x: -8 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+        className="fixed top-[4.5rem] left-6 z-40 hidden md:block"
+      >
+        <Link href="/" className="group flex items-center gap-2.5" aria-label="Back to all works">
+          <span className={`flex items-center justify-center w-9 h-9 rounded-full border transition-all duration-500 ${
+            pastHero
+              ? "border-[var(--border)] bg-[var(--cream)] shadow-sm group-hover:bg-[var(--cream-dark)] group-hover:border-[var(--sage)]"
+              : "border-white/25 bg-white/10 backdrop-blur-sm group-hover:bg-white/20 group-hover:border-white/50"
+          }`}>
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true" className="group-hover:-translate-x-0.5 transition-transform duration-300">
+              <path d="M8.5 1.5L3.5 6.5L8.5 11.5" stroke={pastHero ? "var(--forest)" : "white"} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </span>
+          <span
+            className={`text-[10px] tracking-[0.2em] uppercase transition-all duration-300 opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 ${pastHero ? "text-[var(--muted)]" : "text-white/70"}`}
+            style={{ fontFamily: "var(--font-jost)" }}
+          >
+            All works
+          </span>
+        </Link>
+      </motion.div>
 
       {/* ── Hero ─────────────────────────────────────────────── */}
       {/* Consistent dark forest overlay on ALL poems — no random per-slug colour */}
