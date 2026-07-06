@@ -7,13 +7,13 @@ import SiteFooter from "@/components/SiteFooter";
 
 export default function HomePage() {
   const posts = getAllPosts();
-  // Feature the most recent poem with a cover image
+  // Feature the first poem (alphabetical order — no date-based sort)
   const featured = posts.find(p => p.coverImage) ?? posts[0];
 
   return (
     <>
       <Nav posts={posts} />
-      <main id="main-content">
+      <main id="main-content" className="flex-1">
         <HeroSection titles={posts.map(p => p.title)} />
         {featured && <FeaturedPoem post={featured} />}
         <PostGrid posts={posts} />

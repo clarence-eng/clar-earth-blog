@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { getAllPosts, getPost, natureReadingTime } from "@/lib/posts";
 import Nav from "@/components/Nav";
 import PostPageClient from "@/components/PostPageClient";
+import SiteFooter from "@/components/SiteFooter";
 import type { Metadata } from "next";
 import readingTime from "reading-time";
 import { BASE_URL } from "@/lib/config";
@@ -93,6 +94,7 @@ export default async function PostPage({ params }: Props) {
       />
       <Nav posts={allPosts} />
       <PostPageClient post={post} prev={prev} next={next} readTime={readTime} allPosts={allPosts} />
+      <SiteFooter />
     </>
   );
 }

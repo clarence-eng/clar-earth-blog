@@ -99,6 +99,7 @@ body {
 /* Hide default cursor on desktop pointer devices */
 @media (pointer: fine) {
   * { cursor: none !important; }
+  input, textarea, [contenteditable] { cursor: text !important; }
 }
 
 /* ── Marquee ───────────────────────────────────────────────── */
@@ -136,6 +137,9 @@ body {
   color: var(--ink);
   font-optical-sizing: auto;
 }
+
+/* CJK font fallback for poems with lang attribute (e.g. lang="zh") */
+.poem-content[lang] { font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", serif; }
 
 /* Each stanza */
 .poem-stanza {
@@ -262,6 +266,7 @@ body {
 
 /* ── prefers-reduced-motion — disable motion animations ─────── */
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
   .poem-cover-parallax { animation: none !important; transform: scale(1) !important; will-change: auto !important; }
 }
 
@@ -290,7 +295,7 @@ header nav,
 
 /* ── Print ─────────────────────────────────────────────────── */
 @media print {
-  nav, .reading-progress, .back-pill, .poem-back-arrow, footer,
+  nav, .reading-progress, .back-pill, .poem-back-arrow, footer, .related-poems,
   .marquee-track, .filter-tabs-wrap,
   .poem-prev-next, .keyboard-hint, button { display: none !important; }
   body { background: white; color: black; font-size: 12pt; }
@@ -336,7 +341,7 @@ header nav,
 }
 @media (max-width: 600px) {
   .poem-two-col { grid-template-columns: 1fr; }
-  .poem-two-col__right .poem-stanza { text-align: left; }
+  .poem-two-col__right .poem-stanza { text-align: left !important; }
 }
 
 /* ── Scroll-driven parallax on poem cover images ───────────── */

@@ -74,6 +74,7 @@ export default function PostPageClient({
   useEffect(() => {
     const handler = () => setPastHero(window.scrollY > 380);
     window.addEventListener("scroll", handler, { passive: true });
+    handler(); // evaluate initial position
     return () => window.removeEventListener("scroll", handler);
   }, []);
 

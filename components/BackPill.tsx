@@ -10,6 +10,7 @@ export default function BackPill() {
   useEffect(() => {
     const handler = () => setShow(window.scrollY > 320);
     window.addEventListener("scroll", handler, { passive: true });
+    handler(); // evaluate initial position
     return () => window.removeEventListener("scroll", handler);
   }, []);
 

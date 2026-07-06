@@ -23,9 +23,12 @@ const jost = Jost({
 export const metadata: Metadata = {
   title: "clar.earth",
   description: "In the shadow of trees, I find my voice. Where the earth listens, and the pen replies.",
+  alternates: { canonical: BASE_URL },
   openGraph: {
     title: "clar.earth",
     description: "Poetry and writing by Clare",
+    url: BASE_URL,
+    type: "website",
     siteName: "clar.earth",
     images: [{ url: `${BASE_URL}/images/posts/daughter-of-the-tides.jpg`, width: 1200, height: 800, alt: "clar.earth" }],
   },
