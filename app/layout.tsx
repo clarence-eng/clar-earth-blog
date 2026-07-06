@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     title: "clar.earth",
     description: "Poetry and writing by Clare",
     siteName: "clar.earth",
-    images: [{ url: "https://clar.earth/images/posts/daughter-of-the-tides.jpg", width: 1200, height: 800, alt: "clar.earth" }],
+    images: [{ url: "https://clar-earth-blog.vercel.app/images/posts/daughter-of-the-tides.jpg", width: 1200, height: 800, alt: "clar.earth" }],
   },
 };
 

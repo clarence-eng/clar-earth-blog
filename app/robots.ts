@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: "/keystatic/",
     },
-    sitemap: "https://clar.earth/sitemap.xml",
+    sitemap: "https://clar-earth-blog.vercel.app/sitemap.xml",
   };
 }
