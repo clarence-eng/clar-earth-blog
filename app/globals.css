@@ -267,15 +267,15 @@ body {
   margin-right: 0.04em;
 }
 
-/* ── Two-column mirrored stanza pair ────────────────────────── */
-.poem-stanza-pair {
+/* ── Two-column left/right poem layout (e.g. The Glass Between Us) ── */
+.poem-two-col {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  margin-bottom: 1.75rem;
+  gap: 2.5rem;
+  align-items: start;
 }
-.poem-stanza-pair .poem-stanza {
-  margin-bottom: 0;
+.poem-two-col__right .poem-stanza {
+  text-align: right;
 }
 
 /* ── Scroll-driven parallax on poem cover images ───────────── */
