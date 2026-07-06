@@ -48,8 +48,8 @@ export default function FeaturedPoem({ post }: { post: PostMeta }) {
           />
 
           {/* Content */}
-          <div className="absolute inset-0 flex items-center px-10 md:px-16 py-8">
-            <div className="max-w-lg">
+          <div className="absolute inset-0 flex items-center" style={{ padding: "2rem 3rem" }}>
+            <div style={{ maxWidth: 380 }}>
               <span
                 className="inline-block text-[9px] tracking-[0.3em] uppercase px-2 py-0.5 rounded-full mb-4 bg-white/15 text-white/70"
                 style={{ fontFamily: "var(--font-jost)" }}

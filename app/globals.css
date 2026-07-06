@@ -264,17 +264,12 @@ main[data-mood] {
   .poem-hero > span, .poem-hero span > img, .poem-hero > img, .poem-hero > div:first-of-type { display: none !important; }
 }
 
-/* ── First-letter accent — inline, no float, no layout disruption ── */
-/* Larger, sage-coloured, italic — sits inline on the first line only.
-   .poem-stanza--no-drop suppresses it for italic/non-left/lang/asterisk-wrapped stanzas.
-   .poem-content[lang] suppresses it for whole-poem non-English content. */
+/* ── First-letter accent — colour only, no size change, no layout impact ── */
 .poem-content:not([lang]) .poem-stanza:first-child:not(.poem-stanza--no-drop)::first-letter {
   font-family: var(--font-cormorant), serif;
   font-style: italic;
   font-weight: 300;
   color: var(--sage);
-  font-size: 1.9em;
-  margin-right: 0.03em;
 }
 
 /* ── Scroll-driven parallax on poem cover images ───────────── */
