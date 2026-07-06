@@ -19,9 +19,34 @@ const TYPE_LABELS: Record<string, string> = {
 export default function SearchModal({ posts, onClose }: SearchModalProps) {
   const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     inputRef.current?.focus();
+  }, []);
+
+  // Focus trap — keep Tab/Shift+Tab within the dialog
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+      const focusable = Array.from(
+        dialog.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input, [tabindex]:not([tabindex="-1"])'
+        )
+      ).filter(el => !el.hasAttribute("aria-hidden"));
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+      } else {
+        if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
   }, []);
 
   const results = query.trim().length < 2 ? [] : posts.filter(p => {
@@ -58,6 +83,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
           role="dialog"
           aria-modal="true"
           aria-label="Search poems"
+          ref={dialogRef}
         >
           {/* Input */}
           <div className="flex items-center gap-3 px-5 py-4 border-b border-[var(--border)]">

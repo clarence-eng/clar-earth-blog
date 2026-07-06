@@ -25,7 +25,7 @@ function parseStanzas(content: string): { text: string; align: "left" | "right" 
     else if (text.startsWith("[center]")) { align = "center"; text = text.slice(8).trimStart(); }
     if (text.startsWith("[italic]")) { italic = true; text = text.slice(8).trimStart(); }
     return { text, align, italic };
-  });
+  }).filter(s => s.text.trim().length > 0);
 }
 
 // Single consistent dark overlay colour for all poems — forest green.

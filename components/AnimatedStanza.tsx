@@ -37,8 +37,9 @@ export default function AnimatedStanza({ children, index, align = "left", italic
     italic ? line.replace(/^\*|\*$/g, "").trim() : line
   );
 
-  // Skip animation entirely for users who prefer reduced motion
-  if (reducedMotion) {
+  // useReducedMotion() returns null on the server — treat null as false (animated)
+  // so server and client render the same branch on first paint.
+  if (reducedMotion === true) {
     return (
       <p
         ref={ref}

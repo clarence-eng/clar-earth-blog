@@ -49,6 +49,7 @@ export function getAllPosts(): PostMeta[] {
     })
     .filter((p) => p.published !== false)
     .sort((a, b) => {
+      if (!a.title || !b.title) return 0;
       const aLatin = /^[A-Za-z]/.test(a.title);
       const bLatin = /^[A-Za-z]/.test(b.title);
       if (aLatin && !bLatin) return -1;

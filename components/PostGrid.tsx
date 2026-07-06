@@ -31,14 +31,14 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
     "photo-essay": posts.filter((p) => p.type === "photo-essay").length,
   };
 
-  // Re-observe cards whenever the filtered list changes (filter tab switched)
+  // Re-observe cards whenever the active filter changes
   useEffect(() => {
     const node = sectionRef.current;
     if (!node) return;
-
+    let observer: IntersectionObserver | null = null;
     // Wait one frame for AnimatePresence to finish mounting new cards
     const id = requestAnimationFrame(() => {
-      const observer = new IntersectionObserver(
+      observer = new IntersectionObserver(
         (entries) => {
           const visible = entries.filter(e => e.isIntersecting && e.intersectionRatio > 0.4);
           if (visible.length === 0) return;
@@ -48,11 +48,13 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
         },
         { threshold: 0.4 }
       );
-      node.querySelectorAll("article[data-mood]").forEach(card => observer.observe(card));
-      return () => observer.disconnect();
+      node.querySelectorAll("article[data-mood]").forEach(card => observer!.observe(card));
     });
-    return () => cancelAnimationFrame(id);
-  }, [filtered]);
+    return () => {
+      cancelAnimationFrame(id);
+      observer?.disconnect();
+    };
+  }, [active, posts]);
 
   // Pick light or dark mood background colour based on resolved theme
   const moodColor = ambientMood && MOOD_CONFIG[ambientMood]
@@ -61,7 +63,7 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
 
   return (
     <section
-      className="px-8 py-14 max-w-6xl mx-auto w-full transition-colors duration-[1200ms]"
+      className="post-grid-section px-8 py-14 max-w-6xl mx-auto w-full transition-colors duration-[1200ms]"
       style={moodColor ? { backgroundColor: moodColor, borderRadius: "2px" } : undefined}
       ref={sectionRef}
     >

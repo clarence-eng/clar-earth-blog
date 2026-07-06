@@ -7,6 +7,7 @@ import type { PostMeta } from "@/lib/posts";
 
 export default function RelatedPoems({ posts, currentSlug }: { posts: PostMeta[]; currentSlug: string }) {
   const idx = posts.findIndex(p => p.slug === currentSlug);
+  if (idx === -1) return null;
   const current = posts[idx];
 
   // Prefer poems with the same mood; fall back to adjacent posts

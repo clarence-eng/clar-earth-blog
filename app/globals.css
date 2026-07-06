@@ -254,6 +254,13 @@ body {
 .dark .mood-tag[data-mood="resilience"] { background: #281808; color: #C4A888; border-color: #3A2A18; }
 .dark .mood-tag[data-mood="defiance"]   { background: #2A1010; color: #C48080; border-color: #4A1A1A; }
 .dark .mood-tag[data-mood="love"]       { background: #2A0E18; color: #D4899A; border-color: #4A1A28; }
+.dark .mood-tag[data-mood="longing"]    .mood-tag-dot { background: #7AAABB; }
+.dark .mood-tag[data-mood="nature"]     .mood-tag-dot { background: #5A8A74; }
+.dark .mood-tag[data-mood="grief"]      .mood-tag-dot { background: #A899B8; }
+.dark .mood-tag[data-mood="warmth"]     .mood-tag-dot { background: #C4882A; }
+.dark .mood-tag[data-mood="resilience"] .mood-tag-dot { background: #C4A888; }
+.dark .mood-tag[data-mood="defiance"]   .mood-tag-dot { background: #C48080; }
+.dark .mood-tag[data-mood="love"]       .mood-tag-dot { background: #D4899A; }
 
 /* ── Card mood shimmer — top-edge glow reveals on hover ───── */
 .card-mood-shimmer[data-mood="longing"]    { background: linear-gradient(90deg, #7AAABB, #A8D4E0); }
@@ -288,12 +295,10 @@ main[data-mood] {
   }
 }
 
-/* ── prefers-reduced-motion — disable all motion animations ── */
+/* ── prefers-reduced-motion — disable motion animations ─────── */
 @media (prefers-reduced-motion: reduce) {
-  /* Disable Framer Motion transform transitions on cards */
   .poem-cover-parallax { animation: none !important; transform: scale(1) !important; }
-  /* Disable CSS transitions on section background color shift */
-  section { transition: none !important; }
+  .post-grid-section { transition: none !important; }
 }
 
 /* ── Reading focus mode ────────────────────────────────────── */
