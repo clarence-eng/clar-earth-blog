@@ -1,5 +1,7 @@
-// Mood colour system — each mood has a palette
-export const MOOD_CONFIG: Record<string, { label: string; bg: string; text: string; border: string; dot: string; darkBg: string; darkText: string; darkBorder: string; darkDot: string }> = {
+// Mood colour system — each mood has a palette.
+// bg/text/border/dot are used at runtime by MoodTag and cursor.
+// dark* values are documented here as single source of truth matching globals.css dark-mode rules.
+export const MOOD_CONFIG: Record<string, { label: string; bg: string; text: string; border: string; dot: string; darkBg?: string; darkText?: string; darkBorder?: string; darkDot?: string }> = {
   longing:    { label: "Longing",    bg: "#EBF3F7", text: "#3A6A7A", border: "#B0D0DC", dot: "#7AAABB", darkBg: "#1A2E36", darkText: "#7AAABB", darkBorder: "#2A4A5A", darkDot: "#7AAABB" },
   nature:     { label: "Nature",     bg: "#EAF0E8", text: "#3A6048", border: "#A8C8A0", dot: "#5A8A74", darkBg: "#1A2E20", darkText: "#5A8A74", darkBorder: "#2A4A30", darkDot: "#5A8A74" },
   grief:      { label: "Grief",      bg: "#F0EDF5", text: "#5A4A6A", border: "#C0B0D0", dot: "#7A6A8A", darkBg: "#201A2E", darkText: "#A899B8", darkBorder: "#3A2A4A", darkDot: "#7A6A8A" },

@@ -31,6 +31,7 @@ export default config({
         excerpt: fields.text({
           label: "Excerpt",
           description: "First line or short teaser shown on the homepage",
+          validation: { isRequired: false },
         }),
         coverImage: fields.text({ label: "Cover Image path (e.g. /images/posts/name.jpg)", validation: { isRequired: false } }),
         dedication: fields.text({ label: "Dedication", validation: { isRequired: false } }),
