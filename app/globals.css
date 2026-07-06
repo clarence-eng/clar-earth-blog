@@ -253,8 +253,10 @@ body {
 }
 
 /* ── First-letter accent — enlarged, green, bottom-aligned to the first line ── */
+/* Applied via .poem-stanza--drop (explicit) or :first-child on non-excluded stanzas.
+   hui-sheng uses poem-stanza--drop so it gets the cap even though poem-content has lang="zh" */
 .poem-content:not([lang]) .poem-stanza:first-child:not(.poem-stanza--no-drop)::first-letter,
-.poem-content:not([lang]) .poem-stanza.poem-stanza--drop::first-letter {
+.poem-stanza.poem-stanza--drop::first-letter {
   font-family: var(--font-cormorant), serif;
   font-style: italic;
   font-weight: 300;
@@ -263,6 +265,17 @@ body {
   vertical-align: bottom;
   line-height: 1;
   margin-right: 0.04em;
+}
+
+/* ── Two-column mirrored stanza pair ────────────────────────── */
+.poem-stanza-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 1.75rem;
+}
+.poem-stanza-pair .poem-stanza {
+  margin-bottom: 0;
 }
 
 /* ── Scroll-driven parallax on poem cover images ───────────── */

@@ -185,23 +185,73 @@ export default function PostPageClient({
         <div className="poem-content" lang={post.lang === "中文" ? "zh" : undefined}>
           {(() => {
             const stanzas = parseStanzas(post.content);
-            // Find the first stanza that is eligible for the drop cap
-            // (not italic, not non-left, no lang, doesn't start with *)
-            const firstDropIdx = stanzas.findIndex(s =>
+
+            // Find the first stanza eligible for the drop cap.
+            // Falls back to index 0 if none match (e.g. all lines are *italic* wrapped).
+            let firstDropIdx = stanzas.findIndex(s =>
               !s.italic && s.align === "left" && !s.lang && !s.text.trimStart().startsWith("*")
             );
-            return stanzas.map((stanza, i) => (
-              <AnimatedStanza
-                key={i}
-                index={i}
-                align={stanza.align}
-                italic={stanza.italic}
-                lang={stanza.lang}
-                isFirstDrop={i === firstDropIdx}
-              >
-                {stanza.text}
-              </AnimatedStanza>
-            ));
+            if (firstDropIdx === -1) firstDropIdx = 0;
+
+            // Group consecutive left+right pairs into a side-by-side column layout.
+            // Any left stanza immediately followed by a right stanza becomes a pair.
+            const groups: Array<{ type: "single"; idx: number } | { type: "pair"; leftIdx: number; rightIdx: number }> = [];
+            let i = 0;
+            while (i < stanzas.length) {
+              if (
+                stanzas[i].align === "left" &&
+                i + 1 < stanzas.length &&
+                stanzas[i + 1].align === "right"
+              ) {
+                groups.push({ type: "pair", leftIdx: i, rightIdx: i + 1 });
+                i += 2;
+              } else {
+                groups.push({ type: "single", idx: i });
+                i++;
+              }
+            }
+
+            return groups.map((group, gi) => {
+              if (group.type === "pair") {
+                const left = stanzas[group.leftIdx];
+                const right = stanzas[group.rightIdx];
+                return (
+                  <div key={gi} className="poem-stanza-pair">
+                    <AnimatedStanza
+                      index={group.leftIdx}
+                      align="left"
+                      italic={left.italic}
+                      lang={left.lang}
+                      isFirstDrop={group.leftIdx === firstDropIdx}
+                    >
+                      {left.text}
+                    </AnimatedStanza>
+                    <AnimatedStanza
+                      index={group.rightIdx}
+                      align="right"
+                      italic={right.italic}
+                      lang={right.lang}
+                      isFirstDrop={group.rightIdx === firstDropIdx}
+                    >
+                      {right.text}
+                    </AnimatedStanza>
+                  </div>
+                );
+              }
+              const s = stanzas[group.idx];
+              return (
+                <AnimatedStanza
+                  key={gi}
+                  index={group.idx}
+                  align={s.align}
+                  italic={s.italic}
+                  lang={s.lang}
+                  isFirstDrop={group.idx === firstDropIdx}
+                >
+                  {s.text}
+                </AnimatedStanza>
+              );
+            });
           })()}
         </div>
 
