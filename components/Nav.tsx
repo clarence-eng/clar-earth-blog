@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useTheme } from "next-themes";
 import SearchModal from "./SearchModal";
 import type { PostMeta } from "@/lib/posts";
@@ -14,6 +14,14 @@ export default function Nav({ posts = [] }: NavProps) {
   const isAdmin = pathname.startsWith("/keystatic");
   const [scrolled, setScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const searchButtonRef = useRef<HTMLButtonElement>(null);
+
+  const openSearch = () => setSearchOpen(true);
+  const closeSearch = () => {
+    setSearchOpen(false);
+    // Restore focus to the button that opened the modal
+    setTimeout(() => searchButtonRef.current?.focus(), 0);
+  };
   const { theme, setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -27,8 +35,8 @@ export default function Nav({ posts = [] }: NavProps) {
   // Keyboard shortcut: Cmd/Ctrl+K opens search
   useEffect(() => {
     const h = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === "k") { e.preventDefault(); setSearchOpen(true); }
-      if (e.key === "Escape") setSearchOpen(false);
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") { e.preventDefault(); openSearch(); }
+      if (e.key === "Escape") closeSearch();
     };
     window.addEventListener("keydown", h);
     return () => window.removeEventListener("keydown", h);
@@ -58,9 +66,11 @@ export default function Nav({ posts = [] }: NavProps) {
           <div className="flex items-center gap-5">
             {/* Search */}
             <button
-              onClick={() => setSearchOpen(true)}
+              ref={searchButtonRef}
+              onClick={openSearch}
               className={`transition-colors duration-300 ${textMuted}`}
               title="Search (⌘K)"
+              aria-label="Search"
               style={{ fontFamily: "var(--font-jost)", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase" }}
             >
               Search
@@ -78,7 +88,7 @@ export default function Nav({ posts = [] }: NavProps) {
                 onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
                 className={`transition-colors duration-300 ${textMuted}`}
                 title={resolvedTheme === "dark" ? "Light mode" : "Dark mode"}
-                aria-label="Toggle theme"
+                aria-label={resolvedTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
               >
                 {resolvedTheme === "dark" ? (
                   // Sun icon
@@ -99,7 +109,7 @@ export default function Nav({ posts = [] }: NavProps) {
       </header>
 
       {searchOpen && (
-        <SearchModal posts={posts} onClose={() => setSearchOpen(false)} />
+        <SearchModal posts={posts} onClose={closeSearch} />
       )}
     </>
   );

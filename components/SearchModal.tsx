@@ -91,6 +91,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
               <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
             </svg>
             <input
+              aria-label="Search poems"
               ref={inputRef}
               value={query}
               onChange={e => setQuery(e.target.value)}

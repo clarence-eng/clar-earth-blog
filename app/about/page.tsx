@@ -3,6 +3,7 @@ import SiteFooter from "@/components/SiteFooter";
 import { BannerBotanicalRight } from "@/components/BotanicalAccent";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { getAllPosts } from "@/lib/posts";
 
 export const metadata: Metadata = {
   title: "About — clar.earth",
@@ -10,9 +11,10 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
+  const posts = getAllPosts();
   return (
     <>
-      <Nav />
+      <Nav posts={posts} />
       <main id="main-content" className="min-h-screen pt-28 pb-24">
         {/* Hero tagline */}
         <div className="max-w-4xl mx-auto px-8 mb-20">

@@ -165,6 +165,7 @@ body {
 
 /* ── Selection ─────────────────────────────────────────────── */
 ::selection { background: #C8D8B8; color: var(--forest); }
+.dark ::selection { background: #2A4A3E; color: #A8C4A0; }
 
 /* ── Type badge — adapts to dark mode ─────────────────────── */
 .type-badge-poem        { background: #EAF0E2; color: #4A6A38; }
@@ -273,14 +274,15 @@ body {
 /* ── Reading focus mode ────────────────────────────────────── */
 .focus-mode nav,
 .focus-mode .reading-progress,
-.focus-mode .back-pill { opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
+.focus-mode .back-pill,
+.focus-mode .poem-back-arrow { opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
 .focus-mode .poem-content { font-size: 1.22rem; line-height: 1.85; }
 .focus-mode .poem-stanza { letter-spacing: 0.01em; }
 
 /* ── Print ─────────────────────────────────────────────────── */
 @media print {
   nav, .reading-progress, .back-pill, footer,
-  .marquee-track, [aria-label="Posts"], .filter-tabs-wrap,
+  .marquee-track, .filter-tabs-wrap,
   .poem-prev-next, .keyboard-hint, button { display: none !important; }
   body { background: white; color: black; font-size: 12pt; }
   .poem-content { max-width: 100%; }

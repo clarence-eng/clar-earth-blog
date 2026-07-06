@@ -87,7 +87,7 @@ export default function PostPageClient({
         initial={{ opacity: 0, x: -8 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.6, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
-        className="fixed top-[4.5rem] left-4 md:left-6 z-40"
+        className="poem-back-arrow fixed top-[4.5rem] left-4 md:left-6 z-40"
       >
         <Link href="/" className="group flex items-center gap-2.5" aria-label="Back to all works">
           <span className={`flex items-center justify-center w-9 h-9 rounded-full border transition-all duration-500 ${
