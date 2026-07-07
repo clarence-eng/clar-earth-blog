@@ -65,7 +65,10 @@ export default function CustomCursor() {
   const animRef = useRef<number>(0);
 
   useEffect(() => {
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let reducedMotion = mql.matches;
+    const onMqlChange = (e: MediaQueryListEvent) => { reducedMotion = e.matches; };
+    mql.addEventListener("change", onMqlChange);
 
     const move = (e: MouseEvent) => {
       mouseRef.current = { x: e.clientX, y: e.clientY };
@@ -93,14 +96,17 @@ export default function CustomCursor() {
       }
     };
     window.addEventListener("mousemove", move);
-    return () => window.removeEventListener("mousemove", move);
+    return () => { window.removeEventListener("mousemove", move); mql.removeEventListener("change", onMqlChange); };
   }, []);
 
   // rAF lerp loop — only runs when reduced motion is OFF
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (mql.matches) return;
 
+    let cancelled = false;
     const tick = () => {
+      if (cancelled || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
       const { x: mx, y: my } = mouseRef.current;
       const { x: cx, y: cy } = posRef.current;
       const nx = lerp(cx, mx, 0.18);
@@ -118,7 +124,7 @@ export default function CustomCursor() {
       animRef.current = requestAnimationFrame(tick);
     };
     animRef.current = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(animRef.current);
+    return () => { cancelled = true; cancelAnimationFrame(animRef.current); };
   }, []);
 
   return (

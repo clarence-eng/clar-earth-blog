@@ -1,12 +1,12 @@
 import { notFound } from "next/navigation";
-import { getAllPosts, getPost, natureReadingTime, LANG_MAP } from "@/lib/posts";
+import { getAllPosts, getPost, natureReadingTime } from "@/lib/posts";
 import { cache } from "react";
 import Nav from "@/components/Nav";
 import PostPageClient from "@/components/PostPageClient";
 import SiteFooter from "@/components/SiteFooter";
 import type { Metadata } from "next";
 import readingTime from "reading-time";
-import { BASE_URL } from "@/lib/config";
+import { BASE_URL, LANG_MAP } from "@/lib/config";
 
 interface Props {
   params: Promise<{ slug: string }>;

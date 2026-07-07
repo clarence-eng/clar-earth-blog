@@ -51,9 +51,8 @@ export function getAllPosts(): PostMeta[] {
       const { data } = matter(raw);
       return { slug, ...(data as Omit<PostMeta, "slug">) };
     })
-    .filter((p) => p.published === true)
+    .filter((p) => p.published === true && !!p.title)
     .sort((a, b) => {
-      if (!a.title || !b.title) return 0;
       const aLatin = /^[A-Za-z]/.test(a.title);
       const bLatin = /^[A-Za-z]/.test(b.title);
       if (aLatin && !bLatin) return -1;

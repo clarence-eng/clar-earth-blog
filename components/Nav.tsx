@@ -47,7 +47,7 @@ export default function Nav({ posts = [] }: NavProps) {
     };
     window.addEventListener("keydown", h);
     return () => window.removeEventListener("keydown", h);
-  }, []);
+  }, [openSearch, closeSearch]);
 
   if (isAdmin) return null;
 

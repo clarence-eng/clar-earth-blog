@@ -13,6 +13,7 @@ export default function ReadingProgress() {
       setProgress(scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0);
     };
     window.addEventListener("scroll", update, { passive: true });
+    update(); // initialise on mount and on back-navigation scroll restore
     return () => window.removeEventListener("scroll", update);
   }, []);
 

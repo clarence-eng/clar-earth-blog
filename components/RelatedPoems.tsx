@@ -44,7 +44,13 @@ export default function RelatedPoems({ posts, currentSlug }: { posts: PostMeta[]
       </p>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
         {candidates.map(p => (
-          <Link key={p.slug} href={`/${p.slug}`} className="group block">
+          <Link
+            key={p.slug}
+            href={`/${p.slug}`}
+            className="group block"
+            data-mood={Array.isArray(p.mood) ? p.mood[0] : p.mood}
+            data-ladybug={p.ladybugColor ?? undefined}
+          >
             {p.coverImage && (
               <div className="relative aspect-[4/3] overflow-hidden rounded-sm mb-3">
                 <Image src={p.coverImage} alt={p.title} fill sizes="(max-width:640px) 100vw, 33vw" className="object-cover motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:scale-[1.04]"/>
