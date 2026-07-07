@@ -72,15 +72,17 @@ export default function CustomCursor() {
       setHovered(!!el.closest("a, button, [role=button], label"));
       const moodEl = el.closest("[data-mood]") as HTMLElement | null;
       const newMood = moodEl?.dataset.mood ?? "default";
-      if (newMood !== moodRef.current) {
-        moodRef.current = newMood;
+      const overrideHex = moodEl?.dataset.ladybug ?? null;
+      const newKey = overrideHex ? `override:${overrideHex}` : newMood;
+      if (newKey !== moodRef.current) {
+        moodRef.current = newKey;
         const colors = MOOD_COLORS[newMood] ?? MOOD_COLORS.default;
         targetDotRef.current = hexToRgb(colors.dot);
-        targetLadybugRef.current = hexToRgb(colors.ladybug);
+        targetLadybugRef.current = hexToRgb(overrideHex ?? colors.ladybug);
         // When reduced motion: snap colours immediately on mood change
         if (reducedMotion) {
           setDotColor(rgbToCss(hexToRgb(colors.dot)));
-          setLadybugColor(rgbToCss(hexToRgb(colors.ladybug)));
+          setLadybugColor(rgbToCss(hexToRgb(overrideHex ?? colors.ladybug)));
         }
       }
       // When reduced motion: snap position directly, no lerp

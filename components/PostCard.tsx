@@ -59,6 +59,7 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
       transition={reducedMotion ? {} : { duration: 0.55, delay: index * 0.06, ease: "easeOut" }}
       className="group"
       data-mood={Array.isArray(post.mood) ? post.mood[0] : post.mood}
+      data-ladybug={post.ladybugColor ?? undefined}
     >
       <Link href={`/${post.slug}`} className="block h-full">
         {/* 3D tilt image box */}

@@ -21,6 +21,7 @@ export interface PostMeta {
   lang?: string;
   mood?: string[];
   readingPhrase?: string;
+  ladybugColor?: string;
 }
 
 export interface Post extends PostMeta {
