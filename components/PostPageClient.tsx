@@ -133,7 +133,7 @@ export default function PostPageClient({
         {post.coverImage && (
           <Image
             src={post.coverImage}
-            alt={post.title}
+            alt=""
             fill
             priority
             sizes="100vw"

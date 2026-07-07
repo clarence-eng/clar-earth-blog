@@ -99,6 +99,8 @@ export default function Nav({ posts = [] }: NavProps) {
               className={`transition-colors duration-300 ${textMuted}`}
               title="Search (⌘K)"
               aria-label="Search"
+              aria-expanded={searchOpen}
+              aria-haspopup="dialog"
               style={{ fontFamily: "var(--font-jost)", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase" }}
             >
               Search
