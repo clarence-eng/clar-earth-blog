@@ -284,6 +284,11 @@ header nav,
   gap: 2.5rem;
   align-items: stretch;
 }
+.poem-two-col__left {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
 .poem-two-col__right {
   display: flex;
   flex-direction: column;

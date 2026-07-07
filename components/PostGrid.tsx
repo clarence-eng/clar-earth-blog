@@ -28,7 +28,7 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
   return (
     <section
       aria-labelledby="works-heading"
-      className="post-grid-section px-8 py-14 max-w-6xl mx-auto w-full"
+      className="px-8 py-14 max-w-6xl mx-auto w-full"
     >
       {/* Section heading */}
       <div className="flex items-center gap-5 mb-10">

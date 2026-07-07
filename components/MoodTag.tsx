@@ -1,17 +1,17 @@
 // Mood colour system — each mood has a palette.
 // bg/text/border/dot are used at runtime by MoodTag and cursor.
 // dark* values are documented here as single source of truth matching globals.css dark-mode rules.
-const MOOD_CONFIG: Record<string, { label: string; bg: string; text: string; border: string; dot: string; darkBg?: string; darkText?: string; darkBorder?: string; darkDot?: string }> = {
-  longing:    { label: "Longing",    bg: "#EBF3F7", text: "#3A6A7A", border: "#B0D0DC", dot: "#7AAABB", darkBg: "#1A2E36", darkText: "#7AAABB", darkBorder: "#2A4A5A", darkDot: "#7AAABB" },
-  nature:     { label: "Nature",     bg: "#EAF0E8", text: "#3A6048", border: "#A8C8A0", dot: "#5A8A74", darkBg: "#1A2E20", darkText: "#5A8A74", darkBorder: "#2A4A30", darkDot: "#5A8A74" },
-  warmth:     { label: "Warmth",     bg: "#F7F0E4", text: "#7A4A18", border: "#D8B880", dot: "#C4882A", darkBg: "#2E1E08", darkText: "#C4882A", darkBorder: "#4A3010", darkDot: "#C4882A" },
-  love:       { label: "Love",       bg: "#F7EEF0", text: "#7A2A3A", border: "#D8A0B0", dot: "#B05C6A", darkBg: "#2A0E18", darkText: "#D4899A", darkBorder: "#4A1A28", darkDot: "#B05C6A" },
-  nostalgia:  { label: "Nostalgia",  bg: "#F5F0E8", text: "#5A4A28", border: "#D0C0A0", dot: "#A08850", darkBg: "#2A2010", darkText: "#C4A870", darkBorder: "#3A2A18", darkDot: "#A08850" },
-  melancholy: { label: "Melancholy", bg: "#EEEDF4", text: "#3A3A5A", border: "#B8B4D0", dot: "#6A6A8A", darkBg: "#181824", darkText: "#9090B8", darkBorder: "#282840", darkDot: "#6A6A8A" },
-  protest:    { label: "Protest",    bg: "#F5EAE8", text: "#5A1818", border: "#D09888", dot: "#A04040", darkBg: "#280E0E", darkText: "#D07070", darkBorder: "#401818", darkDot: "#A04040" },
-  solidarity: { label: "Solidarity", bg: "#EAF0F5", text: "#1A3A5A", border: "#90B8D8", dot: "#3A7AAA", darkBg: "#0E2030", darkText: "#5A9ACA", darkBorder: "#183048", darkDot: "#3A7AAA" },
-  reverence:  { label: "Reverence",  bg: "#EEF4EC", text: "#2A4A28", border: "#A0C498", dot: "#4A8A44", darkBg: "#101E10", darkText: "#70AA68", darkBorder: "#1A3018", darkDot: "#4A8A44" },
-  bitterness: { label: "Bitterness", bg: "#F4EEEA", text: "#4A2A18", border: "#C8A888", dot: "#8A5A38", darkBg: "#201408", darkText: "#C4905A", darkBorder: "#382010", darkDot: "#8A5A38" },
+const MOOD_CONFIG: Record<string, { label: string }> = {
+  longing:    { label: "Longing" },
+  nature:     { label: "Nature" },
+  warmth:     { label: "Warmth" },
+  love:       { label: "Love" },
+  nostalgia:  { label: "Nostalgia" },
+  melancholy: { label: "Melancholy" },
+  protest:    { label: "Protest" },
+  solidarity: { label: "Solidarity" },
+  reverence:  { label: "Reverence" },
+  bitterness: { label: "Bitterness" },
 };
 
 export default function MoodTag({ mood }: { mood?: string | string[] }) {

@@ -300,13 +300,13 @@ export default function PostPageClient({
         <nav aria-label="Poem navigation" className="grid grid-cols-2 gap-4 poem-prev-next" style={{ fontFamily: "var(--font-jost)" }}>
           {prev ? (
             <Link href={`/${prev.slug}`} className="group flex flex-col gap-1 p-4 border border-[var(--border)] rounded-sm hover:border-[var(--sage)] hover:bg-[var(--cream-dark)] transition-all">
-              <span className="text-[9px] tracking-[0.25em] uppercase text-[var(--muted-light)]">← Previous</span>
+              <span className="text-[9px] tracking-[0.25em] uppercase text-[var(--muted-light)]"><span aria-hidden="true">← </span>Previous</span>
               <span className="text-[var(--muted)] group-hover:text-[var(--forest)] transition-colors line-clamp-2" style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontSize: "1rem" }}>{prev.title}</span>
             </Link>
           ) : <div />}
           {next ? (
             <Link href={`/${next.slug}`} className="group flex flex-col gap-1 p-4 border border-[var(--border)] rounded-sm hover:border-[var(--sage)] hover:bg-[var(--cream-dark)] transition-all text-right">
-              <span className="text-[9px] tracking-[0.25em] uppercase text-[var(--muted-light)]">Next →</span>
+              <span className="text-[9px] tracking-[0.25em] uppercase text-[var(--muted-light)]">Next <span aria-hidden="true">→</span></span>
               <span className="text-[var(--muted)] group-hover:text-[var(--forest)] transition-colors line-clamp-2" style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontSize: "1rem" }}>{next.title}</span>
             </Link>
           ) : <div />}
@@ -315,7 +315,7 @@ export default function PostPageClient({
         {/* Focus mode + Print */}
         <div className="mt-8 flex items-center justify-between">
           <Link href="/" className="text-[10px] tracking-[0.3em] uppercase text-[var(--muted)] hover:text-[var(--forest)] transition-colors" style={{ fontFamily: "var(--font-jost)" }}>
-            ← All works
+            <span aria-hidden="true">← </span>All works
           </Link>
           <div className="flex items-center gap-4">
             <FocusModeToggle />

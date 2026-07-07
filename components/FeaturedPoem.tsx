@@ -19,8 +19,8 @@ export default function FeaturedPoem({ post }: { post: PostMeta }) {
 
       <Link href={`/${post.slug}`} className="group block">
         <motion.div
-          initial={reducedMotion ? {} : { opacity: 0, y: 20 }}
-          animate={reducedMotion ? {} : { opacity: 1, y: 0 }}
+          initial={reducedMotion !== false ? {} : { opacity: 0, y: 20 }}
+          animate={reducedMotion !== false ? {} : { opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
           className="relative overflow-hidden rounded-sm"
           style={{ aspectRatio: "21/7", minHeight: 220 }}

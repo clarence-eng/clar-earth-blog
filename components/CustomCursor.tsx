@@ -123,7 +123,12 @@ export default function CustomCursor() {
 
     if (!mql.matches) startLoop();
 
-    const onMqlChange = (e: MediaQueryListEvent) => { if (!e.matches) startLoop(); };
+    const onMqlChange = (e: MediaQueryListEvent) => {
+      if (!e.matches) {
+        cancelAnimationFrame(animRef.current);
+        startLoop();
+      }
+    };
     mql.addEventListener("change", onMqlChange);
     return () => { cancelled = true; cancelAnimationFrame(animRef.current); mql.removeEventListener("change", onMqlChange); };
   }, []);
