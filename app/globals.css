@@ -40,27 +40,6 @@
   --ink:         #D8D4CC;
 }
 
-@theme inline {
-  --color-cream:        var(--cream);
-  --color-cream-dark:   var(--cream-dark);
-  --color-charcoal:     var(--charcoal);
-  --color-forest:       var(--forest);
-  --color-forest-mid:   var(--forest-mid);
-  --color-forest-light: var(--forest-light);
-  --color-sage:         var(--sage);
-  --color-sage-light:   var(--sage-light);
-  --color-amber:        var(--amber);
-  --color-gold:         var(--gold);
-  --color-gold-light:   var(--gold-light);
-  --color-terracotta:   var(--terracotta);
-  --color-muted:        var(--muted);
-  --color-muted-light:  var(--muted-light);
-  --color-border:       var(--border);
-  --color-ink:          var(--ink);
-  --font-serif:         var(--font-cormorant);
-  --font-sans:          var(--font-jost);
-}
-
 /* ── Base ──────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -137,8 +116,8 @@ body {
   font-optical-sizing: auto;
 }
 
-/* CJK font fallback for poems with lang attribute (e.g. lang="zh") */
-.poem-content[lang] { font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", serif; }
+/* CJK font fallback for poems with lang attribute — scoped to CJK scripts only */
+.poem-content[lang='zh'], .poem-content[lang='ja'], .poem-content[lang='ko'] { font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", serif; }
 
 /* Each stanza */
 .poem-stanza {

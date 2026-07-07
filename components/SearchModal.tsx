@@ -55,7 +55,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
       p.title.toLowerCase().includes(q) ||
       p.excerpt?.toLowerCase().includes(q) ||
       p.dedication?.toLowerCase().includes(q) ||
-      (p.mood ? (Array.isArray(p.mood) ? p.mood : [p.mood]).some((m: string) => m.toLowerCase().includes(q)) : false)
+      (p.mood ? p.mood.some((m: string) => m.toLowerCase().includes(q)) : false)
     );
   });
 
@@ -108,9 +108,9 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
             No poems match &ldquo;{query}&rdquo;
           </p>
         )}
-        <div className="max-h-80 overflow-y-auto" role="list">
+        <ul className="max-h-80 overflow-y-auto">
           {shown.map((post) => (
-            <div key={post.slug} role="listitem">
+            <li key={post.slug}>
             <Link
               href={`/${post.slug}`}
               onClick={onClose}
@@ -131,9 +131,9 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
                 )}
               </div>
             </Link>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
 
         {query.trim().length < 2 && (
           <p className="px-5 py-2.5 text-[9px] tracking-[0.2em] uppercase text-[var(--muted-light)]" style={{ fontFamily: "var(--font-jost)" }}>

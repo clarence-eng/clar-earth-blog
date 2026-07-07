@@ -101,12 +101,12 @@ export default function PostPageClient({
               ? "border-[var(--border)] bg-[var(--cream)] shadow-sm group-hover:bg-[var(--cream-dark)] group-hover:border-[var(--sage)]"
               : "border-white/25 bg-white/10 backdrop-blur-sm group-hover:bg-white/20 group-hover:border-white/50"
           }`}>
-            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true" className="group-hover:-translate-x-0.5 transition-transform duration-300">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true" className="motion-safe:group-hover:-translate-x-0.5 motion-safe:transition-transform motion-safe:duration-300">
               <path d="M8.5 1.5L3.5 6.5L8.5 11.5" stroke={pastHero ? "var(--forest)" : "white"} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </span>
           <span
-            className={`text-[10px] tracking-[0.2em] uppercase transition-all duration-300 opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 ${pastHero ? "text-[var(--muted)]" : "text-white/70"}`}
+            className={`text-[10px] tracking-[0.2em] uppercase motion-safe:transition-all motion-safe:duration-300 opacity-0 group-hover:opacity-100 motion-safe:-translate-x-1 motion-safe:group-hover:translate-x-0 ${pastHero ? "text-[var(--muted)]" : "text-white/70"}`}
             style={{ fontFamily: "var(--font-jost)" }}
           >
             All works
@@ -214,7 +214,7 @@ export default function PostPageClient({
       </div>
 
       {/* ── Body — data-mood drives cursor colour ────────────── */}
-      <main id="main-content" className="px-8 pb-28 w-full" style={{ maxWidth: "780px", margin: "0 auto" }} data-mood={Array.isArray(post.mood) ? post.mood[0] : post.mood}>
+      <main id="main-content" tabIndex={-1} className="px-8 pb-28 w-full" style={{ maxWidth: "780px", margin: "0 auto" }} data-mood={Array.isArray(post.mood) ? post.mood[0] : post.mood}>
         {/* Gold rule */}
         <motion.div
           initial={{ width: 0 }}

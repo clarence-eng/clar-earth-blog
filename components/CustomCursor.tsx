@@ -126,7 +126,6 @@ export default function CustomCursor() {
         top: pos.y,
         transform: "translate(-50%, -50%)",
         overflow: "visible",
-        transition: "width 0.2s, height 0.2s",
       }}
       viewBox={hovered ? "-16 -26 32 34" : "-5 -5 10 10"}
       width={hovered ? 48 : 10}

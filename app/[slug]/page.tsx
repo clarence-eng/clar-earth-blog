@@ -78,7 +78,7 @@ export default async function PostPage({ params }: Props) {
     },
     "url": `${BASE_URL}/${slug}`,
     "description": post.excerpt ?? "",
-    "datePublished": post.date ?? undefined,
+    "datePublished": post.date,
     "inLanguage": LANG_MAP[post.lang ?? ""] ?? "en",
     "publisher": {
       "@type": "Organization",
