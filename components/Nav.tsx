@@ -59,11 +59,27 @@ export default function Nav({ posts = [] }: NavProps) {
           : "bg-transparent py-6"
       }`}>
         <div className="max-w-6xl mx-auto px-8 flex items-center justify-between">
-          <Link href="/" className={`tracking-[0.3em] text-[11px] font-medium uppercase transition-colors duration-300 ${textBase}`}
-            style={{ fontFamily: "var(--font-jost)" }}
-            aria-current={pathname === '/' ? 'page' : undefined}>
-            CLAR.EARTH
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link href="/" className={`tracking-[0.3em] text-[11px] font-medium uppercase transition-colors duration-300 ${textBase}`}
+              style={{ fontFamily: "var(--font-jost)" }}
+              aria-current={pathname === '/' ? 'page' : undefined}>
+              CLAR.EARTH
+            </Link>
+            <a
+              href="https://www.instagram.com/clar.earth/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`transition-colors duration-300 ${textMuted}`}
+              aria-label="Instagram"
+              title="Instagram"
+            >
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <circle cx="12" cy="12" r="4.5"/>
+                <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+              </svg>
+            </a>
+          </div>
 
           <nav aria-label="Site navigation" className="flex items-center gap-5">
             {/* Search */}
@@ -78,22 +94,6 @@ export default function Nav({ posts = [] }: NavProps) {
             >
               Search
             </button>
-
-            {/* Instagram */}
-            <a
-              href="https://www.instagram.com/clar.earth/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`transition-colors duration-300 ${textMuted}`}
-              aria-label="Instagram"
-              title="Instagram"
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                <circle cx="12" cy="12" r="4.5"/>
-                <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
-              </svg>
-            </a>
 
             {/* About */}
             <Link href="/about" className={`text-[10px] tracking-[0.2em] uppercase transition-colors duration-300 ${textMuted}`}
