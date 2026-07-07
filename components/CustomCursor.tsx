@@ -5,19 +5,14 @@ import { useEffect, useState, useRef } from "react";
 const MOOD_COLORS: Record<string, { dot: string; ladybug: string }> = {
   longing:    { dot: "#7AAABB", ladybug: "#6AAEC8" },
   nature:     { dot: "#5A8A74", ladybug: "#8AC4A0" },
-  grief:      { dot: "#7A6A8A", ladybug: "#A89AB8" },
   warmth:     { dot: "#C4882A", ladybug: "#E0B870" },
-  resilience: { dot: "#8A6A4A", ladybug: "#C4A070" },
-  defiance:   { dot: "#8A4A4A", ladybug: "#C48080" },
   love:       { dot: "#B05C6A", ladybug: "#D4899A" },
   nostalgia:  { dot: "#A08850", ladybug: "#D0B880" },
-  wonder:     { dot: "#4A9A90", ladybug: "#80CAC0" },
   melancholy: { dot: "#6A6A8A", ladybug: "#A0A0C0" },
   protest:    { dot: "#A04040", ladybug: "#FFFFFF" },
   solidarity: { dot: "#3A7AAA", ladybug: "#70AADA" },
   reverence:  { dot: "#4A8A44", ladybug: "#80C078" },
   bitterness: { dot: "#8A5A38", ladybug: "#C49070" },
-  anguish:    { dot: "#7A4A8A", ladybug: "#B080C0" },
   default:    { dot: "#2D4A3E", ladybug: "#FFFFFF" },
 };
 
@@ -102,29 +97,35 @@ export default function CustomCursor() {
   // rAF lerp loop — only runs when reduced motion is OFF
   useEffect(() => {
     const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (mql.matches) return;
 
     let cancelled = false;
-    const tick = () => {
-      if (cancelled || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-      const { x: mx, y: my } = mouseRef.current;
-      const { x: cx, y: cy } = posRef.current;
-      const nx = lerp(cx, mx, 0.18);
-      const ny = lerp(cy, my, 0.18);
-      posRef.current = { x: nx, y: ny };
+    const startLoop = () => {
+      const tick = () => {
+        if (cancelled || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        const { x: mx, y: my } = mouseRef.current;
+        const { x: cx, y: cy } = posRef.current;
+        const nx = lerp(cx, mx, 0.18);
+        const ny = lerp(cy, my, 0.18);
+        posRef.current = { x: nx, y: ny };
 
-      const newDot = lerpRgb(curDotRef.current, targetDotRef.current, 0.06);
-      const newLady = lerpRgb(curLadybugRef.current, targetLadybugRef.current, 0.06);
-      curDotRef.current = newDot;
-      curLadybugRef.current = newLady;
+        const newDot = lerpRgb(curDotRef.current, targetDotRef.current, 0.06);
+        const newLady = lerpRgb(curLadybugRef.current, targetLadybugRef.current, 0.06);
+        curDotRef.current = newDot;
+        curLadybugRef.current = newLady;
 
-      setPos({ x: nx, y: ny });
-      setDotColor(rgbToCss(newDot));
-      setLadybugColor(rgbToCss(newLady));
+        setPos({ x: nx, y: ny });
+        setDotColor(rgbToCss(newDot));
+        setLadybugColor(rgbToCss(newLady));
+        animRef.current = requestAnimationFrame(tick);
+      };
       animRef.current = requestAnimationFrame(tick);
     };
-    animRef.current = requestAnimationFrame(tick);
-    return () => { cancelled = true; cancelAnimationFrame(animRef.current); };
+
+    if (!mql.matches) startLoop();
+
+    const onMqlChange = (e: MediaQueryListEvent) => { if (!e.matches) startLoop(); };
+    mql.addEventListener("change", onMqlChange);
+    return () => { cancelled = true; cancelAnimationFrame(animRef.current); mql.removeEventListener("change", onMqlChange); };
   }, []);
 
   return (

@@ -82,8 +82,12 @@ export default function PostPageClient({
       !s.italic && s.align === "left" && !s.lang && !s.text.trimStart().startsWith("*")
     );
     if (firstDropIdx === -1) firstDropIdx = 0;
-    const leftStanzas = stanzas.filter(s => s.align === "left");
-    const rightStanzas = stanzas.filter(s => s.align === "right");
+    const leftStanzas = stanzas
+      .map((s, i) => ({ ...s, originalIndex: i }))
+      .filter(s => s.align === "left");
+    const rightStanzas = stanzas
+      .map((s, i) => ({ ...s, originalIndex: i }))
+      .filter(s => s.align === "right");
     const isMirror = rightStanzas.length > 0 && leftStanzas.length === rightStanzas.length && (leftStanzas.length + rightStanzas.length === stanzas.length);
     return { stanzas, firstDropIdx, leftStanzas, rightStanzas, isMirror };
   }, [post.content]);
@@ -240,7 +244,7 @@ export default function PostPageClient({
                     align="left"
                     italic={s.italic}
                     lang={s.lang}
-                    isFirstDrop={stanzaContent.stanzas.indexOf(s) === stanzaContent.firstDropIdx}
+                    isFirstDrop={s.originalIndex === stanzaContent.firstDropIdx}
                   >
                     {s.text}
                   </AnimatedStanza>

@@ -35,8 +35,11 @@ export default function Nav({ posts = [] }: NavProps) {
   useEffect(() => {
     const h = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", h, { passive: true });
-    h(); // evaluate initial position
-    return () => window.removeEventListener("scroll", h);
+    h();
+    return () => {
+      window.removeEventListener("scroll", h);
+      if (focusTimerRef.current !== null) clearTimeout(focusTimerRef.current);
+    };
   }, []);
 
   // Keyboard shortcut: Cmd/Ctrl+K opens search

@@ -61,7 +61,7 @@ export default function AnimatedStanza({ children, index, align = "left", italic
     lang,
   };
 
-  if (reducedMotion) {
+  if (reducedMotion !== false) {
     return <p {...sharedProps}>{lineNodes}</p>;
   }
 
