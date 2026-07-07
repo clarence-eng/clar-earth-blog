@@ -39,6 +39,7 @@ export default config({
         lang: fields.text({ label: "Language tag (e.g. 中文)", validation: { isRequired: false } }),
         date: fields.text({ label: "Date (e.g. 2025-04)", validation: { isRequired: false } }),
         readingPhrase: fields.text({ label: "Reading phrase (e.g. 'a fire held between cupped hands')", validation: { isRequired: false } }),
+        ladybugColor: fields.text({ label: "Ladybug cursor colour (hex, e.g. #E07030)", validation: { isRequired: false } }),
         published: fields.checkbox({ label: "Published", defaultValue: true }),
         mood: fields.multiselect({
           label: "Moods",
@@ -46,19 +47,14 @@ export default config({
           options: [
             { label: "Longing",    value: "longing" },
             { label: "Nature",     value: "nature" },
-            { label: "Grief",      value: "grief" },
             { label: "Warmth",     value: "warmth" },
-            { label: "Resilience", value: "resilience" },
-            { label: "Defiance",   value: "defiance" },
             { label: "Love",       value: "love" },
             { label: "Nostalgia",  value: "nostalgia" },
-            { label: "Wonder",     value: "wonder" },
             { label: "Melancholy", value: "melancholy" },
             { label: "Protest",    value: "protest" },
             { label: "Solidarity", value: "solidarity" },
             { label: "Reverence",  value: "reverence" },
             { label: "Bitterness", value: "bitterness" },
-            { label: "Anguish",    value: "anguish" },
           ],
         }),
         content: fields.mdx({

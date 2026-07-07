@@ -14,11 +14,13 @@ export const metadata: Metadata = {
     description: "About Clare — poetry, nature, and the spaces between.",
     url: `${BASE_URL}/about`,
     siteName: "clar.earth",
+    images: [{ url: `${BASE_URL}/images/posts/daughter-of-the-tides.jpg`, width: 1200, height: 800, alt: "clar.earth" }],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "About — clar.earth",
     description: "About Clare — poetry, nature, and the spaces between.",
+    images: [`${BASE_URL}/images/posts/daughter-of-the-tides.jpg`],
   },
   alternates: {
     canonical: `${BASE_URL}/about`,
