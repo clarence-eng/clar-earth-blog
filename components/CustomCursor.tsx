@@ -135,15 +135,15 @@ export default function CustomCursor() {
     >
       {hovered ? (
         <g stroke={ladybugColor} fill="none" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M0 7 C-10 7 -13 0 -11 -7 C-9 -14 9 -14 11 -7 C13 0 10 7 0 7Z" strokeWidth="1.4"/>
-          <circle cx="0" cy="-16" r="5" strokeWidth="1.3"/>
-          <line x1="0" y1="-10" x2="0" y2="7" strokeWidth="1"/>
-          <circle cx="-5" cy="-5" r="2" strokeWidth="1"/>
-          <circle cx="5" cy="-5" r="2" strokeWidth="1"/>
-          <circle cx="-4" cy="2" r="1.6" strokeWidth="0.9"/>
-          <circle cx="4" cy="2" r="1.6" strokeWidth="0.9"/>
-          <path d="M-3 -20 Q-6 -25 -8 -24" strokeWidth="1"/>
-          <path d="M3 -20 Q6 -25 8 -24" strokeWidth="1"/>
+          <path d="M0 7 C-10 7 -13 0 -11 -7 C-9 -14 9 -14 11 -7 C13 0 10 7 0 7Z" strokeWidth="2"/>
+          <circle cx="0" cy="-16" r="5" strokeWidth="1.8"/>
+          <line x1="0" y1="-10" x2="0" y2="7" strokeWidth="1.5"/>
+          <circle cx="-5" cy="-5" r="2" strokeWidth="1.5"/>
+          <circle cx="5" cy="-5" r="2" strokeWidth="1.5"/>
+          <circle cx="-4" cy="2" r="1.6" strokeWidth="1.3"/>
+          <circle cx="4" cy="2" r="1.6" strokeWidth="1.3"/>
+          <path d="M-3 -20 Q-6 -25 -8 -24" strokeWidth="1.5"/>
+          <path d="M3 -20 Q6 -25 8 -24" strokeWidth="1.5"/>
         </g>
       ) : (
         <circle cx="0" cy="0" r="4" fill={dotColor} opacity="0.9"/>
