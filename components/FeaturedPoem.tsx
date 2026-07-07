@@ -4,12 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import type { PostMeta } from "@/lib/posts";
-
-const TYPE_LABELS: Record<string, string> = {
-  poem: "Poem",
-  article: "Article",
-  "photo-essay": "Photo Essay",
-};
+import { TYPE_LABELS } from "@/lib/config";
 
 export default function FeaturedPoem({ post }: { post: PostMeta }) {
   const reducedMotion = useReducedMotion();

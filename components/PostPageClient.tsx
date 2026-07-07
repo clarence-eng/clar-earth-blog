@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { Post, PostMeta } from "@/lib/posts";
-import { LANG_MAP } from "@/lib/config";
+import { LANG_MAP, TYPE_LABELS } from "@/lib/config";
 import AnimatedStanza from "./AnimatedStanza";
 import ReadingProgress from "./ReadingProgress";
 import RelatedPoems from "./RelatedPoems";
@@ -36,15 +36,8 @@ function parseStanzas(content: string): { text: string; align: "left" | "right" 
   }).filter(s => s.text.trim().length > 0);
 }
 
-// Single consistent dark overlay colour for all poems — forest green.
-// The cover photo shows through via luminosity blend; no random per-poem colour.
-const HERO_BG = "#1E2E28"; // deep forest — dark enough for legibility, green-tinted
+const HERO_BG = "#1E2E28";
 
-const TYPE_LABELS: Record<string, string> = {
-  poem: "Poem",
-  article: "Article",
-  "photo-essay": "Photo Essay",
-};
 
 export default function PostPageClient({
   post,

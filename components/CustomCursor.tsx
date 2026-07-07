@@ -26,6 +26,7 @@ function lerp(a: number, b: number, t: number) { return a + (b - a) * t; }
 type RGB = [number, number, number];
 
 function hexToRgb(hex: string): RGB {
+  if (!hex || !/^#[0-9A-Fa-f]{6}$/.test(hex)) return [255, 255, 255];
   const r = parseInt(hex.slice(1, 3), 16);
   const g = parseInt(hex.slice(3, 5), 16);
   const b = parseInt(hex.slice(5, 7), 16);
@@ -73,7 +74,7 @@ export default function CustomCursor() {
       const moodEl = el.closest("[data-mood]") as HTMLElement | null;
       const newMood = moodEl?.dataset.mood ?? "default";
       const overrideHex = moodEl?.dataset.ladybug ?? null;
-      const newKey = overrideHex ? `override:${overrideHex}` : newMood;
+      const newKey = `${newMood}:${overrideHex ?? ""}`;
       if (newKey !== moodRef.current) {
         moodRef.current = newKey;
         const colors = MOOD_COLORS[newMood] ?? MOOD_COLORS.default;

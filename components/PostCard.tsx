@@ -4,13 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, useMotionValue, useTransform, useSpring, useReducedMotion } from "framer-motion";
 import type { PostMeta } from "@/lib/posts";
+import { TYPE_LABELS } from "@/lib/config";
 import MoodTag from "./MoodTag";
-
-const TYPE_LABELS: Record<string, string> = {
-  poem: "Poem",
-  article: "Article",
-  "photo-essay": "Photo Essay",
-};
 
 const NATURE_COLORS = [
   { bg: "#2D4A3E", accent: "#8A9A6A" },
@@ -45,18 +40,20 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
   const rotateX = useSpring(useTransform(y, [-1, 1], [6, -6]), { stiffness: 200, damping: 20 });
   const rotateY = useSpring(useTransform(x, [-1, 1], [-6, 6]), { stiffness: 200, damping: 20 });
 
-  const handleMouseMove = reducedMotion !== false ? undefined : (e: React.MouseEvent<HTMLDivElement>) => {
+  const shouldAnimate = reducedMotion === false;
+
+  const handleMouseMove = !shouldAnimate ? undefined : (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     x.set(((e.clientX - rect.left) / rect.width - 0.5) * 2);
     y.set(((e.clientY - rect.top) / rect.height - 0.5) * 2);
   };
-  const handleMouseLeave = reducedMotion !== false ? undefined : () => { x.set(0); y.set(0); };
+  const handleMouseLeave = !shouldAnimate ? undefined : () => { x.set(0); y.set(0); };
 
   return (
     <motion.article
-      initial={reducedMotion ? {} : { opacity: 0, y: 28 }}
-      animate={reducedMotion ? {} : { opacity: 1, y: 0 }}
-      transition={reducedMotion ? {} : { duration: 0.55, delay: index * 0.06, ease: "easeOut" }}
+      initial={shouldAnimate ? { opacity: 0, y: 28 } : {}}
+      animate={shouldAnimate ? { opacity: 1, y: 0 } : {}}
+      transition={shouldAnimate ? { duration: 0.55, delay: index * 0.06, ease: "easeOut" } : {}}
       className="group"
       data-mood={Array.isArray(post.mood) ? post.mood[0] : post.mood}
       data-ladybug={post.ladybugColor ?? undefined}
@@ -65,10 +62,10 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
         {/* 3D tilt image box */}
         <motion.div
           className="overflow-hidden rounded-sm aspect-[4/3] relative"
-          style={{ rotateX: reducedMotion !== false ? 0 : rotateX, rotateY: reducedMotion !== false ? 0 : rotateY, transformStyle: "preserve-3d", transformPerspective: 800 }}
+          style={{ rotateX: shouldAnimate ? rotateX : 0, rotateY: shouldAnimate ? rotateY : 0, transformStyle: "preserve-3d", transformPerspective: 800 }}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
-          whileHover={reducedMotion !== false ? undefined : { y: -6, boxShadow: "0 20px 44px rgba(45,74,62,0.22)" }}
+          whileHover={shouldAnimate ? { y: -6, boxShadow: "0 20px 44px rgba(45,74,62,0.22)" } : undefined}
           transition={{ y: { duration: 0.4, ease: [0.32, 0.72, 0, 1] }, boxShadow: { duration: 0.4, ease: [0.32, 0.72, 0, 1] } }}
         >
           <div
