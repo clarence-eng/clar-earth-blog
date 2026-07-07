@@ -16,6 +16,7 @@ export default function PrintButton({ title, type = "poem" }: PrintButtonProps) 
 
   return (
     <button
+      type="button"
       onClick={handlePrint}
       className="flex items-center gap-1.5 text-[var(--muted)] hover:text-[var(--forest)] transition-colors"
       style={{ fontFamily: "var(--font-jost)", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase" }}

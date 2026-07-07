@@ -14,6 +14,7 @@ export default function HomePage() {
     <>
       <Nav posts={posts} />
       <main id="main-content" className="flex-1">
+        <h1 className="sr-only">clar.earth — poetry and writing by Clare</h1>
         <HeroSection titles={posts.map(p => p.title)} />
         {featured && <FeaturedPoem post={featured} />}
         <PostGrid posts={posts} />

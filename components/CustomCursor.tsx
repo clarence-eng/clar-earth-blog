@@ -52,7 +52,6 @@ export default function CustomCursor() {
   const posRef = useRef({ x: -100, y: -100 });
   const [pos, setPos] = useState({ x: -100, y: -100 });
   const [hovered, setHovered] = useState(false);
-  const [visible, setVisible] = useState(false);
 
   const targetDotRef = useRef<RGB>(DEFAULT_DOT_RGB);
   const targetLadybugRef = useRef<RGB>(DEFAULT_LADYBUG_RGB);
@@ -62,8 +61,6 @@ export default function CustomCursor() {
   const [ladybugColor, setLadybugColor] = useState(rgbToCss(DEFAULT_LADYBUG_RGB));
 
   const moodRef = useRef("default");
-  const visibleRef = useRef(false);
-  useEffect(() => { visibleRef.current = visible; }, [visible]);
   const animRef = useRef<number>(0);
 
   useEffect(() => {
@@ -71,7 +68,6 @@ export default function CustomCursor() {
 
     const move = (e: MouseEvent) => {
       mouseRef.current = { x: e.clientX, y: e.clientY };
-      if (!visibleRef.current) setVisible(true);
       const el = e.target as HTMLElement;
       setHovered(!!el.closest("a, button, [role=button], label"));
       const moodEl = el.closest("[data-mood]") as HTMLElement | null;
@@ -121,8 +117,6 @@ export default function CustomCursor() {
     animRef.current = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(animRef.current);
   }, []);
-
-  if (!visible) return null;
 
   return (
     <svg

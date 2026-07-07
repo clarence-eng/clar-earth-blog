@@ -235,7 +235,7 @@ export default function PostPageClient({
             // Unequal counts (e.g. Blank Space: 3 left + 5 right) render sequentially.
             const leftStanzas = stanzas.filter(s => s.align === "left");
             const rightStanzas = stanzas.filter(s => s.align === "right");
-            const isMirror = rightStanzas.length > 0 && leftStanzas.length === rightStanzas.length;
+            const isMirror = rightStanzas.length > 0 && leftStanzas.length === rightStanzas.length && (leftStanzas.length + rightStanzas.length === stanzas.length);
 
             if (isMirror) {
               return (

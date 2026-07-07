@@ -67,6 +67,7 @@ export default function Nav({ posts = [] }: NavProps) {
           <nav aria-label="Site navigation" className="flex items-center gap-5">
             {/* Search */}
             <button
+              type="button"
               ref={searchButtonRef}
               onClick={openSearch}
               className={`transition-colors duration-300 ${textMuted}`}
@@ -86,6 +87,7 @@ export default function Nav({ posts = [] }: NavProps) {
             {/* Dark mode toggle */}
             {resolvedTheme && (
               <button
+                type="button"
                 onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
                 className={`transition-colors duration-300 ${textMuted}`}
                 title={resolvedTheme === "dark" ? "Light mode" : "Dark mode"}

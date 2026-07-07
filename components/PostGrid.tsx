@@ -52,6 +52,7 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
             const isActive = active === key;
             return (
               <button
+                type="button"
                 key={key}
                 onClick={() => setActive(key)}
                 aria-pressed={isActive}

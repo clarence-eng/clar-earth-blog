@@ -103,12 +103,12 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
 
         {/* Results */}
         <p aria-live="polite" aria-atomic="true" className="sr-only">{query.trim().length >= 2 ? `${shown.length} result${shown.length !== 1 ? 's' : ''}` : ''}</p>
+        {shown.length === 0 && query.trim().length >= 2 && (
+          <p className="px-5 py-8 text-center text-[var(--muted)] italic" style={{ fontFamily: "var(--font-cormorant)", fontSize: "1rem" }}>
+            No poems match &ldquo;{query}&rdquo;
+          </p>
+        )}
         <div className="max-h-80 overflow-y-auto" role="list">
-          {shown.length === 0 && query.trim().length >= 2 && (
-            <p className="px-5 py-8 text-center text-[var(--muted)] italic" style={{ fontFamily: "var(--font-cormorant)", fontSize: "1rem" }}>
-              No poems match &ldquo;{query}&rdquo;
-            </p>
-          )}
           {shown.map((post) => (
             <div key={post.slug} role="listitem">
             <Link

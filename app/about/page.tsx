@@ -33,12 +33,12 @@ export default function AboutPage() {
       <main id="main-content" className="min-h-screen pt-28 pb-24">
         {/* Hero tagline */}
         <div className="max-w-4xl mx-auto px-8 mb-20">
-          <p
+          <h1
             className="text-[10px] tracking-[0.35em] uppercase text-[var(--muted)] mb-8"
             style={{ fontFamily: "var(--font-jost)" }}
           >
             About
-          </p>
+          </h1>
           <blockquote
             className="text-balance text-[var(--forest)] leading-[1.4]"
             style={{
