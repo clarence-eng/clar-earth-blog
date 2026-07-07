@@ -101,9 +101,7 @@ body {
   user-select: none;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track { animation-play-state: paused; }
-}
+/* marquee is decorative — intentionally exempt from reduce-motion */
 
 /* ── Scrollbar hide for filter tabs ───────────────────────── */
 .scrollbar-none { scrollbar-width: none; }
@@ -224,7 +222,7 @@ body {
 .card-mood-shimmer[data-mood="nostalgia"]  { background: linear-gradient(90deg, #A08850, #D0B880); }
 .card-mood-shimmer[data-mood="wonder"]     { background: linear-gradient(90deg, #4A9A90, #80CAC0); }
 .card-mood-shimmer[data-mood="melancholy"] { background: linear-gradient(90deg, #6A6A8A, #A0A0C0); }
-.card-mood-shimmer[data-mood="protest"]    { background: linear-gradient(90deg, #A04040, #D08080); }
+.card-mood-shimmer[data-mood="protest"]    { background: linear-gradient(90deg, #C0C0C0, #FFFFFF); }
 .card-mood-shimmer[data-mood="solidarity"] { background: linear-gradient(90deg, #3A7AAA, #70AADA); }
 .card-mood-shimmer[data-mood="reverence"]  { background: linear-gradient(90deg, #4A8A44, #80C078); }
 .card-mood-shimmer[data-mood="bitterness"] { background: linear-gradient(90deg, #8A5A38, #C49070); }

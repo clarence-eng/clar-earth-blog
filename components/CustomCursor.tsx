@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 
 const MOOD_COLORS: Record<string, { dot: string; ladybug: string }> = {
-  longing:    { dot: "#7AAABB", ladybug: "#A8D4E0" },
+  longing:    { dot: "#7AAABB", ladybug: "#6AAEC8" },
   nature:     { dot: "#5A8A74", ladybug: "#8AC4A0" },
   grief:      { dot: "#7A6A8A", ladybug: "#A89AB8" },
   warmth:     { dot: "#C4882A", ladybug: "#E0B870" },
@@ -13,7 +13,7 @@ const MOOD_COLORS: Record<string, { dot: string; ladybug: string }> = {
   nostalgia:  { dot: "#A08850", ladybug: "#D0B880" },
   wonder:     { dot: "#4A9A90", ladybug: "#80CAC0" },
   melancholy: { dot: "#6A6A8A", ladybug: "#A0A0C0" },
-  protest:    { dot: "#A04040", ladybug: "#D08080" },
+  protest:    { dot: "#A04040", ladybug: "#FFFFFF" },
   solidarity: { dot: "#3A7AAA", ladybug: "#70AADA" },
   reverence:  { dot: "#4A8A44", ladybug: "#80C078" },
   bitterness: { dot: "#8A5A38", ladybug: "#C49070" },
