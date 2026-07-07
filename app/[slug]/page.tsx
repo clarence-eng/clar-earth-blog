@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getAllPosts, getPost, natureReadingTime } from "@/lib/posts";
+import { getAllPosts, getPost, natureReadingTime, LANG_MAP } from "@/lib/posts";
 import Nav from "@/components/Nav";
 import PostPageClient from "@/components/PostPageClient";
 import SiteFooter from "@/components/SiteFooter";
@@ -78,7 +78,8 @@ export default async function PostPage({ params }: Props) {
     },
     "url": `${BASE_URL}/${slug}`,
     "description": post.excerpt ?? "",
-    "inLanguage": post.lang === "中文" ? "zh" : "en",
+    "datePublished": post.date ?? undefined,
+    "inLanguage": LANG_MAP[post.lang ?? ""] ?? "en",
     "publisher": {
       "@type": "Organization",
       "name": "clar.earth",

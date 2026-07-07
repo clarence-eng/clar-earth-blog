@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@plugin "@tailwindcss/typography";
 
 /* ── Light Mode Tokens ─────────────────────────────────────── */
 :root {
@@ -276,7 +275,8 @@ body {
 header nav,
 .reading-progress,
 .back-pill,
-.poem-back-arrow {
+.poem-back-arrow,
+.keyboard-hint {
   transition: opacity 0.4s ease, visibility 0.4s ease;
   visibility: visible;
 }
@@ -285,7 +285,8 @@ header nav,
 .focus-mode header nav,
 .focus-mode .reading-progress,
 .focus-mode .back-pill,
-.focus-mode .poem-back-arrow {
+.focus-mode .poem-back-arrow,
+.focus-mode .keyboard-hint {
   opacity: 0 !important;  /* !important beats Framer Motion inline opacity: 1 */
   visibility: hidden;
   pointer-events: none;

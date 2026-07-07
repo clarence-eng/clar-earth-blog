@@ -82,25 +82,33 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
 
       {/* Grid */}
       <AnimatePresence mode="wait">
-        <motion.div
-          key={active}
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -4 }}
-          transition={{ duration: 0.35 }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12"
-        >
-          {filtered.map((post, i) => (
-            <PostCard key={post.slug} post={post} index={i} />
-          ))}
-        </motion.div>
+        {filtered.length > 0 ? (
+          <motion.div
+            key={active}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -4 }}
+            transition={{ duration: 0.35 }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12"
+          >
+            {filtered.map((post, i) => (
+              <PostCard key={post.slug} post={post} index={i} />
+            ))}
+          </motion.div>
+        ) : (
+          <motion.p
+            key={`${active}-empty`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.35 }}
+            className="text-center text-[var(--muted)] italic mt-12"
+            style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.1rem" }}
+          >
+            Nothing here yet.
+          </motion.p>
+        )}
       </AnimatePresence>
-
-      {filtered.length === 0 && (
-        <p className="text-center text-[var(--muted)] italic mt-12" style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.1rem" }}>
-          Nothing here yet.
-        </p>
-      )}
     </section>
   );
 }

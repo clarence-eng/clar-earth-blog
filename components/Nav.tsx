@@ -60,7 +60,8 @@ export default function Nav({ posts = [] }: NavProps) {
       }`}>
         <div className="max-w-6xl mx-auto px-8 flex items-center justify-between">
           <Link href="/" className={`tracking-[0.3em] text-[11px] font-medium uppercase transition-colors duration-300 ${textBase}`}
-            style={{ fontFamily: "var(--font-jost)" }}>
+            style={{ fontFamily: "var(--font-jost)" }}
+            aria-current={pathname === '/' ? 'page' : undefined}>
             CLAR.EARTH
           </Link>
 
@@ -80,7 +81,8 @@ export default function Nav({ posts = [] }: NavProps) {
 
             {/* About */}
             <Link href="/about" className={`text-[10px] tracking-[0.2em] uppercase transition-colors duration-300 ${textMuted}`}
-              style={{ fontFamily: "var(--font-jost)" }}>
+              style={{ fontFamily: "var(--font-jost)" }}
+              aria-current={pathname === '/about' ? 'page' : undefined}>
               About
             </Link>
 

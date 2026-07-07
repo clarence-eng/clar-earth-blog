@@ -1,6 +1,8 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import { LANG_MAP } from "./config";
+export { LANG_MAP };
 
 const POSTS_DIR = path.join(process.cwd(), "content/posts");
 

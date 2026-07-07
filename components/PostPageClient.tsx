@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { Post, PostMeta } from "@/lib/posts";
+import { LANG_MAP } from "@/lib/config";
 import AnimatedStanza from "./AnimatedStanza";
 import ReadingProgress from "./ReadingProgress";
 import RelatedPoems from "./RelatedPoems";
@@ -22,11 +23,15 @@ function parseStanzas(content: string): { text: string; align: "left" | "right" 
     let align: "left" | "right" | "center" = "left";
     let italic = false;
     let lang: string | undefined;
+    const langMatch = text.match(/^\[lang:([a-z]{2}(?:-[a-zA-Z]+)?)\]/);
+    if (langMatch) { lang = langMatch[1]; text = text.slice(langMatch[0].length).trimStart(); }
     if (text.startsWith("[right]")) { align = "right"; text = text.slice(7).trimStart(); }
     else if (text.startsWith("[center]")) { align = "center"; text = text.slice(8).trimStart(); }
     if (text.startsWith("[italic]")) { italic = true; text = text.slice(8).trimStart(); }
-    const langMatch = text.match(/^\[lang:([a-z]{2}(?:-[a-zA-Z]+)?)\]/);
-    if (langMatch) { lang = langMatch[1]; text = text.slice(langMatch[0].length).trimStart(); }
+    if (!lang) {
+      const trailingLangMatch = text.match(/^\[lang:([a-z]{2}(?:-[a-zA-Z]+)?)\]/);
+      if (trailingLangMatch) { lang = trailingLangMatch[1]; text = text.slice(trailingLangMatch[0].length).trimStart(); }
+    }
     return { text, align, italic, lang };
   }).filter(s => s.text.trim().length > 0);
 }
@@ -219,7 +224,7 @@ export default function PostPageClient({
         />
 
         {/* Poem — lang attribute from post.lang (e.g. "中文" → "zh") when the whole poem is non-English */}
-        <div className="poem-content" lang={post.lang === "中文" ? "zh" : undefined}>
+        <div className="poem-content" lang={LANG_MAP[post.lang ?? ""] ?? undefined}>
           {(() => {
             const stanzas = parseStanzas(post.content);
 
