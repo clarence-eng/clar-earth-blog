@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, useMotionValue, useTransform, useSpring, useReducedMotion } from "framer-motion";
 import type { PostMeta } from "@/lib/posts";
-import { TYPE_LABELS } from "@/lib/config";
+import { TYPE_LABELS, primaryMood } from "@/lib/config";
 import MoodTag from "./MoodTag";
 
 const NATURE_COLORS = [
@@ -55,7 +55,7 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
       animate={shouldAnimate ? { opacity: 1, y: 0 } : {}}
       transition={shouldAnimate ? { duration: 0.55, delay: index * 0.06, ease: "easeOut" } : {}}
       className="group"
-      data-mood={Array.isArray(post.mood) ? post.mood[0] : post.mood}
+      data-mood={primaryMood(post.mood)}
       data-ladybug={post.ladybugColor ?? undefined}
     >
       <Link href={`/${post.slug}`} className="block h-full">

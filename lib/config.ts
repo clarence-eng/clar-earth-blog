@@ -6,6 +6,11 @@ export const TYPE_LABELS: Record<string, string> = {
   "photo-essay": "Photo Essay",
 };
 
+export function primaryMood(mood: string | string[] | undefined): string | undefined {
+  if (!mood) return undefined;
+  return Array.isArray(mood) ? mood[0] : mood;
+}
+
 // Map display-name lang values (from Keystatic frontmatter) to BCP-47 codes
 export const LANG_MAP: Record<string, string> = {
   "中文": "zh",

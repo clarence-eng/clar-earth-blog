@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useEffect, useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import type { Post, PostMeta } from "@/lib/posts";
-import { LANG_MAP, TYPE_LABELS } from "@/lib/config";
+import { LANG_MAP, TYPE_LABELS, primaryMood } from "@/lib/config";
 import AnimatedStanza from "./AnimatedStanza";
 import ReadingProgress from "./ReadingProgress";
 import RelatedPoems from "./RelatedPoems";
@@ -219,7 +219,7 @@ export default function PostPageClient({
       </div>
 
       {/* ── Body — data-mood drives cursor colour ────────────── */}
-      <main id="main-content" tabIndex={-1} className="px-8 pb-28 w-full" style={{ maxWidth: "780px", margin: "0 auto" }} data-mood={Array.isArray(post.mood) ? post.mood[0] : post.mood} data-ladybug={post.ladybugColor ?? undefined}>
+      <main id="main-content" tabIndex={-1} className="px-8 pb-28 w-full" style={{ maxWidth: "780px", margin: "0 auto" }} data-mood={primaryMood(post.mood)} data-ladybug={post.ladybugColor ?? undefined}>
         {/* Gold rule */}
         <motion.div
           initial={{ width: 0 }}

@@ -11,6 +11,8 @@ export default function PrintButton({ title, type = "poem" }: PrintButtonProps) 
     document.title = `${title} — clar.earth`;
     const restore = () => { document.title = prev; };
     window.addEventListener("afterprint", restore, { once: true });
+    // Ensure the listener is removed if the component unmounts before printing
+    window.addEventListener("focus", restore, { once: true });
     window.print();
   };
 

@@ -4,7 +4,9 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 export default function FocusModeToggle() {
-  const [focus, setFocus] = useState(false);
+  const [focus, setFocus] = useState(() =>
+    typeof document !== "undefined" && document.documentElement.classList.contains("focus-mode")
+  );
 
   // Clean up focus-mode when navigating away
   useEffect(() => () => { document.documentElement.classList.remove("focus-mode"); }, []);

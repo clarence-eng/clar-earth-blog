@@ -14,8 +14,8 @@ export default function AmbientParticles() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    // Respect prefers-reduced-motion — skip the animation entirely
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (mql.matches) return;
 
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -97,9 +97,12 @@ export default function AmbientParticles() {
     };
 
     draw();
+    const onMqlChange = (e: MediaQueryListEvent) => { if (e.matches) cancelAnimationFrame(animId); };
+    mql.addEventListener("change", onMqlChange);
     return () => {
       window.removeEventListener("resize", resize);
       cancelAnimationFrame(animId);
+      mql.removeEventListener("change", onMqlChange);
     };
   }, []);
 

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import type { PostMeta } from "@/lib/posts";
+import { primaryMood } from "@/lib/config";
 
 export default function RelatedPoems({ posts, currentSlug }: { posts: PostMeta[]; currentSlug: string }) {
   const ref = useRef<HTMLElement>(null);
@@ -48,7 +49,7 @@ export default function RelatedPoems({ posts, currentSlug }: { posts: PostMeta[]
             key={p.slug}
             href={`/${p.slug}`}
             className="group block"
-            data-mood={Array.isArray(p.mood) ? p.mood[0] : p.mood}
+            data-mood={primaryMood(p.mood)}
             data-ladybug={p.ladybugColor ?? undefined}
           >
             {p.coverImage && (
