@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { getAllPosts, getPost, natureReadingTime, LANG_MAP } from "@/lib/posts";
+import { cache } from "react";
 import Nav from "@/components/Nav";
 import PostPageClient from "@/components/PostPageClient";
 import SiteFooter from "@/components/SiteFooter";
@@ -11,6 +12,8 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
+const getCachedPost = cache((slug: string) => getPost(slug));
+
 export async function generateStaticParams() {
   return getAllPosts().map((p) => ({ slug: p.slug }));
 }
@@ -19,7 +22,7 @@ export const dynamicParams = false;
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPost(slug);
+  const post = getCachedPost(slug);
   if (!post) return {};
 
   const url = `${BASE_URL}/${slug}`;
@@ -57,7 +60,7 @@ function safeJsonLd(obj: object): string {
 
 export default async function PostPage({ params }: Props) {
   const { slug } = await params;
-  const post = getPost(slug);
+  const post = getCachedPost(slug);
   if (!post) notFound();
 
   const allPosts = getAllPosts();

@@ -4,17 +4,12 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import type { PostMeta } from "@/lib/posts";
+import { TYPE_LABELS } from "@/lib/config";
 
 interface SearchModalProps {
   posts: PostMeta[];
   onClose: () => void;
 }
-
-const TYPE_LABELS: Record<string, string> = {
-  poem: "Poem",
-  article: "Article",
-  "photo-essay": "Photo Essay",
-};
 
 export default function SearchModal({ posts, onClose }: SearchModalProps) {
   const [query, setQuery] = useState("");
@@ -55,7 +50,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
       p.title.toLowerCase().includes(q) ||
       p.excerpt?.toLowerCase().includes(q) ||
       p.dedication?.toLowerCase().includes(q) ||
-      (p.mood ? p.mood.some((m: string) => m.toLowerCase().includes(q)) : false)
+      (Array.isArray(p.mood) ? p.mood.some((m: string) => m.toLowerCase().includes(q)) : false)
     );
   });
 

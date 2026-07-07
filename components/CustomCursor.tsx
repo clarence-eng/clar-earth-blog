@@ -61,7 +61,7 @@ export default function CustomCursor() {
   const [dotColor, setDotColor] = useState(rgbToCss(DEFAULT_DOT_RGB));
   const [ladybugColor, setLadybugColor] = useState(rgbToCss(DEFAULT_LADYBUG_RGB));
 
-  const moodRef = useRef("default");
+  const moodRef = useRef("default:");
   const animRef = useRef<number>(0);
 
   useEffect(() => {

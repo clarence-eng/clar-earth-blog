@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import PostCard from "./PostCard";
 import type { PostMeta } from "@/lib/posts";
@@ -19,12 +19,11 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
 
   const filtered = active === "all" ? posts : posts.filter((p) => p.type === active);
 
-  const counts: Record<string, number> = {
-    all: posts.length,
-    poem: posts.filter((p) => p.type === "poem").length,
-    article: posts.filter((p) => p.type === "article").length,
-    "photo-essay": posts.filter((p) => p.type === "photo-essay").length,
-  };
+  const counts = useMemo(() => {
+    const c: Record<string, number> = { all: 0, poem: 0, article: 0, "photo-essay": 0 };
+    for (const p of posts) { c.all++; if (p.type) c[p.type] = (c[p.type] ?? 0) + 1; }
+    return c;
+  }, [posts]);
 
   return (
     <section

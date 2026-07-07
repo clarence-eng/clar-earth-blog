@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import type { Post, PostMeta } from "@/lib/posts";
 import { LANG_MAP, TYPE_LABELS } from "@/lib/config";
@@ -75,6 +75,18 @@ export default function PostPageClient({
     handler(); // evaluate initial position
     return () => window.removeEventListener("scroll", handler);
   }, []);
+
+  const stanzaContent = useMemo(() => {
+    const stanzas = parseStanzas(post.content);
+    let firstDropIdx = stanzas.findIndex(s =>
+      !s.italic && s.align === "left" && !s.lang && !s.text.trimStart().startsWith("*")
+    );
+    if (firstDropIdx === -1) firstDropIdx = 0;
+    const leftStanzas = stanzas.filter(s => s.align === "left");
+    const rightStanzas = stanzas.filter(s => s.align === "right");
+    const isMirror = rightStanzas.length > 0 && leftStanzas.length === rightStanzas.length && (leftStanzas.length + rightStanzas.length === stanzas.length);
+    return { stanzas, firstDropIdx, leftStanzas, rightStanzas, isMirror };
+  }, [post.content]);
 
   return (
     <>
@@ -218,71 +230,50 @@ export default function PostPageClient({
 
         {/* Poem — lang attribute from post.lang (e.g. "中文" → "zh") when the whole poem is non-English */}
         <div className="poem-content" lang={LANG_MAP[post.lang ?? ""] ?? undefined}>
-          {(() => {
-            const stanzas = parseStanzas(post.content);
-
-            // Find the first stanza eligible for the drop cap.
-            // Falls back to index 0 if none match.
-            let firstDropIdx = stanzas.findIndex(s =>
-              !s.italic && s.align === "left" && !s.lang && !s.text.trimStart().startsWith("*")
-            );
-            if (firstDropIdx === -1) firstDropIdx = 0;
-
-            // Two-column mirror layout ONLY when left and right stanza counts match
-            // (e.g. The Glass Between Us: 2 left + 2 right = true mirror).
-            // Unequal counts (e.g. Blank Space: 3 left + 5 right) render sequentially.
-            const leftStanzas = stanzas.filter(s => s.align === "left");
-            const rightStanzas = stanzas.filter(s => s.align === "right");
-            const isMirror = rightStanzas.length > 0 && leftStanzas.length === rightStanzas.length && (leftStanzas.length + rightStanzas.length === stanzas.length);
-
-            if (isMirror) {
-              return (
-                <div className="poem-two-col">
-                  <div className="poem-two-col__left">
-                    {leftStanzas.map((s, i) => (
-                      <AnimatedStanza
-                        key={i}
-                        index={i}
-                        align="left"
-                        italic={s.italic}
-                        lang={s.lang}
-                        isFirstDrop={stanzas.indexOf(s) === firstDropIdx}
-                      >
-                        {s.text}
-                      </AnimatedStanza>
-                    ))}
-                  </div>
-                  <div className="poem-two-col__right">
-                    {rightStanzas.map((s, i) => (
-                      <AnimatedStanza
-                        key={i}
-                        index={leftStanzas.length + i}
-                        align="right"
-                        italic={s.italic}
-                        lang={s.lang}
-                      >
-                        {s.text}
-                      </AnimatedStanza>
-                    ))}
-                  </div>
-                </div>
-              );
-            }
-
-            // Default: render stanzas one by one
-            return stanzas.map((s, i) => (
+          {stanzaContent.isMirror ? (
+            <div className="poem-two-col">
+              <div className="poem-two-col__left">
+                {stanzaContent.leftStanzas.map((s, i) => (
+                  <AnimatedStanza
+                    key={i}
+                    index={i}
+                    align="left"
+                    italic={s.italic}
+                    lang={s.lang}
+                    isFirstDrop={stanzaContent.stanzas.indexOf(s) === stanzaContent.firstDropIdx}
+                  >
+                    {s.text}
+                  </AnimatedStanza>
+                ))}
+              </div>
+              <div className="poem-two-col__right">
+                {stanzaContent.rightStanzas.map((s, i) => (
+                  <AnimatedStanza
+                    key={i}
+                    index={stanzaContent.leftStanzas.length + i}
+                    align="right"
+                    italic={s.italic}
+                    lang={s.lang}
+                  >
+                    {s.text}
+                  </AnimatedStanza>
+                ))}
+              </div>
+            </div>
+          ) : (
+            stanzaContent.stanzas.map((s, i) => (
               <AnimatedStanza
                 key={i}
                 index={i}
                 align={s.align}
                 italic={s.italic}
                 lang={s.lang}
-                isFirstDrop={i === firstDropIdx}
+                isFirstDrop={i === stanzaContent.firstDropIdx}
               >
                 {s.text}
               </AnimatedStanza>
-            ));
-          })()}
+            ))
+          )}
         </div>
 
         {/* Leaf divider */}

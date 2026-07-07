@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useTheme } from "next-themes";
 import { AnimatePresence } from "framer-motion";
 import SearchModal from "./SearchModal";
@@ -18,12 +18,18 @@ export default function Nav({ posts = [] }: NavProps) {
   const searchOpenRef = useRef(false);
   const searchButtonRef = useRef<HTMLButtonElement>(null);
 
-  const openSearch = () => { setSearchOpen(true); searchOpenRef.current = true; };
-  const closeSearch = () => {
+  const focusTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const openSearch = useCallback(() => {
+    if (focusTimerRef.current !== null) { clearTimeout(focusTimerRef.current); focusTimerRef.current = null; }
+    setSearchOpen(true);
+    searchOpenRef.current = true;
+  }, []);
+  const closeSearch = useCallback(() => {
     setSearchOpen(false);
     searchOpenRef.current = false;
-    setTimeout(() => searchButtonRef.current?.focus(), 0);
-  };
+    focusTimerRef.current = setTimeout(() => { focusTimerRef.current = null; searchButtonRef.current?.focus(); }, 0);
+  }, []);
   const { setTheme, resolvedTheme } = useTheme();
 
   useEffect(() => {
