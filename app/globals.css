@@ -89,7 +89,7 @@ body {
   display: flex;
   width: max-content;
   white-space: nowrap;
-  animation: marquee 44s linear infinite;
+  animation: marquee 90s linear infinite;
 }
 .marquee-content {
   display: inline-block;
