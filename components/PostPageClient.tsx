@@ -69,6 +69,11 @@ export default function PostPageClient({
     return () => window.removeEventListener("keydown", handleKey);
   }, [prev, next, router]);
 
+  // Move focus to main content after client-side navigation (keyboard or arrow-key)
+  useEffect(() => {
+    document.getElementById("main-content")?.focus();
+  }, [post.slug]);
+
   // Track whether user has scrolled past the dark hero into the cream body
   const [pastHero, setPastHero] = useState(false);
   useEffect(() => {
@@ -159,7 +164,7 @@ export default function PostPageClient({
 
         {/* Title block — vertically centred with generous padding top and bottom */}
         <div className="relative z-10 w-full max-w-3xl mx-auto px-8 flex flex-col justify-center"
-          style={{ minHeight: "clamp(320px, 55vh, 480px)", paddingTop: "5.5rem", paddingBottom: "5rem" }}>
+          style={{ paddingTop: "5.5rem", paddingBottom: "5rem" }}>
 
           {/* Type badge + nature reading time */}
           <motion.div
@@ -175,7 +180,7 @@ export default function PostPageClient({
               {TYPE_LABELS[post.type]}
             </span>
             <span
-              className="text-white/40 italic"
+              className="text-white/70 italic"
               style={{ fontFamily: "var(--font-cormorant)", fontSize: "0.9rem" }}
             >
               {readTime}
@@ -301,13 +306,13 @@ export default function PostPageClient({
         <nav aria-label="Poem navigation" className="grid grid-cols-2 gap-4 poem-prev-next" style={{ fontFamily: "var(--font-jost)" }}>
           {prev ? (
             <Link href={`/${prev.slug}`} aria-keyshortcuts="ArrowLeft" className="group flex flex-col gap-1 p-4 border border-[var(--border)] rounded-sm hover:border-[var(--sage)] hover:bg-[var(--cream-dark)] transition-all">
-              <span className="text-[9px] tracking-[0.25em] uppercase text-[var(--muted-light)]"><span aria-hidden="true">← </span>Previous</span>
+              <span className="text-[11px] tracking-[0.25em] uppercase text-[var(--muted)]"><span aria-hidden="true">← </span>Previous</span>
               <span className="text-[var(--muted)] group-hover:text-[var(--forest)] transition-colors line-clamp-2" style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontSize: "1rem" }}>{prev.title}</span>
             </Link>
           ) : <div />}
           {next ? (
             <Link href={`/${next.slug}`} aria-keyshortcuts="ArrowRight" className="group flex flex-col gap-1 p-4 border border-[var(--border)] rounded-sm hover:border-[var(--sage)] hover:bg-[var(--cream-dark)] transition-all text-right">
-              <span className="text-[9px] tracking-[0.25em] uppercase text-[var(--muted-light)]">Next <span aria-hidden="true">→</span></span>
+              <span className="text-[11px] tracking-[0.25em] uppercase text-[var(--muted)]">Next <span aria-hidden="true">→</span></span>
               <span className="text-[var(--muted)] group-hover:text-[var(--forest)] transition-colors line-clamp-2" style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontSize: "1rem" }}>{next.title}</span>
             </Link>
           ) : <div />}

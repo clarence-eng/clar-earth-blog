@@ -31,7 +31,6 @@ function PlaceholderCover({ title, index }: { title: string; index: number }) {
 }
 
 export default function PostCard({ post, index }: { post: PostMeta; index: number }) {
-  const typeLabel = TYPE_LABELS[post.type];
   const reducedMotion = useReducedMotion();
 
   // Magnetic 3D tilt — disabled when user prefers reduced motion
@@ -90,7 +89,7 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
         <div className="mt-4 px-0.5">
           <div className="flex items-center flex-wrap gap-2 mb-2.5">
             <span className={`text-[9px] tracking-[0.25em] uppercase px-2 py-0.5 rounded-full type-badge-${post.type}`} style={{ fontFamily: "var(--font-jost)" }}>
-              {typeLabel}
+              {TYPE_LABELS[post.type]}
             </span>
             {post.lang && <span className="text-[10px] text-[var(--muted)]" style={{ fontFamily: "var(--font-jost)" }}>{post.lang}</span>}
             <MoodTag mood={post.mood} />

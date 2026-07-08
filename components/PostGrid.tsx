@@ -35,7 +35,7 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
         <div className="h-px flex-1 bg-[var(--border)]" />
         <h2
           id="works-heading"
-          className="text-[var(--muted)] tracking-[0.25em] uppercase"
+          className="text-[var(--charcoal)] tracking-[0.25em] uppercase"
           style={{ fontFamily: "var(--font-jost)", fontSize: "0.68rem" }}
         >
           Works
@@ -45,7 +45,7 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
 
       {/* Filter tabs */}
       <div className="relative mb-10">
-        <div className="filter-tabs-wrap flex gap-1.5 overflow-x-auto pb-1 scrollbar-none" role="group" aria-label="Filter by content type">
+        <div className="filter-tabs-wrap flex gap-1.5 overflow-x-auto pb-1 scrollbar-none" role="radiogroup" aria-label="Filter by content type">
           {FILTERS.map(({ key, label }) => {
             const count = counts[key];
             const isActive = active === key;
@@ -54,7 +54,8 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
                 type="button"
                 key={key}
                 onClick={() => setActive(key)}
-                aria-pressed={isActive}
+                role="radio"
+                aria-checked={isActive}
                 className={`flex-shrink-0 flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[10px] tracking-[0.2em] uppercase transition-all duration-300 cursor-pointer ${
                   isActive
                     ? "bg-[var(--forest)] text-white"
@@ -78,6 +79,13 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
         </div>
         <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-[var(--cream)] to-transparent sm:hidden" />
       </div>
+
+      {/* Screen-reader live region — announces result count after filter change */}
+      <p aria-live="polite" aria-atomic="true" className="sr-only">
+        {active !== "all"
+          ? `${filtered.length} ${active} ${filtered.length === 1 ? "work" : "works"}`
+          : `All ${filtered.length} works`}
+      </p>
 
       {/* Grid */}
       <AnimatePresence mode="wait">

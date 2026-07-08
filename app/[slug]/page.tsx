@@ -50,12 +50,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 // Escape characters that are valid JSON but break inline <script> blocks
 function safeJsonLd(obj: object): string {
-  const LS = String.fromCharCode(0x2028);
-  const PS = String.fromCharCode(0x2029);
   return JSON.stringify(obj)
     .replace(/<\/script>/gi, "<\\/script>")
-    .split(LS).join("\\u2028")
-    .split(PS).join("\\u2029");
+    .split(String.fromCharCode(0x2028)).join("\\u2028")
+    .split(String.fromCharCode(0x2029)).join("\\u2029");
 }
 
 export default async function PostPage({ params }: Props) {

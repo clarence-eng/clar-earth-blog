@@ -332,7 +332,7 @@ header nav,
 
 /* ── Shared nav action label style (Search, Focus, Print buttons) ── */
 .nav-action-label {
-  font-family: var(--font-jost);
+  font-family: var(--font-jost), sans-serif;
   font-size: 0.65rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -340,7 +340,7 @@ header nav,
 
 /* ── Glassmorphism search modal ────────────────────────────── */
 .search-glass {
-  background: rgba(15, 28, 15, 0.55);
+  background: rgba(248, 245, 239, 0.72);
   backdrop-filter: blur(18px) saturate(140%);
   -webkit-backdrop-filter: blur(18px) saturate(140%);
 }

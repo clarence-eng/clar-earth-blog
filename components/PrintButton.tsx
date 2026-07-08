@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import type { PostType } from "@/lib/posts";
 
 interface PrintButtonProps {
   title: string;
-  type?: string;
+  type: PostType;
 }
 
-export default function PrintButton({ title, type = "poem" }: PrintButtonProps) {
+export default function PrintButton({ title, type }: PrintButtonProps) {
   const restoreRef = useRef<(() => void) | null>(null);
 
   useEffect(() => () => { restoreRef.current?.(); }, []);
@@ -32,7 +33,7 @@ export default function PrintButton({ title, type = "poem" }: PrintButtonProps) 
     <button
       type="button"
       onClick={handlePrint}
-      className="flex items-center gap-1.5 text-[var(--muted)] hover:text-[var(--forest)] transition-colors nav-action-label"
+      className="flex items-center gap-1.5 text-[var(--muted)] hover:text-[var(--forest)] transition-colors duration-300 nav-action-label"
       title={`Print ${type}`}
       aria-label={`Print ${type}`}
     >

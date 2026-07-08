@@ -30,8 +30,6 @@ function Sprig({ x, y, size, rotate, opacity }: { x: string; y: string; size: nu
 }
 
 export default function HeroSection({ titles = [] }: { titles?: string[] }) {
-  const gradient = getSeasonalGradient();
-
   const reducedMotion = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
@@ -53,7 +51,7 @@ export default function HeroSection({ titles = [] }: { titles?: string[] }) {
         aria-label="Site introduction"
         className="relative overflow-hidden min-h-[56vh] flex items-center"
         suppressHydrationWarning
-        style={{ background: gradient }}
+        style={{ background: getSeasonalGradient() }}
       >
         {/* Parallax ornament layer */}
         <motion.div className="absolute inset-0 pointer-events-none" style={reducedMotion === true ? undefined : { y: ornamentsY }}>

@@ -4,7 +4,7 @@ import matter from "gray-matter";
 
 const POSTS_DIR = path.join(process.cwd(), "content/posts");
 
-type PostType = "poem" | "article" | "photo-essay";
+export type PostType = "poem" | "article" | "photo-essay";
 
 export interface PostMeta {
   slug: string;

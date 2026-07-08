@@ -32,7 +32,7 @@ export default function FocusModeToggle() {
       transition={{ delay: 0.8 }}
       aria-pressed={focus}
       aria-label={focus ? "Exit focus mode" : "Focus mode"}
-      className="flex items-center gap-1.5 text-[var(--muted)] hover:text-[var(--forest)] transition-colors nav-action-label"
+      className="flex items-center gap-1.5 text-[var(--muted)] hover:text-[var(--forest)] transition-colors duration-300 nav-action-label"
       title={focus ? "Exit focus mode" : "Focus mode"}
     >
       {focus ? (
