@@ -29,7 +29,7 @@ export default function FeaturedPoem({ post }: { post: PostMeta }) {
           {post.coverImage && (
             <Image
               src={post.coverImage}
-              alt={post.title}
+              alt=""
               fill
               priority
               sizes="100vw"

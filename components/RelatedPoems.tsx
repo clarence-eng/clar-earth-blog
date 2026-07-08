@@ -54,7 +54,7 @@ export default function RelatedPoems({ posts, currentSlug }: { posts: PostMeta[]
           >
             {p.coverImage && (
               <div className="relative aspect-[4/3] overflow-hidden rounded-sm mb-3">
-                <Image src={p.coverImage} alt={p.title} fill sizes="(max-width:640px) 100vw, 33vw" className="object-cover motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:scale-[1.04]"/>
+                <Image src={p.coverImage} alt="" fill sizes="(max-width:640px) 100vw, 33vw" className="object-cover motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:scale-[1.04]"/>
                 <div className="absolute inset-0 bg-[var(--forest)] opacity-0 group-hover:opacity-[0.14] transition-opacity duration-500"/>
               </div>
             )}

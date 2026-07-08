@@ -13,6 +13,7 @@ export default function PrintButton({ title, type = "poem" }: PrintButtonProps) 
   useEffect(() => () => { restoreRef.current?.(); }, []);
 
   const handlePrint = () => {
+    if (restoreRef.current) return; // prevent re-entry while print dialog is open
     const prev = document.title;
     document.title = `${title} — clar.earth`;
     const restore = () => {
