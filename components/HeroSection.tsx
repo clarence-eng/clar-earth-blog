@@ -50,6 +50,7 @@ export default function HeroSection({ titles = [] }: { titles?: string[] }) {
     <>
       <section
         ref={sectionRef}
+        aria-label="Site introduction"
         className="relative overflow-hidden min-h-[56vh] flex items-center"
         suppressHydrationWarning
         style={{ background: gradient }}

@@ -1,11 +1,17 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+
 interface PrintButtonProps {
   title: string;
   type?: string;
 }
 
 export default function PrintButton({ title, type = "poem" }: PrintButtonProps) {
+  const restoreRef = useRef<(() => void) | null>(null);
+
+  useEffect(() => () => { restoreRef.current?.(); }, []);
+
   const handlePrint = () => {
     const prev = document.title;
     document.title = `${title} — clar.earth`;
@@ -13,7 +19,9 @@ export default function PrintButton({ title, type = "poem" }: PrintButtonProps) 
       document.title = prev;
       window.removeEventListener("afterprint", restore);
       window.removeEventListener("focus", restore);
+      restoreRef.current = null;
     };
+    restoreRef.current = restore;
     window.addEventListener("afterprint", restore, { once: true });
     window.addEventListener("focus", restore, { once: true });
     window.print();

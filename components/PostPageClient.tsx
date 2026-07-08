@@ -98,7 +98,7 @@ export default function PostPageClient({
       <ReadingProgress />
       <BackPill />
 
-      {/* ── Back arrow — fixed top-left, always visible on poem pages ── */}
+      {/* ── Back arrow — fixed top-left, hidden in focus mode and print ── */}
       <motion.div
         initial={{ opacity: 0, x: -8 }}
         animate={{ opacity: 1, x: 0 }}

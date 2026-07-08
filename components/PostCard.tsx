@@ -20,10 +20,10 @@ function PlaceholderCover({ title, index }: { title: string; index: number }) {
   const { bg, accent } = NATURE_COLORS[index % NATURE_COLORS.length];
   return (
     <div className="w-full h-full flex items-center justify-center relative overflow-hidden" style={{ background: bg }}>
-      <svg viewBox="0 0 200 200" className="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
+      <svg viewBox="0 0 200 200" className="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
         <path d="M100 185C100 150 85 115 65 95C45 75 25 72 30 50C35 28 65 22 85 42C92 50 99 63 100 75C101 63 108 50 115 42C135 22 165 28 170 50C175 72 155 75 135 95C115 115 100 150 100 185Z" fill={accent} opacity="0.3"/>
       </svg>
-      <span className="relative text-6xl font-light select-none" style={{ color: accent, fontFamily: "var(--font-cormorant)", fontStyle: "italic", opacity: 0.85 }}>
+      <span aria-hidden="true" className="relative text-6xl font-light select-none" style={{ color: accent, fontFamily: "var(--font-cormorant)", fontStyle: "italic", opacity: 0.85 }}>
         {title.charAt(0).toUpperCase()}
       </span>
     </div>

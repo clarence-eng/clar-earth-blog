@@ -6,9 +6,8 @@ export const TYPE_LABELS: Record<string, string> = {
   "photo-essay": "Photo Essay",
 };
 
-export function primaryMood(mood: string | string[] | undefined): string | undefined {
-  if (!mood) return undefined;
-  return Array.isArray(mood) ? mood[0] : mood;
+export function primaryMood(mood: string[] | undefined): string | undefined {
+  return mood?.[0];
 }
 
 // Map display-name lang values (from Keystatic frontmatter) to BCP-47 codes

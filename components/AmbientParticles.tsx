@@ -19,6 +19,7 @@ export default function AmbientParticles() {
     let resizeCleanup: (() => void) | null = null;
 
     const start = () => {
+      resizeCleanup?.();
       const canvas = canvasRef.current;
       if (!canvas) return;
       const ctx = canvas.getContext("2d");

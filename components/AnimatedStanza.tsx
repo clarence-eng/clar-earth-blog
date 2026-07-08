@@ -32,7 +32,7 @@ export default function AnimatedStanza({ children, index, align = "left", italic
   const reducedMotion = useReducedMotion();
   const inView = useInView(ref, { once: true, amount: "some" });
 
-  const textAlign = align === "right" ? "right" : align === "center" ? "center" : "left";
+  const textAlign = align;
   const lines = children.split("\n").map(line =>
     italic ? line.replace(/^\*|\*$/g, "").trim() : line
   );
@@ -63,7 +63,7 @@ export default function AnimatedStanza({ children, index, align = "left", italic
   return (
     <motion.p
       {...sharedProps}
-      initial={reducedMotion === true ? {} : { opacity: 0, y: 12 }}
+      initial={reducedMotion === false ? { opacity: 0, y: 12 } : {}}
       animate={inView ? { opacity: 1, y: 0 } : reducedMotion === true ? {} : { opacity: 0, y: 12 }}
       transition={{
         duration: 0.55,

@@ -12,10 +12,9 @@ const MOOD_CONFIG: Record<string, { label: string }> = {
   bitterness: { label: "Bitterness" },
 };
 
-export default function MoodTag({ mood }: { mood?: string | string[] }) {
-  if (!mood) return null;
-  const moods = Array.isArray(mood) ? mood : [mood];
-  const valid = moods.filter(m => MOOD_CONFIG[m]);
+export default function MoodTag({ mood }: { mood?: string[] }) {
+  if (!mood?.length) return null;
+  const valid = mood.filter(m => MOOD_CONFIG[m]);
   if (valid.length === 0) return null;
 
   return (

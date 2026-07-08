@@ -93,7 +93,9 @@ body {
   user-select: none;
 }
 
-/* marquee is decorative — intentionally exempt from reduce-motion */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation-play-state: paused; }
+}
 
 /* ── Scrollbar hide for filter tabs ───────────────────────── */
 .scrollbar-none { scrollbar-width: none; }
