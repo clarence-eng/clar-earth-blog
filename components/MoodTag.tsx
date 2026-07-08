@@ -1,6 +1,4 @@
-// Mood colour system — each mood has a palette.
-// bg/text/border/dot are used at runtime by MoodTag and cursor.
-// dark* values are documented here as single source of truth matching globals.css dark-mode rules.
+// Mood label map — visual styling comes entirely from globals.css [data-mood] selectors.
 const MOOD_CONFIG: Record<string, { label: string }> = {
   longing:    { label: "Longing" },
   nature:     { label: "Nature" },

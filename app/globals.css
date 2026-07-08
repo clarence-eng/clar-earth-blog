@@ -7,13 +7,9 @@
   --charcoal:    #1A1A17;
   --forest:      #2D4A3E;
   --forest-mid:  #3D6154;
-  --forest-light:#5A8A74;
   --sage:        #8A9A6A;
-  --sage-light:  #B8C99A;
   --amber:       #C4882A;
   --gold:        #B5975C;
-  --gold-light:  #D4B97C;
-  --terracotta:  #B05C3A;
   --muted:       #7A776C;
   --muted-light: #A8A49A;
   --border:      #DDD8CC;
@@ -27,13 +23,9 @@
   --charcoal:    #E8E4DC;
   --forest:      #6AAB88;
   --forest-mid:  #5A9A78;
-  --forest-light:#8AC4A4;
   --sage:        #7A9A6A;
-  --sage-light:  #9AB87A;
   --amber:       #C4A050;
   --gold:        #C4A46A;
-  --gold-light:  #D4BC8C;
-  --terracotta:  #C47855;
   --muted:       #7A8A7C;
   --muted-light: #8A9A8C;
   --border:      #2C3C30;
@@ -303,17 +295,19 @@ header nav,
 }
 
 /* ── Scroll-driven parallax on poem cover images ───────────── */
-/* Progressive enhancement: browsers without scroll-timeline skip this entirely */
-@supports (animation-timeline: scroll()) {
-  .poem-cover-parallax {
-    animation: poemCoverParallax linear both;
-    animation-timeline: scroll(root);
-    animation-range: 0% 60%;
-    will-change: transform;
-  }
-  @keyframes poemCoverParallax {
-    from { transform: translateY(-8%) scale(1.12); }
-    to   { transform: translateY(8%)  scale(1.12); }
+/* Progressive enhancement: only on browsers that support scroll-timeline AND user hasn't requested reduced motion */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    .poem-cover-parallax {
+      animation: poemCoverParallax linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0% 60%;
+      will-change: transform;
+    }
+    @keyframes poemCoverParallax {
+      from { transform: translateY(-8%) scale(1.12); }
+      to   { transform: translateY(8%)  scale(1.12); }
+    }
   }
 }
 

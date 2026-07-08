@@ -11,8 +11,8 @@ export default function RelatedPoems({ posts, currentSlug }: { posts: PostMeta[]
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, amount: "some" });
   const idx = posts.findIndex(p => p.slug === currentSlug);
-  if (idx === -1) return null;
-  const current = posts[idx];
+  const current = idx !== -1 ? posts[idx] : null;
+  if (!current) return null;
 
   // Prefer poems that share any mood with the current poem
   const currentMoods = new Set(Array.isArray(current?.mood) ? current.mood : current?.mood ? [current.mood] : []);
