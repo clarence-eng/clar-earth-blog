@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import AmbientParticles from "./AmbientParticles";
 
 function getSeasonalGradient() {
@@ -30,7 +30,7 @@ function Sprig({ x, y, size, rotate, opacity }: { x: string; y: string; size: nu
 }
 
 export default function HeroSection({ titles = [] }: { titles?: string[] }) {
-  const [gradient] = useState(() => getSeasonalGradient());
+  const gradient = getSeasonalGradient();
 
   const reducedMotion = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);

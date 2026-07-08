@@ -51,6 +51,7 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
 
   return (
     <motion.article
+      aria-label={post.title}
       initial={shouldAnimate ? { opacity: 0, y: 28 } : {}}
       animate={shouldAnimate ? { opacity: 1, y: 0 } : {}}
       transition={shouldAnimate ? { duration: 0.55, delay: index * 0.06, ease: "easeOut" } : {}}
@@ -80,7 +81,7 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
           {/* Forest overlay on hover */}
           <div className="absolute inset-0 bg-[var(--forest)] opacity-0 group-hover:opacity-[0.14] transition-opacity duration-500" />
           {/* Mood shimmer — top edge glow */}
-          {post.mood && (
+          {primaryMood(post.mood) && (
             <div className="card-mood-shimmer absolute inset-x-0 top-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" data-mood={primaryMood(post.mood)} />
           )}
         </motion.div>

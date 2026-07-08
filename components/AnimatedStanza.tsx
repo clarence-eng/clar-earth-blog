@@ -32,7 +32,6 @@ export default function AnimatedStanza({ children, index, align = "left", italic
   const reducedMotion = useReducedMotion();
   const inView = useInView(ref, { once: true, amount: "some" });
 
-  const textAlign = align;
   const lines = children.split("\n").map(line =>
     italic ? line.replace(/^\*|\*$/g, "").trim() : line
   );
@@ -45,7 +44,7 @@ export default function AnimatedStanza({ children, index, align = "left", italic
   ));
 
   const startsWithItalicMark = children.trimStart().startsWith("*");
-  const suppressDrop = italic || align !== "left" || lang || startsWithItalicMark;
+  const suppressDrop = italic || align !== "left" || !!lang || startsWithItalicMark;
 
   const className = [
     "poem-stanza",
@@ -56,7 +55,7 @@ export default function AnimatedStanza({ children, index, align = "left", italic
   const sharedProps = {
     ref,
     className,
-    style: { textAlign, fontStyle: italic ? "italic" : undefined } as CSSProperties,
+    style: { textAlign: align, fontStyle: italic ? "italic" : undefined } as CSSProperties,
     lang,
   };
 

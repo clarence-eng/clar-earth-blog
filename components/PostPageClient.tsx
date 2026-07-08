@@ -88,7 +88,6 @@ export default function PostPageClient({
       .map((s, i) => ({ ...s, originalIndex: i }))
       .filter(s => s.align === "left");
     const rightStanzas = stanzas
-      .map((s, i) => ({ ...s, originalIndex: i }))
       .filter(s => s.align === "right");
     const isMirror = rightStanzas.length > 0 && leftStanzas.length === rightStanzas.length && (leftStanzas.length + rightStanzas.length === stanzas.length);
     return { stanzas, firstDropIdx, leftStanzas, rightStanzas, isMirror };
@@ -128,8 +127,6 @@ export default function PostPageClient({
       {/* ── Hero ─────────────────────────────────────────────── */}
       {/* Consistent dark forest overlay on ALL poems — no random per-slug colour */}
       <div
-        id="main-content"
-        tabIndex={-1}
         className="poem-hero relative w-full overflow-hidden"
         style={{ background: HERO_BG, minHeight: "clamp(320px, 55vh, 480px)" }}
       >
@@ -175,7 +172,7 @@ export default function PostPageClient({
               className="inline-block text-[9px] tracking-[0.35em] uppercase px-2.5 py-1 rounded-full bg-white/15 text-white/70"
               style={{ fontFamily: "var(--font-jost)" }}
             >
-              {TYPE_LABELS[post.type ?? "poem"] ?? "Poem"}
+              {TYPE_LABELS[post.type] ?? "Poem"}
             </span>
             <span
               className="text-white/40 italic"
@@ -227,7 +224,7 @@ export default function PostPageClient({
       </div>
 
       {/* ── Body — data-mood drives cursor colour ────────────── */}
-      <main className="px-8 pb-28 w-full" style={{ maxWidth: "780px", margin: "0 auto" }} data-mood={primaryMood(post.mood)} data-ladybug={post.ladybugColor}>
+      <main id="main-content" tabIndex={-1} className="px-8 pb-28 w-full" style={{ maxWidth: "780px", margin: "0 auto" }} data-mood={primaryMood(post.mood)} data-ladybug={post.ladybugColor}>
         {/* Gold rule */}
         <motion.div
           initial={{ width: 0 }}
@@ -303,13 +300,13 @@ export default function PostPageClient({
         {/* Prev / Next */}
         <nav aria-label="Poem navigation" className="grid grid-cols-2 gap-4 poem-prev-next" style={{ fontFamily: "var(--font-jost)" }}>
           {prev ? (
-            <Link href={`/${prev.slug}`} className="group flex flex-col gap-1 p-4 border border-[var(--border)] rounded-sm hover:border-[var(--sage)] hover:bg-[var(--cream-dark)] transition-all">
+            <Link href={`/${prev.slug}`} aria-keyshortcuts="ArrowLeft" className="group flex flex-col gap-1 p-4 border border-[var(--border)] rounded-sm hover:border-[var(--sage)] hover:bg-[var(--cream-dark)] transition-all">
               <span className="text-[9px] tracking-[0.25em] uppercase text-[var(--muted-light)]"><span aria-hidden="true">← </span>Previous</span>
               <span className="text-[var(--muted)] group-hover:text-[var(--forest)] transition-colors line-clamp-2" style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontSize: "1rem" }}>{prev.title}</span>
             </Link>
           ) : <div />}
           {next ? (
-            <Link href={`/${next.slug}`} className="group flex flex-col gap-1 p-4 border border-[var(--border)] rounded-sm hover:border-[var(--sage)] hover:bg-[var(--cream-dark)] transition-all text-right">
+            <Link href={`/${next.slug}`} aria-keyshortcuts="ArrowRight" className="group flex flex-col gap-1 p-4 border border-[var(--border)] rounded-sm hover:border-[var(--sage)] hover:bg-[var(--cream-dark)] transition-all text-right">
               <span className="text-[9px] tracking-[0.25em] uppercase text-[var(--muted-light)]">Next <span aria-hidden="true">→</span></span>
               <span className="text-[var(--muted)] group-hover:text-[var(--forest)] transition-colors line-clamp-2" style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontSize: "1rem" }}>{next.title}</span>
             </Link>
@@ -323,7 +320,7 @@ export default function PostPageClient({
           </Link>
           <div className="flex items-center gap-4">
             <FocusModeToggle />
-            <PrintButton title={post.title} type={post.type ?? "poem"} />
+            <PrintButton title={post.title} type={post.type} />
           </div>
         </div>
 
