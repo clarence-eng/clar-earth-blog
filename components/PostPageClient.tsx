@@ -291,7 +291,7 @@ export default function PostPageClient({
 
         {/* Keyboard hint — desktop only */}
         {(prev || next) && (
-          <p className="text-center text-[9px] tracking-[0.25em] uppercase text-[var(--muted-light)] mb-6 hidden md:block keyboard-hint" style={{ fontFamily: "var(--font-jost)" }}>
+          <p className="text-center text-[9px] tracking-[0.25em] uppercase text-[var(--muted-light)] mb-6 hidden md:block keyboard-hint" style={{ fontFamily: "var(--font-jost)" }} aria-hidden="true">
             ← → keys to navigate
           </p>
         )}

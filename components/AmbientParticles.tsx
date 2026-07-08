@@ -97,7 +97,14 @@ export default function AmbientParticles() {
     };
 
     draw();
-    const onMqlChange = (e: MediaQueryListEvent) => { if (e.matches) cancelAnimationFrame(animId); };
+    const onMqlChange = (e: MediaQueryListEvent) => {
+      if (e.matches) {
+        cancelAnimationFrame(animId);
+      } else {
+        // Reduce-motion turned off mid-session — restart
+        draw();
+      }
+    };
     mql.addEventListener("change", onMqlChange);
     return () => {
       window.removeEventListener("resize", resize);

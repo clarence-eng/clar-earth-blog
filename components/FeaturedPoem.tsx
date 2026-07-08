@@ -76,7 +76,7 @@ export default function FeaturedPoem({ post }: { post: PostMeta }) {
                 style={{ fontFamily: "var(--font-jost)" }}
               >
                 Read {(TYPE_LABELS[post.type ?? "poem"] ?? "poem").toLowerCase()}
-                <span className="group-hover:translate-x-1 inline-block transition-transform">→</span>
+                <span className="group-hover:translate-x-1 inline-block transition-transform" aria-hidden="true">→</span>
               </span>
             </div>
           </div>
