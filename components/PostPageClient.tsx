@@ -126,6 +126,8 @@ export default function PostPageClient({
       {/* ── Hero ─────────────────────────────────────────────── */}
       {/* Consistent dark forest overlay on ALL poems — no random per-slug colour */}
       <div
+        id="main-content"
+        tabIndex={-1}
         className="poem-hero relative w-full overflow-hidden"
         style={{ background: HERO_BG, minHeight: "clamp(320px, 55vh, 480px)" }}
       >
@@ -223,7 +225,7 @@ export default function PostPageClient({
       </div>
 
       {/* ── Body — data-mood drives cursor colour ────────────── */}
-      <main id="main-content" tabIndex={-1} className="px-8 pb-28 w-full" style={{ maxWidth: "780px", margin: "0 auto" }} data-mood={primaryMood(post.mood)} data-ladybug={post.ladybugColor ?? undefined}>
+      <main className="px-8 pb-28 w-full" style={{ maxWidth: "780px", margin: "0 auto" }} data-mood={primaryMood(post.mood)} data-ladybug={post.ladybugColor ?? undefined}>
         {/* Gold rule */}
         <motion.div
           initial={{ width: 0 }}

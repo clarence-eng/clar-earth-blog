@@ -81,7 +81,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
       >
         {/* Input */}
         <div className="flex items-center gap-3 px-5 py-4 border-b border-[var(--border)]">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" strokeWidth="1.8" strokeLinecap="round">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
             <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
           </svg>
           <input

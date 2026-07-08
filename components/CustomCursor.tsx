@@ -135,6 +135,7 @@ export default function CustomCursor() {
 
   return (
     <svg
+      aria-hidden="true"
       className="fixed pointer-events-none z-[9999]"
       style={{
         left: pos.x,

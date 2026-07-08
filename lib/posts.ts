@@ -47,7 +47,9 @@ export function getAllPosts(): PostMeta[] {
       const slug = filename.replace(/\.mdx$/, "");
       const raw = fs.readFileSync(path.join(POSTS_DIR, filename), "utf-8");
       const { data } = matter(raw);
-      return { slug, ...(data as Omit<PostMeta, "slug">) };
+      const post = { slug, ...(data as Omit<PostMeta, "slug">) };
+      if (!post.type) post.type = "poem";
+      return post;
     })
     .filter((p) => p.published === true && !!p.title)
     .sort((a, b) => {
@@ -68,6 +70,7 @@ export function getPost(slug: string): Post | null {
 
   const raw = fs.readFileSync(filePath, "utf-8");
   const { data, content } = matter(raw);
-
-  return { slug, ...(data as Omit<PostMeta, "slug">), content } as Post;
+  const post = { slug, ...(data as Omit<PostMeta, "slug">), content } as Post;
+  if (!post.type) post.type = "poem";
+  return post;
 }
