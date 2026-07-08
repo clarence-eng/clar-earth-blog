@@ -50,7 +50,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
       p.title.toLowerCase().includes(q) ||
       p.excerpt?.toLowerCase().includes(q) ||
       p.dedication?.toLowerCase().includes(q) ||
-      (p.mood?.some((m: string) => m.toLowerCase().includes(q)) ?? false)
+      (p.mood?.some(m => m.toLowerCase().includes(q)) ?? false)
     );
   });
 
@@ -125,7 +125,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
                 {TYPE_LABELS[post.type]}
               </span>
               <div>
-                <p className="text-[var(--ink)] group-hover:text-[var(--forest)] transition-colors leading-snug" style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontSize: "1.1rem" }}>
+                <p className="cormorant-italic text-[var(--ink)] group-hover:text-[var(--forest)] transition-colors leading-snug" style={{ fontSize: "1.1rem" }}>
                   {post.title}
                   {post.lang && <span className="ml-2 text-[10px] not-italic text-[var(--muted)]">{post.lang}</span>}
                 </p>

@@ -129,6 +129,8 @@ export default function PostPageClient({
         </Link>
       </motion.div>
 
+      {/* ── Hero + Body — wrapped in main so h1 is inside the landmark ── */}
+      <main id="main-content" tabIndex={-1} data-mood={primaryMood(post.mood)} data-ladybug={post.ladybugColor}>
       {/* ── Hero ─────────────────────────────────────────────── */}
       {/* Consistent dark forest overlay on ALL poems — no random per-slug colour */}
       <div
@@ -229,7 +231,11 @@ export default function PostPageClient({
       </div>
 
       {/* ── Body — data-mood drives cursor colour ────────────── */}
-      <main id="main-content" tabIndex={-1} className="px-8 pb-28 w-full" style={{ maxWidth: "780px", margin: "0 auto" }} data-mood={primaryMood(post.mood)} data-ladybug={post.ladybugColor}>
+      <div className="px-8 pb-28 w-full" style={{ maxWidth: "780px", margin: "0 auto" }}>
+        {/* Screen-reader hint for arrow-key poem navigation */}
+        {(prev || next) && (
+          <p className="sr-only">Use the left and right arrow keys to navigate between poems.</p>
+        )}
         {/* Gold rule */}
         <motion.div
           initial={{ width: 0 }}
@@ -307,20 +313,20 @@ export default function PostPageClient({
           {prev ? (
             <Link href={`/${prev.slug}`} aria-keyshortcuts="ArrowLeft" className="group flex flex-col gap-1 p-4 border border-[var(--border)] rounded-sm hover:border-[var(--sage)] hover:bg-[var(--cream-dark)] transition-all">
               <span className="text-[11px] tracking-[0.25em] uppercase text-[var(--muted)]"><span aria-hidden="true">← </span>Previous</span>
-              <span className="text-[var(--muted)] group-hover:text-[var(--forest)] transition-colors line-clamp-2" style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontSize: "1rem" }}>{prev.title}</span>
+              <span className="cormorant-italic text-[var(--muted)] group-hover:text-[var(--forest)] transition-colors duration-300 line-clamp-2" style={{ fontSize: "1rem" }}>{prev.title}</span>
             </Link>
           ) : <div />}
           {next ? (
             <Link href={`/${next.slug}`} aria-keyshortcuts="ArrowRight" className="group flex flex-col gap-1 p-4 border border-[var(--border)] rounded-sm hover:border-[var(--sage)] hover:bg-[var(--cream-dark)] transition-all text-right">
               <span className="text-[11px] tracking-[0.25em] uppercase text-[var(--muted)]">Next <span aria-hidden="true">→</span></span>
-              <span className="text-[var(--muted)] group-hover:text-[var(--forest)] transition-colors line-clamp-2" style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontSize: "1rem" }}>{next.title}</span>
+              <span className="cormorant-italic text-[var(--muted)] group-hover:text-[var(--forest)] transition-colors duration-300 line-clamp-2" style={{ fontSize: "1rem" }}>{next.title}</span>
             </Link>
           ) : <div />}
         </nav>
 
         {/* Focus mode + Print */}
         <div className="mt-8 flex items-center justify-between">
-          <Link href="/" className="text-[10px] tracking-[0.3em] uppercase text-[var(--muted)] hover:text-[var(--forest)] transition-colors" style={{ fontFamily: "var(--font-jost)" }}>
+          <Link href="/" className="text-[10px] tracking-[0.3em] uppercase text-[var(--muted)] hover:text-[var(--forest)] transition-colors duration-300" style={{ fontFamily: "var(--font-jost)" }}>
             <span aria-hidden="true">← </span>All works
           </Link>
           <div className="flex items-center gap-4">
@@ -333,6 +339,7 @@ export default function PostPageClient({
         {allPosts.length > 0 && (
           <RelatedPoems posts={allPosts} currentSlug={post.slug} />
         )}
+      </div>
       </main>
     </>
   );

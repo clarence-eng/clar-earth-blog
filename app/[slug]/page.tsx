@@ -65,8 +65,7 @@ export default async function PostPage({ params }: Props) {
   const idx = allPosts.findIndex((p) => p.slug === slug);
   const prev = idx > 0 ? allPosts[idx - 1] : null;
   const next = idx !== -1 ? allPosts[idx + 1] ?? null : null;
-  const rt = readingTime(post.content);
-  const readTime = post.readingPhrase ?? natureReadingTime(rt.words);
+  const readTime = post.readingPhrase ?? natureReadingTime(readingTime(post.content).words);
 
   const schema = {
     "@context": "https://schema.org",

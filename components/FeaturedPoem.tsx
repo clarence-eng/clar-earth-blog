@@ -53,10 +53,8 @@ export default function FeaturedPoem({ post }: { post: PostMeta }) {
                 {TYPE_LABELS[post.type]}
               </span>
               <h2
-                className="text-white leading-[1.2] mb-2 group-hover:opacity-90 transition-opacity"
+                className="cormorant-italic text-white leading-[1.2] mb-2 group-hover:opacity-90 transition-opacity"
                 style={{
-                  fontFamily: "var(--font-cormorant)",
-                  fontStyle: "italic",
                   fontWeight: 300,
                   fontSize: "clamp(1.25rem, 2.5vw, 2rem)",
                 }}
@@ -65,14 +63,14 @@ export default function FeaturedPoem({ post }: { post: PostMeta }) {
               </h2>
               {post.excerpt && (
                 <p
-                  className="text-white/50 leading-relaxed line-clamp-1 mb-4"
+                  className="text-white/65 leading-relaxed line-clamp-1 mb-4"
                   style={{ fontFamily: "var(--font-cormorant)", fontSize: "0.9rem" }}
                 >
                   {post.excerpt}
                 </p>
               )}
               <span
-                className="text-[10px] tracking-[0.25em] uppercase text-white/50 group-hover:text-white/80 transition-colors flex items-center gap-2"
+                className="text-[10px] tracking-[0.25em] uppercase text-white/65 group-hover:text-white/90 transition-colors flex items-center gap-2"
                 style={{ fontFamily: "var(--font-jost)" }}
               >
                 Read {TYPE_LABELS[post.type].toLowerCase()}

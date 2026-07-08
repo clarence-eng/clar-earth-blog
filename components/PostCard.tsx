@@ -58,7 +58,7 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
       data-mood={primaryMood(post.mood)}
       data-ladybug={post.ladybugColor}
     >
-      <Link href={`/${post.slug}`} className="block h-full">
+      <Link href={`/${post.slug}`} className="block h-full" aria-label={post.title}>
         {/* 3D tilt image box */}
         <motion.div
           className="overflow-hidden rounded-sm aspect-[4/3] relative"
@@ -87,7 +87,7 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
 
         {/* Meta */}
         <div className="mt-4 px-0.5">
-          <div className="flex items-center flex-wrap gap-2 mb-2.5">
+          <div className="flex items-center flex-wrap gap-2 mb-2.5" aria-hidden="true">
             <span className={`text-[9px] tracking-[0.25em] uppercase px-2 py-0.5 rounded-full type-badge-${post.type}`} style={{ fontFamily: "var(--font-jost)" }}>
               {TYPE_LABELS[post.type]}
             </span>
@@ -96,16 +96,16 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
           </div>
 
           <h2
-            className="text-balance leading-tight text-[var(--ink)] group-hover:text-[var(--forest)] transition-colors duration-300 text-lg"
-            style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontWeight: 400 }}
+            className="cormorant-italic text-balance leading-tight text-[var(--ink)] group-hover:text-[var(--forest)] transition-colors duration-300 text-lg"
+            style={{ fontWeight: 400 }}
           >
             {post.title}
           </h2>
 
           {post.excerpt && (
             <p
-              className="text-pretty mt-2 text-[var(--muted)] leading-relaxed line-clamp-2"
-              style={{ fontFamily: "var(--font-cormorant)", fontSize: "0.97rem", fontStyle: "italic" }}
+              className="cormorant-italic text-pretty mt-2 text-[var(--muted)] leading-relaxed line-clamp-2"
+              style={{ fontSize: "0.97rem" }}
             >
               {post.excerpt}
             </p>

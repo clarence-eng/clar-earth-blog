@@ -57,7 +57,7 @@ export default function Nav({ posts = [] }: NavProps) {
   const isHome = pathname === "/";
   const onDark = !scrolled && isHome;
 
-  const textMuted = onDark ? "text-white/50 hover:text-white/80" : "text-[var(--muted)] hover:text-[var(--forest)]";
+  const textMuted = onDark ? "text-white/65 hover:text-white/90" : "text-[var(--muted)] hover:text-[var(--forest)]";
 
   return (
     <>
@@ -70,7 +70,7 @@ export default function Nav({ posts = [] }: NavProps) {
           <div className="flex items-center gap-3">
             <Link href="/" className={`tracking-[0.3em] text-[11px] font-medium uppercase transition-colors duration-300 ${onDark ? "text-white/80 hover:text-white" : "text-[var(--charcoal)] hover:text-[var(--forest)]"}`}
               style={{ fontFamily: "var(--font-jost)" }}
-              aria-current={pathname === '/' ? 'page' : undefined}>
+              aria-current={isHome ? 'page' : undefined}>
               CLAR.EARTH
             </Link>
             <a
@@ -106,8 +106,7 @@ export default function Nav({ posts = [] }: NavProps) {
             </button>
 
             {/* About */}
-            <Link href="/about" className={`text-[10px] tracking-[0.2em] uppercase transition-colors duration-300 ${textMuted}`}
-              style={{ fontFamily: "var(--font-jost)" }}
+            <Link href="/about" className={`nav-action-label transition-colors duration-300 ${textMuted}`}
               aria-current={pathname === '/about' ? 'page' : undefined}>
               About
             </Link>

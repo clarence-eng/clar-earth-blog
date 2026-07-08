@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import PostCard from "./PostCard";
 import type { PostMeta } from "@/lib/posts";
@@ -16,14 +16,31 @@ type FilterKey = (typeof FILTERS)[number]["key"];
 
 export default function PostGrid({ posts }: { posts: PostMeta[] }) {
   const [active, setActive] = useState<FilterKey>("all");
+  const radioGroupRef = useRef<HTMLDivElement>(null);
 
   const filtered = active === "all" ? posts : posts.filter((p) => p.type === active);
 
   const counts = useMemo(() => {
-    const c: Record<string, number> = { all: 0, poem: 0, article: 0, "photo-essay": 0 };
+    const c: Record<FilterKey, number> = { all: 0, poem: 0, article: 0, "photo-essay": 0 };
     for (const p of posts) { c.all++; c[p.type]++; }
     return c;
   }, [posts]);
+
+  const handleRadioKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+    e.preventDefault();
+    const container = radioGroupRef.current;
+    if (!container) return;
+    const siblings = Array.from(container.querySelectorAll<HTMLButtonElement>('[role="radio"]'));
+    const currentIndex = siblings.findIndex(el => el.getAttribute("aria-checked") === "true");
+    if (currentIndex === -1) return;
+    const nextIndex = e.key === "ArrowRight"
+      ? (currentIndex + 1) % siblings.length
+      : (currentIndex - 1 + siblings.length) % siblings.length;
+    const nextKey = siblings[nextIndex].dataset.filterKey as FilterKey;
+    setActive(nextKey);
+    siblings[nextIndex].focus();
+  }, []);
 
   return (
     <section
@@ -45,7 +62,13 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
 
       {/* Filter tabs */}
       <div className="relative mb-10">
-        <div className="filter-tabs-wrap flex gap-1.5 overflow-x-auto pb-1 scrollbar-none" role="radiogroup" aria-label="Filter by content type">
+        <div
+          ref={radioGroupRef}
+          className="filter-tabs-wrap flex gap-1.5 overflow-x-auto pb-1 scrollbar-none"
+          role="radiogroup"
+          aria-label="Filter by content type"
+          onKeyDown={handleRadioKeyDown}
+        >
           {FILTERS.map(({ key, label }) => {
             const count = counts[key];
             const isActive = active === key;
@@ -53,10 +76,12 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
               <button
                 type="button"
                 key={key}
+                data-filter-key={key}
                 onClick={() => setActive(key)}
                 role="radio"
                 aria-checked={isActive}
-                className={`flex-shrink-0 flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[10px] tracking-[0.2em] uppercase transition-all duration-300 cursor-pointer ${
+                tabIndex={isActive ? 0 : -1}
+                className={`flex-shrink-0 flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[10px] tracking-[0.2em] uppercase transition-all duration-300 ${
                   isActive
                     ? "bg-[var(--forest)] text-white"
                     : "bg-transparent text-[var(--muted)] hover:text-[var(--forest)] border border-[var(--border)] hover:border-[var(--forest)]"

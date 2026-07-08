@@ -1,6 +1,6 @@
 export const BASE_URL = "https://clar.earth";
 
-type PostType = "poem" | "article" | "photo-essay";
+import type { PostType } from "@/lib/posts";
 
 export const TYPE_LABELS: Record<PostType, string> = {
   poem: "Poem",

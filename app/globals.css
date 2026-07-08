@@ -223,7 +223,7 @@ body {
 /* ── prefers-reduced-motion — disable motion animations ─────── */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .poem-cover-parallax { animation: none !important; transform: scale(1) !important; will-change: auto !important; }
+  .poem-cover-parallax { transform: scale(1) !important; }
 }
 
 /* ── Reading focus mode ────────────────────────────────────── */
@@ -323,11 +323,19 @@ header nav,
   }
 }
 
-/* When no scroll-timeline support: keep the image slightly zoomed so it fills the container */
-@supports not (animation-timeline: scroll()) {
-  .poem-cover-parallax {
-    transform: scale(1.12);
+/* When no scroll-timeline support: keep the image slightly zoomed so it fills the container — only for users who accept motion */
+@media (prefers-reduced-motion: no-preference) {
+  @supports not (animation-timeline: scroll()) {
+    .poem-cover-parallax {
+      transform: scale(1.12);
+    }
   }
+}
+
+/* ── Shared Cormorant italic style ─────────────────────────── */
+.cormorant-italic {
+  font-family: var(--font-cormorant);
+  font-style: italic;
 }
 
 /* ── Shared nav action label style (Search, Focus, Print buttons) ── */

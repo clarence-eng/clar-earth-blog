@@ -21,7 +21,7 @@ export default function RelatedPoems({ posts, currentSlug }: { posts: PostMeta[]
     if (p.slug === currentSlug) return false;
     return p.mood?.some(m => currentMoods.has(m)) ?? false;
   });
-  const adjacent = posts.filter((_, i) => Math.abs(i - idx) <= 2 && posts[i].slug !== currentSlug);
+  const adjacent = posts.filter((p, i) => Math.abs(i - idx) <= 2 && p.slug !== currentSlug);
   const seen = new Set<string>();
   const candidates: PostMeta[] = [];
   for (const p of [...sameMood, ...adjacent]) {
@@ -58,8 +58,8 @@ export default function RelatedPoems({ posts, currentSlug }: { posts: PostMeta[]
                 <div className="absolute inset-0 bg-[var(--forest)] opacity-0 group-hover:opacity-[0.14] transition-opacity duration-500"/>
               </div>
             )}
-            <h3 className="text-[var(--ink)] group-hover:text-[var(--forest)] transition-colors"
-              style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontSize: "1.05rem", lineHeight: 1.35 }}>
+            <h3 className="cormorant-italic text-[var(--ink)] group-hover:text-[var(--forest)] transition-colors duration-300"
+              style={{ fontSize: "1.05rem", lineHeight: 1.35 }}>
               {p.title}
             </h3>
             <div className="mt-2 h-px w-0 group-hover:w-10 bg-[var(--gold)] transition-all duration-500 ease-out"/>
