@@ -50,7 +50,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
       p.title.toLowerCase().includes(q) ||
       p.excerpt?.toLowerCase().includes(q) ||
       p.dedication?.toLowerCase().includes(q) ||
-      (Array.isArray(p.mood) ? p.mood.some((m: string) => m.toLowerCase().includes(q)) : false)
+      (p.mood?.some((m: string) => m.toLowerCase().includes(q)) ?? false)
     );
   });
 

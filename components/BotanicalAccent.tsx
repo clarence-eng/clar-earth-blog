@@ -1,9 +1,7 @@
-import type { CSSProperties } from 'react';
-
-export function BannerBotanicalRight({ className = "", style }: { className?: string; style?: CSSProperties }) {
+export function BannerBotanicalRight({ className = "" }: { className?: string }) {
   return (
     <svg viewBox="0 0 200 340" fill="none" xmlns="http://www.w3.org/2000/svg"
-      className={className} style={style} aria-hidden="true">
+      className={className} aria-hidden="true">
 
       {/* ── FERN FRONDS ── */}
       {/* Main arching frond stem */}

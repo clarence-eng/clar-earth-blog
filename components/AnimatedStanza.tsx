@@ -63,8 +63,8 @@ export default function AnimatedStanza({ children, index, align = "left", italic
   return (
     <motion.p
       {...sharedProps}
-      initial={reducedMotion !== false ? {} : { opacity: 0, y: 12 }}
-      animate={inView ? { opacity: 1, y: 0 } : reducedMotion !== false ? {} : { opacity: 0, y: 12 }}
+      initial={reducedMotion === true ? {} : { opacity: 0, y: 12 }}
+      animate={inView ? { opacity: 1, y: 0 } : reducedMotion === true ? {} : { opacity: 0, y: 12 }}
       transition={{
         duration: 0.55,
         delay: index < 3 ? index * 0.07 : 0,

@@ -9,7 +9,7 @@ import { TYPE_LABELS, primaryMood } from "@/lib/config";
 export default function FeaturedPoem({ post }: { post: PostMeta }) {
   const reducedMotion = useReducedMotion();
   return (
-    <section aria-label="Featured work" className="max-w-6xl mx-auto px-8 pt-12 pb-0" data-mood={primaryMood(post.mood)} data-ladybug={post.ladybugColor ?? undefined}>
+    <section aria-label="Featured work" className="max-w-6xl mx-auto px-8 pt-12 pb-0" data-mood={primaryMood(post.mood)} data-ladybug={post.ladybugColor}>
       <div className="flex items-center gap-4 mb-6">
         <span className="text-[9px] tracking-[0.35em] uppercase text-[var(--muted)]" style={{ fontFamily: "var(--font-jost)" }}>
           Featured
@@ -19,8 +19,8 @@ export default function FeaturedPoem({ post }: { post: PostMeta }) {
 
       <Link href={`/${post.slug}`} className="group block">
         <motion.div
-          initial={reducedMotion !== false ? {} : { opacity: 0, y: 20 }}
-          animate={reducedMotion !== false ? {} : { opacity: 1, y: 0 }}
+          initial={reducedMotion === true ? {} : { opacity: 0, y: 20 }}
+          animate={reducedMotion === true ? {} : { opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
           className="relative overflow-hidden rounded-sm"
           style={{ aspectRatio: "21/7", minHeight: 220 }}

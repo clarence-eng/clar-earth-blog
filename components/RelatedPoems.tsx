@@ -16,11 +16,10 @@ export default function RelatedPoems({ posts, currentSlug }: { posts: PostMeta[]
   if (!current) return null;
 
   // Prefer poems that share any mood with the current poem
-  const currentMoods = new Set(Array.isArray(current?.mood) ? current.mood : current?.mood ? [current.mood] : []);
+  const currentMoods = new Set(current.mood ?? []);
   const sameMood = posts.filter(p => {
     if (p.slug === currentSlug) return false;
-    const pMoods = Array.isArray(p.mood) ? p.mood : p.mood ? [p.mood] : [];
-    return pMoods.some(m => currentMoods.has(m));
+    return p.mood?.some(m => currentMoods.has(m)) ?? false;
   });
   const adjacent = posts.filter((_, i) => Math.abs(i - idx) <= 2 && posts[i].slug !== currentSlug);
   const seen = new Set<string>();
@@ -34,8 +33,8 @@ export default function RelatedPoems({ posts, currentSlug }: { posts: PostMeta[]
   return (
     <motion.section
       ref={ref}
-      initial={reducedMotion !== false ? {} : { opacity: 0, y: 16 }}
-      animate={inView ? { opacity: 1, y: 0 } : reducedMotion !== false ? {} : { opacity: 0, y: 16 }}
+      initial={reducedMotion === true ? {} : { opacity: 0, y: 16 }}
+      animate={inView ? { opacity: 1, y: 0 } : reducedMotion === true ? {} : { opacity: 0, y: 16 }}
       transition={{ duration: 0.6, delay: 0.1 }}
       className="related-poems mt-20 pt-10 border-t border-[var(--border)]"
       aria-label="More poems"
@@ -51,7 +50,7 @@ export default function RelatedPoems({ posts, currentSlug }: { posts: PostMeta[]
             href={`/${p.slug}`}
             className="group block"
             data-mood={primaryMood(p.mood)}
-            data-ladybug={p.ladybugColor ?? undefined}
+            data-ladybug={p.ladybugColor}
           >
             {p.coverImage && (
               <div className="relative aspect-[4/3] overflow-hidden rounded-sm mb-3">

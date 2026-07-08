@@ -49,6 +49,7 @@ export function getAllPosts(): PostMeta[] {
       const { data } = matter(raw);
       const post = { slug, ...(data as Omit<PostMeta, "slug">) };
       if (!post.type) post.type = "poem";
+      if (post.mood && !Array.isArray(post.mood)) post.mood = [post.mood as unknown as string];
       return post;
     })
     .filter((p) => p.published === true && !!p.title)
@@ -72,5 +73,6 @@ export function getPost(slug: string): Post | null {
   const { data, content } = matter(raw);
   const post = { slug, ...(data as Omit<PostMeta, "slug">), content } as Post;
   if (!post.type) post.type = "poem";
+  if (post.mood && !Array.isArray(post.mood)) post.mood = [post.mood as unknown as string];
   return post;
 }

@@ -226,7 +226,7 @@ export default function PostPageClient({
       </div>
 
       {/* ── Body — data-mood drives cursor colour ────────────── */}
-      <main className="px-8 pb-28 w-full" style={{ maxWidth: "780px", margin: "0 auto" }} data-mood={primaryMood(post.mood)} data-ladybug={post.ladybugColor ?? undefined}>
+      <main className="px-8 pb-28 w-full" style={{ maxWidth: "780px", margin: "0 auto" }} data-mood={primaryMood(post.mood)} data-ladybug={post.ladybugColor}>
         {/* Gold rule */}
         <motion.div
           initial={{ width: 0 }}
