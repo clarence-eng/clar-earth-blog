@@ -1,6 +1,8 @@
 export const BASE_URL = "https://clar.earth";
 
-export const TYPE_LABELS: Record<string, string> = {
+type PostType = "poem" | "article" | "photo-essay";
+
+export const TYPE_LABELS: Record<PostType, string> = {
   poem: "Poem",
   article: "Article",
   "photo-essay": "Photo Essay",

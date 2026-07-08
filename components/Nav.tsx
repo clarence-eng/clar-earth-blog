@@ -101,6 +101,7 @@ export default function Nav({ posts = [] }: NavProps) {
               aria-label="Search"
               aria-expanded={searchOpen}
               aria-haspopup="dialog"
+              aria-keyshortcuts="Meta+k Control+k"
               style={{ fontFamily: "var(--font-jost)", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase" }}
             >
               Search

@@ -30,8 +30,8 @@ function parseStanzas(content: string): { text: string; align: "left" | "right" 
     else if (text.startsWith("[center]")) { align = "center"; text = text.slice(8).trimStart(); }
     if (!italic && text.startsWith("[italic]")) { italic = true; text = text.slice(8).trimStart(); }
     if (!lang) {
-      const trailingLangMatch = text.match(/^\[lang:([a-z]{2}(?:-[a-zA-Z]+)?)\]/);
-      if (trailingLangMatch) { lang = trailingLangMatch[1]; text = text.slice(trailingLangMatch[0].length).trimStart(); }
+      const innerLangMatch = text.match(/^\[lang:([a-z]{2}(?:-[a-zA-Z]+)?)\]/);
+      if (innerLangMatch) { lang = innerLangMatch[1]; text = text.slice(innerLangMatch[0].length).trimStart(); }
     }
     if (!italic && text.startsWith("[italic]")) { italic = true; text = text.slice(8).trimStart(); }
     return { text, align, italic, lang };
