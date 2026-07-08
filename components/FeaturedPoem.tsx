@@ -50,7 +50,7 @@ export default function FeaturedPoem({ post }: { post: PostMeta }) {
                 className="inline-block text-[9px] tracking-[0.3em] uppercase px-2 py-0.5 rounded-full mb-4 bg-white/15 text-white/70"
                 style={{ fontFamily: "var(--font-jost)" }}
               >
-                {TYPE_LABELS[post.type] ?? "Poem"}
+                {TYPE_LABELS[post.type]}
               </span>
               <h2
                 className="text-white leading-[1.2] mb-2 group-hover:opacity-90 transition-opacity"
@@ -75,7 +75,7 @@ export default function FeaturedPoem({ post }: { post: PostMeta }) {
                 className="text-[10px] tracking-[0.25em] uppercase text-white/50 group-hover:text-white/80 transition-colors flex items-center gap-2"
                 style={{ fontFamily: "var(--font-jost)" }}
               >
-                Read {(TYPE_LABELS[post.type] ?? "poem").toLowerCase()}
+                Read {TYPE_LABELS[post.type].toLowerCase()}
                 <span className="group-hover:translate-x-1 inline-block transition-transform" aria-hidden="true">→</span>
               </span>
             </div>

@@ -96,13 +96,12 @@ export default function Nav({ posts = [] }: NavProps) {
               type="button"
               ref={searchButtonRef}
               onClick={openSearch}
-              className={`transition-colors duration-300 ${textMuted}`}
+              className={`nav-action-label transition-colors duration-300 ${textMuted}`}
               title="Search (⌘K)"
               aria-label="Search"
               aria-expanded={searchOpen}
               aria-haspopup="dialog"
               aria-keyshortcuts="Meta+k Control+k"
-              style={{ fontFamily: "var(--font-jost)", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase" }}
             >
               Search
             </button>

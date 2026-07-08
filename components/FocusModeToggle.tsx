@@ -32,9 +32,8 @@ export default function FocusModeToggle() {
       transition={{ delay: 0.8 }}
       aria-pressed={focus}
       aria-label={focus ? "Exit focus mode" : "Focus mode"}
-      className="flex items-center gap-1.5 text-[var(--muted)] hover:text-[var(--forest)] transition-colors"
+      className="flex items-center gap-1.5 text-[var(--muted)] hover:text-[var(--forest)] transition-colors nav-action-label"
       title={focus ? "Exit focus mode" : "Focus mode"}
-      style={{ fontFamily: "var(--font-jost)", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase" }}
     >
       {focus ? (
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">

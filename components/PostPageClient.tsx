@@ -172,7 +172,7 @@ export default function PostPageClient({
               className="inline-block text-[9px] tracking-[0.35em] uppercase px-2.5 py-1 rounded-full bg-white/15 text-white/70"
               style={{ fontFamily: "var(--font-jost)" }}
             >
-              {TYPE_LABELS[post.type] ?? "Poem"}
+              {TYPE_LABELS[post.type]}
             </span>
             <span
               className="text-white/40 italic"

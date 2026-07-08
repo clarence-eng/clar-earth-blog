@@ -196,6 +196,17 @@ body {
 .card-mood-shimmer[data-mood="solidarity"] { background: linear-gradient(90deg, #3A7AAA, #70AADA); }
 .card-mood-shimmer[data-mood="reverence"]  { background: linear-gradient(90deg, #4A8A44, #80C078); }
 .card-mood-shimmer[data-mood="bitterness"] { background: linear-gradient(90deg, #8A5A38, #C49070); }
+/* Dark mode shimmer — derived from .dark .mood-tag dot colors */
+.dark .card-mood-shimmer[data-mood="longing"]    { background: linear-gradient(90deg, #7AAABB, #5A9AAB); }
+.dark .card-mood-shimmer[data-mood="nature"]     { background: linear-gradient(90deg, #5A8A74, #3A7A5A); }
+.dark .card-mood-shimmer[data-mood="warmth"]     { background: linear-gradient(90deg, #C4882A, #A06820); }
+.dark .card-mood-shimmer[data-mood="love"]       { background: linear-gradient(90deg, #D4899A, #A45A6A); }
+.dark .card-mood-shimmer[data-mood="nostalgia"]  { background: linear-gradient(90deg, #C4A870, #A08850); }
+.dark .card-mood-shimmer[data-mood="melancholy"] { background: linear-gradient(90deg, #9090B8, #6A6A9A); }
+.dark .card-mood-shimmer[data-mood="protest"]    { background: linear-gradient(90deg, #D07070, #A04040); }
+.dark .card-mood-shimmer[data-mood="solidarity"] { background: linear-gradient(90deg, #5A9ACA, #3A7AAA); }
+.dark .card-mood-shimmer[data-mood="reverence"]  { background: linear-gradient(90deg, #70AA68, #4A8A44); }
+.dark .card-mood-shimmer[data-mood="bitterness"] { background: linear-gradient(90deg, #C4905A, #8A5A38); }
 
 /* ── Poem page — mood radial tint removed (too distracting) ── */
 
@@ -237,8 +248,7 @@ header nav,
   visibility: hidden;
   pointer-events: none;
 }
-.focus-mode .poem-content { font-size: 1.22rem; line-height: 1.85; }
-.focus-mode .poem-stanza { letter-spacing: 0.01em; }
+.focus-mode .poem-stanza { font-size: 1.22rem; line-height: 1.85; letter-spacing: 0.01em; }
 
 /* ── Print ─────────────────────────────────────────────────── */
 @media print {
@@ -314,8 +324,18 @@ header nav,
 }
 
 /* When no scroll-timeline support: keep the image slightly zoomed so it fills the container */
-.poem-cover-parallax {
-  transform: scale(1.12);
+@supports not (animation-timeline: scroll()) {
+  .poem-cover-parallax {
+    transform: scale(1.12);
+  }
+}
+
+/* ── Shared nav action label style (Search, Focus, Print buttons) ── */
+.nav-action-label {
+  font-family: var(--font-jost);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
 }
 
 /* ── Glassmorphism search modal ────────────────────────────── */

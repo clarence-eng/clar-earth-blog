@@ -62,7 +62,7 @@ export default function RelatedPoems({ posts, currentSlug }: { posts: PostMeta[]
               style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontSize: "1.05rem", lineHeight: 1.35 }}>
               {p.title}
             </h3>
-            <div className="mt-2 h-px w-0 group-hover:w-8 bg-[var(--gold)] transition-all duration-500"/>
+            <div className="mt-2 h-px w-0 group-hover:w-10 bg-[var(--gold)] transition-all duration-500 ease-out"/>
           </Link>
         ))}
       </div>

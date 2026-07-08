@@ -31,7 +31,7 @@ function PlaceholderCover({ title, index }: { title: string; index: number }) {
 }
 
 export default function PostCard({ post, index }: { post: PostMeta; index: number }) {
-  const typeLabel = TYPE_LABELS[post.type] ?? "Poem";
+  const typeLabel = TYPE_LABELS[post.type];
   const reducedMotion = useReducedMotion();
 
   // Magnetic 3D tilt — disabled when user prefers reduced motion
@@ -54,7 +54,7 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
       aria-label={post.title}
       initial={shouldAnimate ? { opacity: 0, y: 28 } : {}}
       animate={shouldAnimate ? { opacity: 1, y: 0 } : {}}
-      transition={shouldAnimate ? { duration: 0.55, delay: index * 0.06, ease: "easeOut" } : {}}
+      transition={shouldAnimate ? { duration: 0.55, delay: index * 0.06, ease: [0.25, 0.1, 0.25, 1] } : {}}
       className="group"
       data-mood={primaryMood(post.mood)}
       data-ladybug={post.ladybugColor}
