@@ -25,9 +25,10 @@ function parseStanzas(content: string): { text: string; align: "left" | "right" 
     let lang: string | undefined;
     const langMatch = text.match(/^\[lang:([a-z]{2}(?:-[a-zA-Z]+)?)\]/);
     if (langMatch) { lang = langMatch[1]; text = text.slice(langMatch[0].length).trimStart(); }
+    if (text.startsWith("[italic]")) { italic = true; text = text.slice(8).trimStart(); }
     if (text.startsWith("[right]")) { align = "right"; text = text.slice(7).trimStart(); }
     else if (text.startsWith("[center]")) { align = "center"; text = text.slice(8).trimStart(); }
-    if (text.startsWith("[italic]")) { italic = true; text = text.slice(8).trimStart(); }
+    if (!italic && text.startsWith("[italic]")) { italic = true; text = text.slice(8).trimStart(); }
     if (!lang) {
       const trailingLangMatch = text.match(/^\[lang:([a-z]{2}(?:-[a-zA-Z]+)?)\]/);
       if (trailingLangMatch) { lang = trailingLangMatch[1]; text = text.slice(trailingLangMatch[0].length).trimStart(); }

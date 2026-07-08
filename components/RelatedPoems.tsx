@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useRef } from "react";
 import type { PostMeta } from "@/lib/posts";
 import { primaryMood } from "@/lib/config";
@@ -10,6 +10,7 @@ import { primaryMood } from "@/lib/config";
 export default function RelatedPoems({ posts, currentSlug }: { posts: PostMeta[]; currentSlug: string }) {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, amount: "some" });
+  const reducedMotion = useReducedMotion();
   const idx = posts.findIndex(p => p.slug === currentSlug);
   const current = idx !== -1 ? posts[idx] : null;
   if (!current) return null;
@@ -33,8 +34,8 @@ export default function RelatedPoems({ posts, currentSlug }: { posts: PostMeta[]
   return (
     <motion.section
       ref={ref}
-      initial={{ opacity: 0, y: 16 }}
-      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+      initial={reducedMotion !== false ? {} : { opacity: 0, y: 16 }}
+      animate={inView ? { opacity: 1, y: 0 } : reducedMotion !== false ? {} : { opacity: 0, y: 16 }}
       transition={{ duration: 0.6, delay: 0.1 }}
       className="related-poems mt-20 pt-10 border-t border-[var(--border)]"
       aria-label="More poems"

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useRef } from "react";
 import type { CSSProperties } from 'react';
 
@@ -29,6 +29,7 @@ function renderLine(line: string, key: number) {
 
 export default function AnimatedStanza({ children, index, align = "left", italic = false, lang, isFirstDrop = false }: StanzaProps) {
   const ref = useRef<HTMLParagraphElement>(null);
+  const reducedMotion = useReducedMotion();
   const inView = useInView(ref, { once: true, amount: "some" });
 
   const textAlign = align === "right" ? "right" : align === "center" ? "center" : "left";
@@ -62,8 +63,8 @@ export default function AnimatedStanza({ children, index, align = "left", italic
   return (
     <motion.p
       {...sharedProps}
-      initial={{ opacity: 0, y: 12 }}
-      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+      initial={reducedMotion !== false ? {} : { opacity: 0, y: 12 }}
+      animate={inView ? { opacity: 1, y: 0 } : reducedMotion !== false ? {} : { opacity: 0, y: 12 }}
       transition={{
         duration: 0.55,
         delay: index < 3 ? index * 0.07 : 0,
