@@ -2,12 +2,11 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import type { PostMeta } from "@/lib/posts";
 import { TYPE_LABELS, primaryMood } from "@/lib/config";
 
 export default function FeaturedPoem({ post }: { post: PostMeta }) {
-  const reducedMotion = useReducedMotion();
   return (
     <section aria-label="Featured work" className="max-w-6xl mx-auto px-8 pt-12 pb-0" data-mood={primaryMood(post.mood)} data-ladybug={post.ladybugColor}>
       <div className="flex items-center gap-4 mb-6">
@@ -19,8 +18,8 @@ export default function FeaturedPoem({ post }: { post: PostMeta }) {
 
       <Link href={`/${post.slug}`} aria-label={`${post.title} — read ${(TYPE_LABELS[post.type] ?? "poem").toLowerCase()}`} className="group block">
         <motion.div
-          initial={reducedMotion === true ? {} : { opacity: 0, y: 20 }}
-          animate={reducedMotion === true ? {} : { opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
           className="relative overflow-hidden rounded-sm"
           style={{ aspectRatio: "21/7", minHeight: 220 }}

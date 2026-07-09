@@ -97,8 +97,8 @@ export default function HeroSection({ titles, gradient }: { titles: string[]; gr
           style={reducedMotion === true ? undefined : { y: quoteY, opacity: quoteOpacity }}
         >
           <motion.div
-            initial={reducedMotion === true ? {} : { opacity: 0, y: 20 }}
-            animate={reducedMotion === true ? {} : { opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
           >
             <blockquote
@@ -113,8 +113,8 @@ export default function HeroSection({ titles, gradient }: { titles: string[]; gr
               Where the earth listens, and the pen replies.&rdquo;
             </blockquote>
             <motion.div
-              initial={reducedMotion === true ? {} : { scaleX: 0 }}
-              animate={reducedMotion === true ? {} : { scaleX: 1 }}
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
               transition={{ duration: 0.8, delay: 0.7 }}
               className="mx-auto mt-7 h-px bg-white/20 origin-center"
               style={{ maxWidth: 120 }}

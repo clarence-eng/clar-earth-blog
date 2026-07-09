@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState, useMemo } from "react";
@@ -54,7 +54,6 @@ export default function PostPageClient({
   allPosts: PostMeta[];
 }) {
   const router = useRouter();
-  const reducedMotion = useReducedMotion();
 
   // Keyboard navigation ← →
   useEffect(() => {
@@ -106,9 +105,9 @@ export default function PostPageClient({
 
       {/* ── Back arrow — fixed top-left, hidden in focus mode and print ── */}
       <motion.div
-        initial={reducedMotion === true ? {} : { opacity: 0, x: -8 }}
-        animate={reducedMotion === true ? {} : { opacity: 1, x: 0 }}
-        transition={reducedMotion === true ? {} : { duration: 0.6, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+        initial={{ opacity: 0, x: -8 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
         className="poem-back-arrow fixed top-[4.5rem] left-4 md:left-6 z-40"
       >
         <Link href="/" className="group flex items-center gap-2.5" aria-label="Back to all works">
@@ -170,9 +169,9 @@ export default function PostPageClient({
 
           {/* Type badge + nature reading time */}
           <motion.div
-            initial={reducedMotion === true ? {} : { opacity: 0 }}
-            animate={reducedMotion === true ? {} : { opacity: 1 }}
-            transition={reducedMotion === true ? {} : { duration: 0.5 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
             className="flex items-center gap-3 mb-5"
           >
             <span
@@ -190,9 +189,9 @@ export default function PostPageClient({
 
           {/* Title */}
           <motion.h1
-            initial={reducedMotion === true ? {} : { opacity: 0, y: 14 }}
-            animate={reducedMotion === true ? {} : { opacity: 1, y: 0 }}
-            transition={reducedMotion === true ? {} : { duration: 0.8, delay: 0.1 }}
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1 }}
             className="cormorant-italic text-balance text-white mb-3 poem-page-title"
             style={{
               fontWeight: 300,
@@ -207,9 +206,9 @@ export default function PostPageClient({
           <div className="flex items-center gap-3 mt-3 flex-wrap">
             {(post.dedication?.trim() || post.coAuthor) && (
               <motion.p
-                initial={reducedMotion === true ? {} : { opacity: 0 }}
-                animate={reducedMotion === true ? {} : { opacity: 1 }}
-                transition={reducedMotion === true ? {} : { duration: 0.6, delay: 0.35 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.35 }}
                 className="cormorant-italic text-white/55"
                 style={{ fontSize: "1rem" }}
               >
@@ -219,7 +218,7 @@ export default function PostPageClient({
               </motion.p>
             )}
             {!!post.mood?.length && (
-              <motion.div initial={reducedMotion === true ? {} : { opacity: 0 }} animate={reducedMotion === true ? {} : { opacity: 1 }} transition={reducedMotion === true ? {} : { delay: 0.45 }}>
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.45 }}>
                 <MoodTag mood={post.mood} />
               </motion.div>
             )}
@@ -235,9 +234,9 @@ export default function PostPageClient({
         )}
         {/* Gold rule */}
         <motion.div
-          initial={reducedMotion === true ? {} : { width: 0 }}
-          animate={reducedMotion === true ? {} : { width: 40 }}
-          transition={reducedMotion === true ? {} : { duration: 0.8, delay: 0.4 }}
+          initial={{ width: 0 }}
+          animate={{ width: 40 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
           className="h-px bg-[var(--gold)] mb-12 mt-2 opacity-80"
         />
 

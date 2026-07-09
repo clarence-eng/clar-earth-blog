@@ -97,11 +97,12 @@ export default function CustomCursor() {
   // rAF lerp loop — only runs when reduced motion is OFF
   useEffect(() => {
     const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let loopId = 0; // each startLoop call gets a unique id to avoid stale-loop conflicts
 
-    let cancelled = false;
     const startLoop = () => {
+      const myId = ++loopId;
       const tick = () => {
-        if (cancelled || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        if (myId !== loopId || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
         const { x: mx, y: my } = mouseRef.current;
         const { x: cx, y: cy } = posRef.current;
         const nx = lerp(cx, mx, 0.18);
@@ -125,15 +126,16 @@ export default function CustomCursor() {
 
     const onMqlChange = (e: MediaQueryListEvent) => {
       if (!e.matches) {
+        loopId++; // invalidate any stale loop before starting new one
         cancelAnimationFrame(animRef.current);
         startLoop();
       } else {
-        cancelled = true;
+        loopId++; // invalidate running loop
         cancelAnimationFrame(animRef.current);
       }
     };
     mql.addEventListener("change", onMqlChange);
-    return () => { cancelled = true; cancelAnimationFrame(animRef.current); mql.removeEventListener("change", onMqlChange); };
+    return () => { loopId++; cancelAnimationFrame(animRef.current); mql.removeEventListener("change", onMqlChange); };
   }, []);
 
   return (
