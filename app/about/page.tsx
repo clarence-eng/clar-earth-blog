@@ -40,7 +40,7 @@ export default function AboutPage() {
           >
             About
           </h1>
-          <blockquote
+          <p
             className="cormorant-italic text-balance text-[var(--forest)] leading-[1.4]"
             style={{
               fontWeight: 300,
@@ -50,7 +50,7 @@ export default function AboutPage() {
             &ldquo;In the shadow of trees, I find my voice.
             <br />
             Where the earth listens, and the pen replies.&rdquo;
-          </blockquote>
+          </p>
           <div className="h-px w-12 bg-[var(--gold)] mt-8 opacity-70" />
         </div>
 

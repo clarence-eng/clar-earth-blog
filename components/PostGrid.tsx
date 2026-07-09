@@ -22,7 +22,7 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
 
   const counts = useMemo(() => {
     const c: Record<FilterKey, number> = { all: posts.length, poem: 0, article: 0, "photo-essay": 0 };
-    for (const p of posts) c[p.type]++;
+    for (const p of posts) if (p.type in c) c[p.type]++;
     return c;
   }, [posts]);
 

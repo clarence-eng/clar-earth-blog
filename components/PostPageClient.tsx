@@ -90,7 +90,7 @@ export default function PostPageClient({
     );
     if (firstDropIdx === -1) firstDropIdx = 0;
     const rightStanzas = stanzas.filter(s => s.align === "right");
-    const leftCount = rightStanzas.length > 0 ? stanzas.filter(s => s.align === "left").length : 0;
+    const leftCount = stanzas.filter(s => s.align === "left").length;
     const isMirror = rightStanzas.length > 0 && leftCount === rightStanzas.length && (leftCount + rightStanzas.length === stanzas.length);
     // Only build the augmented leftStanzas (with originalIndex) when needed for the mirror layout
     const leftStanzas = isMirror

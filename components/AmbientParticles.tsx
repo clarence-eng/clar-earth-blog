@@ -107,6 +107,9 @@ export default function AmbientParticles() {
         cancelAnimationFrame(animId);
         resizeCleanup?.();
         resizeCleanup = null;
+        // Clear last frame so particles don't stay frozen on canvas
+        const c = canvasRef.current?.getContext("2d");
+        if (c && canvasRef.current) c.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
       } else {
         start();
       }
