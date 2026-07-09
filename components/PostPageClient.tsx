@@ -1,11 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState, useMemo } from "react";
-import { useRouter } from "next/navigation";
-import type { Post, PostMeta } from "@/lib/posts";
+import { useRouter } from "next/navigation";import type { Post, PostMeta } from "@/lib/posts";
 import { LANG_MAP, TYPE_LABELS, primaryMood } from "@/lib/config";
 import AnimatedStanza from "./AnimatedStanza";
 import ReadingProgress from "./ReadingProgress";
@@ -15,8 +14,7 @@ import PrintButton from "./PrintButton";
 import BackPill from "./BackPill";
 import MoodTag from "./MoodTag";
 
-// Parse MDX content into stanzas with alignment/italic metadata
-//   \t or em-spaces = preserved as-is (white-space: pre-wrap handles them)
+// Parse raw poem body into stanzas, stripping custom [italic], [right], [center], [lang:xx] prefix markers.
 function parseStanzas(content: string): { text: string; align: "left" | "right" | "center"; italic: boolean; lang?: string }[] {
   return content.trim().split(/\n\n+/).map(block => {
     let text = block;
@@ -55,6 +53,7 @@ export default function PostPageClient({
   allPosts: PostMeta[];
 }) {
   const router = useRouter();
+  const reducedMotion = useReducedMotion();
 
   // Keyboard navigation ← →
   useEffect(() => {
@@ -89,12 +88,13 @@ export default function PostPageClient({
       !s.italic && s.align === "left" && !s.lang && !s.text.trimStart().startsWith("*")
     );
     if (firstDropIdx === -1) firstDropIdx = 0;
-    const leftStanzas = stanzas
-      .map((s, i) => ({ ...s, originalIndex: i }))
-      .filter(s => s.align === "left");
-    const rightStanzas = stanzas
-      .filter(s => s.align === "right");
-    const isMirror = rightStanzas.length > 0 && leftStanzas.length === rightStanzas.length && (leftStanzas.length + rightStanzas.length === stanzas.length);
+    const rightStanzas = stanzas.filter(s => s.align === "right");
+    const leftCount = stanzas.filter(s => s.align === "left").length;
+    const isMirror = rightStanzas.length > 0 && leftCount === rightStanzas.length && (leftCount + rightStanzas.length === stanzas.length);
+    // Only build the augmented leftStanzas (with originalIndex) when needed for the mirror layout
+    const leftStanzas = isMirror
+      ? stanzas.map((s, i) => ({ ...s, originalIndex: i })).filter(s => s.align === "left")
+      : [];
     return { stanzas, firstDropIdx, leftStanzas, rightStanzas, isMirror };
   }, [post.content]);
 
@@ -105,9 +105,9 @@ export default function PostPageClient({
 
       {/* ── Back arrow — fixed top-left, hidden in focus mode and print ── */}
       <motion.div
-        initial={{ opacity: 0, x: -8 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.6, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+        initial={reducedMotion ? {} : { opacity: 0, x: -8 }}
+        animate={reducedMotion ? {} : { opacity: 1, x: 0 }}
+        transition={reducedMotion ? {} : { duration: 0.6, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
         className="poem-back-arrow fixed top-[4.5rem] left-4 md:left-6 z-40"
       >
         <Link href="/" className="group flex items-center gap-2.5" aria-label="Back to all works">
@@ -169,9 +169,9 @@ export default function PostPageClient({
 
           {/* Type badge + nature reading time */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
+            initial={reducedMotion ? {} : { opacity: 0 }}
+            animate={reducedMotion ? {} : { opacity: 1 }}
+            transition={reducedMotion ? {} : { duration: 0.5 }}
             className="flex items-center gap-3 mb-5"
           >
             <span
@@ -189,9 +189,9 @@ export default function PostPageClient({
 
           {/* Title */}
           <motion.h1
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
+            initial={reducedMotion ? {} : { opacity: 0, y: 14 }}
+            animate={reducedMotion ? {} : { opacity: 1, y: 0 }}
+            transition={reducedMotion ? {} : { duration: 0.8, delay: 0.1 }}
             className="cormorant-italic text-balance text-white mb-3 poem-page-title"
             style={{
               fontWeight: 300,
@@ -206,9 +206,9 @@ export default function PostPageClient({
           <div className="flex items-center gap-3 mt-3 flex-wrap">
             {(post.dedication || post.coAuthor) && (
               <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.35 }}
+                initial={reducedMotion ? {} : { opacity: 0 }}
+                animate={reducedMotion ? {} : { opacity: 1 }}
+                transition={reducedMotion ? {} : { duration: 0.6, delay: 0.35 }}
                 className="text-white/55 italic"
                 style={{ fontFamily: "var(--font-cormorant)", fontSize: "1rem" }}
               >
@@ -218,7 +218,7 @@ export default function PostPageClient({
               </motion.p>
             )}
             {post.mood?.length && (
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.45 }}>
+              <motion.div initial={reducedMotion ? {} : { opacity: 0 }} animate={reducedMotion ? {} : { opacity: 1 }} transition={reducedMotion ? {} : { delay: 0.45 }}>
                 <MoodTag mood={post.mood} />
               </motion.div>
             )}
@@ -234,9 +234,9 @@ export default function PostPageClient({
         )}
         {/* Gold rule */}
         <motion.div
-          initial={{ width: 0 }}
-          animate={{ width: 40 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          initial={reducedMotion ? {} : { width: 0 }}
+          animate={reducedMotion ? {} : { width: 40 }}
+          transition={reducedMotion ? {} : { duration: 0.8, delay: 0.4 }}
           className="h-px bg-[var(--gold)] mb-12 mt-2 opacity-80"
         />
 

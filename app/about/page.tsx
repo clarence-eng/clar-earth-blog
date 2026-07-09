@@ -115,8 +115,7 @@ export default function AboutPage() {
                   <Link
                     key={p.slug}
                     href={`/${p.slug}`}
-                    className="text-[var(--muted)] hover:text-[var(--forest)] transition-colors"
-                    style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontSize: "1.05rem" }}
+                    className="cormorant-italic text-[var(--muted)] hover:text-[var(--forest)] transition-colors text-[1.05rem]"
                   >
                     {p.title}
                   </Link>

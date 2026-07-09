@@ -52,8 +52,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 function safeJsonLd(obj: object): string {
   return JSON.stringify(obj)
     .replace(/<\/script>/gi, "<\\/script>")
-    .split(String.fromCharCode(0x2028)).join("\\u2028")
-    .split(String.fromCharCode(0x2029)).join("\\u2029");
+    .replaceAll(String.fromCharCode(0x2028), "\\u2028")
+    .replaceAll(String.fromCharCode(0x2029), "\\u2029");
 }
 
 export default async function PostPage({ params }: Props) {

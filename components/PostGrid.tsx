@@ -21,8 +21,8 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
   const filtered = active === "all" ? posts : posts.filter((p) => p.type === active);
 
   const counts = useMemo(() => {
-    const c: Record<FilterKey, number> = { all: 0, poem: 0, article: 0, "photo-essay": 0 };
-    for (const p of posts) { c.all++; c[p.type]++; }
+    const c: Record<FilterKey, number> = { all: posts.length, poem: 0, article: 0, "photo-essay": 0 };
+    for (const p of posts) c[p.type]++;
     return c;
   }, [posts]);
 

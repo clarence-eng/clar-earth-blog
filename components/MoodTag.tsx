@@ -20,8 +20,7 @@ export default function MoodTag({ mood }: { mood?: string[] }) {
   return (
     <span className="inline-flex flex-wrap gap-1">
       {valid.map(m => {
-        const c = MOOD_CONFIG[m];
-        if (!c) return null;
+        const { label } = MOOD_CONFIG[m]!;
         return (
           <span
             key={m}
@@ -29,7 +28,7 @@ export default function MoodTag({ mood }: { mood?: string[] }) {
             data-mood={m}
           >
             <span className="mood-tag-dot w-1.5 h-1.5 rounded-full flex-shrink-0" />
-            {c.label}
+            {label}
           </span>
         );
       })}

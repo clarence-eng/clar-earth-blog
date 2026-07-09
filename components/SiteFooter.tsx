@@ -18,8 +18,7 @@ export default function SiteFooter() {
         </Link>
 
         <p
-          className="italic text-[var(--muted)] text-sm text-center"
-          style={{ fontFamily: "var(--font-cormorant)" }}
+          className="cormorant-italic text-[var(--muted)] text-sm text-center"
         >
           where the earth listens, and the pen replies
         </p>

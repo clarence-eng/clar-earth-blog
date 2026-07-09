@@ -343,6 +343,17 @@ header nav,
   text-transform: uppercase;
 }
 
+/* ── Gold underline reveal — hover-animated underline used on PostCard and RelatedPoems ── */
+.gold-underline-reveal {
+  height: 1px;
+  width: 0;
+  background-color: var(--gold);
+  transition: width 500ms ease-out;
+}
+.group:hover .gold-underline-reveal {
+  width: 2.5rem; /* w-10 */
+}
+
 /* ── Jost font utility ─────────────────────────────────────── */
 .font-jost {
   font-family: var(--font-jost), sans-serif;
@@ -354,7 +365,7 @@ header nav,
   font-size: 0.5625rem;
   letter-spacing: 0.35em;
   text-transform: uppercase;
-  color: #5E5B52;
+  color: var(--muted);
 }
 
 .dark .section-label {
