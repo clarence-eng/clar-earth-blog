@@ -72,6 +72,7 @@ export function getPost(slug: string): Post | null {
   const raw = fs.readFileSync(filePath, "utf-8");
   const { data, content } = matter(raw);
   const post = { slug, ...(data as Partial<Omit<PostMeta, "slug">>), content } as Post;
+  if (!post.title) return null;
   if (!post.type) post.type = "poem";
   if (post.mood && !Array.isArray(post.mood)) post.mood = [post.mood as unknown as string];
   if (post.published === undefined) (post as unknown as Record<string, unknown>).published = false;

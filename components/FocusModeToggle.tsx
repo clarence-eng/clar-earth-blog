@@ -28,9 +28,9 @@ export default function FocusModeToggle() {
     <motion.button
       type="button"
       onClick={toggle}
-      initial={reducedMotion !== false ? {} : { opacity: 0 }}
-      animate={reducedMotion !== false ? {} : { opacity: 1 }}
-      transition={reducedMotion !== false ? {} : { delay: 0.8 }}
+      initial={reducedMotion === true ? {} : { opacity: 0 }}
+      animate={reducedMotion === true ? {} : { opacity: 1 }}
+      transition={reducedMotion === true ? {} : { delay: 0.8 }}
       aria-pressed={focus}
       aria-label={focus ? "Exit focus mode" : "Focus mode"}
       className="post-action-btn"

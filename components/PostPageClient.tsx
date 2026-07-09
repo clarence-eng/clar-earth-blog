@@ -14,7 +14,7 @@ import PrintButton from "./PrintButton";
 import BackPill from "./BackPill";
 import MoodTag from "./MoodTag";
 
-// Parse raw poem body into stanzas, stripping custom [italic], [right], [center], [lang:xx] prefix markers.
+// Parse raw poem body into stanzas, stripping [italic], [right], [center], and [lang:xx] markers — these may appear at the block start or after an alignment marker (e.g. [right][lang:xx][italic]).
 function parseStanzas(content: string): { text: string; align: "left" | "right" | "center"; italic: boolean; lang?: string }[] {
   return content.trim().split(/\n\n+/).map(block => {
     let text = block;

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useLayoutEffect } from "react";
 import AmbientParticles from "./AmbientParticles";
 
 function getSeasonalGradient() {
@@ -32,6 +32,13 @@ function Sprig({ x, y, size, rotate, opacity }: { x: string; y: string; size: nu
 export default function HeroSection({ titles }: { titles: string[] }) {
   const reducedMotion = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
+  const [gradient, setGradient] = useState<string>(
+    "linear-gradient(160deg, #1A2D3A 0%, #2A3D4A 40%, #1E3440 65%, #121E28 100%)"
+  );
+
+  useLayoutEffect(() => {
+    setGradient(getSeasonalGradient());
+  }, []);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
 
   const quoteY = useTransform(scrollYProgress, [0, 1], [0, -60]);
@@ -50,8 +57,7 @@ export default function HeroSection({ titles }: { titles: string[] }) {
         ref={sectionRef}
         aria-label="Site introduction"
         className="relative overflow-hidden min-h-[56vh] flex items-center"
-        suppressHydrationWarning
-        style={{ background: getSeasonalGradient() }}
+        style={{ background: gradient }}
       >
         {/* Parallax ornament layer */}
         <motion.div className="absolute inset-0 pointer-events-none" style={reducedMotion === true ? undefined : { y: ornamentsY }}>

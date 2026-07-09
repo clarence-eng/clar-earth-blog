@@ -17,15 +17,15 @@ export default function PrintButton({ title, type }: PrintButtonProps) {
     if (restoreRef.current) return; // prevent re-entry while print dialog is open
     const prev = document.title;
     document.title = `${title} — clar.earth`;
+    const ac = new AbortController();
     const restore = () => {
+      ac.abort();
       document.title = prev;
-      window.removeEventListener("afterprint", restore);
-      window.removeEventListener("focus", restore);
       restoreRef.current = null;
     };
     restoreRef.current = restore;
-    window.addEventListener("afterprint", restore, { once: true });
-    window.addEventListener("focus", restore, { once: true });
+    window.addEventListener("afterprint", restore, { once: true, signal: ac.signal });
+    window.addEventListener("focus", restore, { once: true, signal: ac.signal });
     window.print();
   };
 

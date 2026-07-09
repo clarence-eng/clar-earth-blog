@@ -105,6 +105,8 @@ export default function AmbientParticles() {
     const onMqlChange = (e: MediaQueryListEvent) => {
       if (e.matches) {
         cancelAnimationFrame(animId);
+        resizeCleanup?.();
+        resizeCleanup = null;
       } else {
         start();
       }
