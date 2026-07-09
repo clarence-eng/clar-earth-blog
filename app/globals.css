@@ -81,7 +81,7 @@ body {
   display: flex;
   width: max-content;
   white-space: nowrap;
-  animation: marquee 90s linear infinite;
+  animation: marquee 60s linear infinite;
 }
 .marquee-content {
   display: inline-block;
@@ -92,10 +92,7 @@ body {
   color: var(--muted);
   user-select: none;
 }
-
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track { animation-play-state: paused; }
-}
+/* Marquee is decorative text — scrolling does not affect content access */
 
 /* ── Scrollbar hide for filter tabs ───────────────────────── */
 .scrollbar-none { scrollbar-width: none; }
