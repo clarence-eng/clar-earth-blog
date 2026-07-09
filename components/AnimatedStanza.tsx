@@ -2,8 +2,6 @@
 
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useRef } from "react";
-import type { CSSProperties } from 'react';
-
 interface StanzaProps {
   children: string;
   index: number;
@@ -55,7 +53,7 @@ export default function AnimatedStanza({ children, index, align = "left", italic
     <motion.p
       ref={ref}
       className={className}
-      style={{ textAlign: align, fontStyle: italic ? "italic" : undefined } as CSSProperties}
+      style={{ textAlign: align, fontStyle: italic ? "italic" : undefined }}
       lang={lang}
       initial={reducedMotion === true ? {} : { opacity: 0, y: 12 }}
       animate={inView ? { opacity: 1, y: 0 } : reducedMotion === true ? {} : { opacity: 0, y: 12 }}

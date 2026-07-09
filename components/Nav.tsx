@@ -67,8 +67,7 @@ export default function Nav({ posts }: NavProps) {
       }`}>
         <div className="max-w-6xl mx-auto px-8 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Link href="/" className={`tracking-[0.3em] text-[11px] font-medium uppercase transition-colors duration-300 ${onDark ? "text-white/80 hover:text-white" : "text-[var(--charcoal)] hover:text-[var(--forest)]"}`}
-              style={{ fontFamily: "var(--font-jost)" }}
+            <Link href="/" className={`font-jost tracking-[0.3em] text-[11px] font-medium uppercase transition-colors duration-300 ${onDark ? "text-white/80 hover:text-white" : "text-[var(--charcoal)] hover:text-[var(--forest)]"}`}
               aria-current={isHome ? 'page' : undefined}>
               CLAR.EARTH
             </Link>

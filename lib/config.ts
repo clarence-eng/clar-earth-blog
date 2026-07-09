@@ -13,7 +13,7 @@ export function primaryMood(mood: string[] | undefined): string | undefined {
 }
 
 // Map display-name lang values (from Keystatic frontmatter) to BCP-47 codes
-export const LANG_MAP: Record<string, string> = {
+export const LANG_MAP: Partial<Record<string, string>> = {
   "中文": "zh",
   "日本語": "ja",
   "español": "es",

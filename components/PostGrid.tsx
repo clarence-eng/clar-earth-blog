@@ -52,8 +52,8 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
         <div className="h-px flex-1 bg-[var(--border)]" />
         <h2
           id="works-heading"
-          className="text-[var(--charcoal)] tracking-[0.25em] uppercase"
-          style={{ fontFamily: "var(--font-jost)", fontSize: "0.68rem" }}
+          className="font-jost text-[var(--charcoal)] tracking-[0.25em] uppercase"
+          style={{ fontSize: "0.68rem" }}
         >
           Works
         </h2>
@@ -81,12 +81,11 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
                 role="radio"
                 aria-checked={isActive}
                 tabIndex={isActive ? 0 : -1}
-                className={`flex-shrink-0 flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[10px] tracking-[0.2em] uppercase transition-all duration-300 ${
+                className={`font-jost flex-shrink-0 flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[10px] tracking-[0.2em] uppercase transition-all duration-300 ${
                   isActive
                     ? "bg-[var(--forest)] text-white"
                     : "bg-transparent text-[var(--muted)] hover:text-[var(--forest)] border border-[var(--border)] hover:border-[var(--forest)]"
                 }`}
-                style={{ fontFamily: "var(--font-jost)" }}
               >
                 {label}
                 {count > 0 && (

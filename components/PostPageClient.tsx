@@ -217,7 +217,7 @@ export default function PostPageClient({
                   : post.dedication ?? post.coAuthor}
               </motion.p>
             )}
-            {post.mood && (
+            {post.mood?.length && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.45 }}>
                 <MoodTag mood={post.mood} />
               </motion.div>
@@ -241,7 +241,7 @@ export default function PostPageClient({
         />
 
         {/* Poem — lang attribute from post.lang (e.g. "中文" → "zh") when the whole poem is non-English */}
-        <div className="poem-content" lang={LANG_MAP[post.lang ?? ""] as string | undefined}>
+        <div className="poem-content" lang={LANG_MAP[post.lang ?? ""]}>
           {stanzaContent.isMirror ? (
             <div className="poem-two-col">
               <div className="poem-two-col__left">
@@ -332,9 +332,7 @@ export default function PostPageClient({
         </div>
 
         {/* Related poems */}
-        {allPosts.length > 0 && (
-          <RelatedPoems posts={allPosts} currentSlug={post.slug} />
-        )}
+        <RelatedPoems posts={allPosts} currentSlug={post.slug} />
       </div>
       </main>
     </>

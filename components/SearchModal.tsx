@@ -44,7 +44,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  const results = query.trim().length < 2 ? [] : posts.filter(p => {
+  const shown = query.trim().length < 2 ? posts.slice(0, 8) : posts.filter(p => {
     const q = query.toLowerCase();
     return (
       p.title.toLowerCase().includes(q) ||
@@ -53,8 +53,6 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
       (p.mood?.some(m => m.toLowerCase().includes(q)) ?? false)
     );
   });
-
-  const shown = query.trim().length < 2 ? posts.slice(0, 8) : results;
 
   return (
     <motion.div
@@ -98,7 +96,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
             type="button"
             onClick={onClose}
             aria-label="Close search"
-            className="flex items-center justify-center w-6 h-6 rounded hover:bg-[var(--cream-dark)] transition-colors text-[var(--muted)] hover:text-[var(--ink)]"
+            className="flex items-center justify-center w-6 h-6 rounded hover:bg-[var(--cream-dark)] transition-colors duration-300 text-[var(--muted)] hover:text-[var(--ink)]"
           >
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
               <path d="M1 1l10 10M11 1L1 11"/>
@@ -119,13 +117,13 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
             <Link
               href={`/${post.slug}`}
               onClick={onClose}
-              className="flex items-start gap-4 px-5 py-3.5 hover:bg-[var(--cream-dark)] transition-colors border-b border-[var(--border)] last:border-0 group"
+              className="flex items-start gap-4 px-5 py-3.5 hover:bg-[var(--cream-dark)] transition-colors duration-300 border-b border-[var(--border)] last:border-0 group"
             >
               <span className="font-jost text-[8px] tracking-[0.25em] uppercase text-[var(--muted)] pt-1 w-12 flex-shrink-0">
                 {TYPE_LABELS[post.type]}
               </span>
               <div>
-                <p className="cormorant-italic text-[var(--ink)] group-hover:text-[var(--forest)] transition-colors leading-snug" style={{ fontSize: "1.1rem" }}>
+                <p className="cormorant-italic text-[var(--ink)] group-hover:text-[var(--forest)] transition-colors duration-300 leading-snug" style={{ fontSize: "1.1rem" }}>
                   {post.title}
                   {post.lang && <span className="ml-2 text-[10px] not-italic text-[var(--muted)]">{post.lang}</span>}
                 </p>

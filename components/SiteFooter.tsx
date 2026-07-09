@@ -12,8 +12,7 @@ export default function SiteFooter() {
       <div className="max-w-6xl mx-auto px-8 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
         <Link
           href="/"
-          className="text-[10px] tracking-[0.3em] uppercase text-[var(--muted)] hover:text-[var(--forest)] transition-colors duration-300"
-          style={{ fontFamily: "var(--font-jost)" }}
+          className="font-jost text-[10px] tracking-[0.3em] uppercase text-[var(--muted)] hover:text-[var(--forest)] transition-colors duration-300"
         >
           CLAR.EARTH
         </Link>
@@ -28,8 +27,7 @@ export default function SiteFooter() {
         {/* suppressHydrationWarning: year is baked at build time on server, re-evaluated at runtime on client */}
         <span
           suppressHydrationWarning
-          className="text-[10px] tracking-widest text-[var(--muted)]"
-          style={{ fontFamily: "var(--font-jost)" }}
+          className="font-jost text-[10px] tracking-widest text-[var(--muted)]"
         >
           © {new Date().getFullYear()} clar.earth
         </span>

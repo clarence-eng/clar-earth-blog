@@ -357,6 +357,10 @@ header nav,
   color: #5E5B52;
 }
 
+.dark .section-label {
+  color: var(--muted-light);
+}
+
 /* ── Glassmorphism search modal ────────────────────────────── */
 .search-glass {
   background: rgba(248, 245, 239, 0.72);
