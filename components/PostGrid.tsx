@@ -37,7 +37,7 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
     const nextIndex = e.key === "ArrowRight"
       ? (currentIndex + 1) % siblings.length
       : (currentIndex - 1 + siblings.length) % siblings.length;
-    const nextKey = siblings[nextIndex].dataset.filterKey as FilterKey;
+    const nextKey = (siblings[nextIndex].dataset.filterKey ?? "all") as FilterKey;
     setActive(nextKey);
     siblings[nextIndex].focus();
   };
@@ -107,7 +107,7 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
       {/* Screen-reader live region — announces result count after filter change */}
       <p aria-live="polite" aria-atomic="true" className="sr-only">
         {active !== "all"
-          ? `${filtered.length} ${filtered.length === 1 ? active : active + "s"}`
+          ? `${filtered.length} ${active === "photo-essay" ? (filtered.length === 1 ? "photo essay" : "photo essays") : filtered.length === 1 ? active : active + "s"}`
           : `All ${filtered.length} works`}
       </p>
 

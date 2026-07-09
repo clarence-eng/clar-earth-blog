@@ -127,6 +127,9 @@ export default function CustomCursor() {
       if (!e.matches) {
         cancelAnimationFrame(animRef.current);
         startLoop();
+      } else {
+        cancelled = true;
+        cancelAnimationFrame(animRef.current);
       }
     };
     mql.addEventListener("change", onMqlChange);

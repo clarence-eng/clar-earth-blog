@@ -346,19 +346,17 @@ header nav,
   text-transform: uppercase;
 }
 
-/* ── Post action button — Focus mode + Print (extends nav-action-label typography) ── */
+/* ── Post action button — Focus mode + Print ────────────────── */
 .post-action-btn {
   display: flex;
   align-items: center;
-  gap: 0.375rem; /* gap-1.5 */
-  color: var(--muted);
-  transition: color 300ms;
-}
-.post-action-btn {
+  gap: 0.375rem;
   font-family: var(--font-jost), sans-serif;
   font-size: 0.65rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
+  color: var(--muted);
+  transition: color 300ms;
 }
 .post-action-btn:hover {
   color: var(--forest);

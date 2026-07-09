@@ -17,7 +17,7 @@ export default function FeaturedPoem({ post }: { post: PostMeta }) {
         <div className="h-px flex-1 bg-[var(--border)]" />
       </div>
 
-      <Link href={`/${post.slug}`} aria-label={`${post.title} — read ${TYPE_LABELS[post.type].toLowerCase()}`} className="group block">
+      <Link href={`/${post.slug}`} aria-label={`${post.title} — read ${(TYPE_LABELS[post.type] ?? "poem").toLowerCase()}`} className="group block">
         <motion.div
           initial={reducedMotion === true ? {} : { opacity: 0, y: 20 }}
           animate={reducedMotion === true ? {} : { opacity: 1, y: 0 }}
