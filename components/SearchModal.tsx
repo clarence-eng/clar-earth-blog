@@ -93,7 +93,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
             className="flex-1 bg-transparent outline-none focus:ring-1 focus:ring-[var(--forest)] rounded-sm text-[var(--ink)] placeholder:text-[var(--muted-light)]"
             style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.1rem" }}
           />
-          <kbd className="text-[9px] tracking-wider text-[var(--muted)] border border-[var(--border)] rounded px-1.5 py-0.5" style={{ fontFamily: "var(--font-jost)" }}>ESC</kbd>
+          <kbd className="font-jost text-[9px] tracking-wider text-[var(--muted)] border border-[var(--border)] rounded px-1.5 py-0.5">ESC</kbd>
           <button
             type="button"
             onClick={onClose}
@@ -121,7 +121,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
               onClick={onClose}
               className="flex items-start gap-4 px-5 py-3.5 hover:bg-[var(--cream-dark)] transition-colors border-b border-[var(--border)] last:border-0 group"
             >
-              <span className="text-[8px] tracking-[0.25em] uppercase text-[var(--muted)] pt-1 w-12 flex-shrink-0" style={{ fontFamily: "var(--font-jost)" }}>
+              <span className="font-jost text-[8px] tracking-[0.25em] uppercase text-[var(--muted)] pt-1 w-12 flex-shrink-0">
                 {TYPE_LABELS[post.type]}
               </span>
               <div>
@@ -130,7 +130,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
                   {post.lang && <span className="ml-2 text-[10px] not-italic text-[var(--muted)]">{post.lang}</span>}
                 </p>
                 {post.excerpt && (
-                  <p className="text-[var(--muted)] text-xs mt-0.5 line-clamp-1" style={{ fontFamily: "var(--font-jost)" }}>
+                  <p className="font-jost text-[var(--muted)] text-xs mt-0.5 line-clamp-1">
                     {post.excerpt}
                   </p>
                 )}
@@ -141,7 +141,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
         </ul>
 
         {query.trim().length < 2 && (
-          <p className="px-5 py-2.5 text-[9px] tracking-[0.2em] uppercase text-[var(--muted-light)]" style={{ fontFamily: "var(--font-jost)" }}>
+          <p className="font-jost px-5 py-2.5 text-[9px] tracking-[0.2em] uppercase text-[var(--muted)]">
             All works — {posts.length} {posts.length === 1 ? "work" : "works"}
           </p>
         )}

@@ -92,7 +92,7 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
                 {count > 0 && (
                   <span
                     className={`text-[8px] rounded-full px-1.5 py-0 leading-[1.6] tabular-nums ${
-                      isActive ? "bg-white/20 text-white" : "bg-[var(--border)] text-[var(--muted)]"
+                      isActive ? "bg-white/20 text-white" : "bg-[var(--border)] text-[var(--charcoal)]"
                     }`}
                   >
                     {count}
@@ -120,7 +120,7 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -4 }}
-            transition={{ duration: 0.35 }}
+            transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12"
           >
             {filtered.map((post, i) => (
@@ -133,7 +133,7 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.35 }}
+            transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
             className="text-center text-[var(--muted)] italic mt-12"
             style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.1rem" }}
           >

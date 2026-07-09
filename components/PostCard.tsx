@@ -41,13 +41,6 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
 
   const shouldAnimate = reducedMotion !== true;
 
-  const handleMouseMove = !shouldAnimate ? undefined : (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    x.set(((e.clientX - rect.left) / rect.width - 0.5) * 2);
-    y.set(((e.clientY - rect.top) / rect.height - 0.5) * 2);
-  };
-  const handleMouseLeave = !shouldAnimate ? undefined : () => { x.set(0); y.set(0); };
-
   const cardMood = primaryMood(post.mood);
 
   return (
@@ -64,8 +57,12 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
         <motion.div
           className="overflow-hidden rounded-sm aspect-[4/3] relative"
           style={{ rotateX: shouldAnimate ? rotateX : 0, rotateY: shouldAnimate ? rotateY : 0, transformStyle: "preserve-3d", transformPerspective: 800 }}
-          onMouseMove={handleMouseMove}
-          onMouseLeave={handleMouseLeave}
+          onMouseMove={!shouldAnimate ? undefined : (e: React.MouseEvent<HTMLDivElement>) => {
+            const rect = e.currentTarget.getBoundingClientRect();
+            x.set(((e.clientX - rect.left) / rect.width - 0.5) * 2);
+            y.set(((e.clientY - rect.top) / rect.height - 0.5) * 2);
+          }}
+          onMouseLeave={!shouldAnimate ? undefined : () => { x.set(0); y.set(0); }}
           whileHover={shouldAnimate ? { y: -6, boxShadow: "0 20px 44px rgba(45,74,62,0.22)" } : undefined}
           transition={{ y: { duration: 0.4, ease: [0.32, 0.72, 0, 1] }, boxShadow: { duration: 0.4, ease: [0.32, 0.72, 0, 1] } }}
         >
@@ -89,10 +86,10 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
         {/* Meta */}
         <div className="mt-4 px-0.5">
           <div className="flex items-center flex-wrap gap-2 mb-2.5">
-            <span className={`text-[9px] tracking-[0.25em] uppercase px-2 py-0.5 rounded-full type-badge-${post.type}`} style={{ fontFamily: "var(--font-jost)" }}>
+            <span className={`font-jost text-[9px] tracking-[0.25em] uppercase px-2 py-0.5 rounded-full type-badge-${post.type}`}>
               {TYPE_LABELS[post.type]}
             </span>
-            {post.lang && <span className="text-[10px] text-[var(--muted)]" style={{ fontFamily: "var(--font-jost)" }}>{post.lang}</span>}
+            {post.lang && <span className="font-jost text-[10px] text-[var(--ink)]">{post.lang}</span>}
             <MoodTag mood={post.mood} />
           </div>
 

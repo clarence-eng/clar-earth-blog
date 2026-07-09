@@ -17,7 +17,7 @@ export default function FeaturedPoem({ post }: { post: PostMeta }) {
         <div className="h-px flex-1 bg-[var(--border)]" />
       </div>
 
-      <Link href={`/${post.slug}`} className="group block">
+      <Link href={`/${post.slug}`} aria-label={post.title} className="group block">
         <motion.div
           initial={reducedMotion === true ? {} : { opacity: 0, y: 20 }}
           animate={reducedMotion === true ? {} : { opacity: 1, y: 0 }}
@@ -47,8 +47,7 @@ export default function FeaturedPoem({ post }: { post: PostMeta }) {
           <div className="absolute inset-0 flex items-center" style={{ padding: "2rem 3rem" }}>
             <div style={{ maxWidth: 380 }}>
               <span
-                className="inline-block text-[9px] tracking-[0.3em] uppercase px-2 py-0.5 rounded-full mb-4 bg-white/15 text-white/70"
-                style={{ fontFamily: "var(--font-jost)" }}
+                className="font-jost inline-block text-[9px] tracking-[0.3em] uppercase px-2 py-0.5 rounded-full mb-4 bg-white/15 text-white/70"
               >
                 {TYPE_LABELS[post.type]}
               </span>
@@ -70,8 +69,7 @@ export default function FeaturedPoem({ post }: { post: PostMeta }) {
                 </p>
               )}
               <span
-                className="text-[10px] tracking-[0.25em] uppercase text-white/65 group-hover:text-white/90 transition-colors flex items-center gap-2"
-                style={{ fontFamily: "var(--font-jost)" }}
+                className="font-jost text-[10px] tracking-[0.25em] uppercase text-white/65 group-hover:text-white/90 transition-colors flex items-center gap-2"
               >
                 Read {TYPE_LABELS[post.type].toLowerCase()}
                 <span className="group-hover:translate-x-1 inline-block transition-transform" aria-hidden="true">→</span>

@@ -221,7 +221,6 @@ body {
 /* ── prefers-reduced-motion — disable motion animations ─────── */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .poem-cover-parallax { transform: scale(1) !important; }
 }
 
 /* ── Reading focus mode ────────────────────────────────────── */
@@ -344,13 +343,18 @@ header nav,
   text-transform: uppercase;
 }
 
+/* ── Jost font utility ─────────────────────────────────────── */
+.font-jost {
+  font-family: var(--font-jost), sans-serif;
+}
+
 /* ── Section label — small caps eyebrow text (Featured, More poems, A few poems, etc.) ── */
 .section-label {
   font-family: var(--font-jost), sans-serif;
   font-size: 0.5625rem;
   letter-spacing: 0.35em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: #5E5B52;
 }
 
 /* ── Glassmorphism search modal ────────────────────────────── */

@@ -29,7 +29,7 @@ function Sprig({ x, y, size, rotate, opacity }: { x: string; y: string; size: nu
   );
 }
 
-export default function HeroSection({ titles = [] }: { titles?: string[] }) {
+export default function HeroSection({ titles }: { titles: string[] }) {
   const reducedMotion = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
@@ -111,10 +111,8 @@ export default function HeroSection({ titles = [] }: { titles?: string[] }) {
             transition={{ duration: 1, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
           >
             <blockquote
-              className="text-white/90 leading-[1.5] mx-auto"
+              className="cormorant-italic text-white/90 leading-[1.5] mx-auto"
               style={{
-                fontFamily: "var(--font-cormorant)",
-                fontStyle: "italic",
                 fontWeight: 300,
                 fontSize: "clamp(1.55rem, 3.2vw, 2.5rem)",
               }}

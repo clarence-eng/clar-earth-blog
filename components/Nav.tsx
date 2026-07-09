@@ -8,9 +8,9 @@ import { AnimatePresence } from "framer-motion";
 import SearchModal from "./SearchModal";
 import type { PostMeta } from "@/lib/posts";
 
-interface NavProps { posts?: PostMeta[] }
+interface NavProps { posts: PostMeta[] }
 
-export default function Nav({ posts = [] }: NavProps) {
+export default function Nav({ posts }: NavProps) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);

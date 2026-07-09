@@ -42,10 +42,8 @@ export default function AboutPage() {
             About
           </h1>
           <blockquote
-            className="text-balance text-[var(--forest)] leading-[1.4]"
+            className="cormorant-italic text-balance text-[var(--forest)] leading-[1.4]"
             style={{
-              fontFamily: "var(--font-cormorant)",
-              fontStyle: "italic",
               fontWeight: 300,
               fontSize: "clamp(1.8rem, 4vw, 3rem)",
             }}

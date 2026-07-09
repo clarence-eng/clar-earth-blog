@@ -12,11 +12,10 @@ export default function RelatedPoems({ posts, currentSlug }: { posts: PostMeta[]
   const inView = useInView(ref, { once: true, amount: "some" });
   const reducedMotion = useReducedMotion();
   const idx = posts.findIndex(p => p.slug === currentSlug);
-  const current = idx !== -1 ? posts[idx] : null;
-  if (!current) return null;
+  if (idx === -1) return null;
 
   // Prefer poems that share any mood with the current poem
-  const currentMoods = new Set(current.mood ?? []);
+  const currentMoods = new Set(posts[idx].mood ?? []);
   const sameMood = posts.filter(p => {
     if (p.slug === currentSlug) return false;
     return p.mood?.some(m => currentMoods.has(m)) ?? false;

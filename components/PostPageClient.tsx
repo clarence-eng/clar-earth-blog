@@ -121,8 +121,7 @@ export default function PostPageClient({
             </svg>
           </span>
           <span
-            className={`text-[10px] tracking-[0.2em] uppercase motion-safe:transition-all motion-safe:duration-300 opacity-0 group-hover:opacity-100 motion-safe:-translate-x-1 motion-safe:group-hover:translate-x-0 ${pastHero ? "text-[var(--muted)]" : "text-white/70"}`}
-            style={{ fontFamily: "var(--font-jost)" }}
+            className={`font-jost text-[10px] tracking-[0.2em] uppercase motion-safe:transition-all motion-safe:duration-300 opacity-0 group-hover:opacity-100 motion-safe:-translate-x-1 motion-safe:group-hover:translate-x-0 ${pastHero ? "text-[var(--muted)]" : "text-white/70"}`}
           >
             All works
           </span>
@@ -176,8 +175,7 @@ export default function PostPageClient({
             className="flex items-center gap-3 mb-5"
           >
             <span
-              className="inline-block text-[9px] tracking-[0.35em] uppercase px-2.5 py-1 rounded-full bg-white/15 text-white/70"
-              style={{ fontFamily: "var(--font-jost)" }}
+              className="font-jost inline-block text-[9px] tracking-[0.35em] uppercase px-2.5 py-1 rounded-full bg-white/15 text-white/70"
             >
               {TYPE_LABELS[post.type]}
             </span>
@@ -194,10 +192,8 @@ export default function PostPageClient({
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-balance text-white mb-3 poem-page-title"
+            className="cormorant-italic text-balance text-white mb-3 poem-page-title"
             style={{
-              fontFamily: "var(--font-cormorant)",
-              fontStyle: "italic",
               fontWeight: 300,
               fontSize: "clamp(2.2rem, 5vw, 3.8rem)",
               lineHeight: 1.15,
@@ -303,21 +299,21 @@ export default function PostPageClient({
 
         {/* Keyboard hint — desktop only */}
         {(prev || next) && (
-          <p className="text-center text-[9px] tracking-[0.25em] uppercase text-[var(--muted-light)] mb-6 hidden md:block keyboard-hint" style={{ fontFamily: "var(--font-jost)" }} aria-hidden="true">
+          <p className="font-jost text-center text-[9px] tracking-[0.25em] uppercase text-[var(--muted)] mb-6 hidden md:block keyboard-hint" aria-hidden="true">
             ← → keys to navigate
           </p>
         )}
 
         {/* Prev / Next */}
-        <nav aria-label="Poem navigation" className="grid grid-cols-2 gap-4 poem-prev-next" style={{ fontFamily: "var(--font-jost)" }}>
+        <nav aria-label="Poem navigation" className="font-jost grid grid-cols-2 gap-4 poem-prev-next">
           {prev ? (
-            <Link href={`/${prev.slug}`} aria-keyshortcuts="ArrowLeft" className="group flex flex-col gap-1 p-4 border border-[var(--border)] rounded-sm hover:border-[var(--sage)] hover:bg-[var(--cream-dark)] transition-all">
+            <Link href={`/${prev.slug}`} aria-keyshortcuts="ArrowLeft" className="group flex flex-col gap-1 p-4 border border-[var(--border)] rounded-sm hover:border-[var(--sage)] hover:bg-[var(--cream-dark)] transition-all duration-300">
               <span className="text-[11px] tracking-[0.25em] uppercase text-[var(--muted)]"><span aria-hidden="true">← </span>Previous</span>
               <span className="cormorant-italic text-[var(--muted)] group-hover:text-[var(--forest)] transition-colors duration-300 line-clamp-2" style={{ fontSize: "1rem" }}>{prev.title}</span>
             </Link>
           ) : <div />}
           {next ? (
-            <Link href={`/${next.slug}`} aria-keyshortcuts="ArrowRight" className="group flex flex-col gap-1 p-4 border border-[var(--border)] rounded-sm hover:border-[var(--sage)] hover:bg-[var(--cream-dark)] transition-all text-right">
+            <Link href={`/${next.slug}`} aria-keyshortcuts="ArrowRight" className="group flex flex-col gap-1 p-4 border border-[var(--border)] rounded-sm hover:border-[var(--sage)] hover:bg-[var(--cream-dark)] transition-all duration-300 text-right">
               <span className="text-[11px] tracking-[0.25em] uppercase text-[var(--muted)]">Next <span aria-hidden="true">→</span></span>
               <span className="cormorant-italic text-[var(--muted)] group-hover:text-[var(--forest)] transition-colors duration-300 line-clamp-2" style={{ fontSize: "1rem" }}>{next.title}</span>
             </Link>
@@ -326,7 +322,7 @@ export default function PostPageClient({
 
         {/* Focus mode + Print */}
         <div className="mt-8 flex items-center justify-between">
-          <Link href="/" className="text-[10px] tracking-[0.3em] uppercase text-[var(--muted)] hover:text-[var(--forest)] transition-colors duration-300" style={{ fontFamily: "var(--font-jost)" }}>
+          <Link href="/" className="font-jost text-[10px] tracking-[0.3em] uppercase text-[var(--muted)] hover:text-[var(--forest)] transition-colors duration-300">
             <span aria-hidden="true">← </span>All works
           </Link>
           <div className="flex items-center gap-4">

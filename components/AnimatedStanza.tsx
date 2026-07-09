@@ -51,16 +51,12 @@ export default function AnimatedStanza({ children, index, align = "left", italic
     isFirstDrop && !suppressDrop ? "poem-stanza--drop" : "",
   ].filter(Boolean).join(" ");
 
-  const sharedProps = {
-    ref,
-    className,
-    style: { textAlign: align, fontStyle: italic ? "italic" : undefined } as CSSProperties,
-    lang,
-  };
-
   return (
     <motion.p
-      {...sharedProps}
+      ref={ref}
+      className={className}
+      style={{ textAlign: align, fontStyle: italic ? "italic" : undefined } as CSSProperties}
+      lang={lang}
       initial={reducedMotion === true ? {} : { opacity: 0, y: 12 }}
       animate={inView ? { opacity: 1, y: 0 } : reducedMotion === true ? {} : { opacity: 0, y: 12 }}
       transition={{
