@@ -105,7 +105,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
         </div>
 
         {/* Results */}
-        <p aria-live="polite" aria-atomic="true" className="sr-only">{query.trim().length >= 2 ? `${shown.length} result${shown.length !== 1 ? 's' : ''}` : `Showing all ${shown.length} works`}</p>
+        <p aria-live="polite" aria-atomic="true" className="sr-only">{query.trim().length >= 2 ? `${shown.length} result${shown.length !== 1 ? 's' : ''}` : `Showing ${shown.length} of ${posts.length} works`}</p>
         {shown.length === 0 && query.trim().length >= 2 && (
           <p className="cormorant-serif px-5 py-8 text-center text-[var(--muted)] italic" style={{ fontSize: "1rem" }}>
             No poems match &ldquo;{query}&rdquo;
@@ -140,7 +140,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
 
         {query.trim().length < 2 && (
           <p className="font-jost px-5 py-2.5 text-[9px] tracking-[0.2em] uppercase text-[var(--muted)]">
-            All works — {posts.length} {posts.length === 1 ? "work" : "works"}
+            Showing {shown.length} of {posts.length} {posts.length === 1 ? "work" : "works"}
           </p>
         )}
       </motion.div>

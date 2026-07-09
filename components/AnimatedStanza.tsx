@@ -55,8 +55,8 @@ export default function AnimatedStanza({ children, index, align = "left", italic
       className={className}
       style={{ textAlign: align, fontStyle: italic ? "italic" : undefined }}
       lang={lang}
-      initial={reducedMotion === true ? {} : { opacity: 0, y: 12 }}
-      animate={inView ? { opacity: 1, y: 0 } : reducedMotion === true ? {} : { opacity: 0, y: 12 }}
+      initial={reducedMotion !== false ? {} : { opacity: 0, y: 12 }}
+      animate={inView ? { opacity: 1, y: 0 } : reducedMotion !== false ? {} : { opacity: 0, y: 12 }}
       transition={{
         duration: 0.55,
         delay: index < 3 ? index * 0.07 : 0,

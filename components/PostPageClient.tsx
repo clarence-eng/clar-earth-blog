@@ -217,7 +217,7 @@ export default function PostPageClient({
                   : post.dedication ?? post.coAuthor}
               </motion.p>
             )}
-            {post.mood?.length && (
+            {!!post.mood?.length && (
               <motion.div initial={reducedMotion === true ? {} : { opacity: 0 }} animate={reducedMotion === true ? {} : { opacity: 1 }} transition={reducedMotion === true ? {} : { delay: 0.45 }}>
                 <MoodTag mood={post.mood} />
               </motion.div>

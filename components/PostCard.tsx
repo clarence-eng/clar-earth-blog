@@ -64,7 +64,7 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
           }}
           onMouseLeave={!shouldAnimate ? undefined : () => { x.set(0); y.set(0); }}
           whileHover={shouldAnimate ? { y: -6, boxShadow: "0 20px 44px rgba(45,74,62,0.22)" } : undefined}
-          transition={{ y: { duration: 0.4, ease: [0.32, 0.72, 0, 1] }, boxShadow: { duration: 0.4, ease: [0.32, 0.72, 0, 1] } }}
+          transition={shouldAnimate ? { y: { duration: 0.4, ease: [0.32, 0.72, 0, 1] }, boxShadow: { duration: 0.4, ease: [0.32, 0.72, 0, 1] } } : undefined}
         >
           <div
             className="relative w-full h-full motion-safe:transition-transform motion-safe:duration-700 motion-safe:ease-out motion-safe:group-hover:scale-[1.03]"

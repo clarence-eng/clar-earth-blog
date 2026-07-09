@@ -17,8 +17,8 @@ export default function BackPill() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: reducedMotion === true ? 0 : 10 }}
-      animate={{ opacity: show ? 1 : 0, y: reducedMotion === true ? 0 : show ? 0 : 10 }}
+      initial={{ opacity: 0, y: reducedMotion !== false ? 0 : 10 }}
+      animate={{ opacity: show ? 1 : 0, y: reducedMotion !== false ? 0 : show ? 0 : 10 }}
       transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
       aria-hidden={show ? undefined : true}
       className={`back-pill fixed bottom-7 right-7 z-40 ${show ? "pointer-events-auto" : "pointer-events-none"}`}
