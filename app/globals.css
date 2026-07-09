@@ -208,8 +208,6 @@ body {
 .dark .card-mood-shimmer[data-mood="reverence"]  { background: linear-gradient(90deg, #70AA68, #4A8A44); }
 .dark .card-mood-shimmer[data-mood="bitterness"] { background: linear-gradient(90deg, #C4905A, #8A5A38); }
 
-/* ── Poem page — mood radial tint removed (too distracting) ── */
-
 /* ── Poem line hover — gold underline on each line span ─────── */
 @media (hover: hover) {
   .poem-stanza > span:hover {
@@ -344,6 +342,15 @@ header nav,
   font-size: 0.65rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
+}
+
+/* ── Section label — small caps eyebrow text (Featured, More poems, A few poems, etc.) ── */
+.section-label {
+  font-family: var(--font-jost), sans-serif;
+  font-size: 0.5625rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
 /* ── Glassmorphism search modal ────────────────────────────── */

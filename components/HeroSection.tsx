@@ -111,7 +111,7 @@ export default function HeroSection({ titles = [] }: { titles?: string[] }) {
             transition={{ duration: 1, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
           >
             <blockquote
-              className="text-white/88 leading-[1.5] mx-auto"
+              className="text-white/90 leading-[1.5] mx-auto"
               style={{
                 fontFamily: "var(--font-cormorant)",
                 fontStyle: "italic",

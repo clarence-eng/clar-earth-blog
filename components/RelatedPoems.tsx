@@ -35,12 +35,11 @@ export default function RelatedPoems({ posts, currentSlug }: { posts: PostMeta[]
       ref={ref}
       initial={reducedMotion === true ? {} : { opacity: 0, y: 16 }}
       animate={inView ? { opacity: 1, y: 0 } : reducedMotion === true ? {} : { opacity: 0, y: 16 }}
-      transition={{ duration: 0.6, delay: 0.1 }}
+      transition={{ duration: 0.6, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
       className="related-poems mt-20 pt-10 border-t border-[var(--border)]"
       aria-label="More poems"
     >
-      <p className="text-[9px] tracking-[0.35em] uppercase text-[var(--muted)] mb-6"
-        style={{ fontFamily: "var(--font-jost)" }}>
+      <p className="section-label mb-6">
         More poems
       </p>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">

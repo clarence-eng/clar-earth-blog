@@ -11,7 +11,7 @@ export default function FeaturedPoem({ post }: { post: PostMeta }) {
   return (
     <section aria-label="Featured work" className="max-w-6xl mx-auto px-8 pt-12 pb-0" data-mood={primaryMood(post.mood)} data-ladybug={post.ladybugColor}>
       <div className="flex items-center gap-4 mb-6">
-        <span className="text-[9px] tracking-[0.35em] uppercase text-[var(--muted)]" style={{ fontFamily: "var(--font-jost)" }}>
+        <span className="section-label">
           Featured
         </span>
         <div className="h-px flex-1 bg-[var(--border)]" />

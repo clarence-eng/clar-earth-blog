@@ -106,8 +106,7 @@ export default function AboutPage() {
         {/* Selected works strip — picks 5 poems dynamically so slugs/titles stay in sync */}
         <div className="max-w-4xl mx-auto px-8 mt-20 pt-10 border-t border-[var(--border)]">
           <p
-            className="text-[9px] tracking-[0.35em] uppercase text-[var(--muted)] mb-6"
-            style={{ fontFamily: "var(--font-jost)" }}
+            className="section-label mb-6"
           >
             A few poems
           </p>

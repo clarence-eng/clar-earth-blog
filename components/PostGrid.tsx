@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useRef, useCallback } from "react";
+import { useState, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import PostCard from "./PostCard";
 import type { PostMeta } from "@/lib/posts";
@@ -26,7 +26,7 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
     return c;
   }, [posts]);
 
-  const handleRadioKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
+  const handleRadioKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
     e.preventDefault();
     const container = radioGroupRef.current;
@@ -40,7 +40,7 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
     const nextKey = siblings[nextIndex].dataset.filterKey as FilterKey;
     setActive(nextKey);
     siblings[nextIndex].focus();
-  }, []);
+  };
 
   return (
     <section

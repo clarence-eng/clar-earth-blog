@@ -12,7 +12,6 @@ interface NavProps { posts?: PostMeta[] }
 
 export default function Nav({ posts = [] }: NavProps) {
   const pathname = usePathname();
-  const isAdmin = pathname.startsWith("/keystatic");
   const [scrolled, setScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const searchOpenRef = useRef(false);
@@ -52,7 +51,7 @@ export default function Nav({ posts = [] }: NavProps) {
     return () => window.removeEventListener("keydown", h);
   }, [openSearch, closeSearch]);
 
-  if (isAdmin) return null;
+  if (pathname.startsWith("/keystatic")) return null;
 
   const isHome = pathname === "/";
   const onDark = !scrolled && isHome;

@@ -48,14 +48,15 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
   };
   const handleMouseLeave = !shouldAnimate ? undefined : () => { x.set(0); y.set(0); };
 
+  const cardMood = primaryMood(post.mood);
+
   return (
     <motion.article
-      aria-label={post.title}
       initial={shouldAnimate ? { opacity: 0, y: 28 } : {}}
       animate={shouldAnimate ? { opacity: 1, y: 0 } : {}}
       transition={shouldAnimate ? { duration: 0.55, delay: index * 0.06, ease: [0.25, 0.1, 0.25, 1] } : {}}
       className="group"
-      data-mood={primaryMood(post.mood)}
+      data-mood={cardMood}
       data-ladybug={post.ladybugColor}
     >
       <Link href={`/${post.slug}`} className="block h-full" aria-label={post.title}>
@@ -80,14 +81,14 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
           {/* Forest overlay on hover */}
           <div className="absolute inset-0 bg-[var(--forest)] opacity-0 group-hover:opacity-[0.14] transition-opacity duration-500" />
           {/* Mood shimmer — top edge glow */}
-          {primaryMood(post.mood) && (
-            <div className="card-mood-shimmer absolute inset-x-0 top-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" data-mood={primaryMood(post.mood)} />
+          {cardMood && (
+            <div className="card-mood-shimmer absolute inset-x-0 top-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" data-mood={cardMood} />
           )}
         </motion.div>
 
         {/* Meta */}
         <div className="mt-4 px-0.5">
-          <div className="flex items-center flex-wrap gap-2 mb-2.5" aria-hidden="true">
+          <div className="flex items-center flex-wrap gap-2 mb-2.5">
             <span className={`text-[9px] tracking-[0.25em] uppercase px-2 py-0.5 rounded-full type-badge-${post.type}`} style={{ fontFamily: "var(--font-jost)" }}>
               {TYPE_LABELS[post.type]}
             </span>

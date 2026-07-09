@@ -46,13 +46,13 @@ export default function PostPageClient({
   prev,
   next,
   readTime,
-  allPosts = [],
+  allPosts,
 }: {
   post: Post;
   prev: PostMeta | null;
   next: PostMeta | null;
   readTime: string;
-  allPosts?: PostMeta[];
+  allPosts: PostMeta[];
 }) {
   const router = useRouter();
 
@@ -182,8 +182,8 @@ export default function PostPageClient({
               {TYPE_LABELS[post.type]}
             </span>
             <span
-              className="text-white/70 italic"
-              style={{ fontFamily: "var(--font-cormorant)", fontSize: "0.9rem" }}
+              className="cormorant-italic text-white/70"
+              style={{ fontSize: "0.9rem" }}
             >
               {readTime}
             </span>
@@ -245,7 +245,7 @@ export default function PostPageClient({
         />
 
         {/* Poem — lang attribute from post.lang (e.g. "中文" → "zh") when the whole poem is non-English */}
-        <div className="poem-content" lang={LANG_MAP[post.lang ?? ""] ?? undefined}>
+        <div className="poem-content" lang={LANG_MAP[post.lang ?? ""] as string | undefined}>
           {stanzaContent.isMirror ? (
             <div className="poem-two-col">
               <div className="poem-two-col__left">

@@ -19,7 +19,7 @@ export default function SiteFooter() {
         </Link>
 
         <p
-          className="italic text-[var(--muted-light)] text-sm text-center"
+          className="italic text-[var(--muted)] text-sm text-center"
           style={{ fontFamily: "var(--font-cormorant)" }}
         >
           where the earth listens, and the pen replies
@@ -28,7 +28,7 @@ export default function SiteFooter() {
         {/* suppressHydrationWarning: year is baked at build time on server, re-evaluated at runtime on client */}
         <span
           suppressHydrationWarning
-          className="text-[10px] tracking-widest text-[var(--muted-light)]"
+          className="text-[10px] tracking-widest text-[var(--muted)]"
           style={{ fontFamily: "var(--font-jost)" }}
         >
           © {new Date().getFullYear()} clar.earth
