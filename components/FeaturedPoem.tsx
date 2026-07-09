@@ -17,7 +17,7 @@ export default function FeaturedPoem({ post }: { post: PostMeta }) {
         <div className="h-px flex-1 bg-[var(--border)]" />
       </div>
 
-      <Link href={`/${post.slug}`} aria-label={post.title} className="group block">
+      <Link href={`/${post.slug}`} aria-label={`${post.title} — read ${TYPE_LABELS[post.type].toLowerCase()}`} className="group block">
         <motion.div
           initial={reducedMotion === true ? {} : { opacity: 0, y: 20 }}
           animate={reducedMotion === true ? {} : { opacity: 1, y: 0 }}
@@ -62,8 +62,8 @@ export default function FeaturedPoem({ post }: { post: PostMeta }) {
               </h2>
               {post.excerpt && (
                 <p
-                  className="text-white/65 leading-relaxed line-clamp-1 mb-4"
-                  style={{ fontFamily: "var(--font-cormorant)", fontSize: "0.9rem" }}
+                  className="cormorant-serif text-white/65 leading-relaxed line-clamp-1 mb-4"
+                  style={{ fontSize: "0.9rem" }}
                 >
                   {post.excerpt}
                 </p>

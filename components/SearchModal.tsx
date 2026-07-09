@@ -88,8 +88,8 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
             value={query}
             onChange={e => setQuery(e.target.value)}
             placeholder="Search poems..."
-            className="flex-1 bg-transparent outline-none focus:ring-1 focus:ring-[var(--forest)] rounded-sm text-[var(--ink)] placeholder:text-[var(--muted-light)]"
-            style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.1rem" }}
+            className="cormorant-serif flex-1 bg-transparent outline-none focus:ring-1 focus:ring-[var(--forest)] rounded-sm text-[var(--ink)] placeholder:text-[var(--muted-light)]"
+            style={{ fontSize: "1.1rem" }}
           />
           <kbd className="font-jost text-[9px] tracking-wider text-[var(--muted)] border border-[var(--border)] rounded px-1.5 py-0.5">ESC</kbd>
           <button
@@ -105,9 +105,9 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
         </div>
 
         {/* Results */}
-        <p aria-live="polite" aria-atomic="true" className="sr-only">{query.trim().length >= 2 ? `${shown.length} result${shown.length !== 1 ? 's' : ''}` : ''}</p>
+        <p aria-live="polite" aria-atomic="true" className="sr-only">{query.trim().length >= 2 ? `${shown.length} result${shown.length !== 1 ? 's' : ''}` : `Showing all ${shown.length} works`}</p>
         {shown.length === 0 && query.trim().length >= 2 && (
-          <p className="px-5 py-8 text-center text-[var(--muted)] italic" style={{ fontFamily: "var(--font-cormorant)", fontSize: "1rem" }}>
+          <p className="cormorant-serif px-5 py-8 text-center text-[var(--muted)] italic" style={{ fontSize: "1rem" }}>
             No poems match &ldquo;{query}&rdquo;
           </p>
         )}

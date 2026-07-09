@@ -306,16 +306,16 @@ header nav,
 /* ── Scroll-driven parallax on poem cover images ───────────── */
 /* Progressive enhancement: only on browsers that support scroll-timeline AND user hasn't requested reduced motion */
 @media (prefers-reduced-motion: no-preference) {
+  @keyframes poemCoverParallax {
+    from { transform: translateY(-8%) scale(1.12); }
+    to   { transform: translateY(8%)  scale(1.12); }
+  }
   @supports (animation-timeline: scroll()) {
     .poem-cover-parallax {
       animation: poemCoverParallax linear both;
       animation-timeline: scroll(root);
       animation-range: 0% 60%;
       will-change: transform;
-    }
-    @keyframes poemCoverParallax {
-      from { transform: translateY(-8%) scale(1.12); }
-      to   { transform: translateY(8%)  scale(1.12); }
     }
   }
 }
@@ -335,12 +335,33 @@ header nav,
   font-style: italic;
 }
 
+/* ── Shared Cormorant (non-italic) style ────────────────────── */
+.cormorant-serif {
+  font-family: var(--font-cormorant);
+}
+
 /* ── Shared nav action label style (Search, Focus, Print buttons) ── */
 .nav-action-label {
   font-family: var(--font-jost), sans-serif;
   font-size: 0.65rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
+}
+
+/* ── Post action button — shared style for Focus mode + Print buttons ── */
+.post-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem; /* gap-1.5 */
+  font-family: var(--font-jost), sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color 300ms;
+}
+.post-action-btn:hover {
+  color: var(--forest);
 }
 
 /* ── Gold underline reveal — hover-animated underline used on PostCard and RelatedPoems ── */

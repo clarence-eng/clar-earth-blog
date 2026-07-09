@@ -33,7 +33,7 @@ export default function PrintButton({ title, type }: PrintButtonProps) {
     <button
       type="button"
       onClick={handlePrint}
-      className="flex items-center gap-1.5 text-[var(--muted)] hover:text-[var(--forest)] transition-colors duration-300 nav-action-label"
+      className="post-action-btn"
       title={`Print ${type}`}
       aria-label={`Print ${type}`}
     >

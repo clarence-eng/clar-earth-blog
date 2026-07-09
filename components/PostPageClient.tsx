@@ -105,9 +105,9 @@ export default function PostPageClient({
 
       {/* ── Back arrow — fixed top-left, hidden in focus mode and print ── */}
       <motion.div
-        initial={reducedMotion ? {} : { opacity: 0, x: -8 }}
-        animate={reducedMotion ? {} : { opacity: 1, x: 0 }}
-        transition={reducedMotion ? {} : { duration: 0.6, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+        initial={reducedMotion === true ? {} : { opacity: 0, x: -8 }}
+        animate={reducedMotion === true ? {} : { opacity: 1, x: 0 }}
+        transition={reducedMotion === true ? {} : { duration: 0.6, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
         className="poem-back-arrow fixed top-[4.5rem] left-4 md:left-6 z-40"
       >
         <Link href="/" className="group flex items-center gap-2.5" aria-label="Back to all works">
@@ -121,7 +121,7 @@ export default function PostPageClient({
             </svg>
           </span>
           <span
-            className={`font-jost text-[10px] tracking-[0.2em] uppercase motion-safe:transition-all motion-safe:duration-300 opacity-0 group-hover:opacity-100 motion-safe:-translate-x-1 motion-safe:group-hover:translate-x-0 ${pastHero ? "text-[var(--muted)]" : "text-white/70"}`}
+            className={`font-jost text-[10px] tracking-[0.2em] uppercase motion-safe:transition-all motion-safe:duration-300 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 motion-safe:-translate-x-1 motion-safe:group-hover:translate-x-0 ${pastHero ? "text-[var(--muted)]" : "text-white/70"}`}
           >
             All works
           </span>
@@ -169,9 +169,9 @@ export default function PostPageClient({
 
           {/* Type badge + nature reading time */}
           <motion.div
-            initial={reducedMotion ? {} : { opacity: 0 }}
-            animate={reducedMotion ? {} : { opacity: 1 }}
-            transition={reducedMotion ? {} : { duration: 0.5 }}
+            initial={reducedMotion === true ? {} : { opacity: 0 }}
+            animate={reducedMotion === true ? {} : { opacity: 1 }}
+            transition={reducedMotion === true ? {} : { duration: 0.5 }}
             className="flex items-center gap-3 mb-5"
           >
             <span
@@ -189,9 +189,9 @@ export default function PostPageClient({
 
           {/* Title */}
           <motion.h1
-            initial={reducedMotion ? {} : { opacity: 0, y: 14 }}
-            animate={reducedMotion ? {} : { opacity: 1, y: 0 }}
-            transition={reducedMotion ? {} : { duration: 0.8, delay: 0.1 }}
+            initial={reducedMotion === true ? {} : { opacity: 0, y: 14 }}
+            animate={reducedMotion === true ? {} : { opacity: 1, y: 0 }}
+            transition={reducedMotion === true ? {} : { duration: 0.8, delay: 0.1 }}
             className="cormorant-italic text-balance text-white mb-3 poem-page-title"
             style={{
               fontWeight: 300,
@@ -206,11 +206,11 @@ export default function PostPageClient({
           <div className="flex items-center gap-3 mt-3 flex-wrap">
             {(post.dedication || post.coAuthor) && (
               <motion.p
-                initial={reducedMotion ? {} : { opacity: 0 }}
-                animate={reducedMotion ? {} : { opacity: 1 }}
-                transition={reducedMotion ? {} : { duration: 0.6, delay: 0.35 }}
-                className="text-white/55 italic"
-                style={{ fontFamily: "var(--font-cormorant)", fontSize: "1rem" }}
+                initial={reducedMotion === true ? {} : { opacity: 0 }}
+                animate={reducedMotion === true ? {} : { opacity: 1 }}
+                transition={reducedMotion === true ? {} : { duration: 0.6, delay: 0.35 }}
+                className="cormorant-italic text-white/55"
+                style={{ fontSize: "1rem" }}
               >
                 {post.dedication && post.coAuthor
                   ? `${post.dedication} · ${post.coAuthor}`
@@ -218,7 +218,7 @@ export default function PostPageClient({
               </motion.p>
             )}
             {post.mood?.length && (
-              <motion.div initial={reducedMotion ? {} : { opacity: 0 }} animate={reducedMotion ? {} : { opacity: 1 }} transition={reducedMotion ? {} : { delay: 0.45 }}>
+              <motion.div initial={reducedMotion === true ? {} : { opacity: 0 }} animate={reducedMotion === true ? {} : { opacity: 1 }} transition={reducedMotion === true ? {} : { delay: 0.45 }}>
                 <MoodTag mood={post.mood} />
               </motion.div>
             )}
@@ -234,9 +234,9 @@ export default function PostPageClient({
         )}
         {/* Gold rule */}
         <motion.div
-          initial={reducedMotion ? {} : { width: 0 }}
-          animate={reducedMotion ? {} : { width: 40 }}
-          transition={reducedMotion ? {} : { duration: 0.8, delay: 0.4 }}
+          initial={reducedMotion === true ? {} : { width: 0 }}
+          animate={reducedMotion === true ? {} : { width: 40 }}
+          transition={reducedMotion === true ? {} : { duration: 0.8, delay: 0.4 }}
           className="h-px bg-[var(--gold)] mb-12 mt-2 opacity-80"
         />
 

@@ -52,7 +52,7 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
       data-mood={cardMood}
       data-ladybug={post.ladybugColor}
     >
-      <Link href={`/${post.slug}`} className="block h-full" aria-label={post.title}>
+      <Link href={`/${post.slug}`} className="block h-full" aria-label={`${post.title}, ${TYPE_LABELS[post.type]}`}>
         {/* 3D tilt image box */}
         <motion.div
           className="overflow-hidden rounded-sm aspect-[4/3] relative"

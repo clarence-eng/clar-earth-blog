@@ -107,7 +107,7 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
       {/* Screen-reader live region — announces result count after filter change */}
       <p aria-live="polite" aria-atomic="true" className="sr-only">
         {active !== "all"
-          ? `${filtered.length} ${active} ${filtered.length === 1 ? "work" : "works"}`
+          ? `${filtered.length} ${FILTERS.find(f => f.key === active)?.label ?? active} ${filtered.length === 1 ? "work" : "works"}`
           : `All ${filtered.length} works`}
       </p>
 
@@ -133,8 +133,8 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
-            className="text-center text-[var(--muted)] italic mt-12"
-            style={{ fontFamily: "var(--font-cormorant)", fontSize: "1.1rem" }}
+            className="cormorant-serif text-center text-[var(--muted)] italic mt-12"
+            style={{ fontSize: "1.1rem" }}
           >
             Nothing here yet.
           </motion.p>

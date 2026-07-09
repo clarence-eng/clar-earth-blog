@@ -28,12 +28,12 @@ export default function FocusModeToggle() {
     <motion.button
       type="button"
       onClick={toggle}
-      initial={reducedMotion ? {} : { opacity: 0 }}
-      animate={reducedMotion ? {} : { opacity: 1 }}
-      transition={reducedMotion ? {} : { delay: 0.8 }}
+      initial={reducedMotion === true ? {} : { opacity: 0 }}
+      animate={reducedMotion === true ? {} : { opacity: 1 }}
+      transition={reducedMotion === true ? {} : { delay: 0.8 }}
       aria-pressed={focus}
       aria-label={focus ? "Exit focus mode" : "Focus mode"}
-      className="flex items-center gap-1.5 text-[var(--muted)] hover:text-[var(--forest)] transition-colors duration-300 nav-action-label"
+      className="post-action-btn"
       title={focus ? "Exit focus mode" : "Focus mode"}
     >
       {focus ? (

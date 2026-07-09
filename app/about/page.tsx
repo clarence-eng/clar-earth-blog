@@ -36,7 +36,7 @@ export default function AboutPage() {
         {/* Hero tagline */}
         <div className="max-w-4xl mx-auto px-8 mb-20">
           <h1
-            className="font-jost text-[10px] tracking-[0.35em] uppercase text-[var(--muted)] mb-8"
+            className="font-jost text-[10px] tracking-[0.35em] uppercase text-[var(--charcoal)] mb-8"
           >
             About
           </h1>
@@ -59,9 +59,8 @@ export default function AboutPage() {
           {/* Bio */}
           <div>
             <div
-              className="space-y-5 text-[var(--ink)]"
+              className="cormorant-serif space-y-5 text-[var(--ink)]"
               style={{
-                fontFamily: "var(--font-cormorant)",
                 fontSize: "1.2rem",
                 lineHeight: 1.8,
               }}
@@ -80,7 +79,7 @@ export default function AboutPage() {
             <div className="mt-12 flex flex-wrap gap-4 items-center">
               <Link
                 href="/"
-                className="font-jost inline-flex items-center gap-2 px-5 py-2.5 bg-[var(--forest)] text-white rounded-full text-[10px] tracking-[0.2em] uppercase hover:bg-[var(--forest-mid)] transition-colors"
+                className="font-jost inline-flex items-center gap-2 px-5 py-2.5 bg-[var(--forest)] text-white rounded-full text-[10px] tracking-[0.2em] uppercase hover:bg-[var(--forest-mid)] transition-colors duration-300"
               >
                 View all works
               </Link>
@@ -115,7 +114,7 @@ export default function AboutPage() {
                   <Link
                     key={p.slug}
                     href={`/${p.slug}`}
-                    className="cormorant-italic text-[var(--muted)] hover:text-[var(--forest)] transition-colors text-[1.05rem]"
+                    className="cormorant-italic text-[var(--muted)] hover:text-[var(--forest)] transition-colors duration-300 text-[1.05rem]"
                   >
                     {p.title}
                   </Link>
