@@ -107,7 +107,7 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
       {/* Screen-reader live region — announces result count after filter change */}
       <p aria-live="polite" aria-atomic="true" className="sr-only">
         {active !== "all"
-          ? `${filtered.length} ${FILTERS.find(f => f.key === active)!.label} ${filtered.length === 1 ? "work" : "works"}`
+          ? `${filtered.length} ${filtered.length === 1 ? active : active + "s"}`
           : `All ${filtered.length} works`}
       </p>
 

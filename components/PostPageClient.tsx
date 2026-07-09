@@ -4,7 +4,8 @@ import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState, useMemo } from "react";
-import { useRouter } from "next/navigation";import type { Post, PostMeta } from "@/lib/posts";
+import { useRouter } from "next/navigation";
+import type { Post, PostMeta } from "@/lib/posts";
 import { LANG_MAP, TYPE_LABELS, primaryMood } from "@/lib/config";
 import AnimatedStanza from "./AnimatedStanza";
 import ReadingProgress from "./ReadingProgress";
@@ -204,7 +205,7 @@ export default function PostPageClient({
 
           {/* Dedication / co-author + mood tag */}
           <div className="flex items-center gap-3 mt-3 flex-wrap">
-            {(post.dedication || post.coAuthor) && (
+            {(post.dedication?.trim() || post.coAuthor) && (
               <motion.p
                 initial={reducedMotion === true ? {} : { opacity: 0 }}
                 animate={reducedMotion === true ? {} : { opacity: 1 }}
