@@ -37,7 +37,7 @@ export function natureReadingTime(wordCount: number): string {
   return "a long walk at dusk";
 }
 
-export function getAllPosts(): PostMeta[] {
+export function getAllPosts(): (PostMeta & { published: true })[] {
   if (!fs.existsSync(POSTS_DIR)) return [];
 
   const files = fs.readdirSync(POSTS_DIR).filter((f) => f.endsWith(".mdx"));
@@ -52,7 +52,7 @@ export function getAllPosts(): PostMeta[] {
       if (post.mood && !Array.isArray(post.mood)) post.mood = [post.mood as unknown as string];
       return post;
     })
-    .filter((p): p is typeof p & { title: string; published: boolean } => p.published === true && !!p.title)
+    .filter((p): p is typeof p & { title: string; published: true } => p.published === true && !!p.title)
     .sort((a, b) => {
       const aLatin = /^[A-Za-z]/.test(a.title);
       const bLatin = /^[A-Za-z]/.test(b.title);
@@ -62,7 +62,7 @@ export function getAllPosts(): PostMeta[] {
       return a.title.localeCompare(b.title, "zh");
     });
 
-  return posts as PostMeta[];
+  return posts as (PostMeta & { published: true })[];
 }
 
 export function getPost(slug: string): Post | null {
