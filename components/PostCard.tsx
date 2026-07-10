@@ -16,8 +16,10 @@ const NATURE_COLORS = [
   { bg: "#4A3A2A", accent: "#C4A47C" },
 ];
 
-function PlaceholderCover({ title, index }: { title: string; index: number }) {
-  const { bg, accent } = NATURE_COLORS[index % NATURE_COLORS.length];
+function PlaceholderCover({ title, slug }: { title: string; slug: string }) {
+  // Hash slug for stable color across filter changes
+  const colorIndex = slug.split("").reduce((acc, c) => acc + c.charCodeAt(0), 0);
+  const { bg, accent } = NATURE_COLORS[colorIndex % NATURE_COLORS.length];
   return (
     <div className="w-full h-full flex items-center justify-center relative overflow-hidden" style={{ background: bg }}>
       <svg viewBox="0 0 200 200" className="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
@@ -72,7 +74,7 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
             {post.coverImage ? (
               <Image src={post.coverImage} alt="" fill sizes="(max-width:640px) 100vw,(max-width:1024px) 50vw,33vw" className="object-cover" />
             ) : (
-              <PlaceholderCover title={post.title} index={index} />
+              <PlaceholderCover title={post.title} slug={post.slug} />
             )}
           </div>
           {/* Forest overlay on hover */}
