@@ -1,12 +1,11 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function BackPill() {
   const [show, setShow] = useState(false);
-  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     const handler = () => setShow(window.scrollY > 320);
@@ -17,8 +16,8 @@ export default function BackPill() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: reducedMotion !== true ? 10 : 0 }}
-      animate={{ opacity: show ? 1 : 0, y: reducedMotion !== true ? (show ? 0 : 10) : 0 }}
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: show ? 1 : 0, y: show ? 0 : 10 }}
       transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
       aria-hidden={show ? undefined : true}
       className={`back-pill fixed bottom-7 right-7 z-40 ${show ? "pointer-events-auto" : "pointer-events-none"}`}

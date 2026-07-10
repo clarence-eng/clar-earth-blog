@@ -45,9 +45,9 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
 
   return (
     <motion.article
-      initial={shouldAnimate ? { opacity: 0, y: 28 } : {}}
-      animate={shouldAnimate ? { opacity: 1, y: 0 } : {}}
-      transition={shouldAnimate ? { duration: 0.55, delay: index * 0.06, ease: [0.25, 0.1, 0.25, 1] } : {}}
+      initial={{ opacity: 0, y: 28 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.55, delay: index * 0.06, ease: [0.25, 0.1, 0.25, 1] }}
       className="group"
       data-mood={cardMood}
       data-ladybug={post.ladybugColor}
