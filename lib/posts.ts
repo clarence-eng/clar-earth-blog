@@ -76,6 +76,5 @@ export function getPost(slug: string): Post | null {
   if (post.published !== true) return null;
   if (!post.type) post.type = "poem";
   if (post.mood && !Array.isArray(post.mood)) post.mood = [post.mood as unknown as string];
-  if (post.published === undefined) (post as unknown as Record<string, unknown>).published = false;
   return post;
 }

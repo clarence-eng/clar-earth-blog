@@ -1,11 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 
 export default function FocusModeToggle() {
   const [focus, setFocus] = useState(false);
-  const reducedMotion = useReducedMotion();
 
   // Sync initial state from DOM after commit (avoids reading stale class from previous page during render)
   useEffect(() => {
@@ -28,9 +27,9 @@ export default function FocusModeToggle() {
     <motion.button
       type="button"
       onClick={toggle}
-      initial={reducedMotion === true ? {} : { opacity: 0 }}
-      animate={reducedMotion === true ? {} : { opacity: 1 }}
-      transition={reducedMotion === true ? {} : { delay: 0.8 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.8 }}
       aria-pressed={focus}
       aria-label={focus ? "Exit focus mode" : "Focus mode"}
       className="post-action-btn"

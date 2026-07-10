@@ -27,6 +27,7 @@ export default function Nav({ posts }: NavProps) {
   const closeSearch = useCallback(() => {
     setSearchOpen(false);
     searchOpenRef.current = false;
+    if (focusTimerRef.current !== null) clearTimeout(focusTimerRef.current);
     focusTimerRef.current = setTimeout(() => { focusTimerRef.current = null; searchButtonRef.current?.focus(); }, 0);
   }, []);
   const { setTheme, resolvedTheme } = useTheme();
