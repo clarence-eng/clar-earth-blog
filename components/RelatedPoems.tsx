@@ -37,7 +37,7 @@ export default function RelatedPoems({ posts, currentSlug }: { posts: PostMeta[]
       className="related-poems mt-20 pt-10 border-t border-[var(--border)]"
       aria-label="More poems"
     >
-      <p className="section-label mb-6">
+      <p className="section-label mb-6" aria-hidden="true">
         More poems
       </p>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">

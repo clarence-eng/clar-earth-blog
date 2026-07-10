@@ -80,8 +80,12 @@ export default function CustomCursor() {
         targetLadybugRef.current = hexToRgb(overrideHex ?? colors.ladybug);
         // When reduced motion: snap colours immediately on mood change
         if (reducedMotion) {
-          setDotColor(rgbToCss(hexToRgb(colors.dot)));
-          setLadybugColor(rgbToCss(hexToRgb(overrideHex ?? colors.ladybug)));
+          const newDotRgb = hexToRgb(colors.dot);
+          const newLadyRgb = hexToRgb(overrideHex ?? colors.ladybug);
+          curDotRef.current = newDotRgb;
+          curLadybugRef.current = newLadyRgb;
+          setDotColor(rgbToCss(newDotRgb));
+          setLadybugColor(rgbToCss(newLadyRgb));
         }
       }
       // When reduced motion: snap position directly, no lerp

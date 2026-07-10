@@ -41,7 +41,7 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
   const rotateX = useSpring(useTransform(y, [-1, 1], [6, -6]), { stiffness: 200, damping: 20 });
   const rotateY = useSpring(useTransform(x, [-1, 1], [-6, 6]), { stiffness: 200, damping: 20 });
 
-  const shouldAnimate = (reducedMotion ?? false) === false;
+  const shouldAnimate = reducedMotion !== true;
 
   const cardMood = primaryMood(post.mood);
 
@@ -91,7 +91,7 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
             <span className={`font-jost text-[9px] tracking-[0.25em] uppercase px-2 py-0.5 rounded-full type-badge-${post.type}`}>
               {TYPE_LABELS[post.type]}
             </span>
-            {post.lang && <span className="font-jost text-[10px] text-[var(--ink)]" lang={LANG_MAP[post.lang]}>{post.lang}</span>}
+            {post.lang && <span className="font-jost text-[10px] text-[var(--ink)]" lang={LANG_MAP[post.lang] ?? post.lang}>{post.lang}</span>}
             <MoodTag mood={post.mood} />
           </div>
 

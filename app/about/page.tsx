@@ -86,7 +86,7 @@ export default function AboutPage() {
               <span
                 className="font-jost text-[10px] tracking-[0.15em] uppercase text-[var(--muted)]"
               >
-                · clar.earth
+                <span aria-hidden="true">·</span> clar.earth
               </span>
             </div>
           </div>

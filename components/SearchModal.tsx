@@ -25,6 +25,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
     const dialog = dialogRef.current;
     if (!dialog) return;
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") { onClose(); return; }
       if (e.key !== "Tab") return;
       const focusable = Array.from(
         dialog.querySelectorAll<HTMLElement>(

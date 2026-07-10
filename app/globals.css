@@ -175,9 +175,6 @@ body {
 .dark .mood-tag[data-mood="solidarity"] { background: #0E2030; color: #5A9ACA; border-color: #183048; }
 .dark .mood-tag[data-mood="reverence"]  { background: #101E10; color: #70AA68; border-color: #1A3018; }
 .dark .mood-tag[data-mood="bitterness"] { background: #201408; color: #C4905A; border-color: #382010; }
-.dark .mood-tag[data-mood="longing"]    .mood-tag-dot { background: #7AAABB; }
-.dark .mood-tag[data-mood="nature"]     .mood-tag-dot { background: #5A8A74; }
-.dark .mood-tag[data-mood="warmth"]     .mood-tag-dot { background: #C4882A; }
 .dark .mood-tag[data-mood="love"]       .mood-tag-dot { background: #D4899A; }
 .dark .mood-tag[data-mood="nostalgia"]  .mood-tag-dot { background: #C4A870; }
 .dark .mood-tag[data-mood="melancholy"] .mood-tag-dot { background: #9090B8; }
