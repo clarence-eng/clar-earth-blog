@@ -71,7 +71,7 @@ export default function CustomCursor() {
       setHovered(!!el.closest("a, button, [role=button], label"));
       const moodEl = el.closest("[data-mood]") as HTMLElement | null;
       const newMood = moodEl?.dataset.mood ?? "default";
-      const overrideHex = moodEl?.dataset.ladybug ?? null;
+      const overrideHex = moodEl?.dataset.ladybug || null;
       const newKey = `${newMood}:${overrideHex ?? ""}`;
       if (newKey !== moodRef.current) {
         moodRef.current = newKey;
@@ -102,7 +102,7 @@ export default function CustomCursor() {
     const startLoop = () => {
       const myId = ++loopId;
       const tick = () => {
-        if (myId !== loopId || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        if (myId !== loopId || mql.matches) return;
         const { x: mx, y: my } = mouseRef.current;
         const { x: cx, y: cy } = posRef.current;
         const nx = lerp(cx, mx, 0.18);

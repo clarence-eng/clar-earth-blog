@@ -8,7 +8,7 @@ export default function ReadingProgress() {
   useEffect(() => {
     const update = () => {
       const el = document.documentElement;
-      const scrollTop = el.scrollTop || document.body.scrollTop;
+      const scrollTop = el.scrollTop;
       const scrollHeight = el.scrollHeight - el.clientHeight;
       setProgress(scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0);
     };

@@ -63,6 +63,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
       className="fixed inset-0 z-[200] flex items-start justify-center pt-24 px-4 search-glass"
       onClick={onClose}
       role="presentation"
+      aria-hidden="true"
     >
       <motion.div
         initial={{ opacity: 0, y: -16, scale: 0.97 }}
