@@ -76,6 +76,7 @@ export function getPost(slug: string): Post | null {
   if (!post.title) return null;
   if (post.published !== true) return null;
   if (!post.type) post.type = "poem";
+  if (!(['poem','article','photo-essay'] as const).includes(post.type as never)) post.type = "poem";
   if (post.mood && !Array.isArray(post.mood)) post.mood = [post.mood as unknown as string];
   return post;
 }

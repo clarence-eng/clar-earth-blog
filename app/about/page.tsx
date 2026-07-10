@@ -4,7 +4,7 @@ import { BannerBotanicalRight } from "@/components/BotanicalAccent";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getAllPosts } from "@/lib/posts";
-import { BASE_URL } from "@/lib/config";
+import { BASE_URL, SITE_TAGLINE } from "@/lib/config";
 
 export const metadata: Metadata = {
   title: "About — clar.earth",
@@ -29,6 +29,10 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   const posts = getAllPosts();
+  const ORDER = ["my-every-sense-of-you", "daughter-of-the-tides", "embers", "drowning", "like-moth-to-flame"];
+  const featuredPoems = posts
+    .filter(p => ORDER.includes(p.slug))
+    .sort((a, b) => ORDER.indexOf(a.slug) - ORDER.indexOf(b.slug));
   return (
     <>
       <Nav posts={posts} />
@@ -47,9 +51,7 @@ export default function AboutPage() {
               fontSize: "clamp(1.8rem, 4vw, 3rem)",
             }}
           >
-            &ldquo;In the shadow of trees, I find my voice.
-            <br />
-            Where the earth listens, and the pen replies.&rdquo;
+            &ldquo;{SITE_TAGLINE}&rdquo;
           </p>
           <div className="h-px w-12 bg-[var(--gold)] mt-8 opacity-70" />
         </div>
@@ -105,12 +107,7 @@ export default function AboutPage() {
             A few poems
           </p>
           <div className="flex flex-wrap gap-x-8 gap-y-2">
-            {(() => {
-              const ORDER = ["my-every-sense-of-you", "daughter-of-the-tides", "embers", "drowning", "like-moth-to-flame"];
-              return posts
-                .filter(p => ORDER.includes(p.slug))
-                .sort((a, b) => ORDER.indexOf(a.slug) - ORDER.indexOf(b.slug))
-                .map(p => (
+            {featuredPoems.map(p => (
                   <Link
                     key={p.slug}
                     href={`/${p.slug}`}
@@ -118,8 +115,7 @@ export default function AboutPage() {
                   >
                     {p.title}
                   </Link>
-                ));
-            })()}
+                ))}
           </div>
         </div>
       </main>

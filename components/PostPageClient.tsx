@@ -32,6 +32,9 @@ function parseStanzas(content: string): { text: string; align: "left" | "right" 
       const innerLangMatch = text.match(/^\[lang:([a-z]{2}(?:-[a-zA-Z]+)?)\]/);
       if (innerLangMatch) { lang = innerLangMatch[1]; text = text.slice(innerLangMatch[0].length).trimStart(); }
     }
+    // Re-check alignment after inner lang strip (handles [italic][lang:xx][right]text)
+    if (align === "left" && text.startsWith("[right]")) { align = "right"; text = text.slice(7).trimStart(); }
+    else if (align === "left" && text.startsWith("[center]")) { align = "center"; text = text.slice(8).trimStart(); }
     if (!italic && text.startsWith("[italic]")) { italic = true; text = text.slice(8).trimStart(); }
     return { text, align, italic, lang };
   }).filter(s => s.text.trim().length > 0);
@@ -241,7 +244,7 @@ export default function PostPageClient({
         />
 
         {/* Poem — lang attribute from post.lang (e.g. "中文" → "zh") when the whole poem is non-English */}
-        <div className="poem-content" lang={LANG_MAP[post.lang ?? ""]}>
+        <div className="poem-content" lang={post.lang ? (LANG_MAP[post.lang] ?? post.lang) : undefined}>
           {stanzaContent.isMirror ? (
             <div className="poem-two-col">
               <div className="poem-two-col__left">

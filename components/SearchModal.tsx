@@ -43,7 +43,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
     };
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  }, [onClose]);
 
   const shown = query.trim().length < 2 ? posts.slice(0, 8) : posts.filter(p => {
     const q = query.toLowerCase();

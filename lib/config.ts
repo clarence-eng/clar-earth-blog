@@ -1,5 +1,7 @@
 export const BASE_URL = "https://clar.earth";
 
+export const SITE_TAGLINE = "In the shadow of trees, I find my voice. Where the earth listens, and the pen replies.";
+
 import type { PostType } from "@/lib/posts";
 
 export const TYPE_LABELS: Record<PostType, string> = {

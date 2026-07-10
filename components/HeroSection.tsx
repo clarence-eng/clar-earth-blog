@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { useRef } from "react";
 import AmbientParticles from "./AmbientParticles";
+import { SITE_TAGLINE } from "@/lib/config";
 
 function Sprig({ x, y, size, rotate, opacity }: { x: string; y: string; size: number; rotate: number; opacity: number }) {
   return (
@@ -108,9 +109,7 @@ export default function HeroSection({ titles, gradient }: { titles: string[]; gr
                 fontSize: "clamp(1.55rem, 3.2vw, 2.5rem)",
               }}
             >
-              &ldquo;In the shadow of trees, I find my voice.
-              <br className="hidden sm:block" />{" "}
-              Where the earth listens, and the pen replies.&rdquo;
+              &ldquo;{SITE_TAGLINE}&rdquo;
             </p>
             <motion.div
               initial={{ scaleX: 0 }}
@@ -127,8 +126,9 @@ export default function HeroSection({ titles, gradient }: { titles: string[]; gr
       {marqueeText && (
         <div className="w-full overflow-hidden border-y border-[var(--border)] py-2.5" style={{ background: "var(--cream-dark)" }}>
           <div className="marquee-track" aria-hidden="true">
-            <span className="marquee-content">{marqueeText.repeat(5)}</span>
-            <span className="marquee-content">{marqueeText.repeat(5)}</span>
+            {[0, 1].map(i => (
+              <span key={i} className="marquee-content">{marqueeText.repeat(5)}</span>
+            ))}
           </div>
         </div>
       )}
