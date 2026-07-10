@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, useMotionValue, useTransform, useSpring, useReducedMotion } from "framer-motion";
 import type { PostMeta } from "@/lib/posts";
-import { TYPE_LABELS, primaryMood } from "@/lib/config";
+import { TYPE_LABELS, primaryMood, LANG_MAP } from "@/lib/config";
 import MoodTag from "./MoodTag";
 
 const NATURE_COLORS = [
@@ -91,7 +91,7 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
             <span className={`font-jost text-[9px] tracking-[0.25em] uppercase px-2 py-0.5 rounded-full type-badge-${post.type}`}>
               {TYPE_LABELS[post.type]}
             </span>
-            {post.lang && <span className="font-jost text-[10px] text-[var(--ink)]">{post.lang}</span>}
+            {post.lang && <span className="font-jost text-[10px] text-[var(--ink)]" lang={LANG_MAP[post.lang]}>{post.lang}</span>}
             <MoodTag mood={post.mood} />
           </div>
 

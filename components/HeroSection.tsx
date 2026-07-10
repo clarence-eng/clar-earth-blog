@@ -101,7 +101,7 @@ export default function HeroSection({ titles, gradient }: { titles: string[]; gr
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
           >
-            <blockquote
+            <p
               className="cormorant-italic text-white/90 leading-[1.5] mx-auto"
               style={{
                 fontWeight: 300,
@@ -111,7 +111,7 @@ export default function HeroSection({ titles, gradient }: { titles: string[]; gr
               &ldquo;In the shadow of trees, I find my voice.
               <br className="hidden sm:block" />{" "}
               Where the earth listens, and the pen replies.&rdquo;
-            </blockquote>
+            </p>
             <motion.div
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}

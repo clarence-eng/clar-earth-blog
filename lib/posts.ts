@@ -49,6 +49,7 @@ export function getAllPosts(): (PostMeta & { published: true })[] {
       const { data } = matter(raw);
       const post = { slug, ...(data as Partial<Omit<PostMeta, "slug">>) };
       if (!post.type) post.type = "poem";
+      if (!(['poem','article','photo-essay'] as const).includes(post.type as never)) post.type = "poem";
       if (post.mood && !Array.isArray(post.mood)) post.mood = [post.mood as unknown as string];
       return post;
     })
