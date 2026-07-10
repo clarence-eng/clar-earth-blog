@@ -69,8 +69,8 @@ body {
 /* Hide default cursor on desktop pointer devices */
 @media (pointer: fine) {
   * { cursor: none !important; }
-  input, textarea, [contenteditable], select, a, button { cursor: auto !important; }
   input, textarea, [contenteditable] { cursor: text !important; }
+  select, a, button, [role=button], label { cursor: pointer !important; }
 }
 
 /* ── Marquee ───────────────────────────────────────────────── */

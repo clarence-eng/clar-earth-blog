@@ -84,7 +84,7 @@ export default function AmbientParticles() {
       };
 
       const draw = () => {
-        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        if (mql.matches) return;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         particles.forEach(p => {
           p.x += p.vx + Math.sin(Date.now() * 0.0005 + p.y * 0.01) * 0.15;
