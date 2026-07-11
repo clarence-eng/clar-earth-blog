@@ -93,12 +93,12 @@ export default function PostPageClient({
     let firstDropIdx = stanzas.findIndex(s =>
       !s.italic && s.align === "left" && !s.lang && !s.text.trimStart().startsWith("*")
     );
-    // -1 means every stanza is disqualified (all italic/right/lang-tagged); don't apply drop-cap
-    if (firstDropIdx === -1) firstDropIdx = -1; // no drop-cap rather than wrong stanza
+    // -1 means every stanza is disqualified; no drop-cap applied
     const rightStanzas = stanzas.filter(s => s.align === "right");
     const leftCount = stanzas.filter(s => s.align === "left").length;
-    const isMirror = rightStanzas.length > 0 && leftCount === rightStanzas.length;
-    // Only build the augmented leftStanzas (with originalIndex) when needed for the mirror layout
+    // Mirror layout only when EVERY stanza is left or right — no center stanzas present
+    const isMirror = rightStanzas.length > 0 && leftCount === rightStanzas.length &&
+      stanzas.every(s => s.align === "left" || s.align === "right");
     const leftStanzas = isMirror
       ? stanzas.map((s, i) => ({ ...s, originalIndex: i })).filter(s => s.align === "left")
       : [];

@@ -21,7 +21,7 @@ export default function BackPill() {
       transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
       aria-hidden={show ? undefined : true}
       className={`back-pill fixed right-5 z-40 ${show ? "pointer-events-auto" : "pointer-events-none"}`}
-      style={{ bottom: "max(1.75rem, env(safe-area-inset-bottom, 1.75rem))" }}
+      style={{ bottom: "max(1.75rem, env(safe-area-inset-bottom))" }}
     >
       <Link
         href="/"
