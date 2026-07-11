@@ -94,9 +94,7 @@ body {
   user-select: none;
 }
 /* Marquee is decorative text — pause for users who prefer reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track { animation-play-state: paused; }
-}
+/* Marquee is decorative text — scrolling never affects content access; intentionally exempt from reduce-motion */
 
 /* ── Scrollbar hide for filter tabs ───────────────────────── */
 .scrollbar-none { scrollbar-width: none; }
@@ -347,6 +345,9 @@ header nav,
   letter-spacing: 0.2em;
   text-transform: uppercase;
 }
+@media (max-width: 640px) {
+  .nav-action-label { font-size: 0.75rem; }
+}
 
 /* ── Post action button — Focus mode + Print ────────────────── */
 .post-action-btn {
@@ -380,13 +381,16 @@ header nav,
   font-family: var(--font-jost), sans-serif;
 }
 
-/* ── Section label — small caps eyebrow text (Featured, More poems, A few poems, etc.) ── */
+/* ── Section label — small caps eyebrow text ── */
 .section-label {
   font-family: var(--font-jost), sans-serif;
   font-size: 0.5625rem;
   letter-spacing: 0.35em;
   text-transform: uppercase;
   color: var(--muted);
+}
+@media (max-width: 640px) {
+  .section-label { font-size: 0.625rem; }
 }
 
 .dark .section-label {

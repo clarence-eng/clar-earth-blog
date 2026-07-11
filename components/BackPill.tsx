@@ -10,7 +10,7 @@ export default function BackPill() {
   useEffect(() => {
     const handler = () => setShow(window.scrollY > 320);
     window.addEventListener("scroll", handler, { passive: true });
-    handler(); // evaluate initial position
+    handler();
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
@@ -20,12 +20,13 @@ export default function BackPill() {
       animate={{ opacity: show ? 1 : 0, y: show ? 0 : 10 }}
       transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
       aria-hidden={show ? undefined : true}
-      className={`back-pill fixed bottom-7 right-7 z-40 ${show ? "pointer-events-auto" : "pointer-events-none"}`}
+      className={`back-pill fixed right-5 z-40 ${show ? "pointer-events-auto" : "pointer-events-none"}`}
+      style={{ bottom: "max(1.75rem, env(safe-area-inset-bottom, 1.75rem))" }}
     >
       <Link
         href="/"
         tabIndex={show ? 0 : -1}
-        className="nav-action-label flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--forest)] text-white/90 hover:bg-[var(--forest-mid)] transition-colors duration-300 shadow-lg"
+        className="font-jost text-[12px] tracking-[0.15em] uppercase flex items-center gap-2 px-4 py-3 rounded-full bg-[var(--forest)] text-white/90 hover:bg-[var(--forest-mid)] transition-colors duration-300 shadow-lg"
       >
         <span aria-hidden="true">←</span>
         <span>All works</span>

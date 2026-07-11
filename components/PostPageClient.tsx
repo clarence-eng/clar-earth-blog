@@ -114,7 +114,7 @@ export default function PostPageClient({
         className="poem-back-arrow fixed top-[4.5rem] left-4 md:left-6 z-40"
       >
         <Link href="/" className="group flex items-center gap-2.5" aria-label="Back to all works">
-          <span className={`flex items-center justify-center w-9 h-9 rounded-full border transition-all duration-500 ${
+          <span className={`flex items-center justify-center w-11 h-11 rounded-full border transition-all duration-500 ${
             pastHero
               ? "border-[var(--border)] bg-[var(--cream)] shadow-sm group-hover:bg-[var(--cream-dark)] group-hover:border-[var(--sage)]"
               : "border-white/25 bg-white/10 backdrop-blur-sm group-hover:bg-white/20 group-hover:border-white/50"
@@ -230,7 +230,7 @@ export default function PostPageClient({
       </div>
 
       {/* ── Body — data-mood drives cursor colour ────────────── */}
-      <div className="px-8 pb-28 w-full" style={{ maxWidth: "780px", margin: "0 auto" }}>
+      <div className="px-4 sm:px-8 pb-28 w-full" style={{ maxWidth: "780px", margin: "0 auto" }}>
         {/* Screen-reader hint for arrow-key poem navigation */}
         {(prev || next) && (
           <p className="sr-only">Use the left and right arrow keys to navigate between poems.</p>
@@ -308,7 +308,7 @@ export default function PostPageClient({
         )}
 
         {/* Prev / Next */}
-        <nav aria-label="Poem navigation" className="font-jost grid grid-cols-2 gap-4 poem-prev-next">
+        <nav aria-label="Poem navigation" className="font-jost grid grid-cols-1 sm:grid-cols-2 gap-4 poem-prev-next">
           {prev ? (
             <Link href={`/${prev.slug}`} aria-keyshortcuts="ArrowLeft" className="group flex flex-col gap-1 p-4 border border-[var(--border)] rounded-sm hover:border-[var(--sage)] hover:bg-[var(--cream-dark)] transition-all duration-300">
               <span className="text-[11px] tracking-[0.25em] uppercase text-[var(--muted)]"><span aria-hidden="true">← </span>Previous</span>
@@ -325,7 +325,7 @@ export default function PostPageClient({
 
         {/* Focus mode + Print */}
         <div className="mt-8 flex items-center justify-between">
-          <Link href="/" className="font-jost text-[10px] tracking-[0.3em] uppercase text-[var(--muted)] hover:text-[var(--forest)] transition-colors duration-300">
+          <Link href="/" className="font-jost text-xs tracking-[0.3em] uppercase text-[var(--muted)] hover:text-[var(--forest)] transition-colors duration-300">
             <span aria-hidden="true">← </span>All works
           </Link>
           <div className="flex items-center gap-4">

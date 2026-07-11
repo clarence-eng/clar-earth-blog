@@ -88,7 +88,7 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
         {/* Meta */}
         <div className="mt-4 px-0.5">
           <div className="flex items-center flex-wrap gap-2 mb-2.5">
-            <span className={`font-jost text-[9px] tracking-[0.25em] uppercase px-2 py-0.5 rounded-full type-badge-${post.type}`}>
+            <span className={`font-jost text-[10px] sm:text-[9px] tracking-[0.25em] uppercase px-2 py-0.5 rounded-full type-badge-${post.type}`}>
               {TYPE_LABELS[post.type]}
             </span>
             {post.lang && <span className="font-jost text-[10px] text-[var(--ink)]" lang={LANG_MAP[post.lang] ?? post.lang}>{post.lang}</span>}

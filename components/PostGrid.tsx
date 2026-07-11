@@ -45,7 +45,7 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
   return (
     <section
       aria-labelledby="works-heading"
-      className="px-8 py-14 max-w-6xl mx-auto w-full"
+      className="px-4 sm:px-8 py-10 sm:py-14 max-w-6xl mx-auto w-full"
     >
       {/* Section heading */}
       <div className="flex items-center gap-5 mb-10">
@@ -81,7 +81,7 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
                 role="radio"
                 aria-checked={isActive}
                 tabIndex={isActive ? 0 : -1}
-                className={`font-jost flex-shrink-0 flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[10px] tracking-[0.2em] uppercase transition-all duration-300 ${
+                className={`font-jost flex-shrink-0 flex items-center gap-1.5 px-4 py-2.5 sm:py-1.5 rounded-full text-[11px] sm:text-[10px] tracking-[0.2em] uppercase transition-all duration-300 ${
                   isActive
                     ? "bg-[var(--forest)] text-white"
                     : "bg-transparent text-[var(--muted)] hover:text-[var(--forest)] border border-[var(--border)] hover:border-[var(--forest)]"
@@ -90,7 +90,7 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
                 {label}
                 {count > 0 && (
                   <span
-                    className={`text-[8px] rounded-full px-1.5 py-0 leading-[1.6] tabular-nums ${
+                    className={`text-[9px] sm:text-[8px] rounded-full px-1.5 py-0 leading-[1.6] tabular-nums ${
                       isActive ? "bg-white/20 text-white" : "bg-[var(--border)] text-[var(--charcoal)]"
                     }`}
                   >

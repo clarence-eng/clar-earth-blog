@@ -94,7 +94,7 @@ export default function HeroSection({ titles, gradient }: { titles: string[]; gr
 
         {/* Quote — fades + lifts on scroll */}
         <motion.div
-          className="relative z-10 w-full max-w-3xl mx-auto px-8 pt-28 pb-20 text-center"
+          className="relative z-10 w-full max-w-3xl mx-auto px-5 sm:px-8 pt-20 pb-14 sm:pt-28 sm:pb-20 text-center"
           style={reducedMotion === true ? undefined : { y: quoteY, opacity: quoteOpacity }}
         >
           <motion.div
