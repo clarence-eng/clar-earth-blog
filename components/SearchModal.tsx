@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import type { PostMeta } from "@/lib/posts";
@@ -45,15 +45,16 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [onClose]);
 
-  const shown = query.trim().length < 2 ? posts.slice(0, 8) : posts.filter(p => {
+  const shown = useMemo(() => {
+    if (query.trim().length < 2) return posts.slice(0, 8);
     const q = query.trim().toLowerCase();
-    return (
+    return posts.filter(p =>
       p.title.toLowerCase().includes(q) ||
       p.excerpt?.toLowerCase().includes(q) ||
       p.dedication?.toLowerCase().includes(q) ||
       (p.mood?.some(m => m.toLowerCase().includes(q)) ?? false)
     );
-  });
+  }, [query, posts]);
 
   return (
     <motion.div
@@ -73,6 +74,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
         className="w-full max-w-xl rounded-sm overflow-hidden shadow-2xl"
         style={{ background: "var(--cream)" }}
         onClick={e => e.stopPropagation()}
+        id="search-modal-dialog"
         role="dialog"
         aria-modal="true"
         aria-label="Search all works"

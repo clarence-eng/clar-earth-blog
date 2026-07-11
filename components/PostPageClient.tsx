@@ -32,9 +32,11 @@ function parseStanzas(content: string): { text: string; align: "left" | "right" 
       const innerLangMatch = text.match(/^\[lang:([a-z]{2}(?:-[a-zA-Z]+)?)\]/);
       if (innerLangMatch) { lang = innerLangMatch[1]; text = text.slice(innerLangMatch[0].length).trimStart(); }
     }
-    // Re-check alignment after inner lang strip (handles [italic][lang:xx][right]text)
-    if (align === "left" && text.startsWith("[right]")) { align = "right"; text = text.slice(7).trimStart(); }
-    else if (align === "left" && text.startsWith("[center]")) { align = "center"; text = text.slice(8).trimStart(); }
+    // Re-check alignment after inner lang strip (handles [italic][lang:xx][right/center]text)
+    if (align === "left") {
+      if (text.startsWith("[right]")) { align = "right"; text = text.slice(7).trimStart(); }
+      else if (text.startsWith("[center]")) { align = "center"; text = text.slice(8).trimStart(); }
+    }
     if (!italic && text.startsWith("[italic]")) { italic = true; text = text.slice(8).trimStart(); }
     return { text, align, italic, lang };
   }).filter(s => s.text.trim().length > 0);
@@ -63,7 +65,7 @@ export default function PostPageClient({
     const handleKey = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
       // Don't navigate when the search modal or mobile menu is open
-      if (document.querySelector("[role=dialog]")) return;
+      if (document.getElementById("search-modal-dialog")) return;
       if (document.getElementById("mobile-menu")) return;
       if (e.key === "ArrowRight" && next) router.push(`/${next.slug}`);
       if (e.key === "ArrowLeft" && prev) router.push(`/${prev.slug}`);
@@ -91,7 +93,8 @@ export default function PostPageClient({
     let firstDropIdx = stanzas.findIndex(s =>
       !s.italic && s.align === "left" && !s.lang && !s.text.trimStart().startsWith("*")
     );
-    if (firstDropIdx === -1) firstDropIdx = 0;
+    // -1 means every stanza is disqualified (all italic/right/lang-tagged); don't apply drop-cap
+    if (firstDropIdx === -1) firstDropIdx = -1; // no drop-cap rather than wrong stanza
     const rightStanzas = stanzas.filter(s => s.align === "right");
     const leftCount = stanzas.filter(s => s.align === "left").length;
     const isMirror = rightStanzas.length > 0 && leftCount === rightStanzas.length;
@@ -216,8 +219,8 @@ export default function PostPageClient({
                 className="cormorant-italic text-white/55"
                 style={{ fontSize: "1rem" }}
               >
-                {post.dedication && post.coAuthor
-                  ? `${post.dedication} · ${post.coAuthor}`
+                {post.dedication?.trim() && post.coAuthor
+                  ? `${post.dedication.trim()} · ${post.coAuthor}`
                   : post.dedication?.trim() || post.coAuthor}
               </motion.p>
             )}
