@@ -46,7 +46,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
   }, [onClose]);
 
   const shown = query.trim().length < 2 ? posts.slice(0, 8) : posts.filter(p => {
-    const q = query.toLowerCase();
+    const q = query.trim().toLowerCase();
     return (
       p.title.toLowerCase().includes(q) ||
       p.excerpt?.toLowerCase().includes(q) ||

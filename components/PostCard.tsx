@@ -97,7 +97,6 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
 
           <h2
             className="cormorant-italic text-balance leading-tight text-[var(--ink)] group-hover:text-[var(--forest)] transition-colors duration-300 text-lg"
-            style={{ fontWeight: 400 }}
           >
             {post.title}
           </h2>

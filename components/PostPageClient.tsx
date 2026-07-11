@@ -244,7 +244,7 @@ export default function PostPageClient({
         />
 
         {/* Poem — lang attribute from post.lang (e.g. "中文" → "zh") when the whole poem is non-English */}
-        <div className="poem-content" lang={post.lang ? (LANG_MAP[post.lang] ?? post.lang) : undefined}>
+        <div className="poem-content" lang={post.lang ? (LANG_MAP[post.lang] ?? undefined) : undefined}>
           {stanzaContent.isMirror ? (
             <div className="poem-two-col">
               <div className="poem-two-col__left">
