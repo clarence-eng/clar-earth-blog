@@ -15,24 +15,38 @@ export default function Nav({ posts }: NavProps) {
   const [scrolled, setScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const searchOpenRef = useRef(false);
-  const searchButtonRef = useRef<HTMLButtonElement>(null);
-  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
+  // Separate refs for desktop vs mobile search buttons so focus restoration works on both
+  const desktopSearchRef = useRef<HTMLButtonElement>(null);
+  const mobileSearchRef = useRef<HTMLButtonElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const menuFirstItemRef = useRef<HTMLAnchorElement>(null);
+  const searchOpenRef = useRef(false);
+  const menuOpenRef = useRef(false);
   const focusTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const isMobile = () => window.innerWidth < 640;
 
   const openSearch = useCallback(() => {
     if (focusTimerRef.current !== null) { clearTimeout(focusTimerRef.current); focusTimerRef.current = null; }
     setSearchOpen(true);
     searchOpenRef.current = true;
     setMenuOpen(false);
+    menuOpenRef.current = false;
   }, []);
+
   const closeSearch = useCallback(() => {
     setSearchOpen(false);
     searchOpenRef.current = false;
     if (focusTimerRef.current !== null) clearTimeout(focusTimerRef.current);
-    focusTimerRef.current = setTimeout(() => { focusTimerRef.current = null; searchButtonRef.current?.focus(); }, 0);
+    focusTimerRef.current = setTimeout(() => {
+      focusTimerRef.current = null;
+      // Restore focus to whichever search button is visible
+      const target = isMobile() ? mobileSearchRef.current : desktopSearchRef.current;
+      target?.focus();
+    }, 0);
   }, []);
+
   const { setTheme, resolvedTheme } = useTheme();
 
   useEffect(() => {
@@ -45,38 +59,63 @@ export default function Nav({ posts }: NavProps) {
     };
   }, []);
 
-  // Close menu on route change
-  useEffect(() => { setMenuOpen(false); }, [pathname]);
+  // Move focus to first menu item when menu opens
+  useEffect(() => {
+    if (menuOpen) {
+      menuOpenRef.current = true;
+      setTimeout(() => menuFirstItemRef.current?.focus(), 50);
+    } else {
+      menuOpenRef.current = false;
+    }
+  }, [menuOpen]);
 
-  // Close menu on Escape
+  // Close menu on route change and restore focus
+  useEffect(() => {
+    if (menuOpenRef.current) {
+      setMenuOpen(false);
+      menuOpenRef.current = false;
+      menuButtonRef.current?.focus();
+    }
+  }, [pathname]);
+
+  // Keyboard shortcuts and Escape handling
   useEffect(() => {
     const h = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === "k") { e.preventDefault(); openSearch(); }
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") { e.preventDefault(); openSearch(); return; }
       if (e.key === "Escape") {
-        if (searchOpenRef.current) closeSearch();
-        else if (menuOpen) { setMenuOpen(false); menuButtonRef.current?.focus(); }
+        if (searchOpenRef.current) { closeSearch(); return; }
+        if (menuOpenRef.current) { setMenuOpen(false); menuOpenRef.current = false; menuButtonRef.current?.focus(); }
       }
     };
     window.addEventListener("keydown", h);
     return () => window.removeEventListener("keydown", h);
-  }, [openSearch, closeSearch, menuOpen]);
+  }, [openSearch, closeSearch]);
+
+  // Arrow-key poem navigation guard: block when menu OR search is open
+  // This ref is read by PostPageClient via a custom event or global — we expose it here
+  useEffect(() => {
+    (window as unknown as Record<string, unknown>).__navMenuOpen = menuOpenRef;
+  }, []);
 
   if (pathname.startsWith("/keystatic")) return null;
 
   const isHome = pathname === "/";
-  const onDark = !scrolled && isHome;
+  const onDark = !scrolled && isHome && !menuOpen;
 
   const textBase = onDark ? "text-white/80 hover:text-white" : "text-[var(--charcoal)] hover:text-[var(--forest)]";
   const textMuted = onDark ? "text-white/65 hover:text-white/90" : "text-[var(--muted)] hover:text-[var(--forest)]";
-  const menuBg = menuOpen ? "bg-[var(--cream)] border-b border-[var(--border)]" : "";
+
+  const headerClass = menuOpen
+    ? "fixed top-0 left-0 right-0 z-50 bg-[var(--cream)] border-b border-[var(--border)] py-4"
+    : `fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled || !isHome ? "bg-[var(--cream)]/90 backdrop-blur-sm border-b border-[var(--border)] py-4" : "bg-transparent py-6"}`;
 
   return (
     <>
-      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${menuOpen ? menuBg : scrolled || !isHome ? "bg-[var(--cream)]/90 backdrop-blur-sm border-b border-[var(--border)] py-4" : "bg-transparent py-6"} ${menuOpen ? "py-4" : ""}`}>
+      <header className={headerClass}>
         <div className="max-w-6xl mx-auto px-4 sm:px-8 flex items-center justify-between">
           {/* Logo + IG */}
           <div className="flex items-center gap-3">
-            <Link href="/" className={`font-jost tracking-[0.3em] text-[11px] font-medium uppercase transition-colors duration-300 ${menuOpen ? "text-[var(--charcoal)] hover:text-[var(--forest)]" : textBase}`}
+            <Link href="/" className={`font-jost tracking-[0.3em] text-[11px] font-medium uppercase transition-colors duration-300 ${textBase}`}
               aria-current={isHome ? 'page' : undefined}>
               CLAR.EARTH
             </Link>
@@ -84,7 +123,7 @@ export default function Nav({ posts }: NavProps) {
               href="https://www.instagram.com/clar.earth/"
               target="_blank"
               rel="noopener noreferrer"
-              className={`inline-flex items-center justify-center w-9 h-9 -m-2 transition-colors duration-300 ${menuOpen ? "text-[var(--muted)] hover:text-[var(--forest)]" : textMuted}`}
+              className={`inline-flex items-center justify-center w-9 h-9 -m-2 transition-colors duration-300 ${textMuted}`}
               aria-label="Instagram"
               title="Instagram"
             >
@@ -100,7 +139,7 @@ export default function Nav({ posts }: NavProps) {
           <nav aria-label="Site navigation" className="hidden sm:flex items-center gap-5">
             <button
               type="button"
-              ref={searchButtonRef}
+              ref={desktopSearchRef}
               onClick={openSearch}
               className={`nav-action-label transition-colors duration-300 min-h-[44px] px-1 ${textMuted}`}
               title="Search (⌘K)"
@@ -137,13 +176,13 @@ export default function Nav({ posts }: NavProps) {
             )}
           </nav>
 
-          {/* Mobile right side: search icon + hamburger */}
-          <div className="flex sm:hidden items-center gap-1">
+          {/* Mobile: search icon + hamburger */}
+          <div className="mobile-nav-controls flex sm:hidden items-center gap-1">
             <button
               type="button"
-              ref={searchButtonRef}
+              ref={mobileSearchRef}
               onClick={openSearch}
-              className={`w-11 h-11 flex items-center justify-center transition-colors duration-300 ${menuOpen ? "text-[var(--muted)] hover:text-[var(--forest)]" : textMuted}`}
+              className={`w-11 h-11 flex items-center justify-center transition-colors duration-300 ${textMuted}`}
               aria-label="Search"
               aria-expanded={searchOpen}
               aria-haspopup="dialog"
@@ -156,10 +195,10 @@ export default function Nav({ posts }: NavProps) {
               ref={menuButtonRef}
               type="button"
               onClick={() => setMenuOpen(o => !o)}
-              className={`w-11 h-11 flex items-center justify-center transition-colors duration-300 ${menuOpen ? "text-[var(--charcoal)]" : textMuted}`}
+              className={`w-11 h-11 flex items-center justify-center transition-colors duration-300 ${textMuted}`}
               aria-label={menuOpen ? "Close menu" : "Open menu"}
               aria-expanded={menuOpen}
-              aria-controls="mobile-menu"
+              aria-controls={menuOpen ? "mobile-menu" : undefined}
             >
               {menuOpen ? (
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
@@ -188,6 +227,7 @@ export default function Nav({ posts }: NavProps) {
             >
               <div className="flex flex-col px-4 py-3 gap-1">
                 <Link
+                  ref={menuFirstItemRef}
                   href="/about"
                   className="font-jost text-[13px] tracking-[0.15em] uppercase text-[var(--muted)] hover:text-[var(--forest)] transition-colors py-3 border-b border-[var(--border)]"
                   aria-current={pathname === '/about' ? 'page' : undefined}
@@ -197,7 +237,7 @@ export default function Nav({ posts }: NavProps) {
                 {resolvedTheme && (
                   <button
                     type="button"
-                    onClick={() => { setTheme(resolvedTheme === "dark" ? "light" : "dark"); setMenuOpen(false); }}
+                    onClick={() => { setTheme(resolvedTheme === "dark" ? "light" : "dark"); setMenuOpen(false); menuOpenRef.current = false; }}
                     className="font-jost text-[13px] tracking-[0.15em] uppercase text-[var(--muted)] hover:text-[var(--forest)] transition-colors py-3 text-left flex items-center gap-3"
                   >
                     {resolvedTheme === "dark" ? (

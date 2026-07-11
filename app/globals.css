@@ -93,8 +93,7 @@ body {
   color: var(--muted);
   user-select: none;
 }
-/* Marquee is decorative text — pause for users who prefer reduced motion */
-/* Marquee is decorative text — scrolling never affects content access; intentionally exempt from reduce-motion */
+/* Marquee is decorative — exempt from reduce-motion (all content accessible without motion) */
 
 /* ── Scrollbar hide for filter tabs ───────────────────────── */
 .scrollbar-none { scrollbar-width: none; }
@@ -224,6 +223,7 @@ body {
 /* Base states: opacity+visibility transition so both enter AND exit animate smoothly.
    visibility: hidden removes elements from the tab order when focus mode is active. */
 header nav,
+.mobile-nav-controls,
 .reading-progress,
 .back-pill,
 .poem-back-arrow,
@@ -234,6 +234,7 @@ header nav,
 
 /* header nav = site navigation only; poem prev/next nav must stay accessible */
 .focus-mode header nav,
+.focus-mode .mobile-nav-controls,
 .focus-mode .reading-progress,
 .focus-mode .back-pill,
 .focus-mode .poem-back-arrow,

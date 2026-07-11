@@ -62,8 +62,9 @@ export default function PostPageClient({
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
-      // Don't navigate when the search modal is open
+      // Don't navigate when the search modal or mobile menu is open
       if (document.querySelector("[role=dialog]")) return;
+      if (document.getElementById("mobile-menu")) return;
       if (e.key === "ArrowRight" && next) router.push(`/${next.slug}`);
       if (e.key === "ArrowLeft" && prev) router.push(`/${prev.slug}`);
     };
