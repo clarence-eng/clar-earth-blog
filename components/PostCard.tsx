@@ -78,7 +78,7 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
             )}
           </div>
           {/* Forest overlay on hover */}
-          <div className="absolute inset-0 bg-[var(--forest)] opacity-0 group-hover:opacity-[0.14] transition-opacity duration-500" />
+          <div aria-hidden="true" className="absolute inset-0 bg-[var(--forest)] opacity-0 group-hover:opacity-[0.14] transition-opacity duration-500" />
           {/* Mood shimmer — top edge glow */}
           {cardMood && (
             <div className="card-mood-shimmer absolute inset-x-0 top-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" data-mood={cardMood} />
@@ -111,7 +111,7 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
           )}
 
           {/* Gold underline reveal */}
-          <div className="gold-underline-reveal mt-3" />
+          <div aria-hidden="true" className="gold-underline-reveal mt-3" />
         </div>
       </Link>
     </motion.article>

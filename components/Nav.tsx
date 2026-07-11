@@ -60,12 +60,19 @@ export default function Nav({ posts }: NavProps) {
   }, []);
 
   // Move focus to first menu item when menu opens
+  const focusMenuTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   useEffect(() => {
     if (menuOpen) {
       menuOpenRef.current = true;
-      setTimeout(() => menuFirstItemRef.current?.focus(), 50);
+      if (focusMenuTimerRef.current !== null) clearTimeout(focusMenuTimerRef.current);
+      focusMenuTimerRef.current = setTimeout(() => {
+        focusMenuTimerRef.current = null;
+        menuFirstItemRef.current?.focus();
+      }, 50);
     } else {
       menuOpenRef.current = false;
+      if (focusMenuTimerRef.current !== null) { clearTimeout(focusMenuTimerRef.current); focusMenuTimerRef.current = null; }
     }
   }, [menuOpen]);
 
@@ -90,12 +97,6 @@ export default function Nav({ posts }: NavProps) {
     window.addEventListener("keydown", h);
     return () => window.removeEventListener("keydown", h);
   }, [openSearch, closeSearch]);
-
-  // Arrow-key poem navigation guard: block when menu OR search is open
-  // This ref is read by PostPageClient via a custom event or global — we expose it here
-  useEffect(() => {
-    (window as unknown as Record<string, unknown>).__navMenuOpen = menuOpenRef;
-  }, []);
 
   if (pathname.startsWith("/keystatic")) return null;
 
