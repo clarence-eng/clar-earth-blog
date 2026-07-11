@@ -29,6 +29,7 @@ export default function Nav({ posts }: NavProps) {
 
   const openSearch = useCallback(() => {
     if (focusTimerRef.current !== null) { clearTimeout(focusTimerRef.current); focusTimerRef.current = null; }
+    if (focusMenuTimerRef.current !== null) { clearTimeout(focusMenuTimerRef.current); focusMenuTimerRef.current = null; }
     setSearchOpen(true);
     searchOpenRef.current = true;
     setMenuOpen(false);
@@ -56,6 +57,7 @@ export default function Nav({ posts }: NavProps) {
     return () => {
       window.removeEventListener("scroll", h);
       if (focusTimerRef.current !== null) clearTimeout(focusTimerRef.current);
+      if (focusMenuTimerRef.current !== null) clearTimeout(focusMenuTimerRef.current);
     };
   }, []);
 

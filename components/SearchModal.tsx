@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import type { PostMeta } from "@/lib/posts";
-import { TYPE_LABELS } from "@/lib/config";
+import { TYPE_LABELS, LANG_MAP } from "@/lib/config";
 
 interface SearchModalProps {
   posts: PostMeta[];
@@ -94,7 +94,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
             className="cormorant-serif flex-1 bg-transparent outline-none focus:ring-1 focus:ring-[var(--forest)] rounded-sm text-[var(--ink)] placeholder:text-[var(--muted-light)]"
             style={{ fontSize: "1.1rem" }}
           />
-          <kbd className="font-jost text-[9px] tracking-wider text-[var(--muted)] border border-[var(--border)] rounded px-1.5 py-0.5">ESC</kbd>
+          <kbd aria-hidden="true" className="font-jost text-[9px] tracking-wider text-[var(--muted)] border border-[var(--border)] rounded px-1.5 py-0.5">ESC</kbd>
           <button
             type="button"
             onClick={onClose}
@@ -128,7 +128,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
               <div>
                 <p className="cormorant-italic text-[var(--ink)] group-hover:text-[var(--forest)] transition-colors duration-300 leading-snug" style={{ fontSize: "1.1rem" }}>
                   {post.title}
-                  {post.lang && <span className="ml-2 text-[10px] not-italic text-[var(--muted)]">{post.lang}</span>}
+                  {post.lang && <span className="ml-2 text-[10px] not-italic text-[var(--muted)]" lang={LANG_MAP[post.lang] ?? post.lang}>{post.lang}</span>}
                 </p>
                 {post.excerpt && (
                   <p className="font-jost text-[var(--muted)] text-xs mt-0.5 line-clamp-1">
