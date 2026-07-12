@@ -13,8 +13,11 @@ export default function LangSync({ lang }: { lang: string }) {
       document.documentElement.lang = lang;
     }
     return () => {
-      // Restore to "en" when navigating away (client-side navigation)
-      document.documentElement.lang = "en";
+      // Only restore to "en" if leaving a non-English context;
+      // if the next page is also non-English, its own effect will update lang
+      if (document.documentElement.lang !== "en") {
+        document.documentElement.lang = "en";
+      }
     };
   }, [lang]);
 
