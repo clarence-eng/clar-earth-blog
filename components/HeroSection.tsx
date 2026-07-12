@@ -5,6 +5,14 @@ import { useRef } from "react";
 import AmbientParticles from "./AmbientParticles";
 import { SITE_TAGLINE } from "@/lib/config";
 
+function getSeasonalGradient() {
+  const month = new Date().getMonth();
+  if (month >= 2 && month <= 4) return "linear-gradient(160deg, #2D4A3E 0%, #3D6154 40%, #4A7A5A 70%, #2A3D34 100%)";
+  if (month >= 5 && month <= 7) return "linear-gradient(160deg, #3A4A2A 0%, #4A5E2A 40%, #5A6E38 65%, #2A3D1A 100%)";
+  if (month >= 8 && month <= 10) return "linear-gradient(160deg, #4A3A1A 0%, #5A4A2A 40%, #6A5A3A 65%, #3A2A1A 100%)";
+  return "linear-gradient(160deg, #1A2D3A 0%, #2A3D4A 40%, #1E3440 65%, #121E28 100%)";
+}
+
 function Sprig({ x, y, size, rotate, opacity }: { x: string; y: string; size: number; rotate: number; opacity: number }) {
   return (
     <div
@@ -22,7 +30,8 @@ function Sprig({ x, y, size, rotate, opacity }: { x: string; y: string; size: nu
   );
 }
 
-export default function HeroSection({ titles, gradient }: { titles: string[]; gradient: string }) {
+export default function HeroSection({ titles }: { titles: string[] }) {
+  const gradient = getSeasonalGradient();
   const reducedMotion = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });

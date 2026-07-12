@@ -4,6 +4,7 @@ import { cache } from "react";
 import Nav from "@/components/Nav";
 import PostPageClient from "@/components/PostPageClient";
 import SiteFooter from "@/components/SiteFooter";
+import LangSync from "@/components/LangSync";
 import type { Metadata } from "next";
 import readingTime from "reading-time";
 import { BASE_URL, LANG_MAP } from "@/lib/config";
@@ -67,7 +68,20 @@ export default async function PostPage({ params }: Props) {
   const next = idx >= 0 && idx < allPosts.length - 1 ? allPosts[idx + 1] : null;
   const readTime = post.readingPhrase ?? natureReadingTime(readingTime(post.content).words);
 
-  const schema = {
+  const rawLang = post.lang ?? "";
+  // Resolve BCP-47: known English content has no lang field (falls back to "en"),
+  // non-English content must have a recognised LANG_MAP entry. Warn and omit rather
+  // than silently lying with a wrong code.
+  const bcp47: string | undefined = rawLang === ""
+    ? "en"
+    : LANG_MAP[rawLang] !== undefined
+      ? LANG_MAP[rawLang]
+      : (() => {
+          console.warn(`[slug]/page.tsx: unknown lang value "${rawLang}" for post "${slug}" — omitting inLanguage from JSON-LD`);
+          return undefined;
+        })();
+
+  const schema: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": post.type === "poem" ? "Poem" : "CreativeWork",
     "name": post.title,
@@ -79,7 +93,6 @@ export default async function PostPage({ params }: Props) {
     "url": `${BASE_URL}/${slug}`,
     "description": post.excerpt ?? "",
     "datePublished": post.date,
-    "inLanguage": LANG_MAP[post.lang ?? ""] ?? "en",
     "publisher": {
       "@type": "Organization",
       "name": "clar.earth",
@@ -87,12 +100,17 @@ export default async function PostPage({ params }: Props) {
     },
   };
 
+  if (bcp47 !== undefined) {
+    schema["inLanguage"] = bcp47;
+  }
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }}
       />
+      {bcp47 && bcp47 !== "en" && <LangSync lang={bcp47} />}
       <Nav posts={allPosts} />
       <PostPageClient post={post} prev={prev} next={next} readTime={readTime} allPosts={allPosts} />
       <SiteFooter />
