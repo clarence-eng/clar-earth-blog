@@ -90,7 +90,7 @@ export default function PostPageClient({
 
   const stanzaContent = useMemo(() => {
     const stanzas = parseStanzas(post.content);
-    let firstDropIdx = stanzas.findIndex(s =>
+    const firstDropIdx = stanzas.findIndex(s =>
       !s.italic && s.align === "left" && !s.lang && !s.text.trimStart().startsWith("*")
     );
     // -1 means every stanza is disqualified; no drop-cap applied
@@ -248,7 +248,7 @@ export default function PostPageClient({
         />
 
         {/* Poem — lang attribute from post.lang (e.g. "中文" → "zh") when the whole poem is non-English */}
-        <div className="poem-content" lang={post.lang ? (LANG_MAP[post.lang] ?? undefined) : undefined}>
+        <div className="poem-content" lang={post.lang ? LANG_MAP[post.lang] : undefined}>
           {stanzaContent.isMirror ? (
             <div className="poem-two-col">
               <div className="poem-two-col__left">

@@ -316,10 +316,7 @@ header nav,
       will-change: transform;
     }
   }
-}
-
-/* When no scroll-timeline support: keep the image slightly zoomed so it fills the container — only for users who accept motion */
-@media (prefers-reduced-motion: no-preference) {
+  /* When no scroll-timeline support: keep the image slightly zoomed so it fills the container */
   @supports not (animation-timeline: scroll()) {
     .poem-cover-parallax {
       transform: scale(1.12);
