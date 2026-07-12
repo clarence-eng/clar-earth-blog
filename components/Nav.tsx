@@ -24,6 +24,7 @@ export default function Nav({ posts }: NavProps) {
   const searchOpenRef = useRef(false);
   const menuOpenRef = useRef(false);
   const focusTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const focusMenuTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const isMobile = () => window.innerWidth < 640;
 
@@ -40,6 +41,7 @@ export default function Nav({ posts }: NavProps) {
     setSearchOpen(false);
     searchOpenRef.current = false;
     if (focusTimerRef.current !== null) clearTimeout(focusTimerRef.current);
+    if (focusMenuTimerRef.current !== null) { clearTimeout(focusMenuTimerRef.current); focusMenuTimerRef.current = null; }
     focusTimerRef.current = setTimeout(() => {
       focusTimerRef.current = null;
       // Restore focus to whichever search button is visible
@@ -62,8 +64,6 @@ export default function Nav({ posts }: NavProps) {
   }, []);
 
   // Move focus to first menu item when menu opens
-  const focusMenuTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
   useEffect(() => {
     if (menuOpen) {
       menuOpenRef.current = true;

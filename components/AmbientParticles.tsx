@@ -85,9 +85,10 @@ export default function AmbientParticles() {
 
       const draw = () => {
         if (mql.matches) return;
+        const now = Date.now();
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         particles.forEach(p => {
-          p.x += p.vx + Math.sin(Date.now() * 0.0005 + p.y * 0.01) * 0.15;
+          p.x += p.vx + Math.sin(now * 0.0005 + p.y * 0.01) * 0.15;
           p.y += p.vy;
           p.rotation += p.rotationSpeed;
           if (p.y < -20) { p.y = canvas.height + 10; p.x = Math.random() * canvas.width; }

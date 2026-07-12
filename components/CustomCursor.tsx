@@ -80,12 +80,10 @@ export default function CustomCursor() {
         targetLadybugRef.current = hexToRgb(overrideHex ?? colors.ladybug);
         // When reduced motion: snap colours immediately on mood change
         if (reducedMotion) {
-          const newDotRgb = hexToRgb(colors.dot);
-          const newLadyRgb = hexToRgb(overrideHex ?? colors.ladybug);
-          curDotRef.current = newDotRgb;
-          curLadybugRef.current = newLadyRgb;
-          setDotColor(rgbToCss(newDotRgb));
-          setLadybugColor(rgbToCss(newLadyRgb));
+          curDotRef.current = targetDotRef.current;
+          curLadybugRef.current = targetLadybugRef.current;
+          setDotColor(rgbToCss(targetDotRef.current));
+          setLadybugColor(rgbToCss(targetLadybugRef.current));
         }
       }
       // When reduced motion: snap position directly, no lerp
@@ -94,8 +92,10 @@ export default function CustomCursor() {
         setPos({ x: e.clientX, y: e.clientY });
       }
     };
+    const leave = () => setHovered(false);
     window.addEventListener("mousemove", move);
-    return () => { window.removeEventListener("mousemove", move); mql.removeEventListener("change", onMqlChange); };
+    document.addEventListener("mouseleave", leave);
+    return () => { window.removeEventListener("mousemove", move); document.removeEventListener("mouseleave", leave); mql.removeEventListener("change", onMqlChange); };
   }, []);
 
   // rAF lerp loop — only runs when reduced motion is OFF
