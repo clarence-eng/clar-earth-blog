@@ -85,6 +85,11 @@ export default function Nav({ posts }: NavProps) {
       menuOpenRef.current = false;
       menuButtonRef.current?.focus();
     }
+    // Also close search modal on any navigation
+    if (searchOpenRef.current) {
+      setSearchOpen(false);
+      searchOpenRef.current = false;
+    }
   }, [pathname]);
 
   // Keyboard shortcuts and Escape handling
