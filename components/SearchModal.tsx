@@ -101,7 +101,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
             type="button"
             onClick={onClose}
             aria-label="Close search"
-            className="flex items-center justify-center w-6 h-6 rounded hover:bg-[var(--cream-dark)] transition-colors duration-300 text-[var(--muted)] hover:text-[var(--ink)]"
+            className="flex items-center justify-center w-11 h-11 rounded hover:bg-[var(--cream-dark)] transition-colors duration-300 text-[var(--muted)] hover:text-[var(--ink)]"
           >
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
               <path d="M1 1l10 10M11 1L1 11"/>
