@@ -68,7 +68,7 @@ export default function PostPageClient({
       // Use data-state="open" on the dialog (not just DOM presence) to avoid blocking during exit animation
       const dialog = document.getElementById("search-modal-dialog");
       if (dialog && dialog.getAttribute("data-state") === "open") return;
-      if (document.getElementById("mobile-menu") && document.getElementById("mobile-menu")!.getAttribute("data-state") === "open") return;
+      const mobileMenu = document.getElementById("mobile-menu"); if (mobileMenu?.getAttribute("data-state") === "open") return;
       if (e.key === "ArrowRight" && next) router.push(`/${next.slug}`);
       if (e.key === "ArrowLeft" && prev) router.push(`/${prev.slug}`);
     };

@@ -180,7 +180,7 @@ body {
 .dark .mood-tag[data-mood="solidarity"] .mood-tag-dot { background: #5A9ACA; }
 .dark .mood-tag[data-mood="reverence"]  .mood-tag-dot { background: #70AA68; }
 .dark .mood-tag[data-mood="bitterness"] .mood-tag-dot { background: #C4905A; }
-/* longing and nature dot colors are intentionally the same in dark mode as light */
+/* longing, nature, and warmth dot colors are intentionally the same in dark mode as light */
 
 /* ── Card mood shimmer — top-edge glow reveals on hover ───── */
 .card-mood-shimmer[data-mood="longing"]    { background: linear-gradient(90deg, #7AAABB, #A8D4E0); }
@@ -346,6 +346,7 @@ header nav,
 }
 @media (max-width: 640px) {
   .nav-action-label { font-size: 0.75rem; }
+  .section-label { font-size: 0.625rem; }
 }
 
 /* ── Post action button — Focus mode + Print ────────────────── */
@@ -388,10 +389,6 @@ header nav,
   text-transform: uppercase;
   color: var(--muted);
 }
-@media (max-width: 640px) {
-  .section-label { font-size: 0.625rem; }
-}
-
 .dark .section-label {
   color: var(--muted-light);
 }
