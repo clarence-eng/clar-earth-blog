@@ -142,6 +142,9 @@ export default function CustomCursor() {
       } else {
         loopId++; // invalidate running loop
         cancelAnimationFrame(animRef.current);
+        // Snap cursor position to current mouse location (loop was lerping)
+        posRef.current = mouseRef.current;
+        setPos({ x: mouseRef.current.x, y: mouseRef.current.y });
         curDotRef.current = targetDotRef.current;
         curLadybugRef.current = targetLadybugRef.current;
         setDotColor(rgbToCss(targetDotRef.current));
