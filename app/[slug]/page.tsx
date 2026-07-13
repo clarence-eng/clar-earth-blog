@@ -31,7 +31,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     ? `${BASE_URL}${post.coverImage.startsWith('/') ? '' : '/'}${post.coverImage}`
     : undefined;
 
-  const OG_LOCALE: Record<string, string> = { zh: "zh_CN", ja: "ja_JP", ko: "ko_KR", es: "es_ES", fr: "fr_FR", vi: "vi_VN" };
+  const OG_LOCALE: Partial<Record<string, string>> = { zh: "zh_CN", ja: "ja_JP", ko: "ko_KR", es: "es_ES", fr: "fr_FR", vi: "vi_VN" };
+  const bcp47Meta = post.lang ? (LANG_MAP[post.lang] ?? undefined) : "en";
 
   return {
     title: `${post.title} — clar.earth`,
@@ -42,7 +43,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url,
       siteName: "clar.earth",
       type: "article",
-      locale: post.lang ? (OG_LOCALE[LANG_MAP[post.lang] ?? ""] ?? undefined) : "en_US",
+      locale: OG_LOCALE[bcp47Meta ?? 'en'] ?? 'en_US',
       ...(coverUrl ? { images: [{ url: coverUrl, alt: post.title }] } : {}),
     },
     twitter: {

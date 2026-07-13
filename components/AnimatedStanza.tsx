@@ -31,7 +31,7 @@ export default function AnimatedStanza({ children, index, align = "left", italic
   const inView = useInView(ref, { once: true, amount: "some" });
 
   const lines = children.split("\n").map(line =>
-    italic ? line.replace(/^\*(.*)\*$/, '$1').trim() : line
+    italic ? line.replace(/^\*(.*?)\*$/, '$1').trim() : line
   );
 
   const lineNodes = lines.map((line, i) => (

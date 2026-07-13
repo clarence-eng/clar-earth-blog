@@ -3,12 +3,66 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef, useCallback } from "react";
+import type React from "react";
 import { useTheme } from "next-themes";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useIsPresent } from "framer-motion";
 import SearchModal from "./SearchModal";
 import type { PostMeta } from "@/lib/posts";
 
 interface NavProps { posts: PostMeta[] }
+
+interface MobileMenuInnerProps {
+  pathname: string;
+  resolvedTheme: string | undefined;
+  onThemeToggle: () => void;
+  menuFirstItemRef: React.RefObject<HTMLAnchorElement | null>;
+}
+
+function MobileMenuInner({ pathname, resolvedTheme, onThemeToggle, menuFirstItemRef }: MobileMenuInnerProps) {
+  const isPresent = useIsPresent();
+  return (
+    <motion.nav
+      id="mobile-menu"
+      data-state={isPresent ? "open" : "closed"}
+      initial={{ opacity: 0, y: -8 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -8 }}
+      transition={{ duration: 0.2, ease: "easeOut" }}
+      aria-label="Mobile navigation"
+      className="sm:hidden border-t border-[var(--border)] bg-[var(--cream)]"
+    >
+      <div className="flex flex-col px-4 py-3 gap-1">
+        <Link
+          ref={menuFirstItemRef}
+          href="/about"
+          className="font-jost text-[13px] tracking-[0.15em] uppercase text-[var(--muted)] hover:text-[var(--forest)] transition-colors py-3 border-b border-[var(--border)]"
+          aria-current={pathname === '/about' ? 'page' : undefined}
+        >
+          About
+        </Link>
+        {resolvedTheme && (
+          <button
+            type="button"
+            onClick={onThemeToggle}
+            className="font-jost text-[13px] tracking-[0.15em] uppercase text-[var(--muted)] hover:text-[var(--forest)] transition-colors py-3 text-left flex items-center gap-3"
+          >
+            {resolvedTheme === "dark" ? (
+              <>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+                Light mode
+              </>
+            ) : (
+              <>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                Dark mode
+              </>
+            )}
+          </button>
+        )}
+      </div>
+    </motion.nav>
+  );
+}
 
 export default function Nav({ posts }: NavProps) {
   const pathname = usePathname();
@@ -228,46 +282,12 @@ export default function Nav({ posts }: NavProps) {
         {/* Mobile dropdown menu */}
         <AnimatePresence>
           {menuOpen && (
-            <motion.nav
-              id="mobile-menu"
-              data-state="open"
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.2, ease: "easeOut" }}
-              aria-label="Mobile navigation"
-              className="sm:hidden border-t border-[var(--border)] bg-[var(--cream)]"
-            >
-              <div className="flex flex-col px-4 py-3 gap-1">
-                <Link
-                  ref={menuFirstItemRef}
-                  href="/about"
-                  className="font-jost text-[13px] tracking-[0.15em] uppercase text-[var(--muted)] hover:text-[var(--forest)] transition-colors py-3 border-b border-[var(--border)]"
-                  aria-current={pathname === '/about' ? 'page' : undefined}
-                >
-                  About
-                </Link>
-                {resolvedTheme && (
-                  <button
-                    type="button"
-                    onClick={() => { setTheme(resolvedTheme === "dark" ? "light" : "dark"); setMenuOpen(false); menuOpenRef.current = false; }}
-                    className="font-jost text-[13px] tracking-[0.15em] uppercase text-[var(--muted)] hover:text-[var(--forest)] transition-colors py-3 text-left flex items-center gap-3"
-                  >
-                    {resolvedTheme === "dark" ? (
-                      <>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
-                        Light mode
-                      </>
-                    ) : (
-                      <>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-                        Dark mode
-                      </>
-                    )}
-                  </button>
-                )}
-              </div>
-            </motion.nav>
+            <MobileMenuInner
+              pathname={pathname}
+              resolvedTheme={resolvedTheme}
+              onThemeToggle={() => { setTheme(resolvedTheme === "dark" ? "light" : "dark"); setMenuOpen(false); menuOpenRef.current = false; }}
+              menuFirstItemRef={menuFirstItemRef}
+            />
           )}
         </AnimatePresence>
       </header>

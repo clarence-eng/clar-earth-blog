@@ -142,6 +142,10 @@ export default function CustomCursor() {
       } else {
         loopId++; // invalidate running loop
         cancelAnimationFrame(animRef.current);
+        curDotRef.current = targetDotRef.current;
+        curLadybugRef.current = targetLadybugRef.current;
+        setDotColor(rgbToCss(targetDotRef.current));
+        setLadybugColor(rgbToCss(targetLadybugRef.current));
       }
     };
     mql.addEventListener("change", onMqlChange);
