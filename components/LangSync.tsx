@@ -2,6 +2,10 @@
 
 import { useEffect } from "react";
 
+// Module-level counter tracks the "generation" of the current lang owner.
+// Each LangSync mount increments it; cleanup only resets if it's still the current owner.
+let langGeneration = 0;
+
 /**
  * After hydration, sets document.documentElement.lang to the correct BCP-47
  * code for the current page. This corrects the default lang="en" emitted by
@@ -9,17 +13,15 @@ import { useEffect } from "react";
  */
 export default function LangSync({ lang }: { lang: string }) {
   useEffect(() => {
+    const myGen = ++langGeneration;
     if (lang && document.documentElement.lang !== lang) {
       document.documentElement.lang = lang;
     }
     return () => {
-      // Only reset to "en" if this instance is still the one that set the value
-      // (i.e. the incoming page hasn't already updated it via its own LangSync).
-      // We defer with setTimeout(0) so the new page's useEffect runs first.
-      const outgoing = lang;
+      // Defer so the incoming page's useEffect can claim ownership first.
+      // Only reset to "en" if we're still the current generation owner.
       setTimeout(() => {
-        // After the new page's effects have run, check whether the lang is still ours
-        if (document.documentElement.lang === outgoing) {
+        if (langGeneration === myGen) {
           document.documentElement.lang = "en";
         }
       }, 0);

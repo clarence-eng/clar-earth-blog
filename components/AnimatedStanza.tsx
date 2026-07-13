@@ -13,13 +13,14 @@ interface StanzaProps {
 
 function renderLine(line: string, key: number) {
   if (!line.includes("*")) return <span key={key}>{line}</span>;
-  const parts = line.split(/(\*[^*]+\*)/g);
+  // Split on balanced *...* pairs only. Lone asterisks (e.g. footnote markers) pass through as-is.
+  const parts = line.split(/(\*[^*]+\*)/g).filter(Boolean);
   return (
     <span key={key}>
       {parts.map((p, i) =>
         p.length > 1 && p.startsWith("*") && p.endsWith("*")
           ? <em key={i}>{p.slice(1, -1)}</em>
-          : p ? <span key={i}>{p.replace(/\*/g, '')}</span> : null
+          : <span key={i}>{p}</span>
       )}
     </span>
   );
