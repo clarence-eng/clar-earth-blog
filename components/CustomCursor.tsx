@@ -60,6 +60,12 @@ export default function CustomCursor() {
   const animRef = useRef<number>(0);
 
   useEffect(() => {
+    // Signal to CSS that the custom cursor is live; globals.css gates cursor:none on this class
+    document.documentElement.classList.add("js-cursor-ready");
+    return () => { document.documentElement.classList.remove("js-cursor-ready"); };
+  }, []);
+
+  useEffect(() => {
     const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
     let reducedMotion = mql.matches;
     const onMqlChange = (e: MediaQueryListEvent) => { reducedMotion = e.matches; };

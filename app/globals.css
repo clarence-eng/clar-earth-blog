@@ -65,12 +65,15 @@ body {
   text-shadow: 0 2px 20px rgba(0,0,0,0.3);
 }
 
-/* Hide default cursor on desktop pointer devices */
+/* Hide default cursor on desktop pointer devices.
+   :root keeps cursor: default until the CustomCursor component adds
+   js-cursor-ready to <html>, preventing a flash of no cursor on hydration. */
 @media (pointer: fine) {
-  * { cursor: none !important; }
-  input, textarea, [contenteditable] { cursor: text !important; }
-  input[type=checkbox], input[type=radio], input[type=range], input[type=submit], input[type=button], input[type=file], input[type=reset] { cursor: pointer !important; }
-  select, a, button, [role=button], label { cursor: pointer !important; }
+  :root { cursor: default; }
+  html.js-cursor-ready * { cursor: none !important; }
+  html.js-cursor-ready input, html.js-cursor-ready textarea, html.js-cursor-ready [contenteditable] { cursor: text !important; }
+  html.js-cursor-ready input[type=checkbox], html.js-cursor-ready input[type=radio], html.js-cursor-ready input[type=range], html.js-cursor-ready input[type=submit], html.js-cursor-ready input[type=button], html.js-cursor-ready input[type=file], html.js-cursor-ready input[type=reset] { cursor: pointer !important; }
+  html.js-cursor-ready select, html.js-cursor-ready a, html.js-cursor-ready button, html.js-cursor-ready [role=button], html.js-cursor-ready label { cursor: pointer !important; }
 }
 
 /* ── Marquee ───────────────────────────────────────────────── */

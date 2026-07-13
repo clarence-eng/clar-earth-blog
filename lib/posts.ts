@@ -65,15 +65,9 @@ export function getAllPosts(): (PostMeta & { published: true })[] {
     .sort((a, b) => {
       const aLatin = /^[A-Za-z]/.test(a.title);
       const bLatin = /^[A-Za-z]/.test(b.title);
-      // Chinese/Japanese/Korean characters sort after Latin
-      const aCJK = /^[一-鿿぀-ヿ가-힣]/.test(a.title);
-      const bCJK = /^[一-鿿぀-ヿ가-힣]/.test(b.title);
       if (aLatin && !bLatin) return -1;
       if (!aLatin && bLatin) return 1;
-      if (aLatin && bLatin) return a.title.localeCompare(b.title, "en");
-      if (aCJK && bCJK) return a.title.localeCompare(b.title, "zh");
-      if (aCJK && !bCJK) return -1;
-      if (!aCJK && bCJK) return 1;
+      // All non-Latin scripts (CJK, Arabic, Thai, Devanagari, …) sort together
       return a.title.localeCompare(b.title, "en");
     });
 
@@ -85,10 +79,17 @@ export function getPost(slug: string): Post | null {
   if (!fs.existsSync(filePath)) return null;
 
   const raw = fs.readFileSync(filePath, "utf-8");
-  const { data, content } = matter(raw);
+  let parsed: ReturnType<typeof matter>;
+  try {
+    parsed = matter(raw);
+  } catch (e) {
+    console.error("Failed to parse frontmatter for", slug, e);
+    return null;
+  }
+  const { data, content } = parsed;
   const { slug: _discard, ...rest } = data as Partial<PostMeta>;
   const post = { slug, ...rest, content } as Post;
-  if (!post.title) return null;
+  if (!post.title?.trim()) return null;
   if (post.published !== true) return null;
   if (!post.type) post.type = "poem";
   if (!(['poem','article','photo-essay'] as const).includes(post.type as never)) post.type = "poem";
