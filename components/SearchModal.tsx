@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useMemo } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useIsPresent } from "framer-motion";
 import type { PostMeta } from "@/lib/posts";
 import { TYPE_LABELS, LANG_MAP } from "@/lib/config";
 
@@ -15,6 +15,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
   const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
+  const isPresent = useIsPresent();
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -52,7 +53,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
       p.title.toLowerCase().includes(q) ||
       p.excerpt?.toLowerCase().includes(q) ||
       p.dedication?.toLowerCase().includes(q) ||
-      (p.mood?.some(m => m.toLowerCase().includes(q)) ?? false)
+      (p.mood?.some(m => m.toLowerCase().includes(q)))
     );
   }, [query, posts]);
 
@@ -75,7 +76,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
         style={{ background: "var(--cream)" }}
         onClick={e => e.stopPropagation()}
         id="search-modal-dialog"
-        data-state="open"
+        data-state={isPresent ? "open" : "closed"}
         role="dialog"
         aria-modal="true"
         aria-label="Search all works"

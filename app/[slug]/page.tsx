@@ -31,6 +31,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     ? `${BASE_URL}${post.coverImage.startsWith('/') ? '' : '/'}${post.coverImage}`
     : undefined;
 
+  const OG_LOCALE: Record<string, string> = { zh: "zh_CN", ja: "ja_JP", ko: "ko_KR", es: "es_ES", fr: "fr_FR", vi: "vi_VN" };
+
   return {
     title: `${post.title} — clar.earth`,
     description: post.excerpt ?? "A poem by Clare.",
@@ -40,7 +42,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url,
       siteName: "clar.earth",
       type: "article",
-      locale: post.lang ? (LANG_MAP[post.lang] === "zh" ? "zh_CN" : LANG_MAP[post.lang] === "ja" ? "ja_JP" : LANG_MAP[post.lang] === "ko" ? "ko_KR" : undefined) : "en_US",
+      locale: post.lang ? (OG_LOCALE[LANG_MAP[post.lang] ?? ""] ?? undefined) : "en_US",
       ...(coverUrl ? { images: [{ url: coverUrl, alt: post.title }] } : {}),
     },
     twitter: {

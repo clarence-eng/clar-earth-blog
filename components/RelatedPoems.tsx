@@ -17,7 +17,7 @@ export default function RelatedPoems({ posts, currentSlug }: { posts: PostMeta[]
   const currentMoods = new Set(posts[idx].mood ?? []);
   const sameMood = posts.filter(p => {
     if (p.slug === currentSlug) return false;
-    return p.mood?.some(m => currentMoods.has(m)) ?? false;
+    return p.mood?.some(m => currentMoods.has(m));
   });
   const adjacent = posts.filter((p, i) => Math.abs(i - idx) <= 2 && p.slug !== currentSlug);
   const seen = new Set<string>();

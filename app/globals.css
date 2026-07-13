@@ -254,6 +254,7 @@ header nav,
   .poem-content { max-width: 100%; }
   .poem-stanza { font-size: 11pt; line-height: 1.6; break-inside: avoid; }
   h1 { font-size: 22pt; margin-bottom: 6pt; }
+  h1, .poem-page-title { color: black !important; text-shadow: none !important; }
   .poem-hero { min-height: 0 !important; padding: 20pt 0 10pt !important; }
   /* Next.js <Image fill> renders directly as <img data-nimg="fill"> child of poem-hero */
   .poem-hero > img, .poem-hero > div:first-of-type { display: none !important; }

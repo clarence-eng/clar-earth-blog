@@ -30,6 +30,7 @@ export const metadata: Metadata = {
     url: BASE_URL,
     type: "website",
     siteName: "clar.earth",
+    locale: "en_US",
     images: [{ url: `${BASE_URL}/images/posts/daughter-of-the-tides.jpg`, width: 1200, height: 800, alt: "Poetry and writing by Clare — clar.earth" }],
   },
   twitter: {

@@ -25,6 +25,7 @@ export default function Nav({ posts }: NavProps) {
   const menuOpenRef = useRef(false);
   const focusTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const focusMenuTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const menuClosedByKeyboard = useRef(false);
 
   const isMobile = () => window.innerWidth < 640;
 
@@ -78,12 +79,15 @@ export default function Nav({ posts }: NavProps) {
     }
   }, [menuOpen]);
 
-  // Close menu on route change and restore focus
+  // Close menu on route change and restore focus only when closed by keyboard
   useEffect(() => {
     if (menuOpenRef.current) {
       setMenuOpen(false);
       menuOpenRef.current = false;
-      menuButtonRef.current?.focus();
+      if (menuClosedByKeyboard.current) {
+        menuButtonRef.current?.focus();
+        menuClosedByKeyboard.current = false;
+      }
     }
     // Also close search modal on any navigation
     if (searchOpenRef.current) {
@@ -98,7 +102,7 @@ export default function Nav({ posts }: NavProps) {
       if ((e.metaKey || e.ctrlKey) && e.key === "k") { e.preventDefault(); openSearch(); return; }
       if (e.key === "Escape") {
         if (searchOpenRef.current) { closeSearch(); return; }
-        if (menuOpenRef.current) { setMenuOpen(false); menuOpenRef.current = false; menuButtonRef.current?.focus(); }
+        if (menuOpenRef.current) { setMenuOpen(false); menuOpenRef.current = false; menuClosedByKeyboard.current = true; menuButtonRef.current?.focus(); }
       }
     };
     window.addEventListener("keydown", h);
