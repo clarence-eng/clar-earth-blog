@@ -45,9 +45,9 @@ export function getAllPosts(): (PostMeta & { published: true })[] {
   const posts = files
     .map((filename) => {
       const slug = filename.replace(/\.mdx$/, "");
-      const raw = fs.readFileSync(path.join(POSTS_DIR, filename), "utf-8");
       let parsed: ReturnType<typeof matter>;
       try {
+        const raw = fs.readFileSync(path.join(POSTS_DIR, filename), "utf-8");
         parsed = matter(raw);
       } catch (e) {
         console.error("Failed to parse frontmatter for", filename, e);
