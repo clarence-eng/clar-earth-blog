@@ -25,20 +25,9 @@ export default function AmbientParticles() {
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
 
-      const resize = () => {
-        // Guard: skip if layout isn't complete yet (dimensions still 0)
-        if (!canvas.offsetWidth || !canvas.offsetHeight) return;
-        canvas.width = canvas.offsetWidth;
-        canvas.height = canvas.offsetHeight;
-      };
-      resize();
-      // Use ResizeObserver on the canvas element itself so we measure after
-      // layout is stable, rather than relying on the window resize event.
-      const ro = new ResizeObserver(resize);
-      ro.observe(canvas);
-      resizeCleanup = () => ro.disconnect();
+      const particles: Particle[] = [];
 
-      const particles: Particle[] = Array.from({ length: 18 }, () => ({
+      const createParticle = (): Particle => ({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         vx: (Math.random() - 0.5) * 0.3,
@@ -48,7 +37,29 @@ export default function AmbientParticles() {
         rotation: Math.random() * Math.PI * 2,
         rotationSpeed: (Math.random() - 0.5) * 0.015,
         type: Math.random() < 0.5 ? "leaf" : "spore",
-      }));
+      });
+
+      const resize = () => {
+        // Guard: skip if layout isn't complete yet (dimensions still 0)
+        if (!canvas.offsetWidth || !canvas.offsetHeight) return;
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+        // Initialise or reposition particles now that we have confirmed real dimensions
+        if (particles.length === 0) {
+          particles.push(...Array.from({ length: 18 }, () => createParticle()));
+        } else {
+          particles.forEach(p => {
+            p.x = Math.random() * canvas.width;
+            p.y = Math.random() * canvas.height;
+          });
+        }
+      };
+      resize();
+      // Use ResizeObserver on the canvas element itself so we measure after
+      // layout is stable, rather than relying on the window resize event.
+      const ro = new ResizeObserver(resize);
+      ro.observe(canvas);
+      resizeCleanup = () => ro.disconnect();
 
       const drawLeaf = (ctx: CanvasRenderingContext2D, p: Particle) => {
         ctx.save();

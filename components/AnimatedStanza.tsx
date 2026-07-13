@@ -30,9 +30,8 @@ export default function AnimatedStanza({ children, index, align = "left", italic
   const ref = useRef<HTMLParagraphElement>(null);
   const inView = useInView(ref, { once: true, amount: "some" });
 
-  const lines = children.split("\n").map(line =>
-    italic ? line.replace(/^\*(.*?)\*$/, '$1').trim() : line
-  );
+  const stripped = italic ? children.replace(/^\*([\s\S]*)\*$/, '$1') : children;
+  const lines = stripped.split("\n").map(line => italic ? line.trim() : line);
 
   const lineNodes = lines.map((line, i) => (
     <span key={i}>
