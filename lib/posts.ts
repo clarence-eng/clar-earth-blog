@@ -54,17 +54,19 @@ export function getAllPosts(): (PostMeta & { published: true })[] {
       if (post.mood && !Array.isArray(post.mood)) post.mood = [post.mood as unknown as string];
       return post;
     })
-    .filter((p): p is typeof p & { title: string; published: true } => p.published === true && !!p.title)
+    .filter((p): p is typeof p & { title: string; published: true } => p.published === true && typeof p.title === 'string' && p.title.trim().length > 0)
     .sort((a, b) => {
       const aLatin = /^[A-Za-z]/.test(a.title);
       const bLatin = /^[A-Za-z]/.test(b.title);
       // Chinese/Japanese/Korean characters sort after Latin
-      const aCJK = /^[一-鿿぀-ヿ가-힯]/.test(a.title);
-      const bCJK = /^[一-鿿぀-ヿ가-힯]/.test(b.title);
+      const aCJK = /^[一-鿿぀-ヿ가-힣]/.test(a.title);
+      const bCJK = /^[一-鿿぀-ヿ가-힣]/.test(b.title);
       if (aLatin && !bLatin) return -1;
       if (!aLatin && bLatin) return 1;
       if (aLatin && bLatin) return a.title.localeCompare(b.title, "en");
       if (aCJK && bCJK) return a.title.localeCompare(b.title, "zh");
+      if (aCJK && !bCJK) return -1;
+      if (!aCJK && bCJK) return 1;
       return a.title.localeCompare(b.title, "en");
     });
 
