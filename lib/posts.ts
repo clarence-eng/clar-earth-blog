@@ -78,12 +78,13 @@ export function getPost(slug: string): Post | null {
   const filePath = path.join(POSTS_DIR, `${slug}.mdx`);
   if (!fs.existsSync(filePath)) return null;
 
-  const raw = fs.readFileSync(filePath, "utf-8");
+  let raw: string;
   let parsed: ReturnType<typeof matter>;
   try {
+    raw = fs.readFileSync(filePath, "utf-8");
     parsed = matter(raw);
   } catch (e) {
-    console.error("Failed to parse frontmatter for", slug, e);
+    console.error("Failed to read post", slug, e);
     return null;
   }
   const { data, content } = parsed;

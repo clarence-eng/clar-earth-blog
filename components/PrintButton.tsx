@@ -28,8 +28,9 @@ export default function PrintButton({ title, type }: PrintButtonProps) {
     restoreRef.current = restore;
     // Primary signal: afterprint event
     window.addEventListener("afterprint", restore, { once: true, signal: ac.signal });
-    // Earlier fallback: window focus (e.g. user closes dialog without printing)
-    window.addEventListener("focus", restore, { once: true, signal: ac.signal });
+    // Earlier fallback: window focus (e.g. user closes dialog without printing).
+    // Delayed 500 ms so it cannot fire synchronously during dialog open on async-print browsers.
+    setTimeout(() => window.addEventListener("focus", restore, { once: true, signal: ac.signal }), 500);
     // Last-resort fallback: clear after 60 s so the button is never permanently disabled
     fallbackTimer = setTimeout(restore, 60_000);
     window.print();

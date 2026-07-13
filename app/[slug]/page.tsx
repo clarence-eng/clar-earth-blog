@@ -33,6 +33,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const OG_LOCALE: Partial<Record<string, string>> = { zh: "zh_CN", ja: "ja_JP", ko: "ko_KR", es: "es_ES", fr: "fr_FR", vi: "vi_VN" };
   const bcp47Meta = post.lang ? (LANG_MAP[post.lang] ?? undefined) : "en";
+  if (bcp47Meta === undefined && post.lang) {
+    console.warn(`[slug]/page.tsx generateMetadata: unknown lang value "${post.lang}" for post "${slug}" — omitting OG locale`);
+  }
+  const ogLocale = bcp47Meta ? (OG_LOCALE[bcp47Meta] ?? 'en_US') : undefined;
 
   return {
     title: `${post.title} — clar.earth`,
@@ -43,7 +47,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url,
       siteName: "clar.earth",
       type: "article",
-      locale: OG_LOCALE[bcp47Meta ?? 'en'] ?? 'en_US',
+      ...(ogLocale ? { locale: ogLocale } : {}),
       ...(coverUrl ? { images: [{ url: coverUrl, alt: post.title }] } : {}),
     },
     twitter: {
@@ -119,7 +123,9 @@ export default async function PostPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }}
       />
-      {bcp47 && bcp47 !== "en" && <LangSync lang={bcp47} />}
+      {/* Use resolved bcp47 when known, fall back to raw lang value so document.documentElement.lang
+          is set to something meaningful even for unrecognised lang codes */}
+      {(bcp47 ?? rawLang) && (bcp47 ?? rawLang) !== "en" && <LangSync lang={(bcp47 ?? rawLang)!} />}
       <Nav posts={allPosts} />
       <PostPageClient post={post} prev={prev} next={next} readTime={readTime} allPosts={allPosts} />
       <SiteFooter />
