@@ -17,7 +17,7 @@ function renderLine(line: string, key: number) {
   return (
     <span key={key}>
       {parts.map((p, i) =>
-        p.startsWith("*") && p.endsWith("*")
+        p.length > 1 && p.startsWith("*") && p.endsWith("*")
           ? <em key={i}>{p.slice(1, -1)}</em>
           : <span key={i}>{p}</span>
       )}
@@ -30,7 +30,7 @@ export default function AnimatedStanza({ children, index, align = "left", italic
   const inView = useInView(ref, { once: true, amount: "some" });
 
   const lines = children.split("\n").map(line =>
-    italic ? line.replace(/^\*|\*$/g, "").trim() : line
+    italic ? line.replace(/^\*(.*)\*$/, '$1').trim() : line
   );
 
   const lineNodes = lines.map((line, i) => (

@@ -226,6 +226,7 @@ export default function Nav({ posts }: NavProps) {
           {menuOpen && (
             <motion.nav
               id="mobile-menu"
+              data-state="open"
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}

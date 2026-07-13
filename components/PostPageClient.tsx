@@ -68,7 +68,7 @@ export default function PostPageClient({
       // Use data-state="open" on the dialog (not just DOM presence) to avoid blocking during exit animation
       const dialog = document.getElementById("search-modal-dialog");
       if (dialog && dialog.getAttribute("data-state") === "open") return;
-      if (document.getElementById("mobile-menu")) return;
+      if (document.getElementById("mobile-menu") && document.getElementById("mobile-menu")!.getAttribute("data-state") === "open") return;
       if (e.key === "ArrowRight" && next) router.push(`/${next.slug}`);
       if (e.key === "ArrowLeft" && prev) router.push(`/${prev.slug}`);
     };
@@ -250,7 +250,7 @@ export default function PostPageClient({
         />
 
         {/* Poem — lang attribute from post.lang (e.g. "中文" → "zh") when the whole poem is non-English */}
-        <div className="poem-content" lang={post.lang ? LANG_MAP[post.lang] : undefined}>
+        <div className="poem-content" lang={post.lang ? (LANG_MAP[post.lang] ?? post.lang) : undefined}>
           {stanzaContent.isMirror ? (
             <div className="poem-two-col">
               <div className="poem-two-col__left">
