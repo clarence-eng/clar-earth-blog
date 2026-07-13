@@ -64,8 +64,10 @@ export default function PostPageClient({
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
-      // Don't navigate when the search modal or mobile menu is open
-      if (document.getElementById("search-modal-dialog")) return;
+      // Don't navigate when the search modal or mobile menu is open/visible
+      // Use data-state="open" on the dialog (not just DOM presence) to avoid blocking during exit animation
+      const dialog = document.getElementById("search-modal-dialog");
+      if (dialog && dialog.getAttribute("data-state") === "open") return;
       if (document.getElementById("mobile-menu")) return;
       if (e.key === "ArrowRight" && next) router.push(`/${next.slug}`);
       if (e.key === "ArrowLeft" && prev) router.push(`/${prev.slug}`);

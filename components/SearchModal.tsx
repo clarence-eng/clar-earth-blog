@@ -75,6 +75,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
         style={{ background: "var(--cream)" }}
         onClick={e => e.stopPropagation()}
         id="search-modal-dialog"
+        data-state="open"
         role="dialog"
         aria-modal="true"
         aria-label="Search all works"
