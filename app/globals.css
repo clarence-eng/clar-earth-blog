@@ -166,7 +166,7 @@ body {
 .mood-tag[data-mood="reverence"]  .mood-tag-dot { background: #4A8A44; }
 .mood-tag[data-mood="bitterness"] .mood-tag-dot { background: #8A5A38; }
 .dark .mood-tag[data-mood="longing"]    { background: #1A2E36; color: #7AAABB; border-color: #2A4A5A; }
-.dark .mood-tag[data-mood="nature"]     { background: #1A2E20; color: #5A8A74; border-color: #2A4A30; }
+.dark .mood-tag[data-mood="nature"]     { background: #1A2E20; color: #72A08A; border-color: #2A4A30; }
 .dark .mood-tag[data-mood="warmth"]     { background: #2E1E08; color: #C4882A; border-color: #4A3010; }
 .dark .mood-tag[data-mood="love"]       { background: #2A0E18; color: #D4899A; border-color: #4A1A28; }
 .dark .mood-tag[data-mood="nostalgia"]  { background: #2A2010; color: #C4A870; border-color: #3A2A18; }
@@ -182,7 +182,8 @@ body {
 .dark .mood-tag[data-mood="solidarity"] .mood-tag-dot { background: #5A9ACA; }
 .dark .mood-tag[data-mood="reverence"]  .mood-tag-dot { background: #70AA68; }
 .dark .mood-tag[data-mood="bitterness"] .mood-tag-dot { background: #C4905A; }
-/* longing, nature, and warmth dot colors are intentionally the same in dark mode as light */
+/* longing, warmth dot colors are intentionally the same in dark mode as light; nature dot updated for consistency with text color */
+.dark .mood-tag[data-mood="nature"]     .mood-tag-dot { background: #72A08A; }
 
 /* ── Card mood shimmer — top-edge glow reveals on hover ───── */
 .card-mood-shimmer[data-mood="longing"]    { background: linear-gradient(90deg, #7AAABB, #A8D4E0); }
@@ -251,9 +252,11 @@ header nav,
 
 /* ── Print ─────────────────────────────────────────────────── */
 @media print {
-  nav, .reading-progress, .back-pill, .poem-back-arrow, footer, .related-poems,
+  nav, .reading-progress, .back-pill, .poem-back-arrow, .related-poems,
   .marquee-track, .filter-tabs-wrap,
   .poem-prev-next, .keyboard-hint, button { display: none !important; }
+  /* Hide decorative/interactive footer parts but keep the footer for attribution */
+  .site-footer-links, .site-footer-nav { display: none !important; }
   body { background: white; color: black; font-size: 12pt; }
   .poem-content { max-width: 100%; }
   .poem-stanza { font-size: 11pt; line-height: 1.6; break-inside: avoid; }
@@ -262,6 +265,8 @@ header nav,
   .poem-hero { min-height: 0 !important; padding: 20pt 0 10pt !important; }
   /* Next.js <Image fill> renders directly as <img data-nimg="fill"> child of poem-hero */
   .poem-hero > img, .poem-hero > div:first-of-type { display: none !important; }
+  /* Attribution line appended to footer when printing */
+  footer::after { content: "clar.earth — Poetry by Clare"; display: block; font-size: 9pt; color: #666; margin-top: 4pt; }
 }
 
 /* ── First-letter accent — enlarged, green, bottom-aligned to the first line ── */

@@ -90,8 +90,9 @@ export default async function PostPage({ params }: Props) {
 
   const schema: Record<string, unknown> = {
     "@context": "https://schema.org",
-    "@type": post.type === "poem" ? "Poem" : "CreativeWork",
+    "@type": post.type === "poem" ? "Poem" : post.type === "article" ? "Article" : "CreativeWork",
     "name": post.title,
+    "headline": post.title,
     "author": {
       "@type": "Person",
       "name": "Clare",
@@ -100,6 +101,7 @@ export default async function PostPage({ params }: Props) {
     "url": `${BASE_URL}/${slug}`,
     "description": post.excerpt ?? "",
     "datePublished": post.date,
+    "dateModified": post.date,
     "publisher": {
       "@type": "Organization",
       "name": "clar.earth",

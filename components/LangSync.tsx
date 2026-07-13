@@ -14,7 +14,7 @@ let langGeneration = 0;
 export default function LangSync({ lang }: { lang: string }) {
   useEffect(() => {
     const myGen = ++langGeneration;
-    if (lang && document.documentElement.lang !== lang) {
+    if (document.documentElement.lang !== lang) {
       document.documentElement.lang = lang;
     }
     return () => {
