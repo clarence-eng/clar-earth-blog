@@ -47,7 +47,8 @@ export function getAllPosts(): (PostMeta & { published: true })[] {
       const slug = filename.replace(/\.mdx$/, "");
       const raw = fs.readFileSync(path.join(POSTS_DIR, filename), "utf-8");
       const { data } = matter(raw);
-      const post = { slug, ...(data as Partial<Omit<PostMeta, "slug">>) };
+      const { slug: _discard, ...rest } = data as Partial<PostMeta>;
+      const post = { slug, ...rest };
       if (!post.type) post.type = "poem";
       if (!(['poem','article','photo-essay'] as const).includes(post.type as never)) post.type = "poem";
       if (post.mood && !Array.isArray(post.mood)) post.mood = [post.mood as unknown as string];
@@ -72,7 +73,8 @@ export function getPost(slug: string): Post | null {
 
   const raw = fs.readFileSync(filePath, "utf-8");
   const { data, content } = matter(raw);
-  const post = { slug, ...(data as Partial<Omit<PostMeta, "slug">>), content } as Post;
+  const { slug: _discard, ...rest } = data as Partial<PostMeta>;
+  const post = { slug, ...rest, content } as Post;
   if (!post.title) return null;
   if (post.published !== true) return null;
   if (!post.type) post.type = "poem";

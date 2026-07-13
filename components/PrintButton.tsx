@@ -25,7 +25,6 @@ export default function PrintButton({ title, type }: PrintButtonProps) {
     };
     restoreRef.current = restore;
     window.addEventListener("afterprint", restore, { once: true, signal: ac.signal });
-    window.addEventListener("focus", restore, { once: true, signal: ac.signal });
     window.print();
   };
 

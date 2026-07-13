@@ -40,7 +40,7 @@ export default config({
         date: fields.text({ label: "Date (e.g. 2025-04)", validation: { isRequired: false } }),
         readingPhrase: fields.text({ label: "Reading phrase (e.g. 'a fire held between cupped hands')", validation: { isRequired: false } }),
         ladybugColor: fields.text({ label: "Ladybug cursor colour (hex, e.g. #E07030)", validation: { isRequired: false } }),
-        published: fields.checkbox({ label: "Published", defaultValue: true }),
+        published: fields.checkbox({ label: "Published", defaultValue: false }),
         mood: fields.multiselect({
           label: "Moods",
           description: "Primary mood first — drives cursor colour and mood tags",
