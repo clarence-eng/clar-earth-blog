@@ -11,7 +11,6 @@
   --amber:       #C4882A;
   --gold:        #B5975C;
   --muted:       #625F57;
-  --muted-light: #A8A49A;
   --border:      #DDD8CC;
   --ink:         #2C2C27;
 }
@@ -293,9 +292,6 @@ header nav,
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-}
-.poem-two-col__right .poem-stanza {
-  text-align: right;
 }
 @media (max-width: 600px) {
   .poem-two-col { grid-template-columns: 1fr; }

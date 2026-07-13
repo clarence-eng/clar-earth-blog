@@ -71,6 +71,7 @@ export default function AmbientParticles() {
       const drawSpore = (ctx: CanvasRenderingContext2D, p: Particle) => {
         ctx.save();
         ctx.translate(p.x, p.y);
+        ctx.rotate(p.rotation);
         ctx.globalAlpha = p.opacity;
         ctx.fillStyle = "rgba(255,255,255,0.9)";
         ctx.beginPath();
