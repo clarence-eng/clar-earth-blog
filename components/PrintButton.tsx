@@ -18,13 +18,20 @@ export default function PrintButton({ title, type }: PrintButtonProps) {
     const prev = document.title;
     document.title = `${title} — clar.earth`;
     const ac = new AbortController();
+    let fallbackTimer: ReturnType<typeof setTimeout> | null = null;
     const restore = () => {
+      if (fallbackTimer !== null) clearTimeout(fallbackTimer);
       ac.abort();
       document.title = prev;
       restoreRef.current = null;
     };
     restoreRef.current = restore;
+    // Primary signal: afterprint event
     window.addEventListener("afterprint", restore, { once: true, signal: ac.signal });
+    // Earlier fallback: window focus (e.g. user closes dialog without printing)
+    window.addEventListener("focus", restore, { once: true, signal: ac.signal });
+    // Last-resort fallback: clear after 60 s so the button is never permanently disabled
+    fallbackTimer = setTimeout(restore, 60_000);
     window.print();
   };
 

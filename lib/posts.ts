@@ -46,7 +46,14 @@ export function getAllPosts(): (PostMeta & { published: true })[] {
     .map((filename) => {
       const slug = filename.replace(/\.mdx$/, "");
       const raw = fs.readFileSync(path.join(POSTS_DIR, filename), "utf-8");
-      const { data } = matter(raw);
+      let parsed: ReturnType<typeof matter>;
+      try {
+        parsed = matter(raw);
+      } catch (e) {
+        console.error("Failed to parse frontmatter for", filename, e);
+        return null;
+      }
+      const { data } = parsed;
       const { slug: _discard, ...rest } = data as Partial<PostMeta>;
       const post = { slug, ...rest };
       if (!post.type) post.type = "poem";
@@ -54,7 +61,7 @@ export function getAllPosts(): (PostMeta & { published: true })[] {
       if (post.mood && !Array.isArray(post.mood)) post.mood = [post.mood as unknown as string];
       return post;
     })
-    .filter((p): p is typeof p & { title: string; published: true } => p.published === true && typeof p.title === 'string' && p.title.trim().length > 0)
+    .filter((p): p is NonNullable<typeof p> & { title: string; published: true } => p !== null && p.published === true && typeof p.title === 'string' && p.title.trim().length > 0)
     .sort((a, b) => {
       const aLatin = /^[A-Za-z]/.test(a.title);
       const bLatin = /^[A-Za-z]/.test(b.title);

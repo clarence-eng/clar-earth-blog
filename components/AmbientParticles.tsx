@@ -26,12 +26,17 @@ export default function AmbientParticles() {
       if (!ctx) return;
 
       const resize = () => {
+        // Guard: skip if layout isn't complete yet (dimensions still 0)
+        if (!canvas.offsetWidth || !canvas.offsetHeight) return;
         canvas.width = canvas.offsetWidth;
         canvas.height = canvas.offsetHeight;
       };
       resize();
-      window.addEventListener("resize", resize);
-      resizeCleanup = () => window.removeEventListener("resize", resize);
+      // Use ResizeObserver on the canvas element itself so we measure after
+      // layout is stable, rather than relying on the window resize event.
+      const ro = new ResizeObserver(resize);
+      ro.observe(canvas);
+      resizeCleanup = () => ro.disconnect();
 
       const particles: Particle[] = Array.from({ length: 18 }, () => ({
         x: Math.random() * canvas.width,
