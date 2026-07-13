@@ -40,6 +40,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url,
       siteName: "clar.earth",
       type: "article",
+      locale: post.lang ? (LANG_MAP[post.lang] === "zh" ? "zh_CN" : LANG_MAP[post.lang] === "ja" ? "ja_JP" : LANG_MAP[post.lang] === "ko" ? "ko_KR" : undefined) : "en_US",
       ...(coverUrl ? { images: [{ url: coverUrl, alt: post.title }] } : {}),
     },
     twitter: {

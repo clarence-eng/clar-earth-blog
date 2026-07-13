@@ -13,10 +13,14 @@ export default function LangSync({ lang }: { lang: string }) {
       document.documentElement.lang = lang;
     }
     return () => {
-      // Reset to "en" when leaving a non-English post via client-side navigation.
-      // English posts don't mount LangSync so they would otherwise inherit the
-      // previous page's language tag.
-      document.documentElement.lang = "en";
+      // Use a microtask so the incoming page's effect can set a new lang first.
+      // Only reset to "en" if no other LangSync has set a different value.
+      const outgoing = lang;
+      Promise.resolve().then(() => {
+        if (document.documentElement.lang === outgoing) {
+          document.documentElement.lang = "en";
+        }
+      });
     };
   }, [lang]);
 
