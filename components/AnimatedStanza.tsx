@@ -19,7 +19,7 @@ function renderLine(line: string, key: number) {
       {parts.map((p, i) =>
         p.length > 1 && p.startsWith("*") && p.endsWith("*")
           ? <em key={i}>{p.slice(1, -1)}</em>
-          : <span key={i}>{p}</span>
+          : p ? <span key={i}>{p.replace(/\*/g, '')}</span> : null
       )}
     </span>
   );
