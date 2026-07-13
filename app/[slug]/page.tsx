@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url,
       siteName: "clar.earth",
       type: "article",
-      ...(post.coverImage ? { images: [{ url: `${BASE_URL}${post.coverImage}` }] } : {}),
+      ...(post.coverImage ? { images: [{ url: `${BASE_URL}${post.coverImage}`, alt: post.title }] } : {}),
     },
     twitter: {
       card: post.coverImage ? "summary_large_image" : "summary",
