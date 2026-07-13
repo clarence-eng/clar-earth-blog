@@ -4,6 +4,16 @@ const isProd =
   process.env.NODE_ENV === "production" &&
   !!process.env.KEYSTATIC_GITHUB_CLIENT_ID;
 
+// Guard against a Vercel production deployment where the OAuth env vars were
+// accidentally omitted — Vercel sets VERCEL_ENV='production' only in real deployments,
+// so this does NOT fire during local `next build` runs.
+if (process.env.VERCEL_ENV === "production" && !process.env.KEYSTATIC_GITHUB_CLIENT_ID) {
+  throw new Error(
+    "Missing required env var KEYSTATIC_GITHUB_CLIENT_ID in production. " +
+    "Set it in your Vercel environment or Keystatic will silently fall back to ephemeral local storage."
+  );
+}
+
 export default config({
   storage: isProd
     ? {

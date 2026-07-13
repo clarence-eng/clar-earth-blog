@@ -70,6 +70,7 @@ body {
 @media (pointer: fine) {
   * { cursor: none !important; }
   input, textarea, [contenteditable] { cursor: text !important; }
+  input[type=checkbox], input[type=radio], input[type=range], input[type=submit], input[type=button], input[type=file], input[type=reset] { cursor: pointer !important; }
   select, a, button, [role=button], label { cursor: pointer !important; }
 }
 

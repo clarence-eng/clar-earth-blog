@@ -27,6 +27,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!post) return {};
 
   const url = `${BASE_URL}/${slug}`;
+  const coverUrl = post.coverImage
+    ? `${BASE_URL}${post.coverImage.startsWith('/') ? '' : '/'}${post.coverImage}`
+    : undefined;
 
   return {
     title: `${post.title} — clar.earth`,
@@ -37,13 +40,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url,
       siteName: "clar.earth",
       type: "article",
-      ...(post.coverImage ? { images: [{ url: `${BASE_URL}${post.coverImage}`, alt: post.title }] } : {}),
+      ...(coverUrl ? { images: [{ url: coverUrl, alt: post.title }] } : {}),
     },
     twitter: {
       card: post.coverImage ? "summary_large_image" : "summary",
       title: post.title,
       description: post.excerpt ?? "A poem by Clare.",
-      ...(post.coverImage ? { images: [`${BASE_URL}${post.coverImage}`] } : {}),
+      ...(coverUrl ? { images: [coverUrl] } : {}),
     },
     alternates: { canonical: url },
   };

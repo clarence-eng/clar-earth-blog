@@ -5,6 +5,8 @@ import PostGrid from "@/components/PostGrid";
 import FeaturedPoem from "@/components/FeaturedPoem";
 import SiteFooter from "@/components/SiteFooter";
 
+// getSeasonalGradient uses new Date() at build time (static rendering).
+// The season is updated on each deployment; for real-time seasons, move to a Client Component.
 function getSeasonalGradient() {
   const month = new Date().getMonth();
   if (month >= 2 && month <= 4) return "linear-gradient(160deg, #2D4A3E 0%, #3D6154 40%, #4A7A5A 70%, #2A3D34 100%)";
