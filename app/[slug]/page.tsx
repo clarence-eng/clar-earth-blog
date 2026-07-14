@@ -48,8 +48,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url,
       siteName: "clar.earth",
       type: "article",
-      publishedTime: post.date,
-      modifiedTime: post.date,
+      publishedTime: post.date ? (post.date.match(/^\d{4}-\d{2}$/) ? post.date + '-01' : post.date) : undefined,
+      modifiedTime: post.date ? (post.date.match(/^\d{4}-\d{2}$/) ? post.date + '-01' : post.date) : undefined,
       authors: [`${BASE_URL}/about`],
       ...(ogLocale ? { locale: ogLocale } : {}),
       ...(coverUrl ? { images: [{ url: coverUrl, width: 1200, height: 800, alt: post.title }] } : {}),
@@ -60,7 +60,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: post.excerpt ?? defaultDesc,
       ...(coverUrl ? { images: [coverUrl] } : {}),
     },
-    alternates: { canonical: url, ...(bcp47Meta && bcp47Meta !== 'en' ? { languages: { [bcp47Meta]: url, 'x-default': url } } : {}) },
+    alternates: { canonical: url, ...(bcp47Meta && bcp47Meta !== 'en' ? { languages: { [bcp47Meta]: url, 'x-default': BASE_URL } } : {}) },
   };
 }
 
@@ -112,7 +112,7 @@ export default async function PostPage({ params }: Props) {
     },
     "url": `${BASE_URL}/${slug}`,
     "description": post.excerpt ?? "",
-    ...(post.date ? { "datePublished": post.date, "dateModified": post.date } : {}),
+    ...(post.date ? { "datePublished": post.date.match(/^\d{4}-\d{2}$/) ? post.date + '-01' : post.date, "dateModified": post.date.match(/^\d{4}-\d{2}$/) ? post.date + '-01' : post.date } : {}),
     ...(coverUrl ? { "image": coverUrl } : {}),
     "publisher": {
       "@type": "Organization",

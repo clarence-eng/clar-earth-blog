@@ -40,7 +40,13 @@ export function natureReadingTime(wordCount: number): string {
 export function getAllPosts(): (PostMeta & { published: true })[] {
   if (!fs.existsSync(POSTS_DIR)) return [];
 
-  const files = fs.readdirSync(POSTS_DIR).filter((f) => f.endsWith(".mdx"));
+  let files: string[];
+  try {
+    files = fs.readdirSync(POSTS_DIR).filter((f) => f.endsWith(".mdx"));
+  } catch (e) {
+    console.error("Failed to read posts directory", e);
+    return [];
+  }
 
   const posts = files
     .map((filename) => {
@@ -68,7 +74,7 @@ export function getAllPosts(): (PostMeta & { published: true })[] {
       if (aLatin && !bLatin) return -1;
       if (!aLatin && bLatin) return 1;
       // All non-Latin scripts (CJK, Arabic, Thai, Devanagari, …) sort together
-      return a.title.localeCompare(b.title, undefined, { sensitivity: 'base' });
+      return a.title.localeCompare(b.title, undefined, { sensitivity: 'variant' });
     });
 
   return posts as (PostMeta & { published: true })[];
