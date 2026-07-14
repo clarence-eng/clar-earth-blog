@@ -42,6 +42,8 @@ function parseStanzas(content: string): { text: string; align: "left" | "right" 
   }).filter(s => s.text.trim().length > 0);
 }
 
+// Must stay as a hex constant (used in hex-alpha gradient interpolation: `${HERO_BG}CC`)
+// Now also registered as --hero-bg CSS token in globals.css for palette consistency
 const HERO_BG = "#1E2E28";
 
 

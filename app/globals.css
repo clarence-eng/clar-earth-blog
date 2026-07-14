@@ -5,17 +5,20 @@
 
 /* ── Light Mode Tokens ─────────────────────────────────────── */
 :root {
-  --cream:       #F8F5EF;
-  --cream-dark:  #EDE9E0;
-  --charcoal:    #1A1A17;
-  --forest:      #2D4A3E;
-  --forest-mid:  #3D6154;
-  --sage:        #8A9A6A;
-  --amber:       #C4882A;
-  --gold:        #B5975C;
-  --muted:       #625F57;
-  --border:      #DDD8CC;
-  --ink:         #2C2C27;
+  --cream:          #F8F5EF;
+  --cream-dark:     #EDE9E0;
+  --charcoal:       #1A1A17;
+  --forest:         #2D4A3E;
+  --forest-mid:     #3D6154;
+  --sage:           #8A9A6A;
+  --amber:          #C4882A;
+  --gold:           #B5975C;
+  --muted:          #625F57;
+  --border:         #DDD8CC;
+  --ink:            #2C2C27;
+  --hero-bg:        #1E2E28;
+  --selection-bg:   #C8D8B8;
+  --selection-color: var(--forest);
 }
 
 /* ── Dark Mode Tokens — deep forest night ──────────────────── */
@@ -30,8 +33,10 @@
   --gold:        #C4A46A;
   --muted:       #7A8A7C;
   --muted-light: #8A9A8C;
-  --border:      #2C3C30;
-  --ink:         #D8D4CC;
+  --border:         #2C3C30;
+  --ink:            #D8D4CC;
+  --selection-bg:   #2A4A3E;
+  --selection-color: #A8C4A0;
 }
 
 /* ── Base ──────────────────────────────────────────────────── */
@@ -137,8 +142,8 @@ body {
 ::-webkit-scrollbar-thumb { background: var(--sage); border-radius: 2px; }
 
 /* ── Selection ─────────────────────────────────────────────── */
-::selection { background: #C8D8B8; color: var(--forest); }
-.dark ::selection { background: #2A4A3E; color: #A8C4A0; }
+::selection { background: var(--selection-bg); color: var(--selection-color); }
+.dark ::selection { background: var(--selection-bg); color: var(--selection-color); }
 
 /* ── Type badge — adapts to dark mode ─────────────────────── */
 .type-badge-poem        { background: #EAF0E2; color: #4A6A38; }
