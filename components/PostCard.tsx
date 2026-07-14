@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion, useMotionValue, useTransform, useSpring, useReducedMotion } from "framer-motion";
+import { useState, useEffect } from "react";
 import type { PostMeta } from "@/lib/posts";
 import { TYPE_LABELS, primaryMood, LANG_MAP } from "@/lib/config";
 import MoodTag from "./MoodTag";
@@ -34,6 +35,8 @@ function PlaceholderCover({ title, slug }: { title: string; slug: string }) {
 
 export default function PostCard({ post, index }: { post: PostMeta; index: number }) {
   const reducedMotion = useReducedMotion();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
 
   // Magnetic 3D tilt — disabled when user prefers reduced motion
   const x = useMotionValue(0);
@@ -47,8 +50,8 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 28 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={mounted ? { opacity: 0, y: 28 } : false}
+      animate={mounted ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.55, delay: index * 0.06, ease: [0.25, 0.1, 0.25, 1] }}
       className="group relative"
       data-mood={cardMood}

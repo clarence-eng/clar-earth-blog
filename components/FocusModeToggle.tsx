@@ -1,14 +1,15 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 
 export default function FocusModeToggle() {
   const [focus, setFocus] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   // Sync initial state from DOM after commit (avoids reading stale class from previous page during render)
   useEffect(() => {
     setFocus(document.documentElement.classList.contains("focus-mode"));
+    setMounted(true);
   }, []);
 
   // Clean up focus-mode when navigating away
@@ -24,15 +25,12 @@ export default function FocusModeToggle() {
   };
 
   return (
-    <motion.button
+    <button
       type="button"
       onClick={toggle}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 0.8 }}
       aria-pressed={focus}
       aria-label={focus ? "Exit focus mode" : "Focus mode"}
-      className="post-action-btn"
+      className={`post-action-btn focus-mode-toggle${mounted ? " is-visible" : ""}`}
       title={focus ? "Exit focus mode" : "Focus mode"}
     >
       {focus ? (
@@ -46,6 +44,6 @@ export default function FocusModeToggle() {
         </svg>
       )}
       {focus ? "Exit" : "Focus"}
-    </motion.button>
+    </button>
   );
 }

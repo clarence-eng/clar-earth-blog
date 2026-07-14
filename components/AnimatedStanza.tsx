@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 interface StanzaProps {
   children: string;
   index: number;
@@ -29,6 +29,8 @@ function renderLine(line: string, key: number) {
 export default function AnimatedStanza({ children, index, align = "left", italic = false, lang, isFirstDrop = false }: StanzaProps) {
   const ref = useRef<HTMLParagraphElement>(null);
   const inView = useInView(ref, { once: true, amount: "some" });
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
 
   const stripped = italic ? children.replace(/^\*([\s\S]*)\*$/, '$1') : children;
   const lines = stripped.split("\n").map(line => italic ? line.trim() : line);
@@ -54,8 +56,8 @@ export default function AnimatedStanza({ children, index, align = "left", italic
       className={className}
       style={{ textAlign: align, fontStyle: italic ? "italic" : undefined }}
       lang={lang}
-      initial={{ opacity: 0, y: 12 }}
-      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+      initial={mounted ? { opacity: 0, y: 12 } : false}
+      animate={inView ? { opacity: 1, y: 0 } : (mounted ? { opacity: 0, y: 12 } : {})}
       transition={{
         duration: 0.55,
         delay: index < 3 ? index * 0.07 : 0,
