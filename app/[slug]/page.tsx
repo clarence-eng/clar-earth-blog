@@ -54,7 +54,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     twitter: {
       card: post.coverImage ? "summary_large_image" : "summary",
       title: post.title,
-      description: post.excerpt ?? "A poem by Clare.",
+      description: post.excerpt ?? defaultDesc,
       ...(coverUrl ? { images: [coverUrl] } : {}),
     },
     alternates: { canonical: url },

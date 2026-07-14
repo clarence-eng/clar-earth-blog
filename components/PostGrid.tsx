@@ -27,14 +27,15 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
   }, [posts]);
 
   const handleRadioKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+    if (!["ArrowLeft","ArrowRight","ArrowUp","ArrowDown"].includes(e.key)) return;
     e.preventDefault();
     const container = radioGroupRef.current;
     if (!container) return;
     const siblings = Array.from(container.querySelectorAll<HTMLButtonElement>('[role="radio"]'));
     const currentIndex = siblings.findIndex(el => el.getAttribute("aria-checked") === "true");
     if (currentIndex === -1) return;
-    const nextIndex = e.key === "ArrowRight"
+    const forward = e.key === "ArrowRight" || e.key === "ArrowDown";
+    const nextIndex = forward
       ? (currentIndex + 1) % siblings.length
       : (currentIndex - 1 + siblings.length) % siblings.length;
     const nextKey = (siblings[nextIndex].dataset.filterKey ?? "all") as FilterKey;

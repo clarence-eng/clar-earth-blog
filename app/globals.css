@@ -255,8 +255,6 @@ header nav,
   nav, .reading-progress, .back-pill, .poem-back-arrow, .related-poems,
   .marquee-track, .filter-tabs-wrap,
   .poem-prev-next, .keyboard-hint, button { display: none !important; }
-  /* Hide decorative/interactive footer parts but keep the footer for attribution */
-  .site-footer-links, .site-footer-nav { display: none !important; }
   body { background: white; color: black; font-size: 12pt; }
   .poem-content { max-width: 100%; }
   .poem-stanza { font-size: 11pt; line-height: 1.6; break-inside: avoid; }
