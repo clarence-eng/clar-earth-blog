@@ -142,9 +142,10 @@ export default function Nav({ posts }: NavProps) {
       menuOpenRef.current = false;
       if (menuClosedByKeyboard.current) {
         menuButtonRef.current?.focus();
-        menuClosedByKeyboard.current = false;
       }
     }
+    // Always clear the keyboard-close flag on navigation so it doesn't persist across sessions
+    menuClosedByKeyboard.current = false;
     // Also close search modal on any navigation
     if (searchOpenRef.current) {
       setSearchOpen(false);
