@@ -38,17 +38,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
   const ogLocale = bcp47Meta ? (OG_LOCALE[bcp47Meta] ?? 'en_US') : undefined;
 
+  const defaultDesc = post.type === "poem" ? "A poem by Clare." : post.type === "article" ? "An article by Clare." : "A photo essay by Clare.";
   return {
     title: `${post.title} — clar.earth`,
-    description: post.excerpt ?? "A poem by Clare.",
+    description: post.excerpt ?? defaultDesc,
     openGraph: {
       title: post.title,
-      description: post.excerpt ?? "A poem by Clare.",
+      description: post.excerpt ?? defaultDesc,
       url,
       siteName: "clar.earth",
       type: "article",
       ...(ogLocale ? { locale: ogLocale } : {}),
-      ...(coverUrl ? { images: [{ url: coverUrl, alt: post.title }] } : {}),
+      ...(coverUrl ? { images: [{ url: coverUrl, width: 1200, height: 800, alt: post.title }] } : {}),
     },
     twitter: {
       card: post.coverImage ? "summary_large_image" : "summary",
@@ -76,7 +77,7 @@ export default async function PostPage({ params }: Props) {
   const allPosts = getAllPosts();
   const idx = allPosts.findIndex((p) => p.slug === slug);
   const prev = idx > 0 ? allPosts[idx - 1] : null;
-  const next = idx >= 0 && idx < allPosts.length - 1 ? allPosts[idx + 1] : null;
+  const next = idx < allPosts.length - 1 ? allPosts[idx + 1] : null;
   const readTime = post.readingPhrase || natureReadingTime(readingTime(post.content).words);
 
   const rawLang = post.lang ?? "";
