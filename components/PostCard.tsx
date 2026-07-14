@@ -50,11 +50,16 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
       initial={{ opacity: 0, y: 28 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.55, delay: index * 0.06, ease: [0.25, 0.1, 0.25, 1] }}
-      className="group"
+      className="group relative"
       data-mood={cardMood}
       data-ladybug={post.ladybugColor}
     >
-      <Link href={`/${post.slug}`} className="block h-full" aria-label={`${post.title}, ${TYPE_LABELS[post.type]}`}>
+      {/* Overlay link — covers the entire card; accessible name comes from aria-labelledby pointing to the h2 */}
+      <Link
+        href={`/${post.slug}`}
+        className="absolute inset-0 z-10"
+        aria-labelledby={`post-title-${post.slug}`}
+      />
         {/* 3D tilt image box */}
         <motion.div
           className="overflow-hidden rounded-sm aspect-[4/3] relative"
@@ -91,11 +96,12 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
             <span className={`font-jost text-[10px] sm:text-[9px] tracking-[0.25em] uppercase px-2 py-0.5 rounded-full type-badge-${post.type}`}>
               {TYPE_LABELS[post.type]}
             </span>
-            {post.lang && <span className="font-jost text-[10px] text-[var(--ink)]" lang={LANG_MAP[post.lang]}>{post.lang}</span>}
+            {post.lang && <span className="font-jost text-[10px] text-[var(--ink)]" lang={LANG_MAP[post.lang] ?? post.lang}>{post.lang}</span>}
             <MoodTag mood={post.mood} />
           </div>
 
           <h2
+            id={`post-title-${post.slug}`}
             className="cormorant-italic text-balance leading-tight text-[var(--ink)] group-hover:text-[var(--forest)] transition-colors duration-300 text-lg"
           >
             {post.title}
@@ -113,7 +119,6 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
           {/* Gold underline reveal */}
           <div aria-hidden="true" className="gold-underline-reveal mt-3" />
         </div>
-      </Link>
     </motion.article>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import AmbientParticles from "./AmbientParticles";
 import { SITE_TAGLINE } from "@/lib/config";
 
@@ -25,6 +25,7 @@ function Sprig({ x, y, size, rotate, opacity }: { x: string; y: string; size: nu
 export default function HeroSection({ titles, gradient }: { titles: string[]; gradient: string }) {
   const reducedMotion = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
+  const [marqueePaused, setMarqueePaused] = useState(false);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
 
   const quoteY = useTransform(scrollYProgress, [0, 1], [0, -60]);
@@ -124,12 +125,34 @@ export default function HeroSection({ titles, gradient }: { titles: string[]; gr
 
       {/* Marquee — derived from poem titles, auto-updates when new poems are added */}
       {marqueeText && (
-        <div className="w-full overflow-hidden border-y border-[var(--border)] py-2.5" style={{ background: "var(--cream-dark)" }}>
-          <div className="marquee-track" aria-hidden="true">
+        <div className="w-full overflow-hidden border-y border-[var(--border)] py-2.5 relative" style={{ background: "var(--cream-dark)" }}>
+          <div
+            className="marquee-track"
+            aria-hidden="true"
+            style={{ animationPlayState: marqueePaused ? "paused" : "running" }}
+          >
             {[0, 1].map(i => (
               <span key={i} className="marquee-content">{marqueeText.repeat(5)}</span>
             ))}
           </div>
+          <button
+            type="button"
+            onClick={() => setMarqueePaused(p => !p)}
+            aria-label={marqueePaused ? "Resume scrolling poem titles" : "Pause scrolling poem titles"}
+            aria-pressed={marqueePaused}
+            className="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 flex items-center justify-center rounded-full border border-[var(--border)] bg-[var(--cream-dark)] text-[var(--muted)] hover:text-[var(--forest)] transition-colors duration-200 z-10"
+          >
+            {marqueePaused ? (
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor" aria-hidden="true">
+                <polygon points="2,1 9,5 2,9"/>
+              </svg>
+            ) : (
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor" aria-hidden="true">
+                <rect x="1.5" y="1.5" width="2.5" height="7"/>
+                <rect x="6" y="1.5" width="2.5" height="7"/>
+              </svg>
+            )}
+          </button>
         </div>
       )}
     </>

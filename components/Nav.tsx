@@ -45,6 +45,8 @@ function MobileMenuInner({ pathname, resolvedTheme, onThemeToggle, menuFirstItem
             type="button"
             onClick={onThemeToggle}
             className="font-jost text-[13px] tracking-[0.15em] uppercase text-[var(--muted)] hover:text-[var(--forest)] transition-colors py-3 text-left flex items-center gap-3"
+            aria-pressed={resolvedTheme === "dark"}
+            aria-label={resolvedTheme === "dark" ? "Dark mode, switch to light" : "Light mode, switch to dark"}
           >
             {resolvedTheme === "dark" ? (
               <>
@@ -227,6 +229,7 @@ export default function Nav({ posts }: NavProps) {
                 className={`w-11 h-11 flex items-center justify-center transition-colors duration-300 ${textMuted}`}
                 title={resolvedTheme === "dark" ? "Light mode" : "Dark mode"}
                 aria-label={resolvedTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+                aria-pressed={resolvedTheme === "dark"}
               >
                 {resolvedTheme === "dark" ? (
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">

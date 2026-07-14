@@ -351,7 +351,6 @@ header nav,
   text-transform: uppercase;
 }
 @media (max-width: 640px) {
-  .nav-action-label { font-size: 0.75rem; }
   .section-label { font-size: 0.625rem; }
 }
 
