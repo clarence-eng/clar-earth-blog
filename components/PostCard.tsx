@@ -69,7 +69,7 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
         aria-labelledby={`post-title-${post.slug}`}
       />
         {/* 3D tilt image box */}
-        <motion.div
+        <div
           className="overflow-hidden rounded-sm aspect-[4/3] relative"
         >
           <div
@@ -87,7 +87,7 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
           {cardMood && (
             <div className="card-mood-shimmer absolute inset-x-0 top-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" data-mood={cardMood} data-ladybug={post.ladybugColor} />
           )}
-        </motion.div>
+        </div>
 
         {/* Meta */}
         <div className="mt-4 px-0.5">
