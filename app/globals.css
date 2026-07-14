@@ -257,6 +257,7 @@ header nav,
   .poem-prev-next, .keyboard-hint, button { display: none !important; }
   body { background: white; color: black; font-size: 12pt; }
   .poem-content { max-width: 100%; }
+  .poem-content, .poem-stanza { color: black !important; }
   .poem-stanza { font-size: 11pt; line-height: 1.6; break-inside: avoid; }
   h1 { font-size: 22pt; margin-bottom: 6pt; }
   h1, .poem-page-title { color: black !important; text-shadow: none !important; }
@@ -276,7 +277,7 @@ header nav,
   font-family: var(--font-cormorant), "Noto Serif CJK SC", "STSong", "SimSun", serif;
   font-style: italic;
   font-weight: 300;
-  color: var(--sage);
+  color: var(--forest);
   font-size: 2.2em;
   vertical-align: bottom;
   line-height: 1;

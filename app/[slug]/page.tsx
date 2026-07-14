@@ -60,7 +60,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: post.excerpt ?? defaultDesc,
       ...(coverUrl ? { images: [coverUrl] } : {}),
     },
-    alternates: { canonical: url, ...(bcp47Meta && bcp47Meta !== 'en' ? { languages: { [bcp47Meta]: url, 'x-default': url } } : {}) },
+    alternates: { canonical: url, ...(bcp47Meta && bcp47Meta !== 'en' ? { languages: { [bcp47Meta]: url, 'x-default': BASE_URL } } : {}) },
   };
 }
 
@@ -82,6 +82,9 @@ export default async function PostPage({ params }: Props) {
   const prev = idx > 0 ? allPosts[idx - 1] : null;
   const next = idx < allPosts.length - 1 ? allPosts[idx + 1] : null;
   const readTime = post.readingPhrase || natureReadingTime(readingTime(post.content).words);
+  const coverUrl = post.coverImage
+    ? `${BASE_URL}${post.coverImage.startsWith('/') ? '' : '/'}${post.coverImage}`
+    : undefined;
 
   const rawLang = post.lang ?? "";
   // Resolve BCP-47: known English content has no lang field (falls back to "en"),
@@ -110,6 +113,7 @@ export default async function PostPage({ params }: Props) {
     "description": post.excerpt ?? "",
     "datePublished": post.date,
     "dateModified": post.date,
+    ...(coverUrl ? { "image": coverUrl } : {}),
     "publisher": {
       "@type": "Organization",
       "name": "clar.earth",

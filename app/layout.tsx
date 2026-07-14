@@ -44,6 +44,12 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  // KNOWN LIMITATION: lang="en" is hard-coded here because this root layout is shared
+  // across all routes and has no access to per-slug metadata at render time. For
+  // non-English poems, the LangSync client component corrects the <html lang> attribute
+  // after JS hydration. This means SSR/static HTML and crawlers will see lang="en" even
+  // for CJK or other-language posts. To fix this properly, introduce a per-locale layout
+  // segment (app/[lang]/[slug]) so Next.js can set the correct <html lang> server-side.
   return (
     <html lang="en" className={`${cormorant.variable} ${jost.variable}`} suppressHydrationWarning>
       <body className="min-h-screen flex flex-col">
