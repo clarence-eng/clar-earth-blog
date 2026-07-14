@@ -53,6 +53,14 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
       className="group relative"
       data-mood={cardMood}
       data-ladybug={post.ladybugColor}
+      style={{ rotateX: shouldAnimate ? rotateX : 0, rotateY: shouldAnimate ? rotateY : 0, transformStyle: "preserve-3d", transformPerspective: 800 }}
+      onMouseMove={!shouldAnimate ? undefined : (e: React.MouseEvent<HTMLElement>) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        x.set(((e.clientX - rect.left) / rect.width - 0.5) * 2);
+        y.set(((e.clientY - rect.top) / rect.height - 0.5) * 2);
+      }}
+      onMouseLeave={!shouldAnimate ? undefined : () => { x.set(0); y.set(0); }}
+      whileHover={shouldAnimate ? { y: -6, boxShadow: "0 20px 44px rgba(45,74,62,0.22)" } : undefined}
     >
       {/* Overlay link — covers the entire card; accessible name comes from aria-labelledby pointing to the h2 */}
       <Link
@@ -63,15 +71,6 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
         {/* 3D tilt image box */}
         <motion.div
           className="overflow-hidden rounded-sm aspect-[4/3] relative"
-          style={{ rotateX: shouldAnimate ? rotateX : 0, rotateY: shouldAnimate ? rotateY : 0, transformStyle: "preserve-3d", transformPerspective: 800 }}
-          onMouseMove={!shouldAnimate ? undefined : (e: React.MouseEvent<HTMLDivElement>) => {
-            const rect = e.currentTarget.getBoundingClientRect();
-            x.set(((e.clientX - rect.left) / rect.width - 0.5) * 2);
-            y.set(((e.clientY - rect.top) / rect.height - 0.5) * 2);
-          }}
-          onMouseLeave={!shouldAnimate ? undefined : () => { x.set(0); y.set(0); }}
-          whileHover={shouldAnimate ? { y: -6, boxShadow: "0 20px 44px rgba(45,74,62,0.22)" } : undefined}
-          transition={shouldAnimate ? { y: { duration: 0.4, ease: [0.32, 0.72, 0, 1] }, boxShadow: { duration: 0.4, ease: [0.32, 0.72, 0, 1] } } : undefined}
         >
           <div
             className="relative w-full h-full motion-safe:transition-transform motion-safe:duration-700 motion-safe:ease-out motion-safe:group-hover:scale-[1.03]"
