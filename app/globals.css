@@ -349,10 +349,6 @@ header nav,
   letter-spacing: 0.2em;
   text-transform: uppercase;
 }
-@media (max-width: 640px) {
-  .section-label { font-size: 0.625rem; }
-}
-
 /* ── Post action button — Focus mode + Print ────────────────── */
 .post-action-btn {
   display: flex;

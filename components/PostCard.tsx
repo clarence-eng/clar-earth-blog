@@ -44,7 +44,7 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
   const rotateX = useSpring(useTransform(y, [-1, 1], [6, -6]), { stiffness: 200, damping: 20 });
   const rotateY = useSpring(useTransform(x, [-1, 1], [-6, 6]), { stiffness: 200, damping: 20 });
 
-  const shouldAnimate = reducedMotion !== true;
+  const shouldAnimate = !reducedMotion;
 
   const cardMood = primaryMood(post.mood);
 
