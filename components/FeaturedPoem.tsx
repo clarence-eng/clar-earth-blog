@@ -53,7 +53,6 @@ export default function FeaturedPoem({ post }: { post: PostMeta }) {
               <h2
                 className="cormorant-italic text-white leading-[1.2] mb-2 group-hover:opacity-90 transition-opacity duration-300"
                 style={{
-                  fontWeight: 300,
                   fontSize: "clamp(1.25rem, 2.5vw, 2rem)",
                 }}
               >

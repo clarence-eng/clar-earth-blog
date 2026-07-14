@@ -204,7 +204,6 @@ export default function PostPageClient({
             transition={{ duration: 0.8, delay: 0.1 }}
             className="cormorant-italic text-balance text-white mb-3 poem-page-title"
             style={{
-              fontWeight: 300,
               fontSize: "clamp(2.2rem, 5vw, 3.8rem)",
               lineHeight: 1.15,
             }}

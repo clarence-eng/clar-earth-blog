@@ -48,7 +48,6 @@ export default function AboutPage() {
           <p
             className="cormorant-italic text-balance text-[var(--forest)] leading-[1.4]"
             style={{
-              fontWeight: 300,
               fontSize: "clamp(1.8rem, 4vw, 3rem)",
             }}
           >

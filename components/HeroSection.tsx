@@ -106,7 +106,6 @@ export default function HeroSection({ titles, gradient }: { titles: string[]; gr
             <p
               className="cormorant-italic text-white/90 leading-[1.5] mx-auto"
               style={{
-                fontWeight: 300,
                 fontSize: "clamp(1.55rem, 3.2vw, 2.5rem)",
               }}
             >
