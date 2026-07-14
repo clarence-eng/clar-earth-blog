@@ -32,7 +32,11 @@ export default function AnimatedStanza({ children, index, align = "left", italic
   const [mounted, setMounted] = useState(false);
   useEffect(() => { setMounted(true); }, []);
 
-  const stripped = italic ? children.replace(/^\*([\s\S]*)\*$/, '$1') : children;
+  // Strip italic wrapper: only when the block starts with exactly one `*` and ends with exactly one `*`
+  // (not `**` at either end — that would be a formatting marker, not an italic wrapper)
+  const stripped = italic
+    ? children.replace(/^(?!\*\*)\*([\s\S]*)(?<!\*)\*$/, '$1')
+    : children;
   const lines = stripped.split("\n").map(line => italic ? line.trim() : line);
 
   const lineNodes = lines.map((line, i) => (

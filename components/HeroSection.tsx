@@ -128,7 +128,7 @@ export default function HeroSection({ titles, gradient }: { titles: string[]; gr
           <div
             className="marquee-track"
             aria-hidden="true"
-            style={{ animationPlayState: marqueePaused ? "paused" : "running" }}
+            style={{ animationPlayState: (marqueePaused || reducedMotion === true) ? "paused" : "running" }}
           >
             {[0, 1].map(i => (
               <span key={i} className="marquee-content">{marqueeText.repeat(5)}</span>

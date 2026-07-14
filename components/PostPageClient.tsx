@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useRef } from "react";
 import { useRouter } from "next/navigation";
 import type { Post, PostMeta } from "@/lib/posts";
 import { LANG_MAP, TYPE_LABELS, primaryMood } from "@/lib/config";
@@ -76,8 +76,10 @@ export default function PostPageClient({
     return () => window.removeEventListener("keydown", handleKey);
   }, [prev, next, router]);
 
-  // Move focus to main content after client-side navigation (keyboard or arrow-key)
+  // Move focus to main content after client-side navigation (not on initial mount)
+  const isMountRef = useRef(true);
   useEffect(() => {
+    if (isMountRef.current) { isMountRef.current = false; return; }
     document.getElementById("main-content")?.focus();
   }, [post.slug]);
 

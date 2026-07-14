@@ -263,7 +263,7 @@ export default function Nav({ posts }: NavProps) {
             <button
               ref={menuButtonRef}
               type="button"
-              onClick={() => setMenuOpen(o => !o)}
+              onClick={() => { const next = !menuOpen; setMenuOpen(next); menuOpenRef.current = next; }}
               className={`w-11 h-11 flex items-center justify-center transition-colors duration-300 ${textMuted}`}
               aria-label={menuOpen ? "Close menu" : "Open menu"}
               aria-expanded={menuOpen}
