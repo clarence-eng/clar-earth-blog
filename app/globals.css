@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Configure Tailwind v4 dark variant to use .dark class (via next-themes) not prefers-color-scheme */
+@variant dark (&:where(.dark, .dark *));
+
 /* ── Light Mode Tokens ─────────────────────────────────────── */
 :root {
   --cream:       #F8F5EF;
