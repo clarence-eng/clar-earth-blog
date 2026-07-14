@@ -60,7 +60,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: post.excerpt ?? defaultDesc,
       ...(coverUrl ? { images: [coverUrl] } : {}),
     },
-    alternates: { canonical: url, ...(bcp47Meta && bcp47Meta !== 'en' ? { languages: { [bcp47Meta]: url, 'x-default': BASE_URL } } : {}) },
+    alternates: { canonical: url, ...(bcp47Meta && bcp47Meta !== 'en' ? { languages: { [bcp47Meta]: url, 'x-default': url } } : {}) },
   };
 }
 
@@ -81,8 +81,8 @@ export default async function PostPage({ params }: Props) {
   const idx = allPosts.findIndex((p) => p.slug === slug);
   if (idx === -1) notFound();
   const prev = idx > 0 ? allPosts[idx - 1] : null;
-  const next = idx > -1 && idx < allPosts.length - 1 ? allPosts[idx + 1] : null;
-  const readTime = post.readingPhrase || natureReadingTime(readingTime(post.content).words);
+  const next = idx < allPosts.length - 1 ? allPosts[idx + 1] : null;
+  const readTime = post.readingPhrase ?? natureReadingTime(readingTime(post.content).words);
   const coverUrl = post.coverImage
     ? `${BASE_URL}${post.coverImage.startsWith('/') ? '' : '/'}${post.coverImage}`
     : undefined;
@@ -112,8 +112,7 @@ export default async function PostPage({ params }: Props) {
     },
     "url": `${BASE_URL}/${slug}`,
     "description": post.excerpt ?? "",
-    "datePublished": post.date,
-    "dateModified": post.date,
+    ...(post.date ? { "datePublished": post.date, "dateModified": post.date } : {}),
     ...(coverUrl ? { "image": coverUrl } : {}),
     "publisher": {
       "@type": "Organization",

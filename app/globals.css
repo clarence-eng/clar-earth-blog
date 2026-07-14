@@ -254,7 +254,7 @@ header nav,
 @media print {
   nav, .reading-progress, .back-pill, .poem-back-arrow, .related-poems,
   .marquee-track, .filter-tabs-wrap,
-  .poem-prev-next, .keyboard-hint, button { display: none !important; }
+  .poem-prev-next, .keyboard-hint, button, canvas { display: none !important; }
   body { background: white; color: black; font-size: 12pt; }
   .poem-content { max-width: 100%; }
   .poem-content, .poem-stanza { color: black !important; }

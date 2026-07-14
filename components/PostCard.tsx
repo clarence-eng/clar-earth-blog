@@ -99,7 +99,7 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
             <span className={`font-jost text-[10px] sm:text-[9px] tracking-[0.25em] uppercase px-2 py-0.5 rounded-full type-badge-${post.type}`}>
               {TYPE_LABELS[post.type]}
             </span>
-            {post.lang && <span className="font-jost text-[10px] text-[var(--ink)]" lang={LANG_MAP[post.lang] ?? post.lang}>{post.lang}</span>}
+            {post.lang && <span className="font-jost text-[10px] text-[var(--ink)]" lang={LANG_MAP[post.lang] ?? undefined}>{post.lang}</span>}
             <MoodTag mood={post.mood} />
           </div>
 
