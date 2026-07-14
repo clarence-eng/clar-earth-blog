@@ -263,6 +263,7 @@ header nav,
   .poem-hero { min-height: 0 !important; padding: 20pt 0 10pt !important; }
   /* Next.js <Image fill> renders directly as <img data-nimg="fill"> child of poem-hero */
   .poem-hero > img, .poem-hero > div:first-of-type { display: none !important; }
+  .poem-hero span { color: black !important; }
   /* Attribution line appended to footer when printing */
   footer::after { content: "clar.earth — Poetry by Clare"; display: block; font-size: 9pt; color: #666; margin-top: 4pt; }
 }

@@ -48,6 +48,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url,
       siteName: "clar.earth",
       type: "article",
+      publishedTime: post.date ?? undefined,
+      modifiedTime: post.date ?? undefined,
+      authors: [`${BASE_URL}/about`],
       ...(ogLocale ? { locale: ogLocale } : {}),
       ...(coverUrl ? { images: [{ url: coverUrl, width: 1200, height: 800, alt: post.title }] } : {}),
     },
@@ -57,7 +60,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: post.excerpt ?? defaultDesc,
       ...(coverUrl ? { images: [coverUrl] } : {}),
     },
-    alternates: { canonical: url },
+    alternates: { canonical: url, ...(bcp47Meta && bcp47Meta !== 'en' ? { languages: { [bcp47Meta]: url, 'x-default': url } } : {}) },
   };
 }
 
