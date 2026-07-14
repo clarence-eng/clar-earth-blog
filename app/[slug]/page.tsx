@@ -79,8 +79,9 @@ export default async function PostPage({ params }: Props) {
 
   const allPosts = getAllPosts();
   const idx = allPosts.findIndex((p) => p.slug === slug);
+  if (idx === -1) notFound();
   const prev = idx > 0 ? allPosts[idx - 1] : null;
-  const next = idx < allPosts.length - 1 ? allPosts[idx + 1] : null;
+  const next = idx > -1 && idx < allPosts.length - 1 ? allPosts[idx + 1] : null;
   const readTime = post.readingPhrase || natureReadingTime(readingTime(post.content).words);
   const coverUrl = post.coverImage
     ? `${BASE_URL}${post.coverImage.startsWith('/') ? '' : '/'}${post.coverImage}`
