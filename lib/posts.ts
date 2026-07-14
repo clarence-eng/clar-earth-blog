@@ -68,7 +68,7 @@ export function getAllPosts(): (PostMeta & { published: true })[] {
       if (aLatin && !bLatin) return -1;
       if (!aLatin && bLatin) return 1;
       // All non-Latin scripts (CJK, Arabic, Thai, Devanagari, …) sort together
-      return a.title.localeCompare(b.title, "en");
+      return a.title.localeCompare(b.title, undefined, { sensitivity: 'base' });
     });
 
   return posts as (PostMeta & { published: true })[];

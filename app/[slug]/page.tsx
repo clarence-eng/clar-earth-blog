@@ -127,9 +127,7 @@ export default async function PostPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }}
       />
-      {/* Use resolved bcp47 when known, fall back to raw lang value so document.documentElement.lang
-          is set to something meaningful even for unrecognised lang codes */}
-      {(bcp47 ?? rawLang) && (bcp47 ?? rawLang) !== "en" && <LangSync lang={(bcp47 ?? rawLang)!} />}
+      {bcp47 && bcp47 !== "en" && <LangSync lang={bcp47} />}
       <Nav posts={allPosts} />
       <PostPageClient post={post} prev={prev} next={next} readTime={readTime} allPosts={allPosts} />
       <SiteFooter />

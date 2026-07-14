@@ -262,7 +262,7 @@ export default function PostPageClient({
                   <AnimatedStanza
                     key={i}
                     index={i}
-                    align="left"
+                    align={s.align}
                     italic={s.italic}
                     lang={s.lang}
                     isFirstDrop={s.originalIndex === stanzaContent.firstDropIdx}
@@ -276,7 +276,7 @@ export default function PostPageClient({
                   <AnimatedStanza
                     key={i}
                     index={stanzaContent.leftStanzas.length + i}
-                    align="right"
+                    align={s.align}
                     italic={s.italic}
                     lang={s.lang}
                   >
