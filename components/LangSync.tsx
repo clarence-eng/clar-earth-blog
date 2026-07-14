@@ -18,13 +18,14 @@ export default function LangSync({ lang }: { lang: string }) {
       document.documentElement.lang = lang;
     }
     return () => {
-      // Defer so the incoming page's useEffect can claim ownership first.
-      // Only reset to "en" if we're still the current generation owner.
-      setTimeout(() => {
+      // Use a microtask (Promise.resolve) so this runs after React's own
+      // MessageChannel microtask scheduler — guaranteeing the incoming page's
+      // useEffect fires first and increments langGeneration before we check it.
+      Promise.resolve().then(() => {
         if (langGeneration === myGen) {
           document.documentElement.lang = "en";
         }
-      }, 0);
+      });
     };
   }, [lang]);
 

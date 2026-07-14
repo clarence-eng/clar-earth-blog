@@ -61,7 +61,7 @@ export default function AnimatedStanza({ children, index, align = "left", italic
       style={{ textAlign: align, fontStyle: italic ? "italic" : undefined }}
       lang={lang}
       initial={mounted ? { opacity: 0, y: 12 } : false}
-      animate={inView ? { opacity: 1, y: 0 } : (mounted ? { opacity: 0, y: 12 } : {})}
+      animate={inView ? { opacity: 1, y: 0 } : (mounted ? false : {})}
       transition={{
         duration: 0.55,
         delay: index < 3 ? index * 0.07 : 0,
