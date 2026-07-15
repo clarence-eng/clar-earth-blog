@@ -22,7 +22,7 @@ const jost = Jost({
 
 export const metadata: Metadata = {
   title: "clar.earth",
-  description: "In the shadow of trees, I find my voice. Where the earth listens, and the pen replies.",
+  description: "Poetry and writing by Clare",
   alternates: { canonical: BASE_URL },
   openGraph: {
     title: "clar.earth",
