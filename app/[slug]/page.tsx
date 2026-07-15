@@ -15,6 +15,8 @@ interface Props {
 
 const getCachedPost = cache((slug: string) => getPost(slug));
 
+const OG_LOCALE: Partial<Record<string, string>> = { zh: "zh_CN", ja: "ja_JP", ko: "ko_KR", es: "es_ES", fr: "fr_FR", vi: "vi_VN" };
+
 export async function generateStaticParams() {
   return getAllPosts().map((p) => ({ slug: p.slug }));
 }
@@ -31,7 +33,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     ? `${BASE_URL}${post.coverImage.startsWith('/') ? '' : '/'}${post.coverImage}`
     : undefined;
 
-  const OG_LOCALE: Partial<Record<string, string>> = { zh: "zh_CN", ja: "ja_JP", ko: "ko_KR", es: "es_ES", fr: "fr_FR", vi: "vi_VN" };
   const bcp47Meta = post.lang ? LANG_MAP[post.lang] : "en";
   if (bcp47Meta === undefined && post.lang) {
     console.warn(`[slug]/page.tsx generateMetadata: unknown lang value "${post.lang}" for post "${slug}" — omitting OG locale`);

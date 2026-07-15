@@ -47,7 +47,7 @@ export default function HeroSection({ titles, gradient }: { titles: string[]; gr
         style={{ background: gradient }}
       >
         {/* Parallax ornament layer */}
-        <motion.div className="absolute inset-0 pointer-events-none" style={reducedMotion === true ? undefined : { y: ornamentsY }}>
+        <motion.div className="absolute inset-0 pointer-events-none" style={reducedMotion !== false ? undefined : { y: ornamentsY }}>
           <div className="absolute pointer-events-none select-none leading-none"
             style={{ top: "14%", left: "13%", fontSize: "clamp(2.6rem, 5.5vw, 5.2rem)", color: "white", opacity: 0.26, lineHeight: 1 }}
             aria-hidden="true">&#10047;</div>
@@ -63,7 +63,7 @@ export default function HeroSection({ titles, gradient }: { titles: string[]; gr
         </motion.div>
 
         {/* Parallax sprig layer */}
-        <motion.div className="absolute inset-0 pointer-events-none" style={reducedMotion === true ? undefined : { y: sprigsY }}>
+        <motion.div className="absolute inset-0 pointer-events-none" style={reducedMotion !== false ? undefined : { y: sprigsY }}>
           <Sprig x="8.5%" y="28%" size={28} rotate={-12} opacity={0.22} />
           <Sprig x="86%" y="28%" size={28} rotate={14} opacity={0.22} />
           <Sprig x="9%" y="52%" size={22} rotate={15} opacity={0.15} />
@@ -96,7 +96,7 @@ export default function HeroSection({ titles, gradient }: { titles: string[]; gr
         {/* Quote — fades + lifts on scroll */}
         <motion.div
           className="relative z-10 w-full max-w-3xl mx-auto px-5 sm:px-8 pt-20 pb-14 sm:pt-28 sm:pb-20 text-center"
-          style={reducedMotion === true ? undefined : { y: quoteY, opacity: quoteOpacity }}
+          style={reducedMotion !== false ? undefined : { y: quoteY, opacity: quoteOpacity }}
         >
           <motion.div
             initial={{ opacity: 0, y: 20 }}

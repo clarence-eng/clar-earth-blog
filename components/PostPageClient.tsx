@@ -65,7 +65,7 @@ export default function PostPageClient({
   // Keyboard navigation ← →
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
-      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement || e.target instanceof HTMLButtonElement || e.target instanceof HTMLAnchorElement || (e.target instanceof HTMLElement && (e.target.isContentEditable || e.target.getAttribute('role') === 'button'))) return;
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement || e.target instanceof HTMLButtonElement || e.target instanceof HTMLAnchorElement || e.target instanceof HTMLSelectElement || (e.target instanceof HTMLElement && (e.target.isContentEditable || e.target.getAttribute('role') === 'button'))) return;
       // Don't navigate when the search modal or mobile menu is open/visible
       // Use data-state="open" on the dialog (not just DOM presence) to avoid blocking during exit animation
       const dialog = document.getElementById("search-modal-dialog");
@@ -277,7 +277,7 @@ export default function PostPageClient({
                 {stanzaContent.rightStanzas.map((s, i) => (
                   <AnimatedStanza
                     key={i}
-                    index={stanzaContent.leftStanzas.length + i}
+                    index={i}
                     align={s.align}
                     italic={s.italic}
                     lang={s.lang}
