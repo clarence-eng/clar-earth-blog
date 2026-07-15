@@ -65,6 +65,7 @@ export function getAllPosts(): (PostMeta & { published: true })[] {
       if (!post.type) post.type = "poem";
       if (!(['poem','article','photo-essay'] as const).includes(post.type as never)) post.type = "poem";
       if (post.mood && !Array.isArray(post.mood)) post.mood = [post.mood as unknown as string];
+      if (post.ladybugColor && !/^#[0-9A-Fa-f]{6}$/.test(post.ladybugColor)) post.ladybugColor = undefined;
       return post;
     })
     .filter((p): p is NonNullable<typeof p> & { title: string; published: true } => p !== null && p.published === true && typeof p.title === 'string' && p.title.trim().length > 0)
