@@ -269,6 +269,15 @@ header nav,
   .poem-stanza { font-size: 11pt; line-height: 1.6; break-inside: avoid; }
   h1 { font-size: 22pt; margin-bottom: 6pt; }
   h1, .poem-page-title { color: black !important; text-shadow: none !important; }
+  /* Reset dark-mode badge/tag backgrounds so they print legibly */
+  .type-badge-poem, .type-badge-article, .type-badge-photo-essay,
+  .dark .type-badge-poem, .dark .type-badge-article, .dark .type-badge-photo-essay {
+    background: transparent !important; color: black !important; border: 1px solid #999 !important;
+  }
+  .mood-tag, .dark .mood-tag[data-mood] {
+    background: transparent !important; color: black !important; border: 1px solid #999 !important;
+  }
+  .mood-tag-dot { background: black !important; }
   .poem-hero { min-height: 0 !important; padding: 20pt 0 10pt !important; }
   /* Next.js <Image fill> renders directly as <img data-nimg="fill"> child of poem-hero */
   .poem-hero > img, .poem-hero > div:first-of-type { display: none !important; }
