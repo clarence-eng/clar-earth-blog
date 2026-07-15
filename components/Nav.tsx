@@ -7,6 +7,7 @@ import type React from "react";
 import { useTheme } from "next-themes";
 import { AnimatePresence, motion, useIsPresent } from "framer-motion";import SearchModal from "./SearchModal";
 import type { PostMeta } from "@/lib/posts";
+import { SITE_NAME, INSTAGRAM_URL } from "@/lib/config";
 
 interface NavProps { posts: PostMeta[] }
 
@@ -222,10 +223,10 @@ export default function Nav({ posts }: NavProps) {
           <div className="flex items-center gap-3">
             <Link href="/" className={`font-jost tracking-[0.3em] text-[11px] font-medium uppercase transition-colors duration-300 flex items-center min-h-[44px] ${textBase}`}
               aria-current={isHome ? 'page' : undefined}>
-              CLAR.EARTH
+              {SITE_NAME}
             </Link>
             <a
-              href="https://www.instagram.com/clar.earth/"
+              href={INSTAGRAM_URL}
               target="_blank"
               rel="noopener noreferrer"
               className={`inline-flex items-center justify-center w-11 h-11 transition-colors duration-300 ${textMuted}`}

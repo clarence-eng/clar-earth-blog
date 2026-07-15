@@ -131,7 +131,7 @@ export default function HeroSection({ titles, gradient }: { titles: string[]; gr
             style={{ animationPlayState: marqueePaused ? "paused" : "running" }}
           >
             {[0, 1].map(i => (
-              <span key={i} className="marquee-content">{marqueeText.repeat(5)}</span>
+              <span key={i} className="marquee-content">{marqueeText.repeat(10)}</span>
             ))}
           </div>
           <button

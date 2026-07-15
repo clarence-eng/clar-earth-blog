@@ -1,6 +1,8 @@
 export const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://clar.earth";
 
-export const SITE_TAGLINE = "In the shadow of trees, I find my voice. Where the earth listens, and the pen replies.";
+export const SITE_NAME = "CLAR.EARTH";
+export const INSTAGRAM_URL = "https://www.instagram.com/clar.earth/";
+export const SITE_TAGLINE = "In the shadow of trees, I find my voice. Where the earth listens, and the pen replies.";
 
 import type { PostType } from "@/lib/posts";
 

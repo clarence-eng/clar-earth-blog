@@ -2,9 +2,12 @@ import Link from "next/link";
 import Nav from "@/components/Nav";
 import SiteFooter from "@/components/SiteFooter";
 import { getAllPosts } from "@/lib/posts";
+import type { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Page not found — clar.earth",
+  description: "The page you're looking for doesn't exist.",
+  robots: { index: false, follow: true },
 };
 
 export default function NotFound() {
