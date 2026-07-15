@@ -53,7 +53,7 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
       className="group relative"
       data-mood={cardMood}
       data-ladybug={post.ladybugColor}
-      style={{ rotateX: shouldAnimate ? rotateX : 0, rotateY: shouldAnimate ? rotateY : 0, transformStyle: "preserve-3d", transformPerspective: 800 }}
+      style={{ rotateX: shouldAnimate ? rotateX : 0, rotateY: shouldAnimate ? rotateY : 0, ...(shouldAnimate && { transformStyle: "preserve-3d" as const, transformPerspective: 800 }) }}
       onMouseMove={!shouldAnimate ? undefined : (e: React.MouseEvent<HTMLElement>) => {
         const rect = e.currentTarget.getBoundingClientRect();
         x.set(((e.clientX - rect.left) / rect.width - 0.5) * 2);
