@@ -36,8 +36,11 @@ function parseStanzas(content: string): { text: string; align: "left" | "right" 
     if (text.startsWith("[right]")) { align = "right"; text = text.slice(7).trimStart(); }
     else if (text.startsWith("[center]")) { align = "center"; text = text.slice(8).trimStart(); }
     if (!italic && text.startsWith("[italic]")) { italic = true; text = text.slice(8).trimStart(); }
-    // Strip italic wrapper here (mirrors AnimatedStanza) so the filter can catch whitespace-only results
-    const stripped = italic ? text.replace(/^(?!\*\*)\*([\s\S]*)(?<!\*)\*$/, '$1') : text;
+    // Strip italic wrapper here (mirrors AnimatedStanza) so the filter can catch whitespace-only results.
+    // Regex avoids lookbehind (Safari 14 compat): match *<non-star><content><non-star>*
+    const stripped = italic
+      ? text.replace(/^\*([^*][\s\S]*[^*])\*$|^\*([^*])\*$/, (_m, a, b) => a ?? b)
+      : text;
     return { text, align, italic, lang, _stripped: stripped };
   }).filter(s => s._stripped.trim().length > 0)
     .map(({ _stripped: _, ...s }) => s);
