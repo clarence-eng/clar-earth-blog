@@ -93,7 +93,7 @@ export default function AmbientParticles() {
           ctx.beginPath();
           ctx.moveTo(Math.cos(angle) * p.size * 0.5, Math.sin(angle) * p.size * 0.5);
           ctx.lineTo(Math.cos(angle) * p.size * 1.4, Math.sin(angle) * p.size * 1.4);
-          ctx.strokeStyle = `rgba(255,255,255,${p.opacity * 0.6})`;
+          ctx.strokeStyle = "rgba(255,255,255,0.6)"; // globalAlpha handles particle-level fade; don't double-encode
           ctx.lineWidth = 0.6;
           ctx.stroke();
         }
