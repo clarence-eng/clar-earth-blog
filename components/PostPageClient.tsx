@@ -88,7 +88,7 @@ export default function PostPageClient({
   // Track whether user has scrolled past the dark hero into the cream body
   const [pastHero, setPastHero] = useState(false);
   useEffect(() => {
-    const handler = () => setPastHero(window.scrollY > 380);
+    const handler = () => setPastHero(window.scrollY > 280);
     window.addEventListener("scroll", handler, { passive: true });
     handler(); // evaluate initial position
     return () => window.removeEventListener("scroll", handler);

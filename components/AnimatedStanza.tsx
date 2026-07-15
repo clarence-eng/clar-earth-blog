@@ -14,19 +14,18 @@ interface StanzaProps {
 
 function renderLine(line: string, key: number) {
   if (!line.includes("*")) return <span key={key}>{line}</span>;
-  // Match single *...* pairs: opening * not followed by *, closing * not preceded by *.
-  // Achieved without lookbehind (Safari 14 compat) by capturing the char before/after:
-  // we split on runs of consecutive *s first to identify italics vs bold markers.
+  // Match single *...* italic pairs without lookbehind (Safari 14 compat).
+  // Phase 1 builds a parts[] array where confirmed italic spans use the sentinel
+  // token "\x00" so phase 2 can reliably distinguish them from literal asterisks.
+  const EM_OPEN = "\x00o", EM_CLOSE = "\x00c";
   const parts: string[] = [];
   let i = 0;
   while (i < line.length) {
     if (line[i] === "*") {
-      // Count consecutive asterisks
       let j = i;
       while (j < line.length && line[j] === "*") j++;
       const stars = j - i;
       if (stars === 1) {
-        // Single asterisk — find the closing single asterisk
         const close = (() => {
           let k = j;
           while (k < line.length) {
@@ -40,10 +39,8 @@ function renderLine(line: string, key: number) {
         })();
         if (close > j) {
           const content = line.slice(j, close);
-          // Don't italicise whitespace-only content (e.g. "* *") — CommonMark disallows
-          // a left-flanking delimiter immediately followed by whitespace
           if (content.trim().length > 0) {
-            parts.push(line.slice(i, j), content, line.slice(close, close + 1));
+            parts.push(EM_OPEN, content, EM_CLOSE);
             i = close + 1;
             continue;
           }
@@ -62,11 +59,11 @@ function renderLine(line: string, key: number) {
   let idx = 0;
   while (idx < parts.length) {
     const p = parts[idx];
-    if (p === "*" && idx + 2 < parts.length && parts[idx + 2] === "*") {
+    if (p === EM_OPEN && idx + 2 < parts.length && parts[idx + 2] === EM_CLOSE) {
       nodes.push(<em key={idx}>{parts[idx + 1]}</em>);
       idx += 3;
     } else {
-      nodes.push(<span key={idx}>{p}</span>);
+      if (p !== EM_OPEN && p !== EM_CLOSE) nodes.push(<span key={idx}>{p}</span>);
       idx++;
     }
   }
