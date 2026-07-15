@@ -32,14 +32,15 @@ function parseStanzas(content: string): { text: string; align: "left" | "right" 
       const innerLangMatch = text.match(/^\[lang:([a-z]{2}(?:-[a-zA-Z]+)?)\]/);
       if (innerLangMatch) { lang = innerLangMatch[1]; text = text.slice(innerLangMatch[0].length).trimStart(); }
     }
-    // Re-check alignment after inner lang strip (handles [italic][lang:xx][right/center]text)
-    if (align === "left") {
-      if (text.startsWith("[right]")) { align = "right"; text = text.slice(7).trimStart(); }
-      else if (text.startsWith("[center]")) { align = "center"; text = text.slice(8).trimStart(); }
-    }
+    // Re-check alignment after inner lang strip — also catches [right][center] double-alignment by always re-evaluating
+    if (text.startsWith("[right]")) { align = "right"; text = text.slice(7).trimStart(); }
+    else if (text.startsWith("[center]")) { align = "center"; text = text.slice(8).trimStart(); }
     if (!italic && text.startsWith("[italic]")) { italic = true; text = text.slice(8).trimStart(); }
-    return { text, align, italic, lang };
-  }).filter(s => s.text.trim().length > 0);
+    // Strip italic wrapper here (mirrors AnimatedStanza) so the filter can catch whitespace-only results
+    const stripped = italic ? text.replace(/^(?!\*\*)\*([\s\S]*)(?<!\*)\*$/, '$1') : text;
+    return { text, align, italic, lang, _stripped: stripped };
+  }).filter(s => s._stripped.trim().length > 0)
+    .map(({ _stripped: _, ...s }) => s);
 }
 
 // Must stay as a hex constant (used in hex-alpha gradient interpolation: `${HERO_BG}CC`)
