@@ -5,8 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef, useCallback } from "react";
 import type React from "react";
 import { useTheme } from "next-themes";
-import { AnimatePresence, motion, useIsPresent } from "framer-motion";
-import SearchModal from "./SearchModal";
+import { AnimatePresence, motion, useIsPresent } from "framer-motion";import SearchModal from "./SearchModal";
 import type { PostMeta } from "@/lib/posts";
 
 interface NavProps { posts: PostMeta[] }
@@ -20,8 +19,33 @@ interface MobileMenuInnerProps {
 
 function MobileMenuInner({ pathname, resolvedTheme, onThemeToggle, menuFirstItemRef }: MobileMenuInnerProps) {
   const isPresent = useIsPresent();
+  const navRef = useRef<HTMLElement>(null);
+
+  // Focus trap: prevent Tab from escaping the open menu
+  useEffect(() => {
+    const nav = navRef.current;
+    if (!nav) return;
+    const handle = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+      const focusable = Array.from(nav.querySelectorAll<HTMLElement>(
+        "a[href], button:not([disabled]), [tabindex]:not([tabindex=\"-1\"])"
+      )).filter(el => el.offsetParent !== null);
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+      } else {
+        if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    };
+    nav.addEventListener("keydown", handle);
+    return () => nav.removeEventListener("keydown", handle);
+  }, []);
+
   return (
     <motion.nav
+      ref={navRef}
       id="mobile-menu"
       data-state={isPresent ? "open" : "closed"}
       initial={{ opacity: 0, y: -8 }}
@@ -118,6 +142,18 @@ export default function Nav({ posts }: NavProps) {
       if (focusTimerRef.current !== null) clearTimeout(focusTimerRef.current);
       if (focusMenuTimerRef.current !== null) clearTimeout(focusMenuTimerRef.current);
     };
+  }, []);
+
+  // Close mobile menu when viewport crosses the sm breakpoint (640px) — e.g. screen rotation
+  useEffect(() => {
+    const h = () => {
+      if (window.innerWidth >= 640 && menuOpenRef.current) {
+        setMenuOpen(false);
+        menuOpenRef.current = false;
+      }
+    };
+    window.addEventListener("resize", h, { passive: true });
+    return () => window.removeEventListener("resize", h);
   }, []);
 
   // Move focus to first menu item when menu opens
