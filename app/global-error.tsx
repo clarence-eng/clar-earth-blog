@@ -5,6 +5,16 @@ import Link from "next/link";
 export default function GlobalError({ reset }: { reset: () => void }) {
   return (
     <html lang="en">
+      <head>
+        <style>{`
+          @media (prefers-color-scheme: dark) {
+            body { background: #141A16 !important; color: #E8E4DC !important; }
+            h1 { color: #6AAB88 !important; }
+            p { color: #7A8A7C !important; }
+            button, a { color: #6AAB88 !important; border-color: #2C3C30 !important; }
+          }
+        `}</style>
+      </head>
       <body className="min-h-screen flex flex-col items-center justify-center px-6 py-32 text-center" style={{ fontFamily: "Georgia, serif", background: "#F8F5EF", color: "#2C2C27" }}>
         <p style={{ fontSize: "0.65rem", letterSpacing: "0.35em", textTransform: "uppercase", color: "#625F57", marginBottom: "1.5rem" }}>
           Something went wrong

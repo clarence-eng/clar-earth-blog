@@ -107,28 +107,41 @@ export default function Nav({ posts }: NavProps) {
   const focusTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const focusMenuTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const menuClosedByKeyboard = useRef(false);
+  const searchOriginRef = useRef<HTMLElement | null>(null);
 
   const isMobile = () => window.innerWidth < 640;
 
   const openSearch = useCallback(() => {
     if (focusTimerRef.current !== null) { clearTimeout(focusTimerRef.current); focusTimerRef.current = null; }
     if (focusMenuTimerRef.current !== null) { clearTimeout(focusMenuTimerRef.current); focusMenuTimerRef.current = null; }
+    searchOriginRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     setSearchOpen(true);
     searchOpenRef.current = true;
     setMenuOpen(false);
     menuOpenRef.current = false;
   }, []);
 
-  const closeSearch = useCallback(() => {
+  const closeSearch = useCallback((navigating = false) => {
     setSearchOpen(false);
     searchOpenRef.current = false;
     if (focusTimerRef.current !== null) clearTimeout(focusTimerRef.current);
     if (focusMenuTimerRef.current !== null) { clearTimeout(focusMenuTimerRef.current); focusMenuTimerRef.current = null; }
+    if (navigating) {
+      // Navigation will handle focus via PostPageClient's isMountRef pattern
+      searchOriginRef.current = null;
+      return;
+    }
+    const origin = searchOriginRef.current;
+    searchOriginRef.current = null;
     focusTimerRef.current = setTimeout(() => {
       focusTimerRef.current = null;
-      // Restore focus to whichever search button is visible
-      const target = isMobile() ? mobileSearchRef.current : desktopSearchRef.current;
-      target?.focus();
+      // Restore to where focus was before the modal opened, or fall back to search button
+      if (origin && document.contains(origin)) {
+        origin.focus();
+      } else {
+        const target = isMobile() ? mobileSearchRef.current : desktopSearchRef.current;
+        target?.focus();
+      }
     }, 0);
   }, []);
 
@@ -151,6 +164,7 @@ export default function Nav({ posts }: NavProps) {
       if (window.innerWidth >= 640 && menuOpenRef.current) {
         setMenuOpen(false);
         menuOpenRef.current = false;
+        menuButtonRef.current?.focus();
       }
     };
     window.addEventListener("resize", h, { passive: true });

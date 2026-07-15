@@ -1,5 +1,6 @@
 import { BannerBotanicalRight } from "./BotanicalAccent";
 import Link from "next/link";
+import { SITE_NAME } from "@/lib/config";
 
 export default function SiteFooter() {
   return (
@@ -14,7 +15,7 @@ export default function SiteFooter() {
           href="/"
           className="font-jost text-[10px] tracking-[0.3em] uppercase text-[var(--muted)] hover:text-[var(--forest)] transition-colors duration-300"
         >
-          CLAR.EARTH
+          {SITE_NAME}
         </Link>
 
         <p

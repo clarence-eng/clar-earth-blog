@@ -8,7 +8,7 @@ import { TYPE_LABELS, LANG_MAP } from "@/lib/config";
 
 interface SearchModalProps {
   posts: PostMeta[];
-  onClose: () => void;
+  onClose: (navigating?: boolean) => void;
 }
 
 export default function SearchModal({ posts, onClose }: SearchModalProps) {
@@ -121,7 +121,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
             <li key={post.slug}>
             <Link
               href={`/${post.slug}`}
-              onClick={onClose}
+              onClick={() => onClose(true)}
               className="flex items-start gap-4 px-5 py-3.5 hover:bg-[var(--cream-dark)] transition-colors duration-300 border-b border-[var(--border)] last:border-0 group"
             >
               <span className="font-jost text-[8px] tracking-[0.25em] uppercase text-[var(--muted)] pt-1 w-12 flex-shrink-0">
