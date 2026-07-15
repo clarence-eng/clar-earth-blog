@@ -21,10 +21,15 @@ function lerp(a: number, b: number, t: number) { return a + (b - a) * t; }
 type RGB = [number, number, number];
 
 function hexToRgb(hex: string): RGB {
-  if (!hex || !/^#[0-9A-Fa-f]{6}$/.test(hex)) return [255, 255, 255];
-  const r = parseInt(hex.slice(1, 3), 16);
-  const g = parseInt(hex.slice(3, 5), 16);
-  const b = parseInt(hex.slice(5, 7), 16);
+  if (!hex) return [255, 255, 255];
+  // Expand 3-digit shorthand (#RGB → #RRGGBB)
+  const h = /^#[0-9A-Fa-f]{3}$/.test(hex)
+    ? `#${hex[1]}${hex[1]}${hex[2]}${hex[2]}${hex[3]}${hex[3]}`
+    : hex;
+  if (!/^#[0-9A-Fa-f]{6}$/.test(h)) return [255, 255, 255];
+  const r = parseInt(h.slice(1, 3), 16);
+  const g = parseInt(h.slice(3, 5), 16);
+  const b = parseInt(h.slice(5, 7), 16);
   return [r, g, b];
 }
 
