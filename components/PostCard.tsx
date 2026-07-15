@@ -99,12 +99,12 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
             <MoodTag mood={post.mood} />
           </div>
 
-          <h2
+          <h3
             id={`post-title-${post.slug}`}
             className="cormorant-italic text-balance leading-tight text-[var(--ink)] group-hover:text-[var(--forest)] transition-colors duration-300 text-lg"
           >
             {post.title}
-          </h2>
+          </h3>
 
           {post.excerpt && (
             <p

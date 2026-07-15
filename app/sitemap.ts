@@ -9,7 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const postEntries: MetadataRoute.Sitemap = posts.map((post) => ({
     url: `${BASE_URL}/${post.slug}`,
-    lastModified: post.date ? new Date(post.date) : SITE_LAUNCH,
+    lastModified: post.date ? (isNaN(new Date(post.date).getTime()) ? SITE_LAUNCH : new Date(post.date)) : SITE_LAUNCH,
     changeFrequency: "monthly",
     priority: 0.8,
   }));

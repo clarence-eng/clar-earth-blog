@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import type { PostType } from "@/lib/posts";
+import { BASE_URL } from "@/lib/config";
 
 interface PrintButtonProps {
   title: string;
@@ -16,7 +17,7 @@ export default function PrintButton({ title, type }: PrintButtonProps) {
   const handlePrint = () => {
     if (restoreRef.current) return; // prevent re-entry while print dialog is open
     const prev = document.title;
-    document.title = `${title} — clar.earth`;
+    document.title = `${title} — ${new URL(BASE_URL).hostname}`;
     const ac = new AbortController();
     let fallbackTimer: ReturnType<typeof setTimeout> | null = null;
     const restore = () => {

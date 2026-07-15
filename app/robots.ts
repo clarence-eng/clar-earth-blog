@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: "/keystatic/",
+      disallow: ["/keystatic/", "/api/keystatic/"],
     },
     sitemap: `${BASE_URL}/sitemap.xml`,
   };

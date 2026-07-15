@@ -104,11 +104,11 @@ export default function AboutPage() {
 
         {/* Selected works strip — picks 5 poems dynamically so slugs/titles stay in sync */}
         <div className="max-w-4xl mx-auto px-8 mt-20 pt-10 border-t border-[var(--border)]">
-          <p
+          <h2
             className="section-label mb-6"
           >
             A few poems
-          </p>
+          </h2>
           <div className="flex flex-wrap gap-x-8 gap-y-2">
             {featuredPoems.map(p => (
                   <Link

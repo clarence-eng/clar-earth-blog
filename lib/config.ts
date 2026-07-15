@@ -1,4 +1,4 @@
-export const BASE_URL = "https://clar.earth";
+export const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://clar.earth";
 
 export const SITE_TAGLINE = "In the shadow of trees, I find my voice. Where the earth listens, and the pen replies.";
 
