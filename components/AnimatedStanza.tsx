@@ -39,9 +39,14 @@ function renderLine(line: string, key: number) {
           return -1;
         })();
         if (close > j) {
-          parts.push(line.slice(i, j), line.slice(j, close), line.slice(close, close + 1));
-          i = close + 1;
-          continue;
+          const content = line.slice(j, close);
+          // Don't italicise whitespace-only content (e.g. "* *") — CommonMark disallows
+          // a left-flanking delimiter immediately followed by whitespace
+          if (content.trim().length > 0) {
+            parts.push(line.slice(i, j), content, line.slice(close, close + 1));
+            i = close + 1;
+            continue;
+          }
         }
       }
       parts.push(line.slice(i, j));

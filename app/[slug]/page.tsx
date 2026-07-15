@@ -66,10 +66,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 // Escape characters that are valid JSON but break inline <script> blocks.
-// Handles </script> with optional whitespace before > (HTML5 tokenizer closes the tag on whitespace+>).
+// Escape ALL </script occurrences regardless of what follows (the HTML5 tokenizer
+// closes a script block on </script followed by space, tab, >, or /).
 function safeJsonLd(obj: object): string {
   return JSON.stringify(obj)
-    .replace(/<\/script(\s*>)/gi, "<\\/script$1")
+    .replace(/<\/script/gi, "<\\/script")
     .replaceAll(String.fromCharCode(0x2028), "\\u2028")
     .replaceAll(String.fromCharCode(0x2029), "\\u2029");
 }
