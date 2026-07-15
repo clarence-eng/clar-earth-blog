@@ -119,7 +119,7 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
             key={active}
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -4 }}
+            exit={{ opacity: 0, y: -4, pointerEvents: "none" }}
             transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12"
           >

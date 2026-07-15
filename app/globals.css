@@ -78,8 +78,10 @@ body {
 @media (pointer: fine) {
   :root { cursor: default; }
   html.js-cursor-ready * { cursor: none !important; }
-  /* Keep text cursor for text inputs — accessibility requirement */
-  html.js-cursor-ready input, html.js-cursor-ready textarea, html.js-cursor-ready [contenteditable] { cursor: text !important; }
+  /* Keep text cursor for text-entry inputs — accessibility requirement */
+  html.js-cursor-ready input:not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]):not([type="color"]):not([type="image"]),
+  html.js-cursor-ready textarea,
+  html.js-cursor-ready [contenteditable] { cursor: text !important; }
   /* Note: links/buttons/select get cursor:none so the custom SVG cursor is the sole visual indicator.
      Do NOT add cursor:pointer here — it would show native + custom cursor simultaneously. */
 }

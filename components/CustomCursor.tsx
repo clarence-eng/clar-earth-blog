@@ -98,7 +98,7 @@ export default function CustomCursor() {
         setPos({ x: e.clientX, y: e.clientY });
       }
     };
-    const leave = () => setHovered(false);
+    const leave = () => { setHovered(false); mouseRef.current = { x: -100, y: -100 }; };
     window.addEventListener("mousemove", move);
     document.addEventListener("mouseleave", leave);
     return () => { window.removeEventListener("mousemove", move); document.removeEventListener("mouseleave", leave); mql.removeEventListener("change", onMqlChange); };
