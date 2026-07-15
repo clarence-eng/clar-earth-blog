@@ -97,6 +97,7 @@ body {
   width: max-content;
   white-space: nowrap;
   animation: marquee 60s linear infinite;
+  will-change: transform;
 }
 .marquee-content {
   display: inline-block;
@@ -233,6 +234,15 @@ body {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   /* Marquee is decorative text — exempt from reduce-motion (content accessible without motion) */
+  /* Suppress focus-mode fade transitions so elements switch instantly */
+  header nav,
+  .mobile-nav-controls,
+  .reading-progress,
+  .back-pill,
+  .poem-back-arrow,
+  .keyboard-hint {
+    transition: none;
+  }
 }
 
 /* ── Reading focus mode ────────────────────────────────────── */
@@ -397,12 +407,14 @@ header nav,
 /* ── Gold underline reveal — hover-animated underline used on PostCard and RelatedPoems ── */
 .gold-underline-reveal {
   height: 1px;
-  width: 0;
+  width: 2.5rem;
   background-color: var(--gold);
-  transition: width 500ms ease-out;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 500ms ease-out;
 }
 .group:hover .gold-underline-reveal {
-  width: 2.5rem; /* w-10 */
+  transform: scaleX(1);
 }
 
 /* ── Jost font utility ─────────────────────────────────────── */
