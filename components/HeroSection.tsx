@@ -139,7 +139,7 @@ export default function HeroSection({ titles, gradient }: { titles: string[]; gr
             onClick={() => setMarqueePaused(p => !p)}
             aria-label={marqueePaused ? "Resume scrolling poem titles" : "Pause scrolling poem titles"}
             aria-pressed={marqueePaused}
-            className="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 flex items-center justify-center rounded-full border border-[var(--border)] bg-[var(--cream-dark)] text-[var(--muted)] hover:text-[var(--forest)] transition-colors duration-200 z-10"
+            className="absolute right-2 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center rounded-full border border-[var(--border)] bg-[var(--cream-dark)] text-[var(--muted)] hover:text-[var(--forest)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--forest)] transition-colors duration-200 z-10"
           >
             {marqueePaused ? (
               <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor" aria-hidden="true">

@@ -122,7 +122,7 @@ export default function PostPageClient({
           initial={mounted ? { opacity: 0, x: -8 } : false}
           animate={mounted ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
-          className="poem-back-arrow fixed top-[4.5rem] left-4 md:left-6 z-40"
+          className="poem-back-arrow fixed top-[4.5rem] left-2 md:left-6 z-40"
         >
           <Link href="/" className="group flex items-center gap-2.5" aria-label="Back to all works">
             <span className={`flex items-center justify-center w-11 h-11 rounded-full border transition-all duration-500 ${
@@ -321,13 +321,13 @@ export default function PostPageClient({
         {/* Prev / Next */}
         <nav aria-label="Poem navigation" className="font-jost grid grid-cols-1 sm:grid-cols-2 gap-4 poem-prev-next">
           {prev ? (
-            <Link href={`/${prev.slug}`} aria-keyshortcuts="ArrowLeft" className="group flex flex-col gap-1 p-4 border border-[var(--muted)] rounded-sm hover:border-[var(--sage)] hover:bg-[var(--cream-dark)] transition-all duration-300">
+            <Link href={`/${prev.slug}`} aria-keyshortcuts="ArrowLeft" className="group flex flex-col gap-1 p-4 border border-[var(--muted)] rounded-sm hover:border-[var(--sage)] hover:bg-[var(--cream-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--forest)] transition-all duration-300">
               <span className="text-[11px] tracking-[0.25em] uppercase text-[var(--muted)]"><span aria-hidden="true">← </span>Previous</span>
               <span className="cormorant-italic text-[var(--muted)] group-hover:text-[var(--forest)] transition-colors duration-300 line-clamp-2" style={{ fontSize: "1rem" }}>{prev.title}</span>
             </Link>
           ) : <div />}
           {next ? (
-            <Link href={`/${next.slug}`} aria-keyshortcuts="ArrowRight" className="group flex flex-col gap-1 p-4 border border-[var(--muted)] rounded-sm hover:border-[var(--sage)] hover:bg-[var(--cream-dark)] transition-all duration-300 text-right">
+            <Link href={`/${next.slug}`} aria-keyshortcuts="ArrowRight" className="group flex flex-col gap-1 p-4 border border-[var(--muted)] rounded-sm hover:border-[var(--sage)] hover:bg-[var(--cream-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--forest)] transition-all duration-300 text-right">
               <span className="text-[11px] tracking-[0.25em] uppercase text-[var(--muted)]">Next <span aria-hidden="true">→</span></span>
               <span className="cormorant-italic text-[var(--muted)] group-hover:text-[var(--forest)] transition-colors duration-300 line-clamp-2" style={{ fontSize: "1rem" }}>{next.title}</span>
             </Link>

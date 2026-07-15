@@ -109,7 +109,7 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
           {post.excerpt && (
             <p
               className="cormorant-italic text-pretty mt-2 text-[var(--muted)] leading-relaxed line-clamp-2"
-              style={{ fontSize: "0.97rem" }}
+              style={{ fontSize: "1rem" }}
             >
               {post.excerpt}
             </p>

@@ -373,6 +373,12 @@ header nav,
 .post-action-btn:hover {
   color: var(--forest);
 }
+.post-action-btn:focus-visible {
+  color: var(--forest);
+  outline: 2px solid var(--forest);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
 
 /* ── Gold underline reveal — hover-animated underline used on PostCard and RelatedPoems ── */
 .gold-underline-reveal {

@@ -184,7 +184,7 @@ export default function Nav({ posts }: NavProps) {
         <div className="max-w-6xl mx-auto px-4 sm:px-8 flex items-center justify-between">
           {/* Logo + IG */}
           <div className="flex items-center gap-3">
-            <Link href="/" className={`font-jost tracking-[0.3em] text-[11px] font-medium uppercase transition-colors duration-300 ${textBase}`}
+            <Link href="/" className={`font-jost tracking-[0.3em] text-[11px] font-medium uppercase transition-colors duration-300 flex items-center min-h-[44px] ${textBase}`}
               aria-current={isHome ? 'page' : undefined}>
               CLAR.EARTH
             </Link>
@@ -192,7 +192,7 @@ export default function Nav({ posts }: NavProps) {
               href="https://www.instagram.com/clar.earth/"
               target="_blank"
               rel="noopener noreferrer"
-              className={`inline-flex items-center justify-center w-9 h-9 -m-2 transition-colors duration-300 ${textMuted}`}
+              className={`inline-flex items-center justify-center w-11 h-11 transition-colors duration-300 ${textMuted}`}
               aria-label="Instagram"
               title="Instagram"
             >
