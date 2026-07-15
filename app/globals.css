@@ -14,6 +14,7 @@
   --amber:          #C4882A;
   --gold:           #B5975C;
   --muted:          #625F57;
+  --muted-light:    #8A8078;
   --border:         #DDD8CC;
   --ink:            #2C2C27;
   --selection-bg:   #C8D8B8;
@@ -269,6 +270,8 @@ header nav,
   .poem-content { max-width: 100%; }
   .poem-content, .poem-stanza { color: black !important; }
   .poem-stanza { font-size: 11pt; line-height: 1.6; break-inside: avoid; }
+  /* Override focus-mode stanza sizing (higher specificity) so print always wins */
+  .focus-mode .poem-stanza { font-size: 11pt !important; line-height: 1.6 !important; letter-spacing: normal !important; }
   h1 { font-size: 22pt; margin-bottom: 6pt; }
   h1, .poem-page-title { color: black !important; text-shadow: none !important; }
   /* Reset dark-mode badge/tag backgrounds so they print legibly */

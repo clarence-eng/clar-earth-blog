@@ -29,7 +29,7 @@ export default function FocusModeToggle() {
       type="button"
       onClick={toggle}
       aria-pressed={focus}
-      aria-label={focus ? "Exit focus mode" : "Focus mode"}
+      aria-label="Focus mode"
       className={`post-action-btn focus-mode-toggle${mounted ? " is-visible" : ""}`}
       title={focus ? "Exit focus mode" : "Focus mode"}
     >

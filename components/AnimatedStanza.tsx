@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import type React from "react";
 interface StanzaProps {
   children: string;
   index: number;
@@ -13,27 +14,68 @@ interface StanzaProps {
 
 function renderLine(line: string, key: number) {
   if (!line.includes("*")) return <span key={key}>{line}</span>;
-  // Split on single *...* pairs only — (?<!\*) and (?!\*) guards prevent matching inside **bold**.
-  const parts = line.split(/((?<!\*)\*(?!\*)(?:[^*]+)(?<!\*)\*(?!\*))/g).filter(Boolean);
-  return (
-    <span key={key}>
-      {parts.map((p, i) =>
-        /^(?<!\*)\*(?!\*)/.test(p) && /(?<!\*)\*(?!\*)$/.test(p)
-          ? <em key={i}>{p.slice(1, -1)}</em>
-          : <span key={i}>{p}</span>
-      )}
-    </span>
-  );
+  // Match single *...* pairs: opening * not followed by *, closing * not preceded by *.
+  // Achieved without lookbehind (Safari 14 compat) by capturing the char before/after:
+  // we split on runs of consecutive *s first to identify italics vs bold markers.
+  const parts: string[] = [];
+  let i = 0;
+  while (i < line.length) {
+    if (line[i] === "*") {
+      // Count consecutive asterisks
+      let j = i;
+      while (j < line.length && line[j] === "*") j++;
+      const stars = j - i;
+      if (stars === 1) {
+        // Single asterisk — find the closing single asterisk
+        const close = (() => {
+          let k = j;
+          while (k < line.length) {
+            if (line[k] === "*") {
+              const s2 = k; let m = k; while (m < line.length && line[m] === "*") m++;
+              if (m - s2 === 1) return s2;
+              k = m;
+            } else k++;
+          }
+          return -1;
+        })();
+        if (close > j) {
+          parts.push(line.slice(i, j), line.slice(j, close), line.slice(close, close + 1));
+          i = close + 1;
+          continue;
+        }
+      }
+      parts.push(line.slice(i, j));
+      i = j;
+    } else {
+      let j = i;
+      while (j < line.length && line[j] !== "*") j++;
+      parts.push(line.slice(i, j));
+      i = j;
+    }
+  }
+  const nodes: React.ReactNode[] = [];
+  let idx = 0;
+  while (idx < parts.length) {
+    const p = parts[idx];
+    if (p === "*" && idx + 2 < parts.length && parts[idx + 2] === "*") {
+      nodes.push(<em key={idx}>{parts[idx + 1]}</em>);
+      idx += 3;
+    } else {
+      nodes.push(<span key={idx}>{p}</span>);
+      idx++;
+    }
+  }
+  return <span key={key}>{nodes}</span>;
 }
 
 export default function AnimatedStanza({ children, index, align = "left", italic = false, lang, isFirstDrop = false }: StanzaProps) {
   const ref = useRef<HTMLParagraphElement>(null);
   const inView = useInView(ref, { once: true, amount: "some" });
 
-  // Strip italic wrapper: only when the block starts with exactly one `*` and ends with exactly one `*`
-  // (not `**` at either end — that would be a formatting marker, not an italic wrapper)
+  // Strip italic wrapper: block starts with exactly one * and ends with exactly one *.
+  // Regex avoids lookbehind (Safari 14 compat): match *<non-star><content><non-star>*
   const stripped = italic
-    ? children.replace(/^(?!\*\*)\*([\s\S]*)(?<!\*)\*$/, '$1')
+    ? children.replace(/^\*([^*][\s\S]*[^*])\*$|^\*([^*])\*$/, (_m, a, b) => a ?? b)
     : children;
   const lines = stripped.split("\n").map(line => italic ? line.trim() : line);
 
