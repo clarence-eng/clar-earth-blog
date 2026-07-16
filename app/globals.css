@@ -17,6 +17,7 @@
   --muted-light:    #8A8078;
   --border:         #DDD8CC;
   --ink:            #2C2C27;
+  --card-shadow:    rgba(45,74,62,0.22);
   --selection-bg:   #C8D8B8;
   --selection-color: var(--forest);
 }
@@ -35,6 +36,7 @@
   --muted-light: #8A9A8C;
   --border:         #2C3C30;
   --ink:            #D8D4CC;
+  --card-shadow:    rgba(106,171,136,0.20);
   --selection-bg:   #2A4A3E;
   --selection-color: #A8C4A0;
 }

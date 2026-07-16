@@ -332,13 +332,13 @@ export default function PostPageClient({
         <nav aria-label="Poem navigation" className="font-jost grid grid-cols-1 sm:grid-cols-2 gap-4 poem-prev-next">
           {prev ? (
             <Link href={`/${prev.slug}`} aria-keyshortcuts="ArrowLeft" className="group flex flex-col gap-1 p-4 border border-[var(--muted)] rounded-sm hover:border-[var(--sage)] hover:bg-[var(--cream-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--forest)] transition-colors duration-300">
-              <span className="text-[11px] tracking-[0.25em] uppercase text-[var(--muted)]"><span aria-hidden="true">← </span>Previous</span>
+              <span className="text-[11px] tracking-[0.25em] uppercase text-[var(--muted)] group-hover:text-[var(--forest)] transition-colors duration-300"><span aria-hidden="true">← </span>Previous</span>
               <span className="cormorant-italic text-[var(--muted)] group-hover:text-[var(--forest)] transition-colors duration-300 line-clamp-2" style={{ fontSize: "1rem" }}>{prev.title}</span>
             </Link>
           ) : <div />}
           {next ? (
             <Link href={`/${next.slug}`} aria-keyshortcuts="ArrowRight" className="group flex flex-col gap-1 p-4 border border-[var(--muted)] rounded-sm hover:border-[var(--sage)] hover:bg-[var(--cream-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--forest)] transition-colors duration-300 text-right">
-              <span className="text-[11px] tracking-[0.25em] uppercase text-[var(--muted)]">Next <span aria-hidden="true">→</span></span>
+              <span className="text-[11px] tracking-[0.25em] uppercase text-[var(--muted)] group-hover:text-[var(--forest)] transition-colors duration-300">Next <span aria-hidden="true">→</span></span>
               <span className="cormorant-italic text-[var(--muted)] group-hover:text-[var(--forest)] transition-colors duration-300 line-clamp-2" style={{ fontSize: "1rem" }}>{next.title}</span>
             </Link>
           ) : <div />}
