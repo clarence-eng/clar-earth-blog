@@ -89,7 +89,7 @@ export default function PostPageClient({
   }, [post.slug]);
 
   // Track whether user has scrolled past the dark hero into the cream body.
-  // Capture threshold once (avoids offsetHeight layout reflow on every scroll tick).
+  // Re-evaluated on every slug change so the threshold reflects the current poem's hero height.
   const [pastHero, setPastHero] = useState(false);
   useEffect(() => {
     const heroEl = document.querySelector<HTMLElement>(".poem-hero");
@@ -98,7 +98,7 @@ export default function PostPageClient({
     window.addEventListener("scroll", handler, { passive: true });
     handler();
     return () => window.removeEventListener("scroll", handler);
-  }, []);
+  }, [post.slug]);
 
   const stanzaContent = useMemo(() => {
     const stanzas = parseStanzas(post.content);

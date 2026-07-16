@@ -110,6 +110,10 @@ body {
   animation: marquee 60s linear infinite;
   will-change: transform;
 }
+/* Pause marquee for users who prefer reduced motion — WCAG 2.2.2 */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation-play-state: paused; }
+}
 .marquee-content {
   display: inline-block;
   font-family: var(--font-jost), "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
@@ -288,7 +292,7 @@ header nav,
 /* ── Print ─────────────────────────────────────────────────── */
 @media print {
   nav, .reading-progress, .back-pill, .poem-back-arrow, .related-poems,
-  .marquee-track, .filter-tabs-wrap,
+  .marquee-track, .filter-tabs-wrap, .mobile-nav-controls,
   .poem-prev-next, .keyboard-hint, button, canvas { display: none !important; }
   body { background: white; color: black; font-size: 12pt; }
   .poem-content { max-width: 100%; }
@@ -406,7 +410,9 @@ header nav,
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--muted);
-  transition: color 300ms;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .post-action-btn { transition: color 300ms; }
 }
 .post-action-btn:hover {
   color: var(--forest);
