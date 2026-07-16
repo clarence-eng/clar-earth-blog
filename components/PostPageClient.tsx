@@ -103,7 +103,9 @@ export default function PostPageClient({
   const stanzaContent = useMemo(() => {
     const stanzas = parseStanzas(post.content);
     const firstDropIdx = stanzas.findIndex(s =>
-      !s.italic && s.align === "left" && !s.lang && !/^[\s]*[*\d"''""«»—–…([•·]/.test(s.text)
+      !s.italic && s.align === "left" && !s.lang &&
+      !/^[\s]*[*\d"''""«»—–…([•·]/.test(s.text) &&
+      !/^[\s]*[IVXLCDMivxlcdm]+[.)]\s/.test(s.text)
     );
     // -1 means every stanza is disqualified; no drop-cap applied
     const rightStanzas = stanzas.filter(s => s.align === "right");

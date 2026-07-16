@@ -170,7 +170,7 @@ export default function Nav({ posts }: NavProps) {
         menuOpenRef.current = false;
         menuOpenedByKeyboard.current = false;
         menuClosedByKeyboard.current = false;
-        menuButtonRef.current?.focus();
+        // Don't call .focus() — hamburger is display:none at ≥640px (sm:hidden)
       }
     };
     window.addEventListener("resize", h, { passive: true });
@@ -244,7 +244,7 @@ export default function Nav({ posts }: NavProps) {
 
   const headerClass = menuOpen
     ? "fixed top-0 left-0 right-0 z-50 bg-[var(--cream)] border-b border-[var(--border)] py-4"
-    : `fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled || !isHome ? "bg-[var(--cream)]/90 backdrop-blur-sm border-b border-[var(--border)] py-4" : "bg-transparent py-6"}`;
+    : `fixed top-0 left-0 right-0 z-50 motion-safe:transition-all motion-safe:duration-500 ${scrolled || !isHome ? "bg-[var(--cream)]/90 backdrop-blur-sm border-b border-[var(--border)] py-4" : "bg-transparent py-6"}`;
 
   return (
     <>
