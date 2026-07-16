@@ -243,31 +243,6 @@ body {
   }
 }
 
-/* ── prefers-reduced-motion — disable motion animations ─────── */
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  /* Marquee is decorative text — exempt from reduce-motion (content accessible without motion) */
-  /* Suppress focus-mode opacity fade but keep visibility transition for keyboard tab-order safety.
-     visibility: hidden with no delay would instantly drop focus from elements the user is on. */
-  header nav,
-  .mobile-nav-controls,
-  .reading-progress,
-  .back-pill,
-  .poem-back-arrow,
-  .keyboard-hint {
-    transition: visibility 0.4s ease;
-    opacity: 1;
-  }
-  .focus-mode header nav,
-  .focus-mode .mobile-nav-controls,
-  .focus-mode .reading-progress,
-  .focus-mode .back-pill,
-  .focus-mode .poem-back-arrow,
-  .focus-mode .keyboard-hint {
-    opacity: 0;
-  }
-}
-
 /* ── Reading focus mode ────────────────────────────────────── */
 /* Base states: opacity+visibility transition so both enter AND exit animate smoothly.
    visibility: hidden removes elements from the tab order when focus mode is active. */
@@ -291,6 +266,34 @@ header nav,
   opacity: 0 !important;  /* !important beats Framer Motion inline opacity: 1 */
   visibility: hidden;
   pointer-events: none;
+}
+
+/* ── prefers-reduced-motion — disable motion animations ─────── */
+/* IMPORTANT: this block must come AFTER the focus-mode base rules above
+   so it wins on source order at equal specificity. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  /* Marquee is decorative text — exempt from reduce-motion (content accessible without motion) */
+  /* Suppress focus-mode opacity fade but keep visibility transition for keyboard tab-order safety:
+     instantly set opacity to 0 (no animation) but delay visibility:hidden 0.4s so keyboard
+     users aren't dropped from focus before they can navigate away. */
+  header nav,
+  .mobile-nav-controls,
+  .reading-progress,
+  .back-pill,
+  .poem-back-arrow,
+  .keyboard-hint {
+    transition: visibility 0.4s ease !important;
+    opacity: 1;
+  }
+  .focus-mode header nav,
+  .focus-mode .mobile-nav-controls,
+  .focus-mode .reading-progress,
+  .focus-mode .back-pill,
+  .focus-mode .poem-back-arrow,
+  .focus-mode .keyboard-hint {
+    opacity: 0;
+  }
 }
 .focus-mode .poem-stanza { font-size: 1.22rem; line-height: 1.85; letter-spacing: 0.01em; }
 
@@ -434,7 +437,9 @@ header nav,
   background-color: var(--gold);
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 500ms ease-out;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .gold-underline-reveal { transition: transform 500ms ease-out; }
 }
 .group:hover .gold-underline-reveal,
 .group:focus-within .gold-underline-reveal {

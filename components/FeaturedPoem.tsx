@@ -32,7 +32,7 @@ export default function FeaturedPoem({ post }: { post: PostMeta }) {
               fill
               priority
               sizes="(min-width: 1200px) 1152px, (min-width: 640px) calc(100vw - 4rem), calc(100vw - 2rem)"
-              className="object-cover motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:scale-[1.02]"
+              className="object-cover motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:scale-[1.02] motion-safe:group-focus-visible:scale-[1.02]"
             />
           )}
 
@@ -51,7 +51,7 @@ export default function FeaturedPoem({ post }: { post: PostMeta }) {
                 {TYPE_LABELS[post.type]}
               </span>
               <h2
-                className="cormorant-italic text-white leading-[1.2] mb-2 group-hover:opacity-90 transition-opacity duration-300"
+                className="cormorant-italic text-white leading-[1.2] mb-2 group-hover:opacity-90 motion-safe:transition-opacity motion-safe:duration-300"
                 style={{
                   fontSize: "clamp(1.25rem, 2.5vw, 2rem)",
                 }}
@@ -70,7 +70,7 @@ export default function FeaturedPoem({ post }: { post: PostMeta }) {
                 className="font-jost text-[10px] tracking-[0.25em] uppercase text-white/65 group-hover:text-white/90 transition-colors duration-300 flex items-center gap-2"
               >
                 Read {TYPE_LABELS[post.type].toLowerCase()}
-                <span className="group-hover:translate-x-1 inline-block transition-transform duration-300" aria-hidden="true">→</span>
+                <span className="group-hover:translate-x-1 inline-block motion-safe:transition-transform motion-safe:duration-300" aria-hidden="true">→</span>
               </span>
             </div>
           </div>
