@@ -330,10 +330,21 @@ export default function Nav({ posts }: NavProps) {
                 const next = !menuOpen;
                 setMenuOpen(next);
                 menuOpenRef.current = next;
-                // Clear stale keyboard flags when menu is toggled by mouse click
-                if (next) { menuClosedByKeyboard.current = false; }
+                if (!next) {
+                  // Menu closing via mouse — clear all keyboard flags
+                  menuClosedByKeyboard.current = false;
+                  menuOpenedByKeyboard.current = false;
+                } else {
+                  // Menu opening via mouse — clear stale keyboard-close flag
+                  menuClosedByKeyboard.current = false;
+                }
               }}
-              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") menuOpenedByKeyboard.current = true; }}
+              onKeyDown={(e) => {
+                // Only set flag when the keyboard action will OPEN the menu
+                if ((e.key === "Enter" || e.key === " ") && !menuOpen) {
+                  menuOpenedByKeyboard.current = true;
+                }
+              }}
               className={`w-11 h-11 flex items-center justify-center transition-colors duration-300 rounded-sm ${focusRing} ${textMuted}`}
               aria-label={menuOpen ? "Close menu" : "Open menu"}
               aria-expanded={menuOpen}
