@@ -102,5 +102,6 @@ export function getPost(slug: string): Post | null {
   if (!post.type) post.type = "poem";
   if (!(['poem','article','photo-essay'] as const).includes(post.type as never)) post.type = "poem";
   if (post.mood && !Array.isArray(post.mood)) post.mood = [post.mood as unknown as string];
+  if (post.ladybugColor && !/^#[0-9A-Fa-f]{3}(?:[0-9A-Fa-f]{3})?$/.test(post.ladybugColor)) post.ladybugColor = undefined;
   return post;
 }

@@ -1,4 +1,4 @@
-export const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://clar.earth";
+export const BASE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://clar.earth").replace(/\/$/, "");
 
 export const SITE_NAME = "CLAR.EARTH";
 export const INSTAGRAM_URL = "https://www.instagram.com/clar.earth/";
