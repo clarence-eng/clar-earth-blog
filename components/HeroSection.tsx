@@ -125,41 +125,36 @@ export default function HeroSection({ titles, gradient }: { titles: string[]; gr
       {/* Marquee — derived from poem titles, auto-updates when new poems are added */}
       {marqueeText && (
         <div className="w-full overflow-hidden border-y border-[var(--border)] py-2.5 relative min-h-[44px] flex items-center" style={{ background: "var(--cream-dark)" }}>
-          {/* Combine JS pause state with OS reduce-motion preference */}
-          {(() => {
-            const isPaused = marqueePaused || reducedMotion === true;
-            return (
-              <>
-                <div
-                  className="marquee-track"
-                  aria-hidden="true"
-                  style={{ animationPlayState: isPaused ? "paused" : "running" }}
-                >
-                  {[0, 1].map(i => (
-                    <span key={i} className="marquee-content">{marqueeText.repeat(10)}</span>
-                  ))}
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setMarqueePaused(p => !p)}
-                  aria-label={isPaused ? "Resume scrolling poem titles" : "Pause scrolling poem titles"}
-                  aria-pressed={isPaused}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center rounded-full border border-[var(--border)] bg-[var(--cream-dark)] text-[var(--muted)] hover:text-[var(--forest)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--forest)] motion-safe:transition-colors motion-safe:duration-200 z-10"
-                >
-                  {isPaused ? (
-                    <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor" aria-hidden="true">
-                      <polygon points="2,1 9,5 2,9"/>
-                    </svg>
-                  ) : (
-                    <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor" aria-hidden="true">
-                      <rect x="1.5" y="1.5" width="2.5" height="7"/>
-                      <rect x="6" y="1.5" width="2.5" height="7"/>
-                    </svg>
-                  )}
-                </button>
-              </>
-            );
-          })()}
+          <div
+            className="marquee-track"
+            aria-hidden="true"
+            style={{ animationPlayState: marqueePaused ? "paused" : "running" }}
+          >
+            {[0, 1].map(i => (
+              <span key={i} className="marquee-content">{marqueeText.repeat(10)}</span>
+            ))}
+          </div>
+          {/* Only show pause/play when the animation is running — hidden for reduce-motion users */}
+          {reducedMotion !== true && (
+            <button
+              type="button"
+              onClick={() => setMarqueePaused(p => !p)}
+              aria-label={marqueePaused ? "Resume scrolling poem titles" : "Pause scrolling poem titles"}
+              aria-pressed={marqueePaused}
+              className="absolute right-2 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center rounded-full border border-[var(--border)] bg-[var(--cream-dark)] text-[var(--muted)] hover:text-[var(--forest)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--forest)] motion-safe:transition-colors motion-safe:duration-200 z-10"
+            >
+              {marqueePaused ? (
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor" aria-hidden="true">
+                  <polygon points="2,1 9,5 2,9"/>
+                </svg>
+              ) : (
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor" aria-hidden="true">
+                  <rect x="1.5" y="1.5" width="2.5" height="7"/>
+                  <rect x="6" y="1.5" width="2.5" height="7"/>
+                </svg>
+              )}
+            </button>
+          )}
         </div>
       )}
     </>
