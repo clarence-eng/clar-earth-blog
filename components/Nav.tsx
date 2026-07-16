@@ -214,7 +214,11 @@ export default function Nav({ posts }: NavProps) {
       if ((e.metaKey || e.ctrlKey) && e.key === "k") { e.preventDefault(); openSearch(); return; }
       if (e.key === "Escape") {
         if (searchOpenRef.current) { closeSearch(); return; }
-        if (menuOpenRef.current) { setMenuOpen(false); menuOpenRef.current = false; menuClosedByKeyboard.current = true; menuButtonRef.current?.focus(); }
+        if (menuOpenRef.current) {
+          setMenuOpen(false); menuOpenRef.current = false;
+          menuClosedByKeyboard.current = true; menuOpenedByKeyboard.current = false;
+          menuButtonRef.current?.focus();
+        }
       }
     };
     window.addEventListener("keydown", h);
