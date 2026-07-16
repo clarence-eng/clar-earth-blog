@@ -64,7 +64,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.2 }}
       className="fixed inset-0 z-[200] flex items-start justify-center pt-24 px-4 search-glass"
-      onClick={onClose}
+      onClick={() => onClose()}
       role="presentation"
     >
       <motion.div
@@ -99,7 +99,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
           <kbd aria-hidden="true" className="font-jost text-[9px] tracking-wider text-[var(--muted)] border border-[var(--border)] rounded px-1.5 py-0.5">ESC</kbd>
           <button
             type="button"
-            onClick={onClose}
+            onClick={() => onClose()}
             aria-label="Close search"
             className="flex items-center justify-center w-11 h-11 rounded hover:bg-[var(--cream-dark)] transition-colors duration-300 text-[var(--muted)] hover:text-[var(--ink)]"
           >
