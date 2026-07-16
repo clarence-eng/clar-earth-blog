@@ -89,12 +89,12 @@ export default function PostPageClient({
   }, [post.slug]);
 
   // Track whether user has scrolled past the dark hero into the cream body.
-  // Use the hero element's actual height so the threshold is correct for all viewport sizes.
+  // Capture threshold once (avoids offsetHeight layout reflow on every scroll tick).
   const [pastHero, setPastHero] = useState(false);
   useEffect(() => {
     const heroEl = document.querySelector<HTMLElement>(".poem-hero");
-    const getThreshold = () => heroEl ? heroEl.offsetHeight - 60 : 280;
-    const handler = () => setPastHero(window.scrollY > getThreshold());
+    const threshold = heroEl ? heroEl.offsetHeight - 60 : 280;
+    const handler = () => setPastHero(window.scrollY > threshold);
     window.addEventListener("scroll", handler, { passive: true });
     handler();
     return () => window.removeEventListener("scroll", handler);
@@ -103,7 +103,7 @@ export default function PostPageClient({
   const stanzaContent = useMemo(() => {
     const stanzas = parseStanzas(post.content);
     const firstDropIdx = stanzas.findIndex(s =>
-      !s.italic && s.align === "left" && !s.lang && !/^[\s]*[*\d"''""«»—…]/.test(s.text)
+      !s.italic && s.align === "left" && !s.lang && !/^[\s]*[*\d"''""«»—–…([•·]/.test(s.text)
     );
     // -1 means every stanza is disqualified; no drop-cap applied
     const rightStanzas = stanzas.filter(s => s.align === "right");
