@@ -330,19 +330,24 @@ export default function Nav({ posts }: NavProps) {
             <button
               ref={menuButtonRef}
               type="button"
-              onClick={() => {
+              onClick={(e) => {
                 const next = !menuOpen;
                 setMenuOpen(next);
                 menuOpenRef.current = next;
+                const isKeyboardClick = e.detail === 0;
                 if (!next) {
-                  // Menu closing via mouse — clear all keyboard flags
+                  // Closing — clear all keyboard flags regardless of how
                   menuClosedByKeyboard.current = false;
                   menuOpenedByKeyboard.current = false;
-                } else {
-                  // Menu opening via mouse — clear both stale keyboard flags
+                } else if (!isKeyboardClick) {
+                  // Opening via genuine mouse click — clear stale keyboard flags
+                  // (keyboard open sets menuOpenedByKeyboard in onKeyDown BEFORE
+                  // the synthetic click fires, so we preserve it here)
                   menuClosedByKeyboard.current = false;
                   menuOpenedByKeyboard.current = false;
                 }
+                // If isKeyboardClick && next: onKeyDown already set menuOpenedByKeyboard=true;
+                // don't clear it here — let the flag survive to guide focus restoration.
               }}
               onKeyDown={(e) => {
                 // Only set flag when the keyboard action will OPEN the menu
