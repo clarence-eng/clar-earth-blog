@@ -126,8 +126,10 @@ export default function PostPageClient({
           transition={{ duration: 0.6, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
           className="poem-back-arrow fixed top-[4.5rem] left-2 md:left-6 z-40"
         >
-          <Link href="/" className="group flex items-center gap-2.5" aria-label="Back to all works">
-            <span className={`flex items-center justify-center w-11 h-11 rounded-full border transition-all duration-500 ${
+          <Link href="/" className="group flex items-center gap-2.5 focus-visible:outline-none" aria-label="Back to all works">
+            <span className={`flex items-center justify-center w-11 h-11 rounded-full border transition-all duration-500 group-focus-visible:ring-2 group-focus-visible:ring-offset-2 ${
+              pastHero ? "group-focus-visible:ring-[var(--forest)]" : "group-focus-visible:ring-white/70"
+            } ${
               pastHero
                 ? "border-[var(--border)] bg-[var(--cream)] shadow-sm group-hover:bg-[var(--cream-dark)] group-hover:border-[var(--sage)]"
                 : "border-white/25 bg-white/10 backdrop-blur-sm group-hover:bg-white/20 group-hover:border-white/50"
