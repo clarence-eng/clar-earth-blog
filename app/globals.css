@@ -252,8 +252,18 @@ header nav,
 .back-pill,
 .poem-back-arrow,
 .keyboard-hint {
-  transition: opacity 0.4s ease, visibility 0.4s ease;
+  transition: visibility 0.4s ease;
   visibility: visible;
+}
+@media (prefers-reduced-motion: no-preference) {
+  header nav,
+  .mobile-nav-controls,
+  .reading-progress,
+  .back-pill,
+  .poem-back-arrow,
+  .keyboard-hint {
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+  }
 }
 
 /* header nav = site navigation only; poem prev/next nav must stay accessible */
@@ -269,31 +279,9 @@ header nav,
 }
 
 /* ── prefers-reduced-motion — disable motion animations ─────── */
-/* IMPORTANT: this block must come AFTER the focus-mode base rules above
-   so it wins on source order at equal specificity. */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  /* Marquee is decorative text — exempt from reduce-motion (content accessible without motion) */
-  /* Suppress focus-mode opacity fade but keep visibility transition for keyboard tab-order safety:
-     instantly set opacity to 0 (no animation) but delay visibility:hidden 0.4s so keyboard
-     users aren't dropped from focus before they can navigate away. */
-  header nav,
-  .mobile-nav-controls,
-  .reading-progress,
-  .back-pill,
-  .poem-back-arrow,
-  .keyboard-hint {
-    transition: visibility 0.4s ease;
-    opacity: 1;
-  }
-  .focus-mode header nav,
-  .focus-mode .mobile-nav-controls,
-  .focus-mode .reading-progress,
-  .focus-mode .back-pill,
-  .focus-mode .poem-back-arrow,
-  .focus-mode .keyboard-hint {
-    opacity: 0;
-  }
+  /* Marquee is decorative text — exempt from reduce-motion (WCAG 2.2.2 pause button provided) */
 }
 .focus-mode .poem-stanza { font-size: 1.22rem; line-height: 1.85; letter-spacing: 0.01em; }
 

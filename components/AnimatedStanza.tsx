@@ -88,7 +88,7 @@ export default function AnimatedStanza({ children, index, align = "left", italic
     </span>
   ));
 
-  const suppressDrop = italic || align !== "left" || lang || /^[\s]*[*\d]/.test(children);
+  const suppressDrop = italic || align !== "left" || lang || /^[\s]*[*\d"''""«»—…]/.test(children);
 
   const className = [
     "poem-stanza",
