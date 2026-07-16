@@ -106,8 +106,11 @@ body {
   display: flex;
   width: max-content;
   white-space: nowrap;
-  animation: marquee 60s linear infinite;
+  animation: marquee 90s linear infinite;
   will-change: transform;
+}
+.marquee-track--paused {
+  animation-play-state: paused;
 }
 .marquee-content {
   display: inline-block;
