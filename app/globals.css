@@ -283,7 +283,7 @@ header nav,
   .back-pill,
   .poem-back-arrow,
   .keyboard-hint {
-    transition: visibility 0.4s ease !important;
+    transition: visibility 0.4s ease;
     opacity: 1;
   }
   .focus-mode header nav,
