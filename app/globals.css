@@ -48,7 +48,6 @@ html { scroll-behavior: smooth; text-size-adjust: 100%; -webkit-text-size-adjust
   :focus-visible {
     outline: 2px solid var(--forest);
     outline-offset: 3px;
-    border-radius: 2px;
   }
   /* Programmatic focus targets (tabIndex={-1}) should not show a ring */
   [tabindex="-1"]:focus { outline: none; }
@@ -292,7 +291,7 @@ header nav,
 /* ── Print ─────────────────────────────────────────────────── */
 @media print {
   nav, .reading-progress, .back-pill, .poem-back-arrow, .related-poems,
-  .marquee-track, .filter-tabs-wrap, .mobile-nav-controls,
+  .marquee-track, .filter-tabs-wrap, .mobile-nav-controls, .search-glass,
   .poem-prev-next, .keyboard-hint, button, canvas { display: none !important; }
   body { background: white; color: black; font-size: 12pt; }
   .poem-content { max-width: 100%; }
