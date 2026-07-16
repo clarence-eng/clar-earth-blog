@@ -48,6 +48,7 @@ function MobileMenuInner({ pathname, resolvedTheme, onThemeToggle, menuFirstItem
     <motion.nav
       ref={navRef}
       id="mobile-menu"
+      data-mobile-menu
       data-state={isPresent ? "open" : "closed"}
       initial={{ opacity: 0, y: -8 }}
       animate={{ opacity: 1, y: 0 }}
@@ -186,16 +187,20 @@ export default function Nav({ posts }: NavProps) {
     }
   }, [menuOpen]);
 
-  // Close menu on route change and restore focus only when closed by keyboard
+  // Close menu on route change — restore focus to hamburger when menu was keyboard-operated
+  // menuClosedByKeyboard is true for Escape; for link-activation, we check if the last
+  // interaction was keyboard by inspecting the activeElement before navigation commits.
   useEffect(() => {
     if (menuOpenRef.current) {
       setMenuOpen(false);
       menuOpenRef.current = false;
-      if (menuClosedByKeyboard.current) {
-        menuButtonRef.current?.focus();
-      }
+      // Restore focus if the navigation came from keyboard (Escape or keyboard-activated link)
+      // document.activeElement is still the link that was activated at this point
+      const fromKeyboard = menuClosedByKeyboard.current ||
+        (document.activeElement instanceof HTMLElement &&
+         document.activeElement.closest('[data-mobile-menu]') !== null);
+      if (fromKeyboard) menuButtonRef.current?.focus();
     }
-    // Always clear the keyboard-close flag on navigation so it doesn't persist across sessions
     menuClosedByKeyboard.current = false;
     // Also close search modal on any navigation
     if (searchOpenRef.current) {
