@@ -43,11 +43,15 @@
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; text-size-adjust: 100%; -webkit-text-size-adjust: 100%; }
 
-/* ── Global focus-visible ring — consistent across all browsers ── */
-:focus-visible {
-  outline: 2px solid var(--forest);
-  outline-offset: 3px;
-  border-radius: 2px;
+/* ── Global focus-visible ring — in @layer base so Tailwind utilities can override ── */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--forest);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  /* Programmatic focus targets (tabIndex={-1}) should not show a ring */
+  [tabindex="-1"]:focus { outline: none; }
 }
 
 body {

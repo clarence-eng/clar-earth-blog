@@ -225,6 +225,9 @@ export default function Nav({ posts }: NavProps) {
 
   const textBase = onDark ? "text-white/80 hover:text-white" : "text-[var(--charcoal)] hover:text-[var(--forest)]";
   const textMuted = onDark ? "text-white/65 hover:text-white/90" : "text-[var(--muted)] hover:text-[var(--forest)]";
+  const focusRing = onDark
+    ? "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-1 focus-visible:ring-offset-transparent"
+    : "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--forest)] focus-visible:ring-offset-2";
 
   const headerClass = menuOpen
     ? "fixed top-0 left-0 right-0 z-50 bg-[var(--cream)] border-b border-[var(--border)] py-4"
@@ -236,7 +239,7 @@ export default function Nav({ posts }: NavProps) {
         <div className="max-w-6xl mx-auto px-4 sm:px-8 flex items-center justify-between">
           {/* Logo + IG */}
           <div className="flex items-center gap-3">
-            <Link href="/" className={`font-jost tracking-[0.3em] text-[11px] font-medium uppercase transition-colors duration-300 flex items-center min-h-[44px] ${textBase}`}
+            <Link href="/" className={`font-jost tracking-[0.3em] text-[11px] font-medium uppercase transition-colors duration-300 flex items-center min-h-[44px] rounded-sm ${focusRing} ${textBase}`}
               aria-current={isHome ? 'page' : undefined}>
               {SITE_NAME}
             </Link>
@@ -244,7 +247,7 @@ export default function Nav({ posts }: NavProps) {
               href={INSTAGRAM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className={`inline-flex items-center justify-center w-11 h-11 transition-colors duration-300 ${textMuted}`}
+              className={`inline-flex items-center justify-center w-11 h-11 transition-colors duration-300 rounded-full ${focusRing} ${textMuted}`}
               aria-label="Instagram"
               title="Instagram"
             >
@@ -262,7 +265,7 @@ export default function Nav({ posts }: NavProps) {
               type="button"
               ref={desktopSearchRef}
               onClick={openSearch}
-              className={`nav-action-label transition-colors duration-300 min-h-[44px] px-1 ${textMuted}`}
+              className={`nav-action-label transition-colors duration-300 min-h-[44px] px-1 rounded-sm ${focusRing} ${textMuted}`}
               title="Search (⌘K)"
               aria-label="Search"
               aria-expanded={searchOpen}
@@ -271,7 +274,7 @@ export default function Nav({ posts }: NavProps) {
             >
               Search
             </button>
-            <Link href="/about" className={`nav-action-label transition-colors duration-300 min-h-[44px] flex items-center ${textMuted}`}
+            <Link href="/about" className={`nav-action-label transition-colors duration-300 min-h-[44px] flex items-center rounded-sm ${focusRing} ${textMuted}`}
               aria-current={pathname === '/about' ? 'page' : undefined}>
               About
             </Link>
@@ -279,7 +282,7 @@ export default function Nav({ posts }: NavProps) {
               <button
                 type="button"
                 onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-                className={`w-11 h-11 flex items-center justify-center transition-colors duration-300 ${textMuted}`}
+                className={`w-11 h-11 flex items-center justify-center transition-colors duration-300 rounded-full ${focusRing} ${textMuted}`}
                 title={resolvedTheme === "dark" ? "Light mode" : "Dark mode"}
                 aria-label={resolvedTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
                 aria-pressed={resolvedTheme === "dark"}
@@ -304,7 +307,7 @@ export default function Nav({ posts }: NavProps) {
               type="button"
               ref={mobileSearchRef}
               onClick={openSearch}
-              className={`w-11 h-11 flex items-center justify-center transition-colors duration-300 ${textMuted}`}
+              className={`w-11 h-11 flex items-center justify-center transition-colors duration-300 rounded-full ${focusRing} ${textMuted}`}
               aria-label="Search"
               aria-expanded={searchOpen}
               aria-haspopup="dialog"
@@ -317,7 +320,7 @@ export default function Nav({ posts }: NavProps) {
               ref={menuButtonRef}
               type="button"
               onClick={() => { const next = !menuOpen; setMenuOpen(next); menuOpenRef.current = next; }}
-              className={`w-11 h-11 flex items-center justify-center transition-colors duration-300 ${textMuted}`}
+              className={`w-11 h-11 flex items-center justify-center transition-colors duration-300 rounded-sm ${focusRing} ${textMuted}`}
               aria-label={menuOpen ? "Close menu" : "Open menu"}
               aria-expanded={menuOpen}
               aria-controls={menuOpen ? "mobile-menu" : undefined}

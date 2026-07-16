@@ -26,7 +26,7 @@ export default function BackPill() {
       <Link
         href="/"
         tabIndex={show ? 0 : -1}
-        className="font-jost text-[12px] tracking-[0.15em] uppercase flex items-center gap-2 px-4 py-3 rounded-full bg-[var(--forest)] text-white/90 hover:bg-[var(--forest-mid)] transition-colors duration-300 shadow-lg"
+        className="font-jost text-[12px] tracking-[0.15em] uppercase flex items-center gap-2 px-4 py-3 rounded-full bg-[var(--forest)] text-white/90 hover:bg-[var(--forest-mid)] transition-colors duration-300 shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--forest)] focus-visible:ring-offset-2 focus-visible:rounded-full"
       >
         <span aria-hidden="true">←</span>
         <span>All works</span>

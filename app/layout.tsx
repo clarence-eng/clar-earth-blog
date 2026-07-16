@@ -55,7 +55,7 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col">
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:rounded focus:bg-[var(--forest)] focus:text-white dark:focus:bg-[var(--cream)] dark:focus:text-[var(--forest)] focus:text-sm"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:rounded focus:bg-[var(--forest)] focus:text-white dark:focus:bg-[var(--cream)] dark:focus:text-[var(--forest)] focus:text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--forest)]"
         >
           Skip to main content
         </a>

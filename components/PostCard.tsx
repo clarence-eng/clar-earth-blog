@@ -61,7 +61,6 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
       }}
       onMouseLeave={!shouldAnimate ? undefined : () => { x.set(0); y.set(0); }}
       whileHover={shouldAnimate ? { y: -6, boxShadow: "0 20px 44px rgba(45,74,62,0.22)" } : undefined}
-      whileFocus={shouldAnimate ? { y: -6, boxShadow: "0 20px 44px rgba(45,74,62,0.22)" } : undefined}
     >
       {/* Overlay link — covers the entire card; accessible name comes from aria-labelledby */}
       <Link
