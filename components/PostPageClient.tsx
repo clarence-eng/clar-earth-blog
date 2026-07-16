@@ -248,12 +248,13 @@ export default function PostPageClient({
         {(prev || next) && (
           <p className="sr-only">Use the left and right arrow keys to navigate between poems.</p>
         )}
-        {/* Gold rule */}
+        {/* Gold rule — use scaleX transform (GPU-composited, no layout recalculation) */}
         <motion.div
-          initial={{ width: 0 }}
-          animate={{ width: 40 }}
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="h-px bg-[var(--gold)] mb-12 mt-2 opacity-80"
+          className="h-px bg-[var(--gold)] mb-12 mt-2 opacity-80 origin-left"
+          style={{ width: 40 }}
         />
 
         {/* Poem — lang attribute from post.lang (e.g. "中文" → "zh") when the whole poem is non-English */}

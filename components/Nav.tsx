@@ -201,6 +201,7 @@ export default function Nav({ posts }: NavProps) {
     if (searchOpenRef.current) {
       setSearchOpen(false);
       searchOpenRef.current = false;
+      searchOriginRef.current = null;
     }
   }, [pathname]);
 
