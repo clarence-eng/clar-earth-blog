@@ -413,7 +413,8 @@ header nav,
   transform-origin: left;
   transition: transform 500ms ease-out;
 }
-.group:hover .gold-underline-reveal {
+.group:hover .gold-underline-reveal,
+.group:focus-within .gold-underline-reveal {
   transform: scaleX(1);
 }
 
