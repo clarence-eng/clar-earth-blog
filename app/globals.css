@@ -247,14 +247,24 @@ body {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   /* Marquee is decorative text — exempt from reduce-motion (content accessible without motion) */
-  /* Suppress focus-mode fade transitions so elements switch instantly */
+  /* Suppress focus-mode opacity fade but keep visibility transition for keyboard tab-order safety.
+     visibility: hidden with no delay would instantly drop focus from elements the user is on. */
   header nav,
   .mobile-nav-controls,
   .reading-progress,
   .back-pill,
   .poem-back-arrow,
   .keyboard-hint {
-    transition: none;
+    transition: visibility 0.4s ease;
+    opacity: 1;
+  }
+  .focus-mode header nav,
+  .focus-mode .mobile-nav-controls,
+  .focus-mode .reading-progress,
+  .focus-mode .back-pill,
+  .focus-mode .poem-back-arrow,
+  .focus-mode .keyboard-hint {
+    opacity: 0;
   }
 }
 

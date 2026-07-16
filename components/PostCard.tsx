@@ -82,10 +82,10 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
             )}
           </div>
           {/* Forest overlay on hover */}
-          <div aria-hidden="true" className="absolute inset-0 bg-[var(--forest)] opacity-0 group-hover:opacity-[0.14] transition-opacity duration-500" />
+          <div aria-hidden="true" className="absolute inset-0 bg-[var(--forest)] opacity-0 group-hover:opacity-[0.14] group-focus-within:opacity-[0.14] motion-safe:transition-opacity motion-safe:duration-500" />
           {/* Mood shimmer — top edge glow */}
           {cardMood && (
-            <div className="card-mood-shimmer absolute inset-x-0 top-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" data-mood={cardMood} data-ladybug={post.ladybugColor} />
+            <div className="card-mood-shimmer absolute inset-x-0 top-0 h-[2px] opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 motion-safe:transition-opacity motion-safe:duration-500" data-mood={cardMood} data-ladybug={post.ladybugColor} />
           )}
         </div>
 
