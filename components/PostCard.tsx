@@ -101,7 +101,7 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
 
           <h3
             id={`post-title-${post.slug}`}
-            className="cormorant-italic text-balance leading-tight text-[var(--ink)] group-hover:text-[var(--forest)] transition-colors duration-300 text-lg"
+            className="cormorant-italic text-balance leading-tight text-[var(--ink)] group-hover:text-[var(--forest)] group-focus-within:text-[var(--forest)] transition-colors duration-300 text-lg"
           >
             {post.title}
           </h3>

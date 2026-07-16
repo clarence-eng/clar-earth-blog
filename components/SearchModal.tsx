@@ -122,13 +122,13 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
             <Link
               href={`/${post.slug}`}
               onClick={() => onClose(true)}
-              className="flex items-start gap-4 px-5 py-3.5 hover:bg-[var(--cream-dark)] transition-colors duration-300 border-b border-[var(--border)] last:border-0 group"
+              className="flex items-start gap-4 px-5 py-3.5 hover:bg-[var(--cream-dark)] focus-visible:bg-[var(--cream-dark)] focus-visible:outline-none transition-colors duration-300 border-b border-[var(--border)] last:border-0 group"
             >
               <span className="font-jost text-[8px] tracking-[0.25em] uppercase text-[var(--muted)] pt-1 w-12 flex-shrink-0">
                 {TYPE_LABELS[post.type]}
               </span>
               <div>
-                <p className="cormorant-italic text-[var(--ink)] group-hover:text-[var(--forest)] transition-colors duration-300 leading-snug" style={{ fontSize: "1.1rem" }}>
+                <p className="cormorant-italic text-[var(--ink)] group-hover:text-[var(--forest)] group-focus-visible:text-[var(--forest)] transition-colors duration-300 leading-snug" style={{ fontSize: "1.1rem" }}>
                   {post.title}
                   {post.lang && <span className="ml-2 text-[10px] not-italic text-[var(--muted)]" lang={LANG_MAP[post.lang] ?? undefined}>{post.lang}</span>}
                 </p>
