@@ -121,6 +121,8 @@ export default function Nav({ posts }: NavProps) {
     searchOpenRef.current = true;
     setMenuOpen(false);
     menuOpenRef.current = false;
+    menuOpenedByKeyboard.current = false;
+    menuClosedByKeyboard.current = false;
   }, []);
 
   const closeSearch = useCallback((navigating = false) => {
@@ -166,6 +168,8 @@ export default function Nav({ posts }: NavProps) {
       if (window.innerWidth >= 640 && menuOpenRef.current) {
         setMenuOpen(false);
         menuOpenRef.current = false;
+        menuOpenedByKeyboard.current = false;
+        menuClosedByKeyboard.current = false;
         menuButtonRef.current?.focus();
       }
     };
@@ -335,8 +339,9 @@ export default function Nav({ posts }: NavProps) {
                   menuClosedByKeyboard.current = false;
                   menuOpenedByKeyboard.current = false;
                 } else {
-                  // Menu opening via mouse — clear stale keyboard-close flag
+                  // Menu opening via mouse — clear both stale keyboard flags
                   menuClosedByKeyboard.current = false;
+                  menuOpenedByKeyboard.current = false;
                 }
               }}
               onKeyDown={(e) => {
