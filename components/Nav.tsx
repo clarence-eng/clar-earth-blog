@@ -108,6 +108,7 @@ export default function Nav({ posts }: NavProps) {
   const focusTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const focusMenuTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const menuClosedByKeyboard = useRef(false);
+  const menuOpenedByKeyboard = useRef(false);
   const searchOriginRef = useRef<HTMLElement | null>(null);
 
   const isMobile = () => window.innerWidth < 640;
@@ -188,20 +189,17 @@ export default function Nav({ posts }: NavProps) {
   }, [menuOpen]);
 
   // Close menu on route change — restore focus to hamburger when menu was keyboard-operated
-  // menuClosedByKeyboard is true for Escape; for link-activation, we check if the last
-  // interaction was keyboard by inspecting the activeElement before navigation commits.
   useEffect(() => {
     if (menuOpenRef.current) {
       setMenuOpen(false);
       menuOpenRef.current = false;
-      // Restore focus if the navigation came from keyboard (Escape or keyboard-activated link)
-      // document.activeElement is still the link that was activated at this point
-      const fromKeyboard = menuClosedByKeyboard.current ||
-        (document.activeElement instanceof HTMLElement &&
-         document.activeElement.closest('[data-mobile-menu]') !== null);
+      // Restore focus only when the menu was opened/closed via keyboard to avoid
+      // unexpectedly stealing focus from mouse-navigation flows
+      const fromKeyboard = menuClosedByKeyboard.current || menuOpenedByKeyboard.current;
       if (fromKeyboard) menuButtonRef.current?.focus();
     }
     menuClosedByKeyboard.current = false;
+    menuOpenedByKeyboard.current = false;
     // Also close search modal on any navigation
     if (searchOpenRef.current) {
       setSearchOpen(false);
@@ -325,6 +323,7 @@ export default function Nav({ posts }: NavProps) {
               ref={menuButtonRef}
               type="button"
               onClick={() => { const next = !menuOpen; setMenuOpen(next); menuOpenRef.current = next; }}
+              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") menuOpenedByKeyboard.current = true; }}
               className={`w-11 h-11 flex items-center justify-center transition-colors duration-300 rounded-sm ${focusRing} ${textMuted}`}
               aria-label={menuOpen ? "Close menu" : "Open menu"}
               aria-expanded={menuOpen}
