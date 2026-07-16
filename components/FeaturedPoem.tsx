@@ -16,7 +16,7 @@ export default function FeaturedPoem({ post }: { post: PostMeta }) {
         <div className="h-px flex-1 bg-[var(--border)]" />
       </div>
 
-      <Link href={`/${post.slug}`} aria-label={`${post.title} — read ${(TYPE_LABELS[post.type] ?? post.type).toLowerCase()}`} className="group block">
+      <Link href={`/${post.slug}`} aria-label={`${post.title} — read ${(TYPE_LABELS[post.type] ?? post.type).toLowerCase()}`} className="group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--forest)] focus-visible:ring-offset-2 rounded-sm">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

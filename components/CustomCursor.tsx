@@ -22,10 +22,14 @@ type RGB = [number, number, number];
 
 function hexToRgb(hex: string): RGB {
   if (!hex) return [255, 255, 255];
-  // Expand 3-digit shorthand (#RGB → #RRGGBB)
-  const h = /^#[0-9A-Fa-f]{3}$/.test(hex)
-    ? `#${hex[1]}${hex[1]}${hex[2]}${hex[2]}${hex[3]}${hex[3]}`
-    : hex;
+  // Expand 3-digit shorthand (#RGB → #RRGGBB), ignore alpha channel in 4/8-digit forms
+  let h = hex;
+  if (/^#[0-9A-Fa-f]{3}$/.test(h))
+    h = `#${h[1]}${h[1]}${h[2]}${h[2]}${h[3]}${h[3]}`;
+  else if (/^#[0-9A-Fa-f]{4}$/.test(h))
+    h = `#${h[1]}${h[1]}${h[2]}${h[2]}${h[3]}${h[3]}`;
+  else if (/^#[0-9A-Fa-f]{8}$/.test(h))
+    h = `#${h.slice(1, 3)}${h.slice(3, 5)}${h.slice(5, 7)}`;
   if (!/^#[0-9A-Fa-f]{6}$/.test(h)) return [255, 255, 255];
   const r = parseInt(h.slice(1, 3), 16);
   const g = parseInt(h.slice(3, 5), 16);

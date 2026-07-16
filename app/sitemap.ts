@@ -7,17 +7,26 @@ const SITE_LAUNCH = new Date("2025-06-01");
 export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getAllPosts();
 
+  const parseDate = (d: string | undefined) =>
+    d ? (isNaN(new Date(d).getTime()) ? SITE_LAUNCH : new Date(d)) : SITE_LAUNCH;
+
   const postEntries: MetadataRoute.Sitemap = posts.map((post) => ({
     url: `${BASE_URL}/${post.slug}`,
-    lastModified: post.date ? (isNaN(new Date(post.date).getTime()) ? SITE_LAUNCH : new Date(post.date)) : SITE_LAUNCH,
+    lastModified: parseDate(post.date),
     changeFrequency: "monthly",
     priority: 0.8,
   }));
 
+  // Use most recent post date as homepage lastModified so crawlers re-index on new content
+  const mostRecent = posts.reduce<Date>((latest, p) => {
+    const d = parseDate(p.date);
+    return d > latest ? d : latest;
+  }, SITE_LAUNCH);
+
   return [
     {
       url: BASE_URL,
-      lastModified: SITE_LAUNCH,
+      lastModified: mostRecent,
       changeFrequency: "weekly",
       priority: 1,
     },

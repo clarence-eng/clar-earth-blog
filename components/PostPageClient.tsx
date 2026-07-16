@@ -344,7 +344,7 @@ export default function PostPageClient({
 
         {/* Focus mode + Print */}
         <div className="mt-8 flex items-center justify-between">
-          <Link href="/" className="font-jost text-xs tracking-[0.3em] uppercase text-[var(--muted)] hover:text-[var(--forest)] transition-colors duration-300">
+          <Link href="/" className="font-jost text-xs tracking-[0.3em] uppercase text-[var(--muted)] hover:text-[var(--forest)] transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--forest)] focus-visible:ring-offset-2 rounded-sm">
             <span aria-hidden="true">← </span>All works
           </Link>
           <div className="flex items-center gap-4">

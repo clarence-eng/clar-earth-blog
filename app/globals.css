@@ -244,15 +244,15 @@ body {
 }
 
 /* ── Reading focus mode ────────────────────────────────────── */
-/* Base states: opacity+visibility transition so both enter AND exit animate smoothly.
-   visibility: hidden removes elements from the tab order when focus mode is active. */
+/* Base states: no transition by default (instant show/hide for all users).
+   Under no-preference: smooth opacity+visibility fade. Under reduce-motion:
+   instant opacity change, instant visibility change — no delay in AT tree. */
 header nav,
 .mobile-nav-controls,
 .reading-progress,
 .back-pill,
 .poem-back-arrow,
 .keyboard-hint {
-  transition: visibility 0.4s ease;
   visibility: visible;
 }
 @media (prefers-reduced-motion: no-preference) {
