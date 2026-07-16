@@ -82,7 +82,7 @@ export default function PostGrid({ posts }: { posts: PostMeta[] }) {
                 role="radio"
                 aria-checked={isActive}
                 tabIndex={isActive ? 0 : -1}
-                className={`font-jost flex-shrink-0 flex items-center gap-1.5 px-4 py-2.5 sm:py-1.5 rounded-full text-[11px] sm:text-[10px] tracking-[0.2em] uppercase transition-all duration-300 ${
+                className={`font-jost flex-shrink-0 flex items-center gap-1.5 px-4 py-2.5 sm:py-1.5 rounded-full text-[11px] sm:text-[10px] tracking-[0.2em] uppercase transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--forest)] focus-visible:ring-offset-2 ${
                   isActive
                     ? "bg-[var(--forest)] text-white"
                     : "bg-transparent text-[var(--muted)] hover:text-[var(--forest)] border border-[var(--muted)] hover:border-[var(--forest)]"

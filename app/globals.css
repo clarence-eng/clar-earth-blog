@@ -43,6 +43,13 @@
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; text-size-adjust: 100%; -webkit-text-size-adjust: 100%; }
 
+/* ── Global focus-visible ring — consistent across all browsers ── */
+:focus-visible {
+  outline: 2px solid var(--forest);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
 body {
   background-color: var(--cream);
   color: var(--ink);
@@ -121,8 +128,10 @@ body {
   font-optical-sizing: auto;
 }
 
-/* CJK font fallback for poems with lang attribute — scoped to CJK scripts only */
-.poem-content[lang='zh'], .poem-content[lang='ja'], .poem-content[lang='ko'] { font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", serif; }
+/* CJK font fallback for poems with lang attribute — scoped to CJK scripts only.
+   Targets both .poem-content[lang] (whole-poem) and .poem-stanza[lang] (per-stanza). */
+.poem-content[lang='zh'], .poem-content[lang='ja'], .poem-content[lang='ko'],
+.poem-stanza[lang='zh'], .poem-stanza[lang='ja'], .poem-stanza[lang='ko'] { font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", serif; }
 
 /* Each stanza */
 .poem-stanza {

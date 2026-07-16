@@ -45,17 +45,17 @@ export default function RelatedPoems({ posts, currentSlug }: { posts: PostMeta[]
           <Link
             key={p.slug}
             href={`/${p.slug}`}
-            className="group block"
+            className="group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--forest)] focus-visible:ring-offset-2 rounded-sm"
             data-mood={primaryMood(p.mood)}
             data-ladybug={p.ladybugColor}
           >
             {p.coverImage && (
               <div className="relative aspect-[4/3] overflow-hidden rounded-sm mb-3">
-                <Image src={p.coverImage} alt="" fill sizes="(max-width:640px) 100vw, 33vw" className="object-cover motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:scale-[1.04]"/>
-                <div aria-hidden="true" className="absolute inset-0 bg-[var(--forest)] opacity-0 group-hover:opacity-[0.14] transition-opacity duration-500"/>
+                <Image src={p.coverImage} alt="" fill sizes="(max-width:640px) 100vw, 33vw" className="object-cover motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:scale-[1.04] motion-safe:group-focus-visible:scale-[1.04]"/>
+                <div aria-hidden="true" className="absolute inset-0 bg-[var(--forest)] opacity-0 group-hover:opacity-[0.14] group-focus-visible:opacity-[0.14] transition-opacity duration-500"/>
               </div>
             )}
-            <h3 className="cormorant-italic text-[var(--ink)] group-hover:text-[var(--forest)] transition-colors duration-300"
+            <h3 className="cormorant-italic text-[var(--ink)] group-hover:text-[var(--forest)] group-focus-visible:text-[var(--forest)] transition-colors duration-300"
               style={{ fontSize: "1.05rem", lineHeight: 1.35 }}>
               {p.title}
             </h3>

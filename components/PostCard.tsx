@@ -61,11 +61,12 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
       }}
       onMouseLeave={!shouldAnimate ? undefined : () => { x.set(0); y.set(0); }}
       whileHover={shouldAnimate ? { y: -6, boxShadow: "0 20px 44px rgba(45,74,62,0.22)" } : undefined}
+      whileFocus={shouldAnimate ? { y: -6, boxShadow: "0 20px 44px rgba(45,74,62,0.22)" } : undefined}
     >
-      {/* Overlay link — covers the entire card; accessible name comes from aria-labelledby pointing to the h2 */}
+      {/* Overlay link — covers the entire card; accessible name comes from aria-labelledby */}
       <Link
         href={`/${post.slug}`}
-        className="absolute inset-0 z-10"
+        className="absolute inset-0 z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--forest)] focus-visible:ring-offset-2 rounded-sm"
         aria-labelledby={`post-title-${post.slug}`}
       />
         {/* 3D tilt image box */}
