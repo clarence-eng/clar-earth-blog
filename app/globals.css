@@ -107,12 +107,12 @@ body {
   display: flex;
   width: max-content;
   white-space: nowrap;
-  animation: marquee 60s linear infinite;
-  will-change: transform;
 }
-/* Pause marquee for users who prefer reduced motion — WCAG 2.2.2 */
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track { animation-play-state: paused; }
+@media (prefers-reduced-motion: no-preference) {
+  .marquee-track {
+    animation: marquee 60s linear infinite;
+    will-change: transform;
+  }
 }
 .marquee-content {
   display: inline-block;
