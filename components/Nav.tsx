@@ -220,8 +220,10 @@ export default function Nav({ posts }: NavProps) {
         if (searchOpenRef.current) { closeSearch(); return; }
         if (menuOpenRef.current) {
           setMenuOpen(false); menuOpenRef.current = false;
-          menuClosedByKeyboard.current = true; menuOpenedByKeyboard.current = false;
-          menuButtonRef.current?.focus();
+          menuClosedByKeyboard.current = true;
+          // Only restore focus to hamburger if the menu was opened via keyboard
+          if (menuOpenedByKeyboard.current) menuButtonRef.current?.focus();
+          menuOpenedByKeyboard.current = false;
         }
       }
     };
