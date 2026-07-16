@@ -326,7 +326,13 @@ export default function Nav({ posts }: NavProps) {
             <button
               ref={menuButtonRef}
               type="button"
-              onClick={() => { const next = !menuOpen; setMenuOpen(next); menuOpenRef.current = next; }}
+              onClick={() => {
+                const next = !menuOpen;
+                setMenuOpen(next);
+                menuOpenRef.current = next;
+                // Clear stale keyboard flags when menu is toggled by mouse click
+                if (next) { menuClosedByKeyboard.current = false; }
+              }}
               onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") menuOpenedByKeyboard.current = true; }}
               className={`w-11 h-11 flex items-center justify-center transition-colors duration-300 rounded-sm ${focusRing} ${textMuted}`}
               aria-label={menuOpen ? "Close menu" : "Open menu"}
@@ -356,7 +362,12 @@ export default function Nav({ posts }: NavProps) {
                 setTheme(resolvedTheme === "dark" ? "light" : "dark");
                 setMenuOpen(false);
                 menuOpenRef.current = false;
-                menuButtonRef.current?.focus();
+                // Only restore focus to hamburger if menu was keyboard-opened
+                if (menuOpenedByKeyboard.current || menuClosedByKeyboard.current) {
+                  menuButtonRef.current?.focus();
+                }
+                menuOpenedByKeyboard.current = false;
+                menuClosedByKeyboard.current = false;
               }}
               menuFirstItemRef={menuFirstItemRef}
             />
