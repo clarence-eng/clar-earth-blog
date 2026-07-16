@@ -106,12 +106,8 @@ body {
   display: flex;
   width: max-content;
   white-space: nowrap;
-}
-@media (prefers-reduced-motion: no-preference) {
-  .marquee-track {
-    animation: marquee 60s linear infinite;
-    will-change: transform;
-  }
+  animation: marquee 60s linear infinite;
+  will-change: transform;
 }
 .marquee-content {
   display: inline-block;
