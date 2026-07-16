@@ -344,7 +344,12 @@ export default function Nav({ posts }: NavProps) {
             <MobileMenuInner
               pathname={pathname}
               resolvedTheme={resolvedTheme}
-              onThemeToggle={() => { setTheme(resolvedTheme === "dark" ? "light" : "dark"); setMenuOpen(false); menuOpenRef.current = false; }}
+              onThemeToggle={() => {
+                setTheme(resolvedTheme === "dark" ? "light" : "dark");
+                setMenuOpen(false);
+                menuOpenRef.current = false;
+                menuButtonRef.current?.focus();
+              }}
               menuFirstItemRef={menuFirstItemRef}
             />
           )}
