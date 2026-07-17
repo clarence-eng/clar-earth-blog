@@ -133,9 +133,8 @@ export default function HeroSection({ titles, gradient }: { titles: string[]; gr
               <span key={i} className="marquee-content">{marqueeText.repeat(10)}</span>
             ))}
           </div>
-          {/* Only show pause/play when the animation is running — hidden for reduce-motion users */}
-          {reducedMotion !== true && (
-            <button
+          {/* Pause/play button — shown for all users since marquee runs unconditionally */}
+          <button
               type="button"
               onClick={() => setMarqueePaused(p => !p)}
               aria-label={marqueePaused ? "Resume scrolling poem titles" : "Pause scrolling poem titles"}
@@ -153,7 +152,6 @@ export default function HeroSection({ titles, gradient }: { titles: string[]; gr
                 </svg>
               )}
             </button>
-          )}
         </div>
       )}
     </>

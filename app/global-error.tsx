@@ -15,7 +15,7 @@ export default function GlobalError({ reset }: { reset: () => void }) {
           }
         `}</style>
       </head>
-      <body className="min-h-screen flex flex-col items-center justify-center px-6 py-32 text-center" style={{ fontFamily: "Georgia, serif", background: "#F8F5EF", color: "#2C2C27" }}>
+      <body style={{ fontFamily: "Georgia, serif", background: "#F8F5EF", color: "#2C2C27", minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "8rem 1.5rem", textAlign: "center" }}>
         <p style={{ fontSize: "0.65rem", letterSpacing: "0.35em", textTransform: "uppercase", color: "#625F57", marginBottom: "1.5rem" }}>
           Something went wrong
         </p>
