@@ -132,15 +132,15 @@ export default function PostPageClient({
           className="poem-back-arrow fixed top-[4.5rem] left-2 md:left-6 z-40"
         >
           <Link href="/" className="group flex items-center gap-2.5 focus-visible:outline-none" aria-label="Back to all works">
-            <span className={`flex items-center justify-center w-11 h-11 rounded-full border transition-[border-color,background-color] duration-500 group-focus-visible:ring-2 group-focus-visible:ring-offset-2 ${
+            <span className={`flex items-center justify-center w-11 h-11 rounded-full border transition-[border-color,background-color,color] duration-500 group-focus-visible:ring-2 group-focus-visible:ring-offset-2 ${
               pastHero ? "group-focus-visible:ring-[var(--forest)]" : "group-focus-visible:ring-white/70"
             } ${
               pastHero
-                ? "border-[var(--border)] bg-[var(--cream)] shadow-sm group-hover:bg-[var(--cream-dark)] group-hover:border-[var(--sage)]"
-                : "border-white/25 bg-white/10 backdrop-blur-sm group-hover:bg-white/20 group-hover:border-white/50"
+                ? "border-[var(--border)] bg-[var(--cream)] shadow-sm text-[var(--forest)] group-hover:bg-[var(--cream-dark)] group-hover:border-[var(--sage)]"
+                : "border-white/25 bg-white/10 backdrop-blur-sm text-white group-hover:bg-white/20 group-hover:border-white/50"
             }`}>
               <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true" className="motion-safe:group-hover:-translate-x-0.5 motion-safe:transition-transform motion-safe:duration-300">
-                <path d="M8.5 1.5L3.5 6.5L8.5 11.5" stroke={pastHero ? "var(--forest)" : "white"} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M8.5 1.5L3.5 6.5L8.5 11.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </span>
             <span
