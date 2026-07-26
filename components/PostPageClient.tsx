@@ -157,7 +157,7 @@ export default function PostPageClient({
       {/* ── Hero ─────────────────────────────────────────────── */}
       {/* Consistent dark forest overlay on ALL poems — no random per-slug colour */}
       <div
-        className="poem-hero relative w-full overflow-hidden"
+        className="poem-hero relative w-full overflow-hidden flex items-center"
         style={{ background: HERO_BG, minHeight: "clamp(320px, 55vh, 480px)" }}
       >
         {/* Cover photo — luminosity blend so it shows through naturally */}
@@ -187,16 +187,16 @@ export default function PostPageClient({
           style={{ background: "var(--cream)", clipPath: "ellipse(65% 100% at 50% 100%)" }}
         />
 
-        {/* Title block — vertically centred with generous padding top and bottom */}
-        <div className="relative z-10 w-full max-w-3xl mx-auto px-8 flex flex-col justify-center"
-          style={{ paddingTop: "5.5rem", paddingBottom: "5rem" }}>
+        {/* Title block — centred vertically by parent flex, horizontally by text-center */}
+        <div className="relative z-10 w-full max-w-3xl mx-auto px-8 flex flex-col items-center text-center"
+          style={{ paddingTop: "4.5rem", paddingBottom: "3.5rem" }}>
 
           {/* Type badge + nature reading time */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="flex items-center gap-3 mb-5"
+            className="flex items-center justify-center gap-3 mb-5"
           >
             <span
               className="font-jost inline-block text-[9px] tracking-[0.35em] uppercase px-2.5 py-1 rounded-full bg-white/15 text-white/70"
@@ -226,7 +226,7 @@ export default function PostPageClient({
           </motion.h1>
 
           {/* Dedication / co-author + mood tag */}
-          <div className="flex items-center gap-3 mt-3 flex-wrap">
+          <div className="flex items-center justify-center gap-3 mt-3 flex-wrap">
             {(post.dedication?.trim() || post.coAuthor) && (
               <motion.p
                 initial={{ opacity: 0 }}
