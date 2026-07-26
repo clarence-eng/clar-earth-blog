@@ -90,6 +90,8 @@ export default async function PostPage({ params }: Props) {
     ? `${BASE_URL}${post.coverImage.startsWith('/') ? '' : '/'}${post.coverImage}`
     : undefined;
 
+  const defaultDesc = post.type === "poem" ? "A poem by Clare." : post.type === "article" ? "An article by Clare." : "A photo essay by Clare.";
+
   const rawLang = post.lang ?? "";
   // Resolve BCP-47: known English content has no lang field (falls back to "en"),
   // non-English content must have a recognised LANG_MAP entry. Warn and omit rather
@@ -114,7 +116,7 @@ export default async function PostPage({ params }: Props) {
       "url": `${BASE_URL}/about`,
     },
     "url": `${BASE_URL}/${slug}`,
-    "description": post.excerpt ?? "",
+    "description": post.excerpt ?? defaultDesc,
     ...(post.date ? { "datePublished": post.date.match(/^\d{4}-\d{2}$/) ? post.date + '-01' : post.date, "dateModified": post.date.match(/^\d{4}-\d{2}$/) ? post.date + '-01' : post.date } : {}),
     ...(coverUrl ? { "image": coverUrl } : {}),
     "publisher": {

@@ -113,6 +113,7 @@ body {
 }
 .marquee-track--paused {
   animation-play-state: paused;
+  will-change: auto;
 }
 .marquee-content {
   display: inline-block;

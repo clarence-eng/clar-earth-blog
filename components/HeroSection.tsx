@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import AmbientParticles from "./AmbientParticles";
 import { SITE_TAGLINE } from "@/lib/config";
 
@@ -26,6 +26,10 @@ export default function HeroSection({ titles, gradient }: { titles: string[]; gr
   const reducedMotion = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
   const [marqueePaused, setMarqueePaused] = useState(false);
+  useEffect(() => {
+    const mql = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setMarqueePaused(mql.matches);
+  }, []);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
 
   const quoteY = useTransform(scrollYProgress, [0, 1], [0, -60]);

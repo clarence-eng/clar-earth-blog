@@ -3,6 +3,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
+import type { PostMeta } from "@/lib/posts";
+import { primaryMood } from "@/lib/config";
 
 const PLACEHOLDER_COLORS = [
   { bg: "#2D4A3E", accent: "#8A9A6A" },
@@ -22,9 +25,6 @@ function PlaceholderCover({ slug }: { slug: string }) {
     </div>
   );
 }
-import { useRef } from "react";
-import type { PostMeta } from "@/lib/posts";
-import { primaryMood } from "@/lib/config";
 
 export default function RelatedPoems({ posts, currentSlug }: { posts: PostMeta[]; currentSlug: string }) {
   const ref = useRef<HTMLElement>(null);

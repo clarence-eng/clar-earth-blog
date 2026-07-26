@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import type { PostType } from "@/lib/posts";
-import { BASE_URL } from "@/lib/config";
+import { BASE_URL, TYPE_LABELS } from "@/lib/config";
 
 interface PrintButtonProps {
   title: string;
@@ -42,8 +42,8 @@ export default function PrintButton({ title, type }: PrintButtonProps) {
       type="button"
       onClick={handlePrint}
       className="post-action-btn"
-      title={`Print ${type}`}
-      aria-label={`Print ${type}`}
+      title={`Print ${TYPE_LABELS[type]}`}
+      aria-label={`Print ${TYPE_LABELS[type]}`}
     >
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
         <polyline points="6,9 6,2 18,2 18,9"/>

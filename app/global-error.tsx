@@ -7,6 +7,8 @@ export default function GlobalError({ reset }: { reset: () => void }) {
     <html lang="en">
       <head>
         <style>{`
+          /* global-error renders outside Providers; .dark class is unavailable,
+             so prefers-color-scheme is the best available dark-mode signal here. */
           @media (prefers-color-scheme: dark) {
             body { background: #141A16 !important; color: #E8E4DC !important; }
             h1 { color: #6AAB88 !important; }

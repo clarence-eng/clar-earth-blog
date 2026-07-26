@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import path from "path";
 import redirectsData from "./redirects.json";
 
 const securityHeaders = [
@@ -9,6 +10,9 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  turbopack: {
+    root: path.resolve(__dirname),
+  },
   async headers() {
     return [
       {

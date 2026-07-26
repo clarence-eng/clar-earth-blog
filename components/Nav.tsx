@@ -5,7 +5,8 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef, useCallback } from "react";
 import type React from "react";
 import { useTheme } from "next-themes";
-import { AnimatePresence, motion, useIsPresent } from "framer-motion";import SearchModal from "./SearchModal";
+import { AnimatePresence, motion, useIsPresent } from "framer-motion";
+import SearchModal from "./SearchModal";
 import type { PostMeta } from "@/lib/posts";
 import { SITE_NAME, INSTAGRAM_URL } from "@/lib/config";
 
