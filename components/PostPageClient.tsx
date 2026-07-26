@@ -169,7 +169,7 @@ export default function PostPageClient({
             priority
             sizes="100vw"
             className="object-cover poem-cover-parallax"
-            style={{ opacity: 0.5, mixBlendMode: "luminosity" }}
+            style={{ opacity: 0.5, mixBlendMode: "luminosity", objectPosition: post.coverImagePosition ?? "center" }}
           />
         )}
 

@@ -77,7 +77,7 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
             className="relative w-full h-full motion-safe:transition-transform motion-safe:duration-700 motion-safe:ease-out motion-safe:group-hover:scale-[1.03] motion-safe:group-focus-within:scale-[1.03]"
           >
             {post.coverImage ? (
-              <Image src={post.coverImage} alt="" fill sizes="(max-width:640px) 100vw,(max-width:1024px) 50vw,33vw" className="object-cover" />
+              <Image src={post.coverImage} alt="" fill sizes="(max-width:640px) 100vw,(max-width:1024px) 50vw,33vw" className="object-cover" style={{ objectPosition: post.coverImagePosition ?? "center" }} />
             ) : (
               <PlaceholderCover title={post.title} slug={post.slug} />
             )}

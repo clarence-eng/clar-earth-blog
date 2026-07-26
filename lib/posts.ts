@@ -14,6 +14,7 @@ export interface PostMeta {
   excerpt?: string;
   published: boolean;
   coverImage?: string;
+  coverImagePosition?: string;
   dedication?: string;
   coAuthor?: string;
   lang?: string;
