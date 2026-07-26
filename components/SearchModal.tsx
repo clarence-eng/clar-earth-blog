@@ -53,7 +53,8 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
       p.title.toLowerCase().includes(q) ||
       p.excerpt?.toLowerCase().includes(q) ||
       p.dedication?.toLowerCase().includes(q) ||
-      (p.mood?.some(m => m.toLowerCase().includes(q)))
+      (p.mood?.some(m => m.toLowerCase().includes(q))) ||
+      p.coAuthor?.toLowerCase().includes(q)
     );
   }, [query, posts]);
 
@@ -122,7 +123,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
             <Link
               href={`/${post.slug}`}
               onClick={() => onClose(true)}
-              className="flex items-start gap-4 px-5 py-3.5 hover:bg-[var(--cream-dark)] focus-visible:bg-[var(--cream-dark)] focus-visible:outline-none transition-colors duration-300 border-b border-[var(--border)] last:border-0 group"
+              className="flex items-start gap-4 px-5 py-3.5 hover:bg-[var(--cream-dark)] focus-visible:bg-[var(--cream-dark)] focus-visible:ring-2 focus-visible:ring-[var(--forest)] focus-visible:ring-inset transition-colors duration-300 border-b border-[var(--border)] last:border-0 group"
             >
               <span className="font-jost text-[8px] tracking-[0.25em] uppercase text-[var(--muted)] pt-1 w-12 flex-shrink-0">
                 {TYPE_LABELS[post.type]}

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import type React from "react";
 import { motion, useMotionValue, useTransform, useSpring, useReducedMotion } from "framer-motion";
 import type { PostMeta } from "@/lib/posts";
 import { TYPE_LABELS, primaryMood, LANG_MAP } from "@/lib/config";
@@ -60,7 +61,7 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
         y.set(((e.clientY - rect.top) / rect.height - 0.5) * 2);
       }}
       onMouseLeave={!shouldAnimate ? undefined : () => { x.set(0); y.set(0); }}
-      whileHover={shouldAnimate ? { y: -6, boxShadow: "0 20px 44px var(--card-shadow)" } : undefined}
+      whileHover={shouldAnimate ? { y: -6, boxShadow: "0 20px 44px var(--card-shadow)", transition: { duration: 0.3, delay: 0, ease: [0.25, 0.1, 0.25, 1] } } : undefined}
     >
       {/* Overlay link — covers the entire card; accessible name comes from aria-labelledby */}
       <Link
@@ -73,7 +74,7 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
           className="overflow-hidden rounded-sm aspect-[4/3] relative"
         >
           <div
-            className="relative w-full h-full motion-safe:transition-transform motion-safe:duration-700 motion-safe:ease-out motion-safe:group-hover:scale-[1.03]"
+            className="relative w-full h-full motion-safe:transition-transform motion-safe:duration-700 motion-safe:ease-out motion-safe:group-hover:scale-[1.03] motion-safe:group-focus-within:scale-[1.03]"
           >
             {post.coverImage ? (
               <Image src={post.coverImage} alt="" fill sizes="(max-width:640px) 100vw,(max-width:1024px) 50vw,33vw" className="object-cover" />

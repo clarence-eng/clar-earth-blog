@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     : undefined;
 
   const bcp47Meta = post.lang ? LANG_MAP[post.lang] : "en";
-  if (bcp47Meta === undefined && post.lang) {
+  if (bcp47Meta === undefined && post.lang && process.env.NODE_ENV !== 'production') {
     console.warn(`[slug]/page.tsx generateMetadata: unknown lang value "${post.lang}" for post "${slug}" — omitting OG locale`);
   }
   const ogLocale = bcp47Meta ? (OG_LOCALE[bcp47Meta] ?? 'en_US') : undefined;
@@ -101,7 +101,9 @@ export default async function PostPage({ params }: Props) {
     : LANG_MAP[rawLang] !== undefined
       ? LANG_MAP[rawLang]
       : (() => {
-          console.warn(`[slug]/page.tsx: unknown lang value "${rawLang}" for post "${slug}" — omitting inLanguage from JSON-LD`);
+          if (process.env.NODE_ENV !== 'production') {
+            console.warn(`[slug]/page.tsx: unknown lang value "${rawLang}" for post "${slug}" — omitting inLanguage from JSON-LD`);
+          }
           return undefined;
         })();
 

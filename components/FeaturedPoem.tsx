@@ -51,7 +51,7 @@ export default function FeaturedPoem({ post }: { post: PostMeta }) {
                 {TYPE_LABELS[post.type]}
               </span>
               <h2
-                className="cormorant-italic text-white leading-[1.2] mb-2 group-hover:opacity-90 motion-safe:transition-opacity motion-safe:duration-300"
+                className="cormorant-italic text-white leading-[1.2] mb-2 group-hover:opacity-90 group-focus-visible:opacity-90 motion-safe:transition-opacity motion-safe:duration-300"
                 style={{
                   fontSize: "clamp(1.25rem, 2.5vw, 2rem)",
                 }}
@@ -67,10 +67,10 @@ export default function FeaturedPoem({ post }: { post: PostMeta }) {
                 </p>
               )}
               <span
-                className="font-jost text-[10px] tracking-[0.25em] uppercase text-white/65 group-hover:text-white/90 transition-colors duration-300 flex items-center gap-2"
+                className="font-jost text-[10px] tracking-[0.25em] uppercase text-white/65 group-hover:text-white/90 group-focus-visible:text-white/90 motion-safe:transition-colors motion-safe:duration-300 flex items-center gap-2"
               >
                 Read {TYPE_LABELS[post.type].toLowerCase()}
-                <span className="group-hover:translate-x-1 inline-block motion-safe:transition-transform motion-safe:duration-300" aria-hidden="true">→</span>
+                <span className="group-hover:translate-x-1 motion-safe:group-focus-visible:translate-x-1 inline-block motion-safe:transition-transform motion-safe:duration-300" aria-hidden="true">→</span>
               </span>
             </div>
           </div>

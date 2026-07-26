@@ -1,6 +1,6 @@
 import { BannerBotanicalRight } from "./BotanicalAccent";
 import Link from "next/link";
-import { SITE_NAME } from "@/lib/config";
+import { SITE_NAME, SITE_TAGLINE } from "@/lib/config";
 
 export default function SiteFooter() {
   return (
@@ -21,7 +21,7 @@ export default function SiteFooter() {
         <p
           className="cormorant-italic text-[var(--muted)] text-sm text-center"
         >
-          where the earth listens, and the pen replies
+          {SITE_TAGLINE.split('. ').slice(1).join('. ')}
         </p>
 
         {/* suppressHydrationWarning: year is baked at build time on server, re-evaluated at runtime on client */}
