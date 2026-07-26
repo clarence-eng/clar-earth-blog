@@ -312,6 +312,25 @@ export default function PostPageClient({
           )}
         </div>
 
+        {/* Publication note */}
+        {post.publication && (
+          <p className="font-jost text-[10px] tracking-[0.2em] uppercase text-[var(--muted)] mt-10 text-right">
+            First published in{" "}
+            {post.publicationUrl ? (
+              <a
+                href={post.publicationUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[var(--forest)] transition-colors underline underline-offset-2 decoration-[var(--border)]"
+              >
+                {post.publication}
+              </a>
+            ) : (
+              <span>{post.publication}</span>
+            )}
+          </p>
+        )}
+
         {/* Leaf divider */}
         <div className="flex items-center gap-5 mt-20 mb-14">
           <div className="h-px flex-1 bg-[var(--border)]" />
