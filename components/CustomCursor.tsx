@@ -13,7 +13,7 @@ const MOOD_COLORS: Record<string, { dot: string; ladybug: string }> = {
   solidarity: { dot: "#3A7AAA", ladybug: "#70AADA" },
   reverence:  { dot: "#4A8A44", ladybug: "#80C078" },
   bitterness: { dot: "#8A5A38", ladybug: "#C49070" },
-  default:    { dot: "#2D4A3E", ladybug: "#FFFFFF" },
+  default:    { dot: "#2D4A3E", ladybug: "#8AC4A0" },
 };
 
 function lerp(a: number, b: number, t: number) { return a + (b - a) * t; }

@@ -315,7 +315,7 @@ export default function PostPageClient({
         {/* Publication note */}
         {post.publication && (
           <p className="font-jost text-[10px] tracking-[0.2em] uppercase text-[var(--muted)] mt-10 text-right">
-            First published in{" "}
+            Published in{" "}
             {post.publicationUrl ? (
               <a
                 href={post.publicationUrl}
