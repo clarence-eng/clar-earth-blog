@@ -8,6 +8,15 @@ import type { PostMeta } from "@/lib/posts";
 import { TYPE_LABELS, primaryMood, LANG_MAP } from "@/lib/config";
 import MoodTag from "./MoodTag";
 
+// Ladybug/shimmer colours per mood — keep in sync with CustomCursor.tsx
+const MOOD_LADYBUG: Record<string, string> = {
+  longing: "#6AAEC8", nature: "#8AC4A0", warmth: "#E0B870", love: "#D4899A",
+  nostalgia: "#D0B880", melancholy: "#A0A0C0", protest: "#FFFFFF",
+  solidarity: "#70AADA", reverence: "#80C078", bitterness: "#C49070",
+  grief: "#A89AB8", resilience: "#C4A070", defiance: "#C48080",
+  anguish: "#B080C0", wonder: "#80CAC0",
+};
+
 const NATURE_COLORS = [
   { bg: "#2D4A3E", accent: "#8A9A6A" },
   { bg: "#4A3D2A", accent: "#C4882A" },
@@ -45,6 +54,8 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
   const shouldAnimate = !reducedMotion;
 
   const cardMood = primaryMood(post.mood);
+  // Shimmer = ladybugColor from frontmatter, else mood default, else white
+  const shimmerColor = post.ladybugColor ?? (cardMood ? MOOD_LADYBUG[cardMood] : undefined) ?? "#FFFFFF";
 
   return (
     <motion.article
@@ -86,7 +97,10 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
           <div aria-hidden="true" className="absolute inset-0 bg-[var(--forest)] opacity-0 group-hover:opacity-[0.14] group-focus-within:opacity-[0.14] motion-safe:transition-opacity motion-safe:duration-500" />
           {/* Mood shimmer — top edge glow */}
           {cardMood && (
-            <div className="card-mood-shimmer absolute inset-x-0 top-0 h-[2px] opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 motion-safe:transition-opacity motion-safe:duration-500" data-mood={cardMood} data-ladybug={post.ladybugColor} />
+            <div
+              className="absolute inset-x-0 top-0 h-[2px] opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 motion-safe:transition-opacity motion-safe:duration-500"
+              style={{ background: shimmerColor }}
+            />
           )}
         </div>
 
