@@ -7,7 +7,7 @@ import SiteFooter from "@/components/SiteFooter";
 import LangSync from "@/components/LangSync";
 import type { Metadata } from "next";
 import readingTime from "reading-time";
-import { BASE_URL, LANG_MAP } from "@/lib/config";
+import { BASE_URL, LANG_MAP, primaryMood } from "@/lib/config";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -133,7 +133,7 @@ export default async function PostPage({ params }: Props) {
   }
 
   return (
-    <>
+    <div data-mood={primaryMood(post.mood)}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }}
@@ -142,6 +142,6 @@ export default async function PostPage({ params }: Props) {
       <Nav posts={allPosts} />
       <PostPageClient post={post} prev={prev} next={next} readTime={readTime} allPosts={allPosts} />
       <SiteFooter />
-    </>
+    </div>
   );
 }
