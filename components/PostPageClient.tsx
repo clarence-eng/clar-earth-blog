@@ -119,7 +119,7 @@ export default function PostPageClient({
   }, [post.content]);
 
   return (
-    <>
+    <div data-mood={primaryMood(post.mood)}>
       <ReadingProgress />
       <nav aria-label="Return navigation">
         <BackPill />
@@ -379,6 +379,6 @@ export default function PostPageClient({
         <RelatedPoems posts={allPosts} currentSlug={post.slug} />
       </div>
       </main>
-    </>
+    </div>
   );
 }
