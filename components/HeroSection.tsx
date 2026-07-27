@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import AmbientParticles from "./AmbientParticles";
 import { SITE_TAGLINE } from "@/lib/config";
 
