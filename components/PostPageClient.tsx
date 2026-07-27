@@ -119,7 +119,7 @@ export default function PostPageClient({
   }, [post.content]);
 
   return (
-    <div data-mood={primaryMood(post.mood)}>
+    <div data-mood={primaryMood(post.mood)} data-ladybug={post.ladybugColor}>
       <ReadingProgress />
       <nav aria-label="Return navigation">
         <BackPill />
@@ -144,7 +144,7 @@ export default function PostPageClient({
               </svg>
             </span>
             <span
-              className={`font-jost text-[10px] tracking-[0.2em] uppercase motion-safe:transition-all motion-safe:duration-300 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 motion-safe:-translate-x-1 motion-safe:group-hover:translate-x-0 ${pastHero ? "text-[var(--muted)]" : "text-white/70"}`}
+              className={`font-jost text-[10px] tracking-[0.2em] uppercase motion-safe:transition-all motion-safe:duration-300 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 motion-safe:-translate-x-1 motion-safe:group-hover:translate-x-0 motion-safe:group-focus-within:translate-x-0 ${pastHero ? "text-[var(--muted)]" : "text-white/70"}`}
             >
               All works
             </span>
@@ -166,8 +166,8 @@ export default function PostPageClient({
             src={post.coverImage}
             alt=""
             fill
-            preload
             fetchPriority="high"
+            loading="eager"
             sizes="100vw"
             className="object-cover poem-cover-parallax"
             style={{ opacity: 0.5, mixBlendMode: "luminosity", objectPosition: post.coverImagePosition ?? "center" }}
@@ -217,6 +217,7 @@ export default function PostPageClient({
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
+            lang={post.lang ? LANG_MAP[post.lang] ?? undefined : undefined}
             className="cormorant-italic text-balance text-white mb-3 poem-page-title"
             style={{
               fontSize: "clamp(2.2rem, 5vw, 3.8rem)",

@@ -94,7 +94,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
             value={query}
             onChange={e => setQuery(e.target.value)}
             placeholder="Search poems..."
-            className="cormorant-serif flex-1 bg-transparent outline-none focus:ring-1 focus:ring-[var(--forest)] rounded-sm text-[var(--ink)] placeholder:text-[var(--muted)]"
+            className="cormorant-serif flex-1 bg-transparent outline-none focus-visible:ring-2 focus-visible:ring-[var(--forest)] rounded-sm text-[var(--ink)] placeholder:text-[var(--muted)]"
             style={{ fontSize: "1.1rem" }}
           />
           <kbd aria-hidden="true" className="font-jost text-[9px] tracking-wider text-[var(--muted)] border border-[var(--border)] rounded px-1.5 py-0.5">ESC</kbd>
@@ -123,7 +123,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
             <Link
               href={`/${post.slug}`}
               onClick={() => onClose(true)}
-              className="flex items-start gap-4 px-5 py-3.5 hover:bg-[var(--cream-dark)] focus-visible:bg-[var(--cream-dark)] focus-visible:ring-2 focus-visible:ring-[var(--forest)] focus-visible:ring-inset transition-colors duration-300 border-b border-[var(--border)] last:border-0 group"
+              className="flex items-start gap-4 px-5 py-3.5 hover:bg-[var(--cream-dark)] focus-visible:bg-[var(--cream-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--forest)] focus-visible:ring-inset transition-colors duration-300 border-b border-[var(--border)] last:border-0 group"
             >
               <span className="font-jost text-[8px] tracking-[0.25em] uppercase text-[var(--muted)] pt-1 w-12 flex-shrink-0">
                 {TYPE_LABELS[post.type]}

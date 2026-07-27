@@ -30,8 +30,8 @@ export default function FeaturedPoem({ post }: { post: PostMeta }) {
               src={post.coverImage}
               alt=""
               fill
-              preload
               fetchPriority="high"
+              loading="eager"
               sizes="(min-width: 1200px) 1152px, (min-width: 640px) calc(100vw - 4rem), calc(100vw - 2rem)"
               className="object-cover motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:scale-[1.02] motion-safe:group-focus-visible:scale-[1.02]"
             />

@@ -133,7 +133,7 @@ export default async function PostPage({ params }: Props) {
   }
 
   return (
-    <div data-mood={primaryMood(post.mood)} data-ladybug={post.ladybugColor ?? undefined}>
+    <div data-mood={primaryMood(post.mood)} data-ladybug={post.ladybugColor}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }}

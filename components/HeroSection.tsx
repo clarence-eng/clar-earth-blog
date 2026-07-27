@@ -135,12 +135,12 @@ export default function HeroSection({ titles, gradient }: { titles: string[]; gr
           </div>
           {/* Pause/play button — shown for all users since marquee runs unconditionally */}
           <button
-              type="button"
-              onClick={() => setMarqueePaused(p => !p)}
-              aria-label={marqueePaused ? "Resume scrolling poem titles" : "Pause scrolling poem titles"}
-              aria-pressed={marqueePaused}
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center rounded-full border border-[var(--border)] bg-[var(--cream-dark)] text-[var(--muted)] hover:text-[var(--forest)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--forest)] motion-safe:transition-colors motion-safe:duration-200 z-10"
-            >
+            type="button"
+            onClick={() => setMarqueePaused(p => !p)}
+            aria-label={marqueePaused ? "Resume scrolling poem titles" : "Pause scrolling poem titles"}
+            aria-pressed={marqueePaused}
+            className="absolute right-2 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center rounded-full border border-[var(--border)] bg-[var(--cream-dark)] text-[var(--muted)] hover:text-[var(--forest)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--forest)] motion-safe:transition-colors motion-safe:duration-200 z-10"
+          >
               {marqueePaused ? (
                 <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor" aria-hidden="true">
                   <polygon points="2,1 9,5 2,9"/>
@@ -151,7 +151,7 @@ export default function HeroSection({ titles, gradient }: { titles: string[]; gr
                   <rect x="6" y="1.5" width="2.5" height="7"/>
                 </svg>
               )}
-            </button>
+          </button>
         </div>
       )}
     </>
