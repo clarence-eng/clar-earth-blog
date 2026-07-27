@@ -166,7 +166,8 @@ export default function PostPageClient({
             src={post.coverImage}
             alt=""
             fill
-            priority
+            preload
+            fetchPriority="high"
             sizes="100vw"
             className="object-cover poem-cover-parallax"
             style={{ opacity: 0.5, mixBlendMode: "luminosity", objectPosition: post.coverImagePosition ?? "center" }}

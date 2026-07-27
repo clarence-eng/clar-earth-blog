@@ -50,6 +50,9 @@ export default config({
         date: fields.text({ label: "Date (e.g. 2025-04)", validation: { isRequired: false } }),
         readingPhrase: fields.text({ label: "Reading phrase (e.g. 'a fire held between cupped hands')", validation: { isRequired: false } }),
         ladybugColor: fields.text({ label: "Ladybug cursor colour (hex, e.g. #E07030)", validation: { isRequired: false } }),
+        coverImagePosition: fields.text({ label: "Cover Image Position (e.g. center 20%)", validation: { isRequired: false } }),
+        publication: fields.text({ label: "Publication name", validation: { isRequired: false } }),
+        publicationUrl: fields.text({ label: "Publication URL", validation: { isRequired: false } }),
         published: fields.checkbox({ label: "Published", defaultValue: false }),
         mood: fields.multiselect({
           label: "Moods",

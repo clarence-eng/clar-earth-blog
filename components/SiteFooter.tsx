@@ -21,7 +21,7 @@ export default function SiteFooter() {
         <p
           className="cormorant-italic text-[var(--muted)] text-sm text-center"
         >
-          {SITE_TAGLINE.split('. ').slice(1).join('. ')}
+          {SITE_TAGLINE.split('. ').slice(1).join('. ') || SITE_TAGLINE}
         </p>
 
         {/* suppressHydrationWarning: year is baked at build time on server, re-evaluated at runtime on client */}

@@ -13,8 +13,6 @@ const MOOD_LADYBUG: Record<string, string> = {
   longing: "#6AAEC8", nature: "#8AC4A0", warmth: "#E0B870", love: "#D4899A",
   nostalgia: "#D0B880", melancholy: "#A0A0C0", protest: "#FFFFFF",
   solidarity: "#70AADA", reverence: "#80C078", bitterness: "#C49070",
-  grief: "#A89AB8", resilience: "#C4A070", defiance: "#C48080",
-  anguish: "#B080C0", wonder: "#80CAC0",
 };
 
 const NATURE_COLORS = [
@@ -116,6 +114,7 @@ export default function PostCard({ post, index }: { post: PostMeta; index: numbe
 
           <h3
             id={`post-title-${post.slug}`}
+            lang={post.lang ? LANG_MAP[post.lang] ?? undefined : undefined}
             className="cormorant-italic text-balance leading-tight text-[var(--ink)] group-hover:text-[var(--forest)] group-focus-within:text-[var(--forest)] transition-colors duration-300 text-lg"
           >
             {post.title}

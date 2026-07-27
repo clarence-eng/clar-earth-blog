@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import type { PostMeta } from "@/lib/posts";
-import { TYPE_LABELS, primaryMood } from "@/lib/config";
+import { TYPE_LABELS, primaryMood, LANG_MAP } from "@/lib/config";
 
 export default function FeaturedPoem({ post }: { post: PostMeta }) {
   return (
@@ -30,7 +30,8 @@ export default function FeaturedPoem({ post }: { post: PostMeta }) {
               src={post.coverImage}
               alt=""
               fill
-              priority
+              preload
+              fetchPriority="high"
               sizes="(min-width: 1200px) 1152px, (min-width: 640px) calc(100vw - 4rem), calc(100vw - 2rem)"
               className="object-cover motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:scale-[1.02] motion-safe:group-focus-visible:scale-[1.02]"
             />
@@ -51,6 +52,7 @@ export default function FeaturedPoem({ post }: { post: PostMeta }) {
                 {TYPE_LABELS[post.type]}
               </span>
               <h2
+                lang={post.lang ? LANG_MAP[post.lang] ?? undefined : undefined}
                 className="cormorant-italic text-white leading-[1.2] mb-2 group-hover:opacity-90 group-focus-visible:opacity-90 motion-safe:transition-opacity motion-safe:duration-300"
                 style={{
                   fontSize: "clamp(1.25rem, 2.5vw, 2rem)",

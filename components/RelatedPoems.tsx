@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import type { PostMeta } from "@/lib/posts";
-import { primaryMood } from "@/lib/config";
+import { primaryMood, LANG_MAP } from "@/lib/config";
 
 const PLACEHOLDER_COLORS = [
   { bg: "#2D4A3E", accent: "#8A9A6A" },
@@ -77,6 +77,7 @@ export default function RelatedPoems({ posts, currentSlug }: { posts: PostMeta[]
               <div aria-hidden="true" className="absolute inset-0 bg-[var(--forest)] opacity-0 group-hover:opacity-[0.14] group-focus-visible:opacity-[0.14] motion-safe:transition-opacity motion-safe:duration-500"/>
             </div>
             <h3 className="cormorant-italic text-[var(--ink)] group-hover:text-[var(--forest)] group-focus-visible:text-[var(--forest)] transition-colors duration-300"
+              lang={p.lang ? LANG_MAP[p.lang] ?? undefined : undefined}
               style={{ fontSize: "1.05rem", lineHeight: 1.35 }}>
               {p.title}
             </h3>

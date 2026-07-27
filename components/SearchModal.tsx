@@ -129,7 +129,7 @@ export default function SearchModal({ posts, onClose }: SearchModalProps) {
                 {TYPE_LABELS[post.type]}
               </span>
               <div>
-                <p className="cormorant-italic text-[var(--ink)] group-hover:text-[var(--forest)] group-focus-visible:text-[var(--forest)] transition-colors duration-300 leading-snug" style={{ fontSize: "1.1rem" }}>
+                <p className="cormorant-italic text-[var(--ink)] group-hover:text-[var(--forest)] group-focus-visible:text-[var(--forest)] transition-colors duration-300 leading-snug" lang={post.lang ? LANG_MAP[post.lang] ?? undefined : undefined} style={{ fontSize: "1.1rem" }}>
                   {post.title}
                   {post.lang && <span className="ml-2 text-[10px] not-italic text-[var(--muted)]" lang={LANG_MAP[post.lang] ?? undefined}>{post.lang}</span>}
                 </p>

@@ -84,7 +84,7 @@ export default function AboutPage() {
             <div className="mt-12 flex flex-wrap gap-4 items-center">
               <Link
                 href="/"
-                className="font-jost inline-flex items-center gap-2 px-5 py-2.5 bg-[var(--forest)] text-white dark:bg-[var(--cream-dark)] dark:text-[var(--forest)] rounded-full text-[10px] tracking-[0.2em] uppercase hover:bg-[var(--forest-mid)] dark:hover:bg-[var(--cream)] transition-colors duration-300"
+                className="font-jost inline-flex items-center gap-2 px-5 py-2.5 bg-[var(--forest)] text-white dark:bg-[var(--cream-dark)] dark:text-[var(--forest)] rounded-full text-[10px] tracking-[0.2em] uppercase hover:bg-[var(--forest-mid)] dark:hover:bg-[var(--cream)] transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--forest)] focus-visible:ring-offset-2 focus-visible:rounded-full"
               >
                 View all works
               </Link>
